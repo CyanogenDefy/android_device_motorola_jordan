@@ -16,10 +16,10 @@
 
 # Prebuilt libraries that are needed to build open-source libraries
 # media config xml file
+
 PRODUCT_COPY_FILES += \
-    device/motorola/defy/media_profiles.xml:system/etc/media_profiles.xml
-
-
+    device/motorola/defy/media_profiles.xml:system/etc/media_profiles.xml \
+    device/motorola/defy/qwerty.kl:system/usr/keylayout/qwerty.kl \
 
 # LIBS
 PRODUCT_COPY_FILES += \
