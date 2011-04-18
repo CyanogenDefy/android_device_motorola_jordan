@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Version History
+unknown
+-->
+
+<mms_config version="2">
+	<bool name="enabledMMS">true</bool>
+	<bool name="enabledTransID">true</bool>
+	<bool name="enabledNotifyWapMMSC">true</bool>
+	<int name="maxMessageSize">307200</int>
+	<string name="userAgent">motoa855</string>
+	<string name="uaProfTagName">Profile</string>
+	<string name="uaProfUrl">http://uaprof.vtext.com/mot/a855/a855.xml</string>
+	<int name="recipientLimit">10</int>
+	<string name="httpParams">x-up-calling-line-id: 1##LINE1##|X-VzW-MDN: 1##LINE1##</string>
+	<string name="httpParamsLine1Key">##LINE1##</string>
+	<int name="maxImageHeight">768</int>
+	<int name="maxImageWidth">1024</int>
+	<int name="maxSMSMessagesPerThread">200</int>
+	<int name="maxMMSMessagesPerThread">10	</int>
+	<string name="emailGatewayNumber">6245</string>
+	<bool name="aliasEnabled">true</bool>
+	<int name="aliasMinChars">2</int>
+	<int name="aliasMaxChars">48</int>
+	<bool name="allowAttachAudio">true</bool>
+</mms_config>

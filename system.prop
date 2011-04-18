@@ -1,0 +1,24 @@
+#
+# system.prop for generic sdk
+#
+
+rild.libpath=/system/lib/libmoto_ril.so
+rild.libargs=-d /dev/ttyS0
+ro.sf.lcd_density=240
+
+# Default network type.
+# 4 => CDMA / EVDO.
+ro.telephony.default_network=3
+
+wifi.interface = tiwlan0
+# Time between scans in seconds. Keep it high to minimize battery drain.
+# This only affects the case in which there are remembered access points,
+# but none are in range.
+wifi.supplicant_scan_interval = 15
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+ro.opengles.version = 131072
+
+# This is a high density device with more memory, so larger vm heaps for it.
+dalvik.vm.heapsize=40m
