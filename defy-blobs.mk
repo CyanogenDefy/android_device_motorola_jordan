@@ -105,10 +105,10 @@ PRODUCT_COPY_FILES += \
 	device/motorola/defy/proprietary/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/motorola/defy/proprietary/etc/firmware/wl1271.bin:system/etc/firmware/wl1271.bin \
 	device/motorola/defy/proprietary/etc/cameraCalFileDef5M.bin:system/etc/cameraCalFileDef5M.bin \
-	device/motorola/defy/proprietary/etc/cameraCalFileDef8M.bin:system/etc/cameraCalFileDef8M.bin 
-	device/motorola/defy/proprietary/etc/mot_ise_imager_cfg.bin:system/etc/mot_ise_imager_cfg.bin 
-	device/motorola/defy/proprietary/etc/gps.conf:system/etc/gps.conf 
-	device/motorola/defy/proprietary/etc/gpsconfig.xml:system/etc/gpsconfig.xml
+	device/motorola/defy/proprietary/etc/cameraCalFileDef8M.bin:system/etc/cameraCalFileDef8M.bin \
+	device/motorola/defy/proprietary/etc/mot_ise_imager_cfg.bin:system/etc/mot_ise_imager_cfg.bin \
+	device/motorola/defy/proprietary/etc/gps.conf:system/etc/gps.conf \
+	device/motorola/defy/proprietary/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
 	device/motorola/defy/proprietary/etc/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
 
 
