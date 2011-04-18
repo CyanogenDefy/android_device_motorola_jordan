@@ -57,6 +57,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libVendor_ti_omx.so:system/lib/libVendor_ti_omx.so \
     device/motorola/defy/proprietary/lib/libVendor_ti_omx_config_parser.so:system/lib/libVendor_ti_omx_config_parser.so \
     device/motorola/defy/proprietary/lib/libreference-ril.so:system/lib/libreference-ril.so \
+    device/motorola/defy/proprietary/lib/libril-moto-umts-1.so:system/lib/libril-moto-umts-1.so \
     device/motorola/defy/proprietary/lib/librilswitch.so:system/lib/librilswitch.so \
     device/motorola/defy/proprietary/lib/ibsmapi.so:system/lib/libsmapi.so \
     device/motorola/defy/proprietary/lib/liboemcamera.so:system/lib/lliboemcamera.so \
