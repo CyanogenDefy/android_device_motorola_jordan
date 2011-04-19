@@ -59,7 +59,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libreference-ril.so:system/lib/libreference-ril.so \
     device/motorola/defy/proprietary/lib/libril-moto-umts-1.so:system/lib/libril-moto-umts-1.so \
     device/motorola/defy/proprietary/lib/librilswitch.so:system/lib/librilswitch.so \
-    device/motorola/defy/proprietary/lib/ibsmapi.so:system/lib/libsmapi.so \
+    device/motorola/defy/proprietary/lib/libsmapi.so:system/lib/libsmapi.so \
     device/motorola/defy/proprietary/lib/liboemcamera.so:system/lib/lliboemcamera.so \
     device/motorola/defy/proprietary/lib/hw/gralloc.omap3.so:system/lib/hw/gralloc.omap3.so \
     device/motorola/defy/proprietary/lib/hw/lights.jordan.so:system/lib/hw/lights.jordan.so \
