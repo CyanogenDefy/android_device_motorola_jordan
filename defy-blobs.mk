@@ -48,6 +48,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
     device/motorola/defy/proprietary/lib/libHPImgApi.so:system/lib/libHPImgApi.so \
     device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
+    device/motorola/defy/proprietary/lib/libbridge.so.so:system/lib/libbridge.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
     device/motorola/defy/proprietary/lib/libmotodbgutils.so:system/lib/libmotodbgutils.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
@@ -109,6 +110,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/defy/proprietary/etc/mot_ise_imager_cfg.bin:system/etc/mot_ise_imager_cfg.bin \
 	device/motorola/defy/proprietary/etc/gps.conf:system/etc/gps.conf \
 	device/motorola/defy/proprietary/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
+	device/motorola/defy/proprietary/etc/location.cfg:system/etc/location.cfg \
 	device/motorola/defy/proprietary/etc/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
 
 
