@@ -129,6 +129,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/defy/proprietary/bin/ap_gain_france.bin:system/bin/aap_gain_france.bi \
 	device/motorola/defy/proprietary/bin/ap_gain.bin:system/bin/ap_gain.bin \
 	device/motorola/defy/proprietary/bin/gkilogd:system/bin/gkilogd \
+	device/motorola/defy/proprietary/bin/iptables:system/bin/iptables \
 	device/motorola/defy/proprietary/bin/battd:system/xbin/ssmgrd 
 
 #app
