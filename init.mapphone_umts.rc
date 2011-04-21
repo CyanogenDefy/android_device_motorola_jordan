@@ -10,7 +10,8 @@ on init
     mount rootfs rootfs / rw remount
 
     mkdir /cdrom 0770 system system
-    mount yaffs2 mtd@cdrom /cdrom 
+
+#	mount yaffs2 mtd@cdrom /cdrom 
 
     symlink /dev/ttyGS0 /dev/acm0
 
@@ -46,6 +47,12 @@ on init
     write /sys/power/sr_vdd2_autocomp 1
    write /sys/power/enable_abb_mode 1
 
+# Permissions for OMAP DSS update_mode workaround to get rid of the DSI errors
+    chown system system /sys/devices/omapdss/display0/update_mode
+
+# Increase read throughput from sd card
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
+
 # Change ownership for vibrators
     chown system system /sys/class/timed_output/lvibrator/enable
     chown system system /sys/class/timed_output/vibrator/enable
@@ -67,12 +74,6 @@ on init
     mkdir /pds/public 0775 system shell
     chown system shell /pds/public
     chmod 0775 /pds/public
-
-# Mount preinstall partition
-    mkdir /preinstall 0771 system system
-    exec /system/bin/logwrapper /system/bin/mount_ext3.sh preinstall /preinstall
-    chmod 0771 /preinstall
-    chown system system /preinstall
 
 # Create basic filesystem structure
     # create moto specific dirs for mystuff
@@ -130,10 +131,8 @@ on init
     #Create location directory
     mkdir /data/location 0771 radio radio
 
-
     #Create opprof directory
     mkdir /data/opprof 0770 radio shell
-
 
     # Create anr directory and change permission to 777 to save trace.txt
     mkdir /data/anr
@@ -158,8 +157,6 @@ on init
 
 # directory for encryption management tool, enc_mgt_tool
     mkdir /data/emt
-	mkdir /data/test 
-	chmod 0777 /data/test
     chmod 0700 /data/emt
 
     # Create wmdrm directory
@@ -180,13 +177,6 @@ on init
     chown media graphics /dev/video1
     chown media graphics /dev/video2
     mount rootfs rootfs / ro remount
-
-# Install product specific kernel modules
-    exec /system/bin/load_modules.sh
-
-# chown/chmod for FOTA
-    chown system system /cache/fota
-    chmod 0770 /cache/fota
 
 on early-boot
 
@@ -210,9 +200,6 @@ on early-boot
     setprop ro.CONTENT_PROVIDER_MEM 12288
     setprop ro.EMPTY_APP_MEM 12288
 
-# mount eCryptFS if required
-#    exec /system/bin/sh /system/bin/startup_smc.sh
- #   exec /system/bin/enc_mgt_tool
     chmod 0666 /dev/DspBridge
     class_start media_early_init
 
@@ -220,20 +207,6 @@ on boot
 
 # Overwrite what init.rc selected for the memory killer params to match above.
     write /sys/module/lowmemorykiller/parameters/minfree 3072,4608,9216,10752,12288,12288
-
-# Define Motorola DBVC ATVC Property defaults (failsafe properties)
-    setprop ro.sys.atvc_allow_netmon_usb 0
-    setprop ro.sys.atvc_allow_netmon_ih 0
-    setprop ro.sys.atvc_allow_res_core 0
-    setprop ro.sys.atvc_allow_res_panic 0
-    setprop ro.sys.atvc_allow_all_adb 0
-    setprop ro.sys.atvc_allow_all_core 0
-    setprop ro.sys.atvc_allow_efem 0
-    setprop ro.sys.atvc_allow_bp_log 0
-    setprop ro.sys.atvc_allow_ap_mot_log 0
-
-    setprop ro.sys.atvc_allow_gki_log 0
-
 
 # Change the ownership of led files.
    chown system system /sys/class/leds/lcd-backlight/als
@@ -325,26 +298,14 @@ on property:sys.shutdown=1
     exec /system/bin/reboot -p
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
-# The following services are added by moto
-# Set property strings for ATVC logging
-# This conditionally sets :
-# ro.sys.atvc_allow_bp_log
-# ro.sys.atvc_allow_gki_log
-# ro.sys.atvc_allow_ap_mot_log
-# ro.sys.atvc_allow_all_core
-# ro.sys.atvc_allow_res_core
-# ro.sys.atvc_allow_res_panic
-# ro.sys.atvc_allow_efem
-# ro.sys.atvc_allow_netmon_usb
-# ro.sys.atvc_allow_netmon_ih
-# ro.sys.atvc_allow_all_adb
+
 service atvc /system/bin/dbvc_atvc_property_set
     class pre-zygote_services
     user system
     group system
     oneshot
-#service watchdogd /system/bin/watchdogd
-# class pre-zygote_services
+
+
 service telnet /system/bin/telnetd
     class pre-zygote_services
     oneshot
@@ -354,16 +315,19 @@ service nvm-daemon /system/bin/nvm_daemon
     class pre-zygote_services
     user radio
     group radio
+
 # start start_modem.sh to for development purpose
 service start_modem /system/bin/sh /system/usr/bin/start_modem.sh
     class pre-zygote_services
     oneshot
+
 # start commdrv pds script
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
     class pre-zygote_services
     oneshot
     user radio
     group radio system cache
+
 service gkisystem /system/bin/gkisystem
     class pre-zygote_services
     socket location_shim stream 660 radio system
@@ -372,21 +336,21 @@ service gkisystem /system/bin/gkisystem
     socket gkilog_sock stream 660 radio radio
     group radio system mot_accy mot_secclkd
     onrestart exec /system/bin/gki_pd_notifier
+
 service rild_tcmd /system/bin/rild_tcmd
     class pre-zygote_services
     socket rild_tcmd stream 0660 radio mot_tcmd
     user radio
     group radio
+
 service battd /system/bin/battd
     class pre-zygote_services
     socket battdsock stream 0660 mot_accy mot_accy
     user root
     group mot_accy mot_pwric
     oneshot
-service catcommands /system/bin/catcommands
-    class pre-zygote_services
-    group radio
-service bplogd_daemon /system/bin/bplogd_daemon
+
+   service bplogd_daemon /system/bin/bplogd_daemon
     class pre-zygote_services
     socket dlog_cmds stream 660 radio log
     socket bp_pd_status stream 660 radio log
@@ -394,7 +358,8 @@ service bplogd_daemon /system/bin/bplogd_daemon
     user radio
     group radio inet log sdcard_rw mount
     oneshot
-service ssmgrd /system/xbin/ssmgrd
+
+    service ssmgrd /system/xbin/ssmgrd
     class post-zygote_services
     group radio input mot_pwric
     oneshot
@@ -405,68 +370,35 @@ service ssmgrd /system/xbin/ssmgrd
     group bluetooth net_bt_admin
    disabled
 
- #  service bt_init /system/bin/bt_init
- #  class post-zygote_services
- #   oneshot
-
-#service hciattach_rfmd /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt_rfmd 3000000 flow
- #   class post-zygote_services
-#    user bluetooth
- #   group bluetooth net_bt_admin
-#    disabled
-
-#service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flow
- #   class post-zygote_services
- #   user bluetooth
-#    group bluetooth net_bt_admin
- #   disabled
-
-#service nap /system/bin/sdptool add NAP
-#    class post-zygote_services
-#    user bluetooth
-#    group bluetooth net_bt_admin
-#    disabled
-#    oneshot
-#service del_nap /system/bin/sdptool remove NAP
-  #  class post-zygote_services
-  #  user bluetooth
-  #  group bluetooth net_bt_admin
-  #  disabled
- #   oneshot
-#service panu /system/bin/sdptool add PANU
-   # class post-zygote_services
-   # user bluetooth
-   # group bluetooth net_bt_admin
-  #  disabled
-  #  oneshot
-#service del_panu /system/bin/sdptool remove PANU
- #   class post-zygote_services
- #   user bluetooth
- #   group bluetooth net_bt_admin
- #   disabled
-  #  oneshot
-service napics /system/bin/sh /system/bin/napics.sh
-    class post-zygote_services
-    user root
-    disabled
+   service bt_init /system/bin/bt_init
+   class post-zygote_services
     oneshot
+
+service hciattach_rfmd /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt_rfmd 3000000 flow
+   class post-zygote_services
+   user bluetooth
+   group bluetooth net_bt_admin
+    disabled
+
 service btdhcpd /system/bin/dnsmasq -C /etc/btpan.conf
     class post-zygote_services
     user root
     disabled
     oneshot
+
 service map /system/bin/sdptool add --channel=20 --network=1 MAP
     class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
-#service tcmd /system/bin/tcmd
-#   class post-zygote_services
-#    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
-#    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
-#    socket batch_socket stream 0600 mot_tcmd mot_tcmd
-#    oneshot
+
+service tcmd /system/bin/tcmd
+   class post-zygote_services
+    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
+    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+    socket batch_socket stream 0600 mot_tcmd mot_tcmd
+    oneshot
 
 service tcmdhelp /system/bin/tcmdhelp
     class post-zygote_services
@@ -558,27 +490,13 @@ service pvrsrv /system/bin/pvrsrvinit
     class post-zygote_services
     user root
     oneshot
-service bugtogo /system/bin/bugtogo.sh
-    class post-zygote_services
-    disabled
-    user root
-    oneshot
-    keycodes 42 14
+
 service pppd /system/bin/pppd silent ipparam dun plugin /system/lib/libpppd_plugin.so
     class post-zygote_services
     user root
     disabled
     oneshot
-service ulogd /system/xbin/ulogd
-    class post-zygote_services
-    user root
-    disabled
-    oneshot
-service firewall /system/bin/firewall.sh
-    class post-zygote_services
-    user root
-    disabled
-    oneshot
+
 service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
     class post-zygote_services
     user radio
@@ -586,52 +504,25 @@ service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
 service modemlog /system/bin/modemlog
    class pre-zygote_services
    oneshot
+
 # aplogd is controlled by the persist.service.aplogd.enable system property
 service aplogd /system/bin/aplogd
     class post-zygote_services
     socket ap_aol_cmd stream 666 system system
     group log system sdcard_rw
     oneshot
+
 service gkilogd /system/bin/gkilogd
     class post-zygote_services
     socket gki_aol_cmd stream 660 radio log
     user radio
     group radio log sdcard_rw
+
 service fmradio /system/bin/fmradioserver
     class post-zygote_services
     disabled
     group bluetooth
-service dlnasrv /system/bin/dlnasrv
-    class post-zygote_services
-    disabled
-    oneshot
-service dund_dialup /system/bin/dund --listen --channel=6 --nodetach --dialup
-    class post-zygote_services
-    group net_bt net_bt_admin
-    disabled
-    oneshot
-on property:dev.bootcomplete=1
-    start loadpreinstalls
-# ecckeyd daemon has dependency on SMC
-# It needs to be root because it needs to be able to read client's /proc/<pid>/status.
-# user/group as mot_tpapi/mot_tpapi does not give it enough permission
-service ecckeydaemon /system/bin/ecckeyd
-    class post-zygote_services
-    socket ecckey_socket stream 660 mot_tpapi mot_tpapi
-    group mot_tpapi
-    disabled
-    oneshot
-on property:ro.service.start.smc=1
-    start ecckeydaemon
-service secclkd /system/bin/secclkd
-    class post-zygote_services
-    socket secclk_socket stream 660 mot_secclkd mot_secclkd
-    user mot_tpapi
-    group mot_tpapi mot_sec_rtc mot_secclkd
-    oneshot
-service dla /system/bin/dla
-    class post-zygote_services
-    oneshot
+
 on property:tcmd.ctrl_adb=1
     setprop persist.service.adb.enable 1
     setprop persist.factory.allow_adb 1
@@ -642,14 +533,13 @@ on property:tcmd.ctrl_adb=0
     setprop persist.factory.allow_adb 0
     stop usbd
     start usbd
+
 #start Authentec VPN service
 service vpnclientpm /system/bin/vpnclientpm
     class post-zygote_services
     oneshot
     user root
-service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
-    disabled
-    oneshot
+
 #IKCBS-226 start RescueStarter for MobileRescue
 service RescueStarter /system/bin/RescueStarter
     user nobody
