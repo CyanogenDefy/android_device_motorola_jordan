@@ -48,7 +48,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
     device/motorola/defy/proprietary/lib/libHPImgApi.so:system/lib/libHPImgApi.so \
     device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
-    device/motorola/defy/proprietary/lib/libbridge.so.so:system/lib/libbridge.so \
+    device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
     device/motorola/defy/proprietary/lib/libmotodbgutils.so:system/lib/libmotodbgutils.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
