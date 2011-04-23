@@ -76,14 +76,28 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     dhcpcd.conf \
     libOMX.TI.AAC.encode \
+    libOMX.TI.AAC.decode \
+    libOMX.TI.AMR.decode \
     libOMX.TI.AMR.encode \
     libOMX.TI.WBAMR.encode \
+    libOMX.TI.WBAMR.decode \
+    libOMX.TI.WMA.decode \
     libOMX.TI.JPEG.Encoder \
-    libLCML \
-    libOMX_Core \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
+    libOMX.TI.ILBC.Decode \
+    libOMX.TI.ILBC.encode \
+    libOMX.TI.G729.Decode \
+    libOMX.TI.G729.encode \
+    libOMX.TI.G726.Decode \
+    libOMX.TI.G726.encode \
+    libOMX.TI.G722.Decode \
+    libOMX.TI.G722.encode \
+    libOMX.TI.G711.Decode \
+    libOMX.TI.G711.encode \
     libVendor_ti_omx \
+    libLCML \
+    libOMX_Core \
     gps.defy \
     sensors.defy \
     lights.defy \

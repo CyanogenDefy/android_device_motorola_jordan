@@ -47,8 +47,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libgki.so:system/lib/libgki.so \
     device/motorola/defy/proprietary/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
     device/motorola/defy/proprietary/lib/libHPImgApi.so:system/lib/libHPImgApi.so \
-    device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
-    device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
     device/motorola/defy/proprietary/lib/libmotodbgutils.so:system/lib/libmotodbgutils.so \
     device/motorola/defy/proprietary/lib/libmotdb.so:system/lib/libmotdb.so \
@@ -64,7 +62,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/liboemcamera.so:system/lib/lliboemcamera.so \
     device/motorola/defy/proprietary/lib/hw/gralloc.omap3.so:system/lib/hw/gralloc.omap3.so \
     device/motorola/defy/proprietary/lib/hw/lights.jordan.so:system/lib/hw/lights.jordan.so \
-    device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
     device/motorola/defy/proprietary/lib/hw/sensors.jordan.so:system/lib/hw/sensors.jordan.so \
     device/motorola/defy/proprietary/lib/dsp/baseimage.dof:system/lib/dsp/baseimage.dof \
     device/motorola/defy/proprietary/lib/dsp/conversions.dll64P:system/lib/dsp/conversions.dll64P \
@@ -89,7 +86,12 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/egl/libgles1_texture_stream.so:system/lib/egl/libgles1_texture_stream.so \
     device/motorola/defy/proprietary/lib/egl/libgles2_texture_stream.so:system/lib/egl/libgles2_texture_stream.so \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
-    device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv2_POWERVR_SGX530_125.so 
+    device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
+device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
+device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
+device/motorola/defy/proprietary/lib/libOMX.TI.Video.Dncoder.so:system/lib/libOMX.TI.Video.Dncoder.so \
+device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
+device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
 
 
