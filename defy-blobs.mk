@@ -81,17 +81,25 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/dsp/wbamrdec_sn.dll64P:system/lib/dsp/wbamrdec_sn.dll64P \
     device/motorola/defy/proprietary/lib/dsp/wbamrenc_sn.dll64P:system/lib/dsp/wbamrenc_sn.dll64P \
     device/motorola/defy/proprietary/lib/dsp/wmadec_sn.dll64P:system/lib/dsp/wmadec_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/720p_h264vdec_sn.dll64P:system/lib/dsp/720p_h264vdec_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/mpeg4ingenc_sn.dll64P:system/lib/dsp/mpeg4ingenc_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/h264ingdec_sn.dll64P:system/lib/dsp/h264ingdec_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/mpeg4ingdec_sn.dll64P:system/lib/dsp/mpeg4ingdec_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/720p_mp4vdec_sn.dll64P:system/lib/dsp/720p_mp4vdec_sn.dll64P \
+    device/motorola/defy/proprietary/lib/dsp/wmadec_sn.dll64P:system/lib/dsp/wmadec_sn.dll64P \
     device/motorola/defy/proprietary/lib/egl/libeglinfo.so:system/lib/egl/libeglinfo.so \
     device/motorola/defy/proprietary/lib/egl/libEGL_POWERVR_SGX530_125.so:system/lib/egl/libEGL_POWERVR_SGX530_125.so \
     device/motorola/defy/proprietary/lib/egl/libgles1_texture_stream.so:system/lib/egl/libgles1_texture_stream.so \
     device/motorola/defy/proprietary/lib/egl/libgles2_texture_stream.so:system/lib/egl/libgles2_texture_stream.so \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
-device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
-device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
-device/motorola/defy/proprietary/lib/libOMX.TI.Video.Decoder.so:system/lib/libOMX.TI.Video.Decoder.so \
-device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
-device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
+    device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
+    device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
+    device/motorola/defy/proprietary/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so \
+    device/motorola/defy/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
+    device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
+    device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
+    device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
 
 
