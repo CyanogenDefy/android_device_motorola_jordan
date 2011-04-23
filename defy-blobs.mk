@@ -89,7 +89,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
 device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
 device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
-device/motorola/defy/proprietary/lib/libOMX.TI.Video.Dncoder.so:system/lib/libOMX.TI.Video.Dncoder.so \
+device/motorola/defy/proprietary/lib/libOMX.TI.Video.Decoder.so:system/lib/libOMX.TI.Video.Decoder.so \
 device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
 device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
