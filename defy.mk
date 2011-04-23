@@ -85,15 +85,15 @@ PRODUCT_PACKAGES += \
     libOMX.TI.JPEG.Encoder \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
-    libOMX.TI.ILBC.Decode \
+    libOMX.TI.ILBC.decode \
     libOMX.TI.ILBC.encode \
-    libOMX.TI.G729.Decode \
+    libOMX.TI.G729.decode \
     libOMX.TI.G729.encode \
-    libOMX.TI.G726.Decode \
+    libOMX.TI.G726.decode \
     libOMX.TI.G726.encode \
-    libOMX.TI.G722.Decode \
+    libOMX.TI.G722.decode \
     libOMX.TI.G722.encode \
-    libOMX.TI.G711.Decode \
+    libOMX.TI.G711.decode \
     libOMX.TI.G711.encode \
     libVendor_ti_omx \
     libLCML \
