@@ -99,6 +99,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
     device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
     device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
+    device/motorola/defy/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
     device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
 
