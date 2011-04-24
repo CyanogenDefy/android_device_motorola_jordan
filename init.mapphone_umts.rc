@@ -2,16 +2,12 @@ on init
 
 # Backward compatibility
     symlink /dev /dev/netmux
-# prepare generic keypad name
+
+	# prepare generic keypad name
     exec /init_prep_keypad.sh
-    mount yaffs2 mtd@system /system ro remount
     mount ext3 mmc@system /system ro noatime nodiratime remount
 
     mount rootfs rootfs / rw remount
-
-    mkdir /cdrom 0770 system system
-
-#	mount yaffs2 mtd@cdrom /cdrom 
 
     symlink /dev/ttyGS0 /dev/acm0
 
@@ -30,25 +26,19 @@ on init
     write /sys/class/rtc/rtc0/unsecured_rtc on
 
     # Disable a system-wide task dump on OOM in default
-    #write /proc/sys/vm/oom_dump_tasks 0
-    #write /proc/sys/fs/suid_dumpable 2
-
-    # Set core pattern
-    #write /proc/sys/kernel/core_pattern "|/system/bin/coredump %e %p %t"
+    write /proc/sys/vm/oom_dump_tasks 0
+    write /proc/sys/fs/suid_dumpable 2
 
     # Power Management
     write /sys/power/sleep_while_idle 1
     write /sys/power/enable_off_mode 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 250000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 86
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 46875
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
    write /sys/power/enable_abb_mode 1
-
-# Permissions for OMAP DSS update_mode workaround to get rid of the DSI errors
-    chown system system /sys/devices/omapdss/display0/update_mode
 
 # Increase read throughput from sd card
     write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
@@ -64,7 +54,6 @@ on init
 # Mount mtd partitions
     # mount /pds as r/w
     # We chown/chmod /pds again so because mount is run as root + defaults
-    mount yaffs2 mtd@pds /pds nosuid nodev no-checkpoint
     exec /system/bin/logwrapper /system/bin/mount_ext3.sh pds /pds
     chown system system /pds
     chmod 0775 /pds
@@ -164,6 +153,9 @@ on init
 
     # Temp workaround for HP library cleanup
     symlink /dev/hp3a-omap /dev/hp3A-omap
+	
+	# enable usb adb mode
+  # write /dev/usb_device_mode msc_adb
 
 # Permissions for video
     chmod 0770 /dev/hp3a-omap
@@ -180,12 +172,14 @@ on init
 
 on early-boot
 
+
 # Install BP related kernel modules
     #Start the engine modules for netmux first for other daemons depends on it
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
-    insmod /system/lib/modules/modem_pm_driver.ko
     insmod /system/lib/modules/sec.ko
+	insmod /system/lib/modules/modem_pm_driver.ko
+	insmod /system/lib/modules/kineto_gan.ko
 
 # Adjust the out of memory thresholds to account for the larget
 # space on sholes. These numbers are in pages (4k). Must be kept
@@ -245,7 +239,6 @@ on boot
     setprop net.tcp.buffersize.umts 64000,128000,256000,4096,16384,110208
     setprop net.tcp.buffersize.edge 16384,35040,65536,4096,16384,35040
 
-
 # Camera related
    chmod 0660 /dev/hplens-omap
    chown media camera /dev/hplens-omap
@@ -299,27 +292,17 @@ on property:sys.shutdown=1
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-service atvc /system/bin/dbvc_atvc_property_set
-    class pre-zygote_services
-    user system
-    group system
-    oneshot
-
-
 service telnet /system/bin/telnetd
     class pre-zygote_services
     oneshot
+	
 service usbd /system/bin/usbd
     class pre-zygote_services
+	
 service nvm-daemon /system/bin/nvm_daemon
     class pre-zygote_services
     user radio
     group radio
-
-# start start_modem.sh to for development purpose
-service start_modem /system/bin/sh /system/usr/bin/start_modem.sh
-    class pre-zygote_services
-    oneshot
 
 # start commdrv pds script
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
@@ -336,6 +319,7 @@ service gkisystem /system/bin/gkisystem
     socket gkilog_sock stream 660 radio radio
     group radio system mot_accy mot_secclkd
     onrestart exec /system/bin/gki_pd_notifier
+
 
 service rild_tcmd /system/bin/rild_tcmd
     class pre-zygote_services
@@ -370,10 +354,6 @@ service battd /system/bin/battd
     group bluetooth net_bt_admin
    disabled
 
-   service bt_init /system/bin/bt_init
-   class post-zygote_services
-    oneshot
-
 service hciattach_rfmd /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt_rfmd 3000000 flow
    class post-zygote_services
    user bluetooth
@@ -393,7 +373,7 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     disabled
     oneshot
 
-service tcmd /system/bin/tcmd
+¹service tcmd /system/bin/tcmd
    class post-zygote_services
     group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
     socket local_tcmd stream 0660 mot_tcmd mot_tcmd
@@ -441,7 +421,7 @@ on property:tcmd.bt_mod=0
 #execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
-service panic_daemon /system/panic_daemon
+service panic_daemon /system/bin/panic_daemon
     class post-zygote_services
     user radio
     group log radio system graphics sdcard_rw
@@ -452,10 +432,12 @@ service akmd2 /system/bin/akmd2
     class post-zygote_services
     user compass
     group compass misc input
+
 service wlan_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271.bin -i /system/etc/wifi/tiwlan.ini -e /pds/wifi/nvs_map.bin
     class post-zygote_services
     disabled
     oneshot
+
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class post-zygote_services
 # we will start as root and wpa_supplicant will switch to user wifi
@@ -501,6 +483,7 @@ service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
     class post-zygote_services
     user radio
     group radio inet sdcard_rw
+	
 service modemlog /system/bin/modemlog
    class pre-zygote_services
    oneshot
@@ -522,17 +505,6 @@ service fmradio /system/bin/fmradioserver
     class post-zygote_services
     disabled
     group bluetooth
-
-on property:tcmd.ctrl_adb=1
-    setprop persist.service.adb.enable 1
-    setprop persist.factory.allow_adb 1
-    stop usbd
-    start usbd
-on property:tcmd.ctrl_adb=0
-    setprop persist.service.adb.enable 0
-    setprop persist.factory.allow_adb 0
-    stop usbd
-    start usbd
 
 #start Authentec VPN service
 service vpnclientpm /system/bin/vpnclientpm
