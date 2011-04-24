@@ -53,8 +53,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/libssmgr.so:system/lib/libssmgr.so \
     device/motorola/defy/proprietary/lib/libtpa.so:system/lib/libtpa.so \
     device/motorola/defy/proprietary/lib/libtpa_core.so:system/lib/libtpa_core.so \
-    device/motorola/defy/proprietary/lib/libVendor_ti_omx.so:system/lib/libVendor_ti_omx.so \
-    device/motorola/defy/proprietary/lib/libVendor_ti_omx_config_parser.so:system/lib/libVendor_ti_omx_config_parser.so \
     device/motorola/defy/proprietary/lib/libreference-ril.so:system/lib/libreference-ril.so \
     device/motorola/defy/proprietary/lib/libril-moto-umts-1.so:system/lib/libril-moto-umts-1.so \
     device/motorola/defy/proprietary/lib/librilswitch.so:system/lib/librilswitch.so \
@@ -93,17 +91,16 @@ PRODUCT_COPY_FILES += \
     device/motorola/defy/proprietary/lib/egl/libgles2_texture_stream.so:system/lib/egl/libgles2_texture_stream.so \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
     device/motorola/defy/proprietary/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
-    device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
-    device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so \
     device/motorola/defy/proprietary/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so \
     device/motorola/defy/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
-    device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
-    device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so \
     device/motorola/defy/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
-    device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
-
-
+#device/motorola/defy/proprietary/lib/libLCML.so:system/lib/libLCML.so 
+#device/motorola/defy/proprietary/lib/libbridge.so:system/lib/libbridge.so 
+#device/motorola/defy/proprietary/lib/libbridge.so:obj/lib/libbridge.so 
+#device/motorola/defy/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so 
+#device/motorola/defy/proprietary/lib/libOMX.TI.VideolibOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
+#device/motorola/defy/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
 #etc
 PRODUCT_COPY_FILES += \
 	device/motorola/defy/proprietary/etc/wifi/fw_tiwlan_ap.bin:system/etc/wifi/fw_tiwlan_ap.bin \
