@@ -23,17 +23,15 @@
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
+
+
 USE_CAMERA_STUB := false
-
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := true
 TARGET_NO_RECOVERY := true
+
 # inherit from the proprietary version
 -include vendor/motorola/defy/BoardConfigVendor.mk
-
-# use pre-kernel.35 vold usb mounting
-#BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
@@ -43,6 +41,7 @@ TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8
 
 TARGET_BOOTLOADER_BOARD_NAME := defy
+
 OMAP_ENHANCEMENT := true
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3
@@ -51,14 +50,11 @@ TARGET_OMAP3 := true
 # Wifi related defines
 
 USES_TI_WL1271 := true
-
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1271
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
-#BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
-#BOARD_SOFTAP_DEVICE	    := wl1271
 WIFI_DRIVER_MODULE_ARG      := ""
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
@@ -86,7 +82,8 @@ BUILD_PV_VIDEO_ENCODERS := 1
 
 BOARD_GPS_LIBRARIES := libgps
 BOARD_USES_GPSSHIM := true
-BOARD_GPS_BAD_AGPS := true
+BOARD_GPS_NEEDS_XTRA := true
+#BOARD_GPS_BAD_AGPS := true
 
 BOARD_NO_RGBX_8888 := true
 USE_SHOLES_PROPERTY := true
