@@ -1,5 +1,5 @@
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),defy)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),MB525)
 
 LOCAL_PATH := $(call my-dir)
 

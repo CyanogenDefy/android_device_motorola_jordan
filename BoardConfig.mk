@@ -30,9 +30,6 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := true
 TARGET_NO_RECOVERY := true
 
-# inherit from the proprietary version
--include vendor/motorola/defy/BoardConfigVendor.mk
-
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -40,7 +37,7 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8
 
-TARGET_BOOTLOADER_BOARD_NAME := defy
+TARGET_BOOTLOADER_BOARD_NAME := MB525
 
 OMAP_ENHANCEMENT := true
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
@@ -82,7 +79,7 @@ BUILD_PV_VIDEO_ENCODERS := 1
 
 BOARD_GPS_LIBRARIES := libgps
 BOARD_USES_GPSSHIM := true
-BOARD_GPS_NEEDS_XTRA := true
+#BOARD_GPS_NEEDS_XTRA := true
 #BOARD_GPS_BAD_AGPS := true
 
 BOARD_NO_RGBX_8888 := true

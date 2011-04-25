@@ -48,7 +48,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
 	dalvik.vm.dexopt-flags=m=y
 
-DEVICE_PACKAGE_OVERLAYS += device/motorola/defy/overlay
+DEVICE_PACKAGE_OVERLAYS += device/motorola/jordan/overlay
 
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -110,24 +110,24 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-    device/motorola/defy/vold.fstab:system/etc/vold.fstab\
-    device/motorola/defy/apns-conf.xml:system/etc/apns-conf.xml
+    device/motorola/jordan/vold.fstab:system/etc/vold.fstab\
+    device/motorola/jordan/apns-conf.xml:system/etc/apns-conf.xml
 
 # copy all kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
-    find device/motorola/defy/modules -name '*.ko' \
+    find device/motorola/jordan/modules -name '*.ko' \
     | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
     | tr '\n' ' ')
 
 # media profiles and capabilities spec
 # $(call inherit-product, device/motorola/sholes/media_a1026.mk)
-$(call inherit-product, device/motorola/defy/defy-blobs.mk)
-$(call inherit-product, device/motorola/defy/defy-vendor.mk)
+$(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
+$(call inherit-product, device/motorola/jordan/jordan-vendor.mk)
 # stuff common to all HTC phones
 #$(call inherit-product, device/htc/common/common.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 
 USE_SHOLES_PROPERTY := true
-PRODUCT_NAME := generic_defy
-PRODUCT_DEVICE := defy
+PRODUCT_NAME := generic_jordan
+PRODUCT_DEVICE := MB525

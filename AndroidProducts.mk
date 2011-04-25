@@ -18,4 +18,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/defy.mk
+    $(LOCAL_DIR)/jordan.mk

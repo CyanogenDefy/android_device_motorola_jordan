@@ -40,4 +40,4 @@ $(file) : $(TARGET_OUT)/usr/keychars/qwerty.kcm.bin
 	$(hide) ln -sf qwerty.kcm.bin $@
 
 # include the non-open-source counterpart to this file
--include vendor/motorola/defy/AndroidBoardVendor.mk
+-include vendor/motorola/jordan/AndroidBoardVendor.mk
