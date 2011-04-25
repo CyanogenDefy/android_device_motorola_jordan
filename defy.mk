@@ -98,9 +98,9 @@ PRODUCT_PACKAGES += \
     libVendor_ti_omx \
     libLCML \
     libOMX_Core \
-    gps.defy \
-    sensors.defy \
-    lights.defy \
+    gps.jordan \
+    sensors.jordan \
+    lights.jordan \
     libaudiopolicy
 
 # we have enough storage space to hold precise GC data
