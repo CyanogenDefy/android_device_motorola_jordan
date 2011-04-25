@@ -36,7 +36,22 @@ public:
 
         virtual ~AudioPolicyManager() {}
 
+#ifdef HAVE_FM_RADIO
+        // AudioPolicyInterface
+        virtual status_t setDeviceConnectionState(AudioSystem::audio_devices device,
+                                                  AudioSystem::device_connection_state state,
+                                                  const char *device_address);
+#endif
 protected:
+        // return appropriate device for streams handled by the specified strategy according to current
+        // phone state, connected devices...
+        virtual uint32_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
+
+#ifdef HAVE_FM_RADIO
+        void setOutputDevice(audio_io_handle_t output, uint32_t device, bool force = false, int delayMs = 0);
+#endif
+
+        virtual float computeVolume(int stream, int index, audio_io_handle_t output, uint32_t device);
 
         // true is current platform implements a back microphone
         virtual bool hasBackMicrophone() const { return true; }
@@ -46,10 +61,6 @@ protected:
         virtual bool a2dpUsedForSonification() const { return true; }
 #endif
 
-        // return appropriate device for streams handled by the specified strategy according to current
-        // phone state, connected devices...
-        virtual uint32_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
-        virtual float computeVolume(int stream, int index, audio_io_handle_t output, uint32_t device);
 };
 
 };
