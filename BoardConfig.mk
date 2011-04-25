@@ -67,7 +67,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 #BOARD_HAVE_FM_RADIO :=true
 #BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 
-BOARD_EGL_CFG := device/motorola/defy/egl.cfg
+BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
 
 BOARD_FLASH_BLOCK_SIZE := 131072
 
