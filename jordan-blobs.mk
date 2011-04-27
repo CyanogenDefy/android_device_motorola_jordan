@@ -118,7 +118,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/etc/cameraCalFileDef5M.bin:system/etc/cameraCalFileDef5M.bin \
 	device/motorola/jordan/proprietary/etc/cameraCalFileDef8M.bin:system/etc/cameraCalFileDef8M.bin \
 	device/motorola/jordan/proprietary/etc/mot_ise_imager_cfg.bin:system/etc/mot_ise_imager_cfg.bin \
-	device/motorola/jordan/proprietary/etc/gps.conf:system/etc/gps.conf \
 	device/motorola/jordan/proprietary/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
 	device/motorola/jordan/proprietary/etc/location.cfg:system/etc/location.cfg \
 	device/motorola/jordan/proprietary/etc/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
@@ -145,6 +144,9 @@ PRODUCT_COPY_FILES += \
 #app
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/app/Usb.apk:system/app/Usb.apk \
+	device/motorola/jordan/proprietary/app/LocationProxyDmPlugin.apk:system/app/LocationProxyDmPlugin.apk \
+	device/motorola/jordan/proprietary/app/MotoPhonePortal.apk:system/app/MotoPhonePortal.apk 
+
 
 
 
