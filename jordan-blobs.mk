@@ -94,13 +94,14 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
-    device/motorola/jordan/proprietary/lib/libOMX.TI.AAC.encode.so:system/lib/libOMX.TI.AAC.encode.so 
+    device/motorola/jordan/proprietary/lib/libOMX.TI.AAC.decode.so:system/lib/libOMX.TI.AAC.decode.so \
+    device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so 
+
 
 #device/motorola/jordan/proprietary/lib/libLCML.so:system/lib/libLCML.so 
 #device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 #device/motorola/jordan/proprietary/lib/libbridge.so:obj/lib/libbridge.so 
-#device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so 
-#device/motorola/jordan/proprietary/lib/libOMX.TI.VideolibOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
+#device/motorola/jordan/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
 #device/motorola/jordan/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
 
 #etc
