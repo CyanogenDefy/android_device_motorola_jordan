@@ -240,9 +240,9 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>50</item>
-        <item>3000</item>
-        <item>8000</item>
+        <item>20</item>
+        <item>100</item>
+        <item>1500</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -250,10 +250,10 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>48</item>
-        <item>108</item>
-        <item>206</item>
-        <item>246</item>
+        <item>16</item>
+        <item>50</item>
+        <item>70</item>
+        <item>240</item>
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -262,7 +262,7 @@
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
         <item>255</item>
-        <item>0</item>
+        <item>255</item>
         <item>0</item>
         <item>0</item>
     </integer-array>
@@ -273,7 +273,7 @@
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
         <item>255</item>
-        <item>0</item>
+        <item>255</item>
         <item>0</item>
         <item>0</item>
     </integer-array>
@@ -281,7 +281,7 @@
     <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
          For this time after the screen turns on, the Power Manager
          will not debounce light sensor readings -->
-    <integer name="config_lightSensorWarmupTime">2000</integer>
+    <integer name="config_lightSensorWarmupTime">500</integer>
 
     <!-- Enables swipe versus poly-finger touch disambiguation in the KeyboardView -->
     <bool name="config_swipeDisambiguation">true</bool>

@@ -66,7 +66,7 @@ PRODUCT_PACKAGES += \
     librs_jni \
     tiwlan.ini \
     dspexec \
-    Launcher2 \
+    Stk \
     libbridge \
     overlay.omap3 \
     wlan_cu \

@@ -60,7 +60,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/liboemcamera.so:system/lib/lliboemcamera.so \
     device/motorola/jordan/proprietary/lib/hw/gralloc.omap3.so:system/lib/hw/gralloc.omap3.so \
     device/motorola/jordan/proprietary/lib/hw/lights.jordan.so:system/lib/hw/lights.jordan.so \
-    device/motorola/jordan/proprietary/lib/hw/sensors.jordan.so:system/lib/hw/sensors.jordan.so \
     device/motorola/jordan/proprietary/lib/dsp/baseimage.dof:system/lib/dsp/baseimage.dof \
     device/motorola/jordan/proprietary/lib/dsp/conversions.dll64P:system/lib/dsp/conversions.dll64P \
     device/motorola/jordan/proprietary/lib/dsp/h264vdec_sn.dll64P:system/lib/dsp/h264vdec_sn.dll64P \
@@ -94,14 +93,12 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
-    device/motorola/jordan/proprietary/lib/libOMX.TI.AAC.decode.so:system/lib/libOMX.TI.AAC.decode.so \
-    device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so 
-
-
-#device/motorola/jordan/proprietary/lib/libLCML.so:system/lib/libLCML.so 
-#device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so 
-#device/motorola/jordan/proprietary/lib/libbridge.so:obj/lib/libbridge.so 
-#device/motorola/jordan/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
+    device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
+    device/motorola/jordan/proprietary/lib/libLCML.so:system/lib/libLCML.so \
+    device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so \
+    device/motorola/jordan/proprietary/lib/libbridge.so:obj/lib/libbridge.so 
+#device/motorola/jordan/proprietary/lib/hw/sensors.jordan.so:system/lib/hw/sensors.jordan.so 
+#device/motorola/jordan/proprietary/lib/libOMX.TI.AAC.decode.so:system/lib/libOMX.TI.AAC.decode.so \
 #device/motorola/jordan/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
 
 #etc

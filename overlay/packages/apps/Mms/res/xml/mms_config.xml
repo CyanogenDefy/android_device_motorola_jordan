@@ -18,24 +18,16 @@
 unknown
 -->
 
-<mms_config version="2">
-	<bool name="enabledMMS">true</bool>
-	<bool name="enabledTransID">true</bool>
-	<bool name="enabledNotifyWapMMSC">true</bool>
-	<int name="maxMessageSize">307200</int>
-	<string name="userAgent">motoa855</string>
-	<string name="uaProfTagName">Profile</string>
-	<string name="uaProfUrl">http://uaprof.vtext.com/mot/a855/a855.xml</string>
-	<int name="recipientLimit">10</int>
-	<string name="httpParams">x-up-calling-line-id: 1##LINE1##|X-VzW-MDN: 1##LINE1##</string>
-	<string name="httpParamsLine1Key">##LINE1##</string>
-	<int name="maxImageHeight">768</int>
-	<int name="maxImageWidth">1024</int>
-	<int name="maxSMSMessagesPerThread">200</int>
-	<int name="maxMMSMessagesPerThread">10	</int>
-	<string name="emailGatewayNumber">6245</string>
-	<bool name="aliasEnabled">true</bool>
-	<int name="aliasMinChars">2</int>
-	<int name="aliasMaxChars">48</int>
-	<bool name="allowAttachAudio">true</bool>
+<mms_config version="4">
+    <bool name="enabledMMS">true</bool>
+    <int name="maxMessageSize">1048576</int>
+    <int name="maxImageHeight">480</int>
+    <int name="maxImageWidth">640</int>
+    <int name="defaultSMSMessagesPerThread">200</int>
+    <int name="defaultMMSMessagesPerThread">20</int>
+    <int name="minMessageCountPerThread">10</int>
+    <int name="maxMessageCountPerThread">5000</int>
+    <string name="uaProfUrl">http://www.google.com/oha/rdf/ua-profile-kila.xml</string>
+    <int name="recipientLimit">-1</int>
+    <int name="smsToMmsTextThreshold">4</int>
 </mms_config>
