@@ -1,5 +1,5 @@
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),sholes)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),jordan)
 
 LOCAL_PATH := $(call my-dir)
 
@@ -23,5 +23,4 @@ endif
 
 include $(BUILD_SHARED_LIBRARY)
 
-endif # build for sholes
-
+endif 
