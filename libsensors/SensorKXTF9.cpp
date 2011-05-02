@@ -67,7 +67,7 @@ int SensorKXTF9::enable(int32_t handle, int en)
     err = err < 0 ? -errno : 0;
     LOGE_IF(err, "SensorKXTF9: KXTF9_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
 
-    if (!err)
+    if (!err || !newState)
     {
         mEnabled = newState;
         err = setDelay(handle, KXTF9_DEFAULT_DELAY);

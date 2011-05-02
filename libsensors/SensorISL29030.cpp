@@ -31,87 +31,58 @@
 
 /*****************************************************************************/
 
-int SensorISL29030::msEnabledSensors = 0;
-
-SensorISL29030::SensorISL29030(const char* data_name, int sensor_type)
-  : SensorBase(ISL29030_DEVICE_NAME, data_name),
-    mSensorType(sensor_type),
+SensorISL29030P::SensorISL29030P()
+  : SensorBase(ISL29030_DEVICE_NAME, "proximity"),
     mEnabled(0),
-    mHasPendingEvent(false),
     mInputReader(32)
 {
     memset(&mPendingEvent, 0, sizeof(mPendingEvent));
 
     mPendingEvent.version = sizeof(sensors_event_t);
-    mPendingEvent.sensor = mSensorType;
-    mPendingEvent.type = mSensorType;
+    mPendingEvent.sensor = SENSOR_TYPE_PROXIMITY;
+    mPendingEvent.type = SENSOR_TYPE_PROXIMITY;
+
+    open_device();
 
     mEnabled = isEnabled();
-    setSensorEnabled(mSensorType, mEnabled);
+
+    if (!mEnabled)
+        close_device();
 }
 
-SensorISL29030::~SensorISL29030()
+SensorISL29030P::~SensorISL29030P()
 {
 }
 
-int SensorISL29030::enable(int32_t handle, int en)
+int SensorISL29030P::enable(int32_t handle, int en)
 {
     int err = 0;
 
-    int newState = en ? 1 : 0;
+    char newState = en ? 1 : 0;
     if (newState == mEnabled)
         return err;
-    
-    unsigned oldEnabled = getEnabledSensors();
 
-    mEnabled = newState;
-    setSensorEnabled(mSensorType, mEnabled);
-
-    unsigned newEnabled = getEnabledSensors();
-
-    // Enable the device if at least one sensor was enabled
-    // and disable it if all sensors were disabled.
-    if ((!oldEnabled && newEnabled) || (oldEnabled && !newEnabled))
-    {
-        char enabled = newEnabled ? 1 : 0;
-
+    if (!mEnabled)
         open_device();
 
-        err = ioctl(dev_fd, ISL29030_IOCTL_SET_ENABLE, &enabled);
-        err = err < 0 ? -errno : 0;
+    err = ioctl(dev_fd, ISL29030_IOCTL_SET_ENABLE, &newState);
+    err = err < 0 ? -errno : 0;
 
-        LOGE_IF(err, "SensorISL29030: ISL29030_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
+    LOGE_IF(err, "SensorISL29030P: ISL29030_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
 
+    if (!err || !newState)
+        mEnabled = newState;
+
+    if (!mEnabled)
         close_device();
-    }
-
-    onEnableChanged();
 
     return err;
 }
 
-int SensorISL29030::setDelay(int32_t handle, int64_t ns)
-{
-    return 0;
-}
-
-bool SensorISL29030::hasPendingEvents() const
-{
-    return mHasPendingEvent;
-}
-
-int SensorISL29030::readEvents(sensors_event_t* data, int count)
+int SensorISL29030P::readEvents(sensors_event_t* data, int count)
 {
     if (count < 1)
         return -EINVAL;
-
-    if (mHasPendingEvent)
-    {
-        mHasPendingEvent = false;
-        mPendingEvent.timestamp = getTimestamp();
-        *data = mPendingEvent;
-        return 1;
-    }
 
     ssize_t n = mInputReader.fill(data_fd);
     if (n < 0)
@@ -123,24 +94,20 @@ int SensorISL29030::readEvents(sensors_event_t* data, int count)
     while (count && mInputReader.readEvent(&event))
     {
         int type = event->type;
-        if (type == EV_ABS || type == EV_LED)
+        if (type == EV_ABS)
         {
             processEvent(event->code, event->value);
         }
         else if (type == EV_SYN)
         {
             mPendingEvent.timestamp = timevalToNano(event->time);
-
-            if (mEnabled)
-            {
-                *data++ = mPendingEvent;
-                count--;
-                numEventReceived++;
-            }
+            *data++ = mPendingEvent;
+            count--;
+            numEventReceived++;
         }
         else
         {
-            LOGE("SensorISL29030: unknown event (type=%d, code=%d, value=%d)", type, event->code, event->value);
+            LOGE("SensorISL29030P: unknown event (type=%d, code=%d, value=%d)", type, event->code, event->value);
         }
         mInputReader.next();
     }
@@ -148,62 +115,101 @@ int SensorISL29030::readEvents(sensors_event_t* data, int count)
     return numEventReceived;
 }
 
-void SensorISL29030::processEvent(int code, int value)
+void SensorISL29030P::processEvent(int code, int value)
 {
     switch (code)
     {
         case ABS_DISTANCE:
-            mPendingEvent.distance = (value == PROXIMITY_NEAR ? 0 : value);
-            break;
-
-        case LED_MISC:
-            mPendingEvent.light = value;
+            mPendingEvent.distance = (value == PROXIMITY_NEAR ? 0 : 100);
             break;
     }
 }
 
-int SensorISL29030::isEnabled()
+int SensorISL29030P::isEnabled()
 {
     int err = 0;
     char enabled = 0;
 
-    open_device();
-
     err = ioctl(dev_fd, ISL29030_IOCTL_GET_ENABLE, &enabled);
     err = err < 0 ? -errno : 0;
 
-    LOGE_IF(err, "SensorISL29030: ISL29030_IOCTL_GET_ENABLE failed (%s)", strerror(-err));
-
-    close_device();
+    LOGE_IF(err, "SensorISL29030P: ISL29030_IOCTL_GET_ENABLE failed (%s)", strerror(-err));
 
     return enabled;
 }
 
 /*****************************************************************************/
 
-SensorISL29030P::SensorISL29030P() : SensorISL29030("proximity", SENSOR_TYPE_PROXIMITY)
+SensorISL29030L::SensorISL29030L()
+  : SensorBase(ISL29030_DEVICE_NAME, "als"),
+    mEnabled(0),
+    mInputReader(32)
 {
-}
+    memset(&mPendingEvent, 0, sizeof(mPendingEvent));
 
-SensorISL29030P::~SensorISL29030P()
-{
-}
-
-void SensorISL29030P::onEnableChanged()
-{
-    // When enabled, force a read that will return the last valid result.
-    if (mEnabled && mPendingEvent.timestamp != 0)
-        mHasPendingEvent = true;
-}
-
-/*****************************************************************************/
-
-SensorISL29030L::SensorISL29030L() : SensorISL29030("als", SENSOR_TYPE_LIGHT)
-{
+    mPendingEvent.version = sizeof(sensors_event_t);
+    mPendingEvent.sensor = SENSOR_TYPE_LIGHT;
+    mPendingEvent.type = SENSOR_TYPE_LIGHT;
 }
 
 SensorISL29030L::~SensorISL29030L()
 {
+}
+
+int SensorISL29030L::enable(int32_t handle, int en)
+{
+    mEnabled = en ? 1 : 0;
+
+    return 0;
+}
+
+int SensorISL29030L::readEvents(sensors_event_t* data, int count)
+{
+    if (!mEnabled)
+        return 0;
+
+    if (count < 1)
+        return -EINVAL;
+
+    ssize_t n = mInputReader.fill(data_fd);
+    if (n < 0)
+        return n;
+
+    int numEventReceived = 0;
+    input_event const* event;
+
+    while (count && mInputReader.readEvent(&event))
+    {
+        int type = event->type;
+        if (type == EV_LED)
+        {
+            processEvent(event->code, event->value);
+        }
+        else if (type == EV_SYN)
+        {
+            mPendingEvent.timestamp = timevalToNano(event->time);
+            *data++ = mPendingEvent;
+            count--;
+            numEventReceived++;
+        }
+        else
+        {
+            LOGE("SensorISL29030L: unknown event (type=%d, code=%d, value=%d)", type, event->code, event->value);
+        }
+        mInputReader.next();
+    }
+
+    return numEventReceived;
+}
+
+void SensorISL29030L::processEvent(int code, int value)
+{
+    switch (code)
+    {
+        case LED_MISC:
+            mPendingEvent.light = value;
+            break;
+    }
 }
 
 /*****************************************************************************/

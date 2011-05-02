@@ -51,7 +51,7 @@ static const struct sensor_t sSensorList[] = {
     { "ISL29030 Proximity Sensor",
         "Intersil Corporation",
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_PROXIMITY, SENSOR_TYPE_PROXIMITY,
-        1000.0f, 1000.0f, 0.5f, 0, { } },
+        100.0f, 1.0f, 0.5f, 0, { } },
 
     { "ISL29030 Light Sensor",
         "Intersil Corporation",

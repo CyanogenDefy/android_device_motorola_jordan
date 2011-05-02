@@ -46,10 +46,10 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define KXTF9_CONVERT_A                    (GRAVITY_EARTH / KXTF9_LSG)
 #define KXTF9_CONVERT_A_X                  (-KXTF9_CONVERT_A)
 #define KXTF9_CONVERT_A_Y                  (KXTF9_CONVERT_A)
-#define KXTF9_CONVERT_A_Z                  (KXTF9_CONVERT_A)
+#define KXTF9_CONVERT_A_Z                  (-KXTF9_CONVERT_A)
 
 
-#define AK8973_DEVICE_NAME                  "/dev/akm8973_aot"
+#define AK8973_DEVICE_NAME                 "/dev/akm8973_aot"
 #define AK8973_DEFAULT_DELAY               (200 * 1000000)
 
 #define AK8973_LSG                         (1000.0f)
@@ -59,9 +59,9 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define AK8973_CONVERT_A_Z                 (-AK8973_CONVERT_A)
 
 #define AK8973_CONVERT_M                   (1.0f/16.0f)
-#define AK8973_CONVERT_M_X                 (-AK8973_CONVERT_M)
+#define AK8973_CONVERT_M_X                 (AK8973_CONVERT_M)
 #define AK8973_CONVERT_M_Y                 (-AK8973_CONVERT_M)
-#define AK8973_CONVERT_M_Z                 (AK8973_CONVERT_M)
+#define AK8973_CONVERT_M_Z                 (-AK8973_CONVERT_M)
 
 #define AK8973_CONVERT_O                   (1.0f/64.0f)
 #define AK8973_CONVERT_O_Y                 (AK8973_CONVERT_O)

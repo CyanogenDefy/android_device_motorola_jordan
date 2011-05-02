@@ -32,67 +32,42 @@
 
 struct input_event;
 
-class SensorISL29030 : public SensorBase
-{
-public:
-	SensorISL29030(const char* data_name, int sensor_type);
-    virtual ~SensorISL29030();
-
-    virtual int setDelay(int32_t handle, int64_t ns);
-    virtual int enable(int32_t handle, int enabled);
-    virtual bool hasPendingEvents() const;
-    virtual int readEvents(sensors_event_t* data, int count);
-    void processEvent(int code, int value);
-
-protected:
-	int mSensorType;
-	int mEnabled;
-    bool mHasPendingEvent;
-    InputEventCircularReader mInputReader;
-    sensors_event_t mPendingEvent;
-
-    virtual void onEnableChanged() {};
-    int isEnabled();
-
-protected:
-    static int msEnabledSensors;
-
-    static int getEnabledSensors()
-    {
-        return msEnabledSensors;
-    }
-
-    static int isSensorEnabled(int sensorType)
-    {
-        return msEnabledSensors & (1 << sensorType);
-    }
-
-    static void setSensorEnabled(int sensorType, int enabled)
-    {
-	    msEnabledSensors &= ~(1 << sensorType);
-	    msEnabledSensors |= (enabled ? 1 : 0) << sensorType;
-    }
-};
-
 /*****************************************************************************/
 
-class SensorISL29030P : public SensorISL29030
+class SensorISL29030P : public SensorBase
 {
 public:
 	SensorISL29030P();
     virtual ~SensorISL29030P();
 
+    virtual int enable(int32_t handle, int enabled);
+    virtual int readEvents(sensors_event_t* data, int count);
+    void processEvent(int code, int value);
+
 protected:
-    virtual void onEnableChanged();
+	int mEnabled;
+    InputEventCircularReader mInputReader;
+    sensors_event_t mPendingEvent;
+
+    int isEnabled();
 };
 
 /*****************************************************************************/
 
-class SensorISL29030L : public SensorISL29030
+class SensorISL29030L : public SensorBase
 {
 public:
 	SensorISL29030L();
     virtual ~SensorISL29030L();
+
+    virtual int enable(int32_t handle, int enabled);
+    virtual int readEvents(sensors_event_t* data, int count);
+    void processEvent(int code, int value);
+
+protected:
+	int mEnabled;
+    InputEventCircularReader mInputReader;
+    sensors_event_t mPendingEvent;
 };
 
 /*****************************************************************************/
