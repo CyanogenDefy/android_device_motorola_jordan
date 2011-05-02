@@ -1,5 +1,5 @@
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),MB525)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),sholes)
 
 LOCAL_PATH := $(call my-dir)
 
@@ -23,4 +23,5 @@ endif
 
 include $(BUILD_SHARED_LIBRARY)
 
-endif 
+endif # build for sholes
+
