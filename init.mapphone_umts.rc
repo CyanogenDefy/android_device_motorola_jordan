@@ -373,7 +373,7 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     disabled
     oneshot
 
-¹service tcmd /system/bin/tcmd
+service tcmd /system/bin/tcmd
    class post-zygote_services
     group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
     socket local_tcmd stream 0660 mot_tcmd mot_tcmd
@@ -447,7 +447,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/mi
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
-service dhcpcd /system/bin/dhcpcd -ABKL tiwlan0
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
     class post-zygote_services
     disabled
     oneshot
