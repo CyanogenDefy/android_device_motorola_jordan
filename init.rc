@@ -241,6 +241,8 @@ on boot
 
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
+    write /proc/sys/vm/min_free_kbytes 4096
+
     write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,3072,4096,6144,8192
 
     # Set init its forked children's oom_adj.
@@ -266,6 +268,7 @@ on boot
     chmod 0660 /sys/power/state
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
+    chmod 0666 /sys/class/leds/spotlight/brightness
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
@@ -313,8 +316,7 @@ on boot
     import /system/etc/init.local.rc
 
 # Run sysinit
-    exec /system/bin/sysinit
-
+     exec /system/bin/sysinit
 #    class_start default
 
 ## Daemon processes to be run by init.
