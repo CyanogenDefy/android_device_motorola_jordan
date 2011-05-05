@@ -85,16 +85,6 @@ PRODUCT_PACKAGES += \
     libOMX.TI.JPEG.Encoder \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
-    libOMX.TI.ILBC.decode \
-    libOMX.TI.ILBC.encode \
-    libOMX.TI.G729.decode \
-    libOMX.TI.G729.encode \
-    libOMX.TI.G726.decode \
-    libOMX.TI.G726.encode \
-    libOMX.TI.G722.decode \
-    libOMX.TI.G722.encode \
-    libOMX.TI.G711.decode \
-    libOMX.TI.G711.encode \
     libVendor_ti_omx \
     libLCML \
     libOMX_Core \
@@ -120,7 +110,6 @@ PRODUCT_COPY_FILES += $(shell \
     | tr '\n' ' ')
 
 # media profiles and capabilities spec
-# $(call inherit-product, device/motorola/sholes/media_a1026.mk)
 $(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
 $(call inherit-product, device/motorola/jordan/jordan-vendor.mk)
 # stuff common to all HTC phones

@@ -95,11 +95,10 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
     device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
     device/motorola/jordan/proprietary/lib/libLCML.so:system/lib/libLCML.so \
-    device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so \
-    device/motorola/jordan/proprietary/lib/libbridge.so:obj/lib/libbridge.so 
-#device/motorola/jordan/proprietary/lib/hw/sensors.jordan.so:system/lib/hw/sensors.jordan.so 
-#device/motorola/jordan/proprietary/lib/libOMX.TI.AAC.decode.so:system/lib/libOMX.TI.AAC.decode.so \
-#device/motorola/jordan/proprietary/lib/libOMX.TI.Video.encoder.so:system/lib/libOMX.TI.Video.encoder.so 
+    device/motorola/jordan/proprietary/lib/libFMRadio.so:system/lib/libFMRadio.so \
+    device/motorola/jordan/proprietary/lib/libfmradio_jni.so:system/lib/libfmradio_jni.so \
+    device/motorola/jordan/proprietary/lib/libfmradioplayer.so:system/lib/libfmradioplayer.so \
+    device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
 #etc
 PRODUCT_COPY_FILES += \
@@ -118,6 +117,10 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/etc/mot_ise_imager_cfg.bin:system/etc/mot_ise_imager_cfg.bin \
 	device/motorola/jordan/proprietary/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
 	device/motorola/jordan/proprietary/etc/location.cfg:system/etc/location.cfg \
+	device/motorola/jordan/proprietary/etc/fmc_init_1273.2.bts:system/etc/fmc_init_1273.2.bts \
+	device/motorola/jordan/proprietary/etc/fmc_init_6450.2.bts:system/etc/fmc_init_6450.2.bts \
+	device/motorola/jordan/proprietary/etc/fm_rx_init_1273.2.bts:system/etc/fm_rx_init_1273.2.bts \
+	device/motorola/jordan/proprietary/etc/fm_rx_init_6450.2.bts:system/etc/fm_rx_init_6450.2.bts \
 	device/motorola/jordan/proprietary/etc/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
 
 
@@ -143,6 +146,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/app/Usb.apk:system/app/Usb.apk \
 	device/motorola/jordan/proprietary/app/LocationProxyDmPlugin.apk:system/app/LocationProxyDmPlugin.apk \
+	device/motorola/jordan/proprietary/app/FMRadio.apk:system/app/FMRadio.apk \
+	device/motorola/jordan/proprietary/app/FMRadioService.apk:system/app/FMRadioService.apk \
 	device/motorola/jordan/proprietary/app/MotoPhonePortal.apk:system/app/MotoPhonePortal.apk 
 
 
