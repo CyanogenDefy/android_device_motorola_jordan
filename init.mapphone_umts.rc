@@ -38,7 +38,7 @@ on init
     write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 46875
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
-   write /sys/power/enable_abb_mode 1
+    write /sys/power/enable_abb_mode 1
 
 # Increase read throughput from sd card
     write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
@@ -145,8 +145,8 @@ on init
     chown mot_tpapi mot_tpapi /data/tpapi/etc/tpa/persistent
 
 # directory for encryption management tool, enc_mgt_tool
-    mkdir /data/emt
-    chmod 0700 /data/emt
+#     mkdir /data/emt
+#     chmod 0700 /data/emt
 
     # Create wmdrm directory
     mkdir /pds/wmdrm 0775 mot_drm mot_drm
@@ -154,8 +154,8 @@ on init
     # Temp workaround for HP library cleanup
     symlink /dev/hp3a-omap /dev/hp3A-omap
 	
-	# enable usb adb mode
-  # write /dev/usb_device_mode msc_adb
+	# Enable ADB mode
+     write /dev/usb_device_mode msc_adb
 
 # Permissions for video
     chmod 0770 /dev/hp3a-omap
@@ -168,7 +168,9 @@ on init
     chown media camera /dev/video0
     chown media graphics /dev/video1
     chown media graphics /dev/video2
-    mount rootfs rootfs / ro remount
+	
+	
+mount rootfs rootfs / ro remount
 
 on early-boot
 
@@ -179,7 +181,8 @@ on early-boot
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/sec.ko
 	insmod /system/lib/modules/modem_pm_driver.ko
-	insmod /system/lib/modules/kineto_gan.ko
+	
+#	insmod /system/lib/modules/kineto_gan.ko
 
 # Adjust the out of memory thresholds to account for the larget
 # space on sholes. These numbers are in pages (4k). Must be kept
@@ -193,7 +196,7 @@ on early-boot
     setprop ro.HIDDEN_APP_MEM 10752
     setprop ro.CONTENT_PROVIDER_MEM 12288
     setprop ro.EMPTY_APP_MEM 12288
-
+	
     chmod 0666 /dev/DspBridge
     class_start media_early_init
 
@@ -232,7 +235,7 @@ on boot
    chown system system /sys/class/backlight/adp8870_bl/brightness
    chmod 0660 /sys/class/leds/adp8870-led7/brightness
    chown system system /sys/class/leds/adp8870-led7/brightness
-
+   chmod 0666 /sys/class/leds/spotlight/brightness
 
 # Define TCP buffer sizes for various networks
 # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -269,17 +272,7 @@ on property:tcmd.suspend=1
 # Normal to suspend
 on property:tcmd.suspend=2
     class_stop zygote_services
-# aplogd on at boot in emulator
-on property:ro.kernel.qemu=1
-    start aplogd
-on property:persist.service.aplogd.enable=1
-    start aplogd
-on property:persist.service.aplogd.enable=0
-    stop aplogd
-on property:ro.sys.atvc_allow_gki_log=1
-    start gkilogd
-on property:ro.sys.atvc_allow_gki_log=0
-    stop gkilogd
+
 # Moto safe power down
 on property:sys.reboot=1
     stop ssmgrd
@@ -352,13 +345,13 @@ service battd /system/bin/battd
     class post-zygote_services
     user bluetooth
     group bluetooth net_bt_admin
-   disabled
+    disabled
 
 service hciattach_rfmd /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt_rfmd 3000000 flow
    class post-zygote_services
    user bluetooth
    group bluetooth net_bt_admin
-    disabled
+   disabled
 
 service btdhcpd /system/bin/dnsmasq -C /etc/btpan.conf
     class post-zygote_services
@@ -373,18 +366,19 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     disabled
     oneshot
 
-service tcmd /system/bin/tcmd
-   class post-zygote_services
-    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
-    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
-    socket batch_socket stream 0600 mot_tcmd mot_tcmd
-    oneshot
+#service tcmd /system/bin/tcmd
+#   class post-zygote_services
+#    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass #net_bt_admin mot_tombstone mot_tpapi mount
+#    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+#    socket batch_socket stream 0600 mot_tcmd mot_tcmd
+#    oneshot
 
 service tcmdhelp /system/bin/tcmdhelp
     class post-zygote_services
     socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
     oneshot
     disabled
+	
 # turn on wifi for tcmd step one
 on property:tcmd.load_wlan=1
     insmod /system/lib/modules/tiwlan_drv.ko
@@ -401,6 +395,7 @@ on property:tcmd.unload_wlan=1
 on property:tcmd.unload_wlan=2
     exec /system/bin/rmmod tiwlan_drv
     setprop wlan.driver.status unloaded
+
 # turn on bluetooth for FM tcmd
 on property:tcmd.fm_mod=1
     stop hciattach
@@ -421,13 +416,15 @@ on property:tcmd.bt_mod=0
 #execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
-service panic_daemon /system/bin/panic_daemon
-    class post-zygote_services
-    user radio
-    group log radio system graphics sdcard_rw
-    socket panic_daemon stream 660 radio radio
-    onrestart exec /system/bin/reboot
+	
+#service panic_daemon /system/bin/panic_daemon
+#    class post-zygote_services
+#    user radio
+#    group log radio system graphics sdcard_rw
+#    socket panic_daemon stream 660 radio radio
+#    onrestart exec /system/bin/reboot
 # Ecompass daemon
+
 service akmd2 /system/bin/akmd2
     class post-zygote_services
     user compass
@@ -440,6 +437,7 @@ service wlan_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271.bin 
 
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class post-zygote_services
+	
 # we will start as root and wpa_supplicant will switch to user wifi
 # after setting up the capabilities required for WEXT
 # user wifi
@@ -489,11 +487,11 @@ service modemlog /system/bin/modemlog
    oneshot
 
 # aplogd is controlled by the persist.service.aplogd.enable system property
-service aplogd /system/bin/aplogd
-    class post-zygote_services
-    socket ap_aol_cmd stream 666 system system
-    group log system sdcard_rw
-    oneshot
+#service aplogd /system/bin/aplogd
+#    class post-zygote_services
+#    socket ap_aol_cmd stream 666 system system
+#    group log system sdcard_rw
+#    oneshot
 
 service gkilogd /system/bin/gkilogd
     class post-zygote_services
@@ -513,7 +511,7 @@ service vpnclientpm /system/bin/vpnclientpm
     user root
 
 #IKCBS-226 start RescueStarter for MobileRescue
-service RescueStarter /system/bin/RescueStarter
-    user nobody
-    group input graphics
-    class post-zygote_services
+#service RescueStarter /system/bin/RescueStarter
+#    user nobody
+#    group input graphics
+#    class post-zygote_services

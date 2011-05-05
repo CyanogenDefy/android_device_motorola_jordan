@@ -1,6 +1,3 @@
-#on early-init
-#    start ueventd
-
 on init
 
 sysclktz 0
@@ -10,7 +7,7 @@ loglevel 3
 # setup the global environment
     export PATH /sbin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /system/lib
-    export ANDROID_BOOTLOGO 1
+    export ANDROID_BOOTLOGO 0
     export ANDROID_CACHE /cache
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
@@ -65,13 +62,15 @@ loglevel 3
 
     mount rootfs rootfs / ro remount
 
+
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
-    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_latency_ns 6000000
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/kernel.sched_features 24188
     write /proc/sys/kernel/sched_compat_yield 1
-    write /proc/sys/kernel/sched_child_runs_first 0
+    write /proc/sys/kernel/sched_child_runs_first 0 
 
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
@@ -95,7 +94,7 @@ loglevel 3
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
 #    mount yaffs2 mtd@system /system
-    mount yaffs2 mtd@system /system ro remount
+#    mount yaffs2 mtd@system /system ro remount
     exec /system/bin/logwrapper /system/bin/mount_ext3.sh userdata /data
     # We chown/chmod /data again so because mount is run as root + defaults
 #    mount yaffs2 mtd@userdata /data nosuid nodev
@@ -127,7 +126,7 @@ loglevel 3
     write /proc/apanic_console 1
 
     # Same reason as /data above
-    mount yaffs2 mtd@cache /cache nosuid nodev
+ #   mount yaffs2 mtd@cache /cache nosuid nodev
     exec /system/bin/logwrapper /system/bin/mount_ext3.sh cache /cache
     chown system cache /cache
     chmod 0771 /cache
@@ -237,13 +236,13 @@ on boot
 # Note that the driver only supports 6 slots, so we have combined some of
 # the classes into the same memory level; the associated processes of higher
 # classes will still be killed first.
-    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,7,15
+    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,7,14,15
 
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     write /proc/sys/vm/min_free_kbytes 4096
 
-    write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,3072,4096,6144,8192
+    write /sys/module/lowmemorykiller/parameters/minfree 2048,3072,6144,7168,8192,8192
 
     # Set init its forked children's oom_adj.
     write /proc/1/oom_adj -16
@@ -306,8 +305,8 @@ on boot
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.default 65536,131072,262144,65536,131072,262144
+    setprop net.tcp.buffersize.wifi    65536,131072,262144,65536,131072,262144
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
@@ -318,11 +317,6 @@ on boot
 # Run sysinit
      exec /system/bin/sysinit
 #    class_start default
-
-## Daemon processes to be run by init.
-##
-#service ueventd /sbin/ueventd
-#    critical
 
 service console /system/bin/sh
     class pre-zygote_services
@@ -386,7 +380,7 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
 service media /system/bin/mediaserver
     class zygote_services
     user media
-    group system audio camera graphics inet net_bt net_bt_admin net_raw
+    group system audio camera graphics inet net_bt net_bt_admin net_raw mot_drm input mot_tpapi mot_secclkd sdcard_rw
     ioprio rt 4
 
 service bootanim /system/bin/bootanimation
