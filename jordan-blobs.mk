@@ -124,7 +124,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/etc/01_Vendor_ti_omx.cfg:system/etc/01_Vendor_ti_omx.cfg
 
 
-#etc
+#bin
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bin/pvrsrvinit:system/bin/pvrsrvinit \
 	device/motorola/jordan/proprietary/bin/dumpe2fs:system/bin/dumpe2fs \
@@ -140,7 +140,9 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bin/ap_gain.bin:system/bin/ap_gain.bin \
 	device/motorola/jordan/proprietary/bin/gkilogd:system/bin/gkilogd \
 	device/motorola/jordan/proprietary/bin/iptables:system/bin/iptables \
-	device/motorola/jordan/proprietary/bin/battd:system/xbin/ssmgrd 
+	device/motorola/jordan/proprietary/bin/fmradioserver:system/bin/fmradioserver \
+	device/motorola/jordan/proprietary/bin/fmradio:system/bin/fmradio \
+	device/motorola/jordan/proprietary/bin/bssmgrd:system/xbin/ssmgrd 
 
 #app
 PRODUCT_COPY_FILES += \
