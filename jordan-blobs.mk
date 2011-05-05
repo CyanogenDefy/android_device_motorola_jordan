@@ -142,7 +142,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bin/iptables:system/bin/iptables \
 	device/motorola/jordan/proprietary/bin/fmradioserver:system/bin/fmradioserver \
 	device/motorola/jordan/proprietary/bin/fmradio:system/bin/fmradio \
-	device/motorola/jordan/proprietary/bin/bssmgrd:system/xbin/ssmgrd 
+	device/motorola/jordan/proprietary/bin/ssmgrd:system/xbin/ssmgrd 
 
 #app
 PRODUCT_COPY_FILES += \
