@@ -26,6 +26,9 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
+	rild.libpath=/system/lib/librilswitch.so
+	rilswitch.vendorlibpath=/system/lib/libril-moto-umts-1.so
+	rilswitch.ganlibpath=/system/lib/libganril.so
 	persist.sys.omap_dss_mode=1 \
 	ro.mtp_available=0 \
 	persist.sys.purgeable_assets=1 \
@@ -80,6 +83,7 @@ PRODUCT_PACKAGES += \
     libOMX.TI.AMR.decode \
     libOMX.TI.AMR.encode \
     libOMX.TI.WBAMR.encode \
+    libOMX.TI.MP3.decode \
     libOMX.TI.WBAMR.decode \
     libOMX.TI.WMA.decode \
     libOMX.TI.JPEG.Encoder \
@@ -108,6 +112,11 @@ PRODUCT_COPY_FILES += $(shell \
     find device/motorola/jordan/modules -name '*.ko' \
     | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
     | tr '\n' ' ')
+
+# Prebuilt boot.img
+LOCAL_KERNEL := device/motorola/jordan/kernel
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel 
 
 # media profiles and capabilities spec
 $(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
