@@ -333,3 +333,7 @@
     <!-- Allows the light sensor to be ignored when flashlight is on -->
     <bool name="config_flashlight_affects_lightsensor">true</bool>
 </resources>
+
+    <!-- Enables SIP on WIFI only -->
+    <bool name="config_sip_wifi_only">false</bool>
+
