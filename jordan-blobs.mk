@@ -95,6 +95,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.720P.Encoder.so:system/lib/libOMX.TI.720P.Encoder.so \
     device/motorola/jordan/proprietary/lib/libOMX.TI.mp4.splt.Encoder.so:system/lib/libOMX.TI.mp4.splt.Encoder.so \
+    device/motorola/jordan/proprietary/lib/libOMX.TI.h264.splt.Encoder.so:system/lib/libOMX.TI.h264.splt.Encoder.so \
     device/motorola/jordan/proprietary/lib/hw/overlay.omap3.so:system/lib/hw/overlay.omap3.so \
     device/motorola/jordan/proprietary/lib/libLCML.so:system/lib/libLCML.so \
     device/motorola/jordan/proprietary/lib/libFMRadio.so:system/lib/libFMRadio.so \
@@ -190,6 +191,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bin/mot_boot_mode:system/bin/mot_boot_mode \
 	device/motorola/jordan/proprietary/bin/usbd:system/bin/usbd \
 	device/motorola/jordan/proprietary/bin/location:system/bin/location \
+	device/motorola/jordan/proprietary/bin/charge_only_mode:system/bin/charge_only_mode \
 	device/motorola/jordan/proprietary/xbin/ssmgrd:system/xbin/ssmgrd 
 
 #app
