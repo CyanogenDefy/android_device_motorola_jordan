@@ -26,9 +26,6 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
-	rild.libpath=/system/lib/librilswitch.so
-	rilswitch.vendorlibpath=/system/lib/libril-moto-umts-1.so
-	rilswitch.ganlibpath=/system/lib/libganril.so
 	persist.sys.omap_dss_mode=1 \
 	ro.mtp_available=0 \
 	persist.sys.purgeable_assets=1 \

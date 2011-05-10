@@ -2,8 +2,11 @@
 # system.prop for generic sdk
 #
 
-rild.libpath=/system/lib/libmoto_ril.so
+rild.libpath=/system/lib/librilswitch.so
+rilswitch.vendorlibpath=/system/lib/libril-moto-umts-1.so
+rilswitch.ganlibpath=/system/lib/libganril.so
 rild.libargs=-d /dev/ttyS0
+
 ro.sf.lcd_density=240
 
 # Default network type.
@@ -22,3 +25,4 @@ ro.opengles.version = 131072
 
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapsize=40m
+debug.sf.hw=1
