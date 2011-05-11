@@ -173,13 +173,13 @@ on early-boot
 
 
 # Install BP related kernel modules
-    #Start the engine modules for netmux first for other daemons depends on it
+#Start the engine modules for netmux first for other daemons depends on it
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/sec.ko
     insmod /system/lib/modules/modem_pm_driver.ko
+    insmod /system/lib/modules/kineto_gan.ko	
 	
-#	insmod /system/lib/modules/kineto_gan.ko
 
 # Adjust the out of memory thresholds to account for the larget
 # space on sholes. These numbers are in pages (4k). Must be kept
@@ -194,6 +194,7 @@ on early-boot
     setprop ro.CONTENT_PROVIDER_MEM 12288
     setprop ro.EMPTY_APP_MEM 12288
 	
+
     chmod 0666 /dev/DspBridge
     class_start media_early_init
 
