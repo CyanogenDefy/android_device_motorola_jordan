@@ -206,8 +206,8 @@ PRODUCT_COPY_FILES += \
 #Bootmenu
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/2nd-boot/your_file.txt:system/bootmenu/2nd-boot/your_file.txt \
-	device/motorola/jordan/proprietary/bootmenu/2nd-init/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
-	device/motorola/jordan/proprietary/bootmenu/2nd-init/init.rc:system/bootmenu/2nd-init/init.rc \
+	device/motorola/jordan/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
+	device/motorola/jordan/init.rc:system/bootmenu/2nd-init/init.rc \
 	device/motorola/jordan/proprietary/bootmenu/binary/2nd-init:system/bootmenu/binary/2nd-init \
 	device/motorola/jordan/proprietary/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
 	device/motorola/jordan/proprietary/bootmenu/binary/bootmenu:system/bootmenu/binary/bootmenu \

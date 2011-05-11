@@ -26,6 +26,10 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.media.capture.classification=classH \
+	ro.media.capture.flip=horizontalandvertical \
+	ro.media.capture.flashIntensity=41 \
+	ro.media.capture.torchIntensity=25 \
 	persist.sys.omap_dss_mode=1 \
 	ro.mtp_available=0 \
 	persist.sys.purgeable_assets=1 \
