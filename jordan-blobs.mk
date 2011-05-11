@@ -102,6 +102,7 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libfmradio_jni.so:system/lib/libfmradio_jni.so \
     device/motorola/jordan/proprietary/lib/libfmradioplayer.so:system/lib/libfmradioplayer.so \
     device/motorola/jordan/proprietary/lib/liboemcamera.so:system/lib/liboemcamera.so \
+    device/motorola/jordan/proprietary/lib/libpanic_daemon.so:system/lib/libpanic_daemon.so \
     device/motorola/jordan/proprietary/lib/libbridge.so:system/lib/libbridge.so 
 
 #etc
@@ -192,6 +193,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bin/usbd:system/bin/usbd \
 	device/motorola/jordan/proprietary/bin/location:system/bin/location \
 	device/motorola/jordan/proprietary/bin/charge_only_mode:system/bin/charge_only_mode \
+	device/motorola/jordan/proprietary/bin/panic_daemon:system/bin/panic_daemon \	
 	device/motorola/jordan/proprietary/xbin/ssmgrd:system/xbin/ssmgrd 
 
 #app

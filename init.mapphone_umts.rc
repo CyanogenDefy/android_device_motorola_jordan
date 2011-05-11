@@ -152,7 +152,7 @@ on init
     symlink /dev/hp3a-omap /dev/hp3A-omap
 	
 	# Enable ADB mode
-    # write /dev/usb_device_mode msc_adb
+     # write /dev/usb_device_mode msc_adb
 
 # Permissions for video
     chmod 0770 /dev/hp3a-omap
@@ -177,7 +177,7 @@ on early-boot
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/sec.ko
-	insmod /system/lib/modules/modem_pm_driver.ko
+    insmod /system/lib/modules/modem_pm_driver.ko
 	
 #	insmod /system/lib/modules/kineto_gan.ko
 
@@ -414,12 +414,12 @@ on property:tcmd.bt_mod=0
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
 	
-#service panic_daemon /system/bin/panic_daemon
-#    class post-zygote_services
-#    user radio
-#    group log radio system graphics sdcard_rw
-#    socket panic_daemon stream 660 radio radio
-#    onrestart exec /system/bin/reboot
+service panic_daemon /system/bin/panic_daemon
+    class post-zygote_services
+    user radio
+    group log radio system graphics sdcard_rw
+    socket panic_daemon stream 660 radio radio
+    onrestart exec /system/bin/reboot
 # Ecompass daemon
 
 service akmd2 /system/bin/akmd2
