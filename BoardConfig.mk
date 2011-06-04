@@ -46,16 +46,11 @@ COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3
 
 
 # Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
-WPA_SUPPLICANT_VERSION      := VER_0_6_X
-BOARD_WLAN_DEVICE           := tiwlan0
-#BOARD_SOFTAP_DEVICE         := tiwlan0
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
-BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
-WIFI_DRIVER_MODULE_ARG      := ""
-WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
-WIFI_FIRMWARE_LOADER        := "wlan_loader"
+BOARD_WLAN_DEVICE           := wl1271
+BOARD_SOFTAP_DEVICE         := wl1271
+WIFI_DRIVER_MODULE_PATH     := /system/lib/modules/tiwlan_drv.ko	
+WIFI_DRIVER_MODULE_NAME     := tiwlan_drv
+WIFI_FIRMWARE_LOADER        := wlan_loader
 
 
 BOARD_USE_FROYO_LIBCAMERA := true
