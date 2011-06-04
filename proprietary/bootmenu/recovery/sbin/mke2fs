@@ -1,0 +1,42 @@
+#!/sbin/sh
+
+# Motorola Defy CWM3 Recovery Only..
+# 2011/05/15 replace mke2fs
+
+echo "****************************************"
+echo "hijack $0.. original file: $0.bin"
+echo "****************************************"
+
+for arg in $*; do
+
+  if [ $arg == "/dev/block/mmcblk1p21" ] || [ $arg == "/dev/block/system" ]; then
+    mount $arg /system 2>/dev/null
+    mount -o remount,rw $arg
+    rm -rf /system/*
+    mkdir /system/lost+found
+    #umount $arg
+    mount -o remount,ro $arg
+    exit $?
+
+  elif [ $arg == "/dev/block/mmcblk1p25" ] || [ $arg == "/dev/block/userdata" ]; then
+    mount $arg /data 2>/dev/null
+    mount -o remount,rw $arg
+    rm -rf /data/*
+    mkdir /data/lost+found
+    #umount $arg
+    mount -o remount,ro $arg
+    exit $?
+
+# Allow cache format, system can works without that (dalvik is in data)
+#  elif [ $arg == "/dev/block/mmcblk1p24" ] || [ $arg == "/dev/block/cache" ]; then
+#    mount $arg /cache
+#    rm -rf /cache/*
+#    mkdir /cache/lost+found
+#    umount $arg
+#    exit $?
+
+  fi
+done
+
+$0.bin $*
+exit $?

@@ -1,0 +1,3 @@
+#!/system/xbin/sh
+
+busybox id -G -n

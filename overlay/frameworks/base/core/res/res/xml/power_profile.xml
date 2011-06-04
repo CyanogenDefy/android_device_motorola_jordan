@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+**
+** Copyright 2009, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License")
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<device name="Android">
+  <item name="none">0</item>
+  <item name="screen.on">55</item>
+  <item name="bluetooth.active">142</item> <!-- In call -->
+  <item name="bluetooth.on">1</item>
+  <!-- CPU wakelock held for 830ms on bluetooth headset at command. 43mA * 830 -->
+  <item name="bluetooth.at">35690</item>
+  <item name="screen.full">115</item>
+  <item name="wifi.on">4</item>
+  <item name="wifi.active">130</item>
+  <item name="wifi.scan">104</item>
+  <item name="dsp.audio">75</item>
+  <item name="dsp.video">75</item>
+  <item name="radio.active">300</item>
+  <item name="gps.on">170</item>
+  <item name="radio.scanning">70</item>
+  <array name="radio.on"> <!-- Strength 0 to BINS-1 -->
+      <value>3</value>
+      <value>3</value>
+  </array>
+  <array name="cpu.speeds">
+    <value>800000</value>
+    <value>700000</value>
+    <value>600000</value>
+    <value>550000</value>
+    <value>400000</value>
+    <value>250000</value>
+    <value>125000</value>
+  </array>
+  <!-- Power consumption in suspend -->
+  <item name="cpu.idle">4</item>
+  <!-- Power consumption at different speeds -->
+  <array name="cpu.active">
+      <value>280</value>
+      <value>236</value>
+      <value>207</value>
+      <value>182</value>
+      <value>165</value>
+      <value>87</value>
+      <value>66</value>
+  </array>
+</device>
