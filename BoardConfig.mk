@@ -46,6 +46,8 @@ COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3
 
 
 # Wifi related defines
+BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1271
 BOARD_SOFTAP_DEVICE         := wl1271
 WIFI_DRIVER_MODULE_PATH     := /system/lib/modules/tiwlan_drv.ko	
