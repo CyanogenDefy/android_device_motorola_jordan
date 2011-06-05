@@ -20,8 +20,6 @@
 PRODUCT_COPY_FILES += \
     device/motorola/jordan/qwerty.kl:system/usr/keylayout/qwerty.kl 
 
-#device/motorola/jordan/proprietary/lib/libgps.so:system/lib/libgps.so 
-#device/motorola/jordan/proprietary/lib/libgps.so:obj/lib/libgps.so 
 # LIBS
 PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libcamera.so:obj/lib/libcamera.so \
@@ -33,7 +31,6 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/proprietary/lib/libcaps.so:system/lib/libcaps.so \
     device/motorola/jordan/proprietary/lib/libIMGegl.so:system/lib/libIMGegl.so \
     device/motorola/jordan/proprietary/lib/libpvr2d.so:system/lib/libpvr2d.so \
-    device/motorola/jordan/proprietary/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
     device/motorola/jordan/proprietary/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
     device/motorola/jordan/proprietary/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
     device/motorola/jordan/proprietary/lib/libsmiledetect.so:system/lib/libsmiledetect.so \
