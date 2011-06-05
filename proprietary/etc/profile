@@ -1,6 +1,10 @@
 [ -f /etc/banner ] && cat /etc/banner
 
-export PS1='\u:\w\$ '
+#disabled : doesnt works with default sh, only with "ash"
+#export PS1='\u:\w\$ '
+
+export TERM=linux
+
 SDCARD=/
 [ -d /sdcard ]     && SDCARD=/sdcard
 [ -d /sdcard-ext ] && SDCARD=/sdcard-ext
