@@ -104,7 +104,7 @@ PRODUCT_COPY_FILES += \
 	vendor/motorola/jordan/lib/libfmradioplayer.so:system/lib/libfmradioplayer.so \
 	vendor/motorola/jordan/lib/liboemcamera.so:system/lib/liboemcamera.so \
 	vendor/motorola/jordan/lib/libpanic_daemon.so:system/lib/libpanic_daemon.so \
-	vendor/motorola/jordan/lib/libbridge.so:system/lib/libbridge.so
+	vendor/motorola/jordan/lib/libbridge.so:system/lib/libbridge.so \
 	vendor/motorola/jordan/lib/libLCML.so:system/lib/libLCML.so
 
 #etc
