@@ -26,3 +26,7 @@ ro.opengles.version = 131072
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapsize=40m
 debug.sf.hw=1
+
+# Forbid format of these partitions in mount menu :
+ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
+
