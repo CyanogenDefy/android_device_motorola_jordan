@@ -65,7 +65,7 @@ void init_globals(void)
     memset(&g_battery, 0, sizeof(g_battery));
     memset(&g_notification, 0, sizeof(g_notification));
 
-    property_get("ro.batteryLight", prop, "true");
+    property_get("ro.battery_light", prop, "true");
     g_use_charging_light = strcmp(prop, "false") != 0;
 }
 
