@@ -6,7 +6,7 @@ on init
 # prepare generic keypad name
     exec /init_prep_keypad.sh
 
-   #mount ext3 mmc@system /system ro noatime nodiratime remount
+    mount ext3 mmc@system /system ro noatime nodiratime remount
 
     mount rootfs rootfs / rw remount
 
