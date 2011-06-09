@@ -30,3 +30,5 @@ debug.sf.hw=1
 # Forbid format of these partitions in mount menu :
 ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
 
+# BatteryLight while charging, enabled by default.
+ro.BatteryLight=true

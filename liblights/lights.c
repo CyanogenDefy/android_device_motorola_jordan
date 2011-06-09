@@ -18,6 +18,7 @@
 #define LOG_TAG "lights"
 
 #include <cutils/log.h>
+#include <cutils/properties.h>
 
 #include <stdint.h>
 #include <string.h>
@@ -43,6 +44,7 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static struct light_state_t g_battery;
 static struct light_state_t g_notification;
+static int g_use_charging_light;
 
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
@@ -56,10 +58,15 @@ char const*const BLUE_LED_FILE = "/sys/class/leds/blue/brightness";
 
 void init_globals(void)
 {
+    char prop[PROPERTY_VALUE_MAX];
+
     // init the mutex
     pthread_mutex_init(&g_lock, NULL);
     memset(&g_battery, 0, sizeof(g_battery));
     memset(&g_notification, 0, sizeof(g_notification));
+
+    property_get("ro.batteryLight", prop, "true");
+    g_use_charging_light = strcmp(prop, "false") != 0;
 }
 
 static int
@@ -184,7 +191,15 @@ set_light_battery(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     pthread_mutex_lock(&g_lock);
+
     g_battery = *state;
+
+    /* if green is set, it means the device is charging -> only
+     * use it if the user wants it */
+    if ((state->color & 0xff00) && !g_use_charging_light) {
+        memset(&g_battery, 0, sizeof(g_battery));
+    }
+
     handle_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
 
