@@ -10,14 +10,14 @@ rild.libargs=-d /dev/ttyS0
 ro.sf.lcd_density=240
 
 # Default network type.
-# 4 => CDMA / EVDO.
+# 3 -> GSM/WCDMA (auto mode, according to PRL)
 ro.telephony.default_network=3
 
 wifi.interface = tiwlan0
 # Time between scans in seconds. Keep it high to minimize battery drain.
 # This only affects the case in which there are remembered access points,
 # but none are in range.
-wifi.supplicant_scan_interval = 15
+wifi.supplicant_scan_interval = 60
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
@@ -25,10 +25,12 @@ ro.opengles.version = 131072
 
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapsize=40m
-debug.sf.hw=1
 
 # Forbid format of these partitions in mount menu :
 ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
 
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
+
+# disable Windows Media Sync Usb.apk mode
+ro.mtp_available=0

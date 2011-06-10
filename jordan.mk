@@ -28,12 +28,8 @@ $(call inherit-product-if-exists, vendor/motorola/jordan/jordan-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.wifi.channels=14 \
 	ro.media.capture.classification=classH \
 	ro.media.capture.flip=horizontalandvertical \
-	ro.media.capture.flashIntensity=41 \
-	ro.media.capture.torchIntensity=25 \
-	ro.mtp_available=0 \
 	persist.sys.purgeable_assets=0 \
 	ro.com.android.wifi-watchlist=GoogleGuest \
 	ro.error.receiver.system.apps=com.google.android.feedback \
