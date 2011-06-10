@@ -63,7 +63,7 @@ symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/watch", "/system/xbin/wc", "/system/xbin/wget",
         "/system/xbin/which", "/system/xbin/whoami", "/system/xbin/xargs",
         "/system/xbin/yes",
-        "/system/xbin/zcat");
+        "/system/xbin/zcat", "/sbin/modprobe");
 symlink("qwerty.kcm.bin", "/system/usr/keychars/cpcap-key.kcm.bin",
         "/system/usr/keychars/qtouch-touchscreen.kcm.bin");
 symlink("toolbox", "/system/bin/cat", "/system/bin/cmp",
