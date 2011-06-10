@@ -99,7 +99,6 @@ PRODUCT_PACKAGES += \
     lights.jordan \
     libaudiopolicy \
     bootmenu \
-    bootmenu_busybox \
     Usb
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
