@@ -3,11 +3,13 @@ vpnclient.ko:
 tun.ko:
 tiwlan_drv.ko:
 tiap_drv.ko:
+slow-work.ko:
 sec.ko:
 sch_ingress.ko:
 sch_htb.ko:
 pcbc.ko:
 output.ko:
+nls_utf8.ko:
 netmux_linkdriver.ko: netmux.ko
 netmux.ko:
 modem_pm_driver.ko:
@@ -16,6 +18,7 @@ ifb.ko:
 em_u32.ko:
 dummy.ko:
 cls_u32.ko:
+cifs.ko:
 act_police.ko:
 act_mirred.ko:
 act_gact.ko:
