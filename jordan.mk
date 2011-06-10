@@ -98,6 +98,7 @@ PRODUCT_PACKAGES += \
     sensors.jordan \
     lights.jordan \
     libaudiopolicy \
+    bootmenu \
     bootmenu_busybox \
     Usb
 
