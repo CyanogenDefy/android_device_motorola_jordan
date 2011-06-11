@@ -1,6 +1,6 @@
 #!/sbin/sh
 
-######## BootMenu Script v0.8.6
+######## BootMenu Script
 ######## Execute [2nd-init] Menu
 
 
@@ -10,7 +10,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 
 echo 1 > /sys/class/leds/green/brightness
-usleep 50000
+usleep 500000
 echo 0 > /sys/class/leds/green/brightness
 
 
@@ -41,6 +41,7 @@ rm /sbin/busybox
 
 rm -f /rootsh
 
+ln -s /system/xbin/busybox /sbin/modprobe
 
 /system/bootmenu/binary/2nd-init
 

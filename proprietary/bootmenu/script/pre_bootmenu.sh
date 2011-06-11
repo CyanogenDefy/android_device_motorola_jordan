@@ -42,11 +42,8 @@ chown 0.0 /sbin/adbd.root
 [ -f /sbin/reboot ] && rm /sbin/reboot
 
 
-## make a link to allow 2nd-boot menu option
-OLD_DIR=`pwd`
-cd /system/bootmenu/binary/
-ln -s 2nd-init 2nd-boot
-cd $OLD_DIR
+## 2nd-boot menu option for alternative "2nd-init" (new kernels)
+#cp /system/bootmenu/2nd-init/* /system/bootmenu/2nd-boot/
 
 ## rootsh create.
 

@@ -41,10 +41,13 @@ PRODUCT_COPY_FILES += \
 #Bootmenu
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
+	device/motorola/jordan/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
 	device/motorola/jordan/init.rc:system/bootmenu/2nd-init/init.rc \
+	device/motorola/jordan/init.rc:system/bootmenu/2nd-boot/init.rc \
 	device/motorola/jordan/proprietary/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
 	device/motorola/jordan/proprietary/bootmenu/binary/logwrapper.bin:system/bootmenu/binary/logwrapper.bin \
 	device/motorola/jordan/proprietary/bootmenu/binary/logwrapper.bin:system/bin/logwrapper.bin \
+	device/motorola/jordan/proprietary/bootmenu/binary/2nd-boot:system/bootmenu/binary/2nd-boot \
 	device/motorola/jordan/proprietary/bootmenu/config/bootmenu_bypass:system/bootmenu/config/bootmenu_bypass \
 	device/motorola/jordan/proprietary/bootmenu/config/default.prop:system/bootmenu/config/default.prop \
 	device/motorola/jordan/proprietary/bootmenu/config/default_bootmode.conf:system/bootmenu/config/default_bootmode.conf \
