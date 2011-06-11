@@ -76,7 +76,7 @@
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>usb1</item>
+        <item>usb0</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -95,9 +95,8 @@
     <!-- Regex array of allowable upstream ifaces for tethering - for example if you want
          tethering on a new interface called "foo2" add <item>"foo\\d"</item> to the array -->
     <string-array translatable="false" name="config_tether_upstream_regexs">
-        <item>ppp.*</item>
-        <item>qmi.*</item>
-        <item>rmnet.*</item>
+        <item>rmnet\\d</item>
+        <item>tiwlan\\d</item>
     </string-array>
 
     <!-- Boolean indicating if we require the use of DUN on mobile for tethering.
