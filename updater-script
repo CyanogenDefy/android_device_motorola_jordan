@@ -1,13 +1,14 @@
 package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");
+package_extract_file("system/etc/custom_backup_list.txt","/system/etc/custom_backup_list.txt");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
-show_progress(0.100000, 10);
+show_progress(0.100000, 5);
 run_program("/tmp/backuptool.sh", "backup");
 mount("ext3","EMMC","/dev/block/mmcblk1p21","/system");
-show_progress(0.100000, 10);
+show_progress(0.100000, 5);
 delete_recursive("/system/");
-show_progress(0.400000, 10);
+show_progress(0.500000, 20);
 package_extract_dir("system", "/system");
-show_progress(0.200000, 10);
+show_progress(0.100000, 5);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
         "/system/xbin/basename", "/system/xbin/bbconfig", "/system/xbin/brctl",
@@ -111,16 +112,15 @@ set_perm(0, 0, 06755, "/system/xbin/procrank");
 set_perm(0, 0, 06755, "/system/xbin/su");
 set_perm(0, 0, 06755, "/system/xbin/tcpdump");
 set_perm(0, 0, 0755, "/system/etc/motorola/comm_drv/commdrv_fs.sh");
-show_progress(0.200000, 10);
+show_progress(0.100000, 5);
 package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
 run_program("/tmp/backuptool.sh", "restore");
 package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");
 set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");
 run_program("/tmp/modelid_cfg.sh");
-show_progress(0.200000, 10);
+show_progress(0.100000, 5);
 #assert(package_extract_file("boot.img", "/tmp/boot.img"),
 #       write_raw_image("/tmp/boot.img", "/dev/block/mmcblk1p15"),
 #       delete("/tmp/boot.img"));
-show_progress(0.100000, 0);
 #unmount("/system");

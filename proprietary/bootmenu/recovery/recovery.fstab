@@ -1,9 +1,9 @@
 # mount point   fstype      device                  [device2]
 
-#/boot           emmc        /dev/block/mmcblk1p15
+/boot           emmc        /dev/block/mmcblk1p15
 /cache          ext3        /dev/block/mmcblk1p24
 /data           ext3        /dev/block/mmcblk1p25
 /system         ext3        /dev/block/mmcblk1p21
 /sdcard         vfat        /dev/block/mmcblk0p1    /dev/block/mmcblk0
-#/sdcard-ext    auto        /dev/block/mmcblk0p2    /dev/block/mmcblk0
-#/recovery      emmc        /dev/block/mmcblk1p16
+/sd-ext         ext3        /dev/block/mmcblk0p2    NULL /dev/block/mmcblk0
+/recovery       emmc        /dev/block/mmcblk1p16
