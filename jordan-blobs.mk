@@ -54,16 +54,15 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/config/overclock.conf:system/bootmenu/config/overclock.conf \
 	device/motorola/jordan/proprietary/bootmenu/ext/su:system/bootmenu/ext/su \
 	device/motorola/jordan/proprietary/bootmenu/ext/Superuser.apk:system/bootmenu/ext/Superuser.apk \
-	device/motorola/jordan/proprietary/bootmenu/images/icon_error.png:system/bootmenu/images/icon_error.png \
-	device/motorola/jordan/proprietary/bootmenu/images/icon_installing.png:system/bootmenu/images/icon_installing.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate1.png:system/bootmenu/images/indeterminate1.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate2.png:system/bootmenu/images/indeterminate2.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate3.png:system/bootmenu/images/indeterminate3.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate4.png:system/bootmenu/images/indeterminate4.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate5.png:system/bootmenu/images/indeterminate5.png \
-	device/motorola/jordan/proprietary/bootmenu/images/indeterminate6.png:system/bootmenu/images/indeterminate6.png \
-	device/motorola/jordan/proprietary/bootmenu/images/progress_empty.png:system/bootmenu/images/progress_empty.png \
-	device/motorola/jordan/proprietary/bootmenu/images/progress_fill.png:system/bootmenu/images/progress_fill.png \
+	external/bootmenu/images/background.png:system/bootmenu/images/background.png \
+	external/bootmenu/images/indeterminate1.png:system/bootmenu/images/indeterminate1.png \
+	external/bootmenu/images/indeterminate2.png:system/bootmenu/images/indeterminate2.png \
+	external/bootmenu/images/indeterminate3.png:system/bootmenu/images/indeterminate3.png \
+	external/bootmenu/images/indeterminate4.png:system/bootmenu/images/indeterminate4.png \
+	external/bootmenu/images/indeterminate5.png:system/bootmenu/images/indeterminate5.png \
+	external/bootmenu/images/indeterminate6.png:system/bootmenu/images/indeterminate6.png \
+	external/bootmenu/images/progress_empty.png:system/bootmenu/images/progress_empty.png \
+	external/bootmenu/images/progress_fill.png:system/bootmenu/images/progress_fill.png \
 	device/motorola/jordan/proprietary/bootmenu/recovery/res/keys:system/bootmenu/recovery/res/keys \
 	device/motorola/jordan/proprietary/bootmenu/recovery/res/images/icon_error.png:system/bootmenu/recovery/res/images/icon_error.png \
 	device/motorola/jordan/proprietary/bootmenu/recovery/res/images/icon_done.png:system/bootmenu/recovery/res/images/icon_done.png \
