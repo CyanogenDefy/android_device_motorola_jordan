@@ -6,7 +6,7 @@ run_program("/tmp/backuptool.sh", "backup");
 mount("ext3","EMMC","/dev/block/mmcblk1p21","/system");
 show_progress(0.100000, 5);
 delete_recursive("/system/");
-show_progress(0.700000, 20);
+show_progress(0.800000, 20);
 package_extract_dir("system", "/system");
 show_progress(0.100000, 5);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
@@ -70,7 +70,7 @@ symlink("qwerty.kcm.bin", "/system/usr/keychars/cpcap-key.kcm.bin",
 symlink("toolbox", "/system/bin/cat", "/system/bin/cmp",
         "/system/bin/date", "/system/bin/dd", "/system/bin/dmesg",
         "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
-        "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
+        "/system/bin/id", "/system/bin/iftop",
         "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
         "/system/bin/kill", "/system/bin/log", "/system/bin/lsmod",
         "/system/bin/nandread", "/system/bin/netstat",
