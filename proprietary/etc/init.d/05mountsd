@@ -43,8 +43,8 @@ then
         $BB mount -o noatime,nodiratime,barrier=1 -t ext3 $SD_EXT_PART $SD_EXT_DIRECTORY;
         if [ "$?" = 0 ];
         then
-            $BB chown 1000:1000 $SD_EXT_DIRECTORY;
-            $BB chmod 771 $SD_EXT_DIRECTORY;
+            $BB chown 1000.1015 $SD_EXT_DIRECTORY;
+            $BB chmod 0775 $SD_EXT_DIRECTORY;
             log -p i -t mountsd "$SD_EXT_DIRECTORY successfully mounted";
         else
             log -p e -t mountsd "Unable to mount filesystem for $SD_EXT_DIRECTORY!";
