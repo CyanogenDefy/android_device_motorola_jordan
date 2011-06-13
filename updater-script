@@ -6,7 +6,7 @@ run_program("/tmp/backuptool.sh", "backup");
 mount("ext3","EMMC","/dev/block/mmcblk1p21","/system");
 show_progress(0.100000, 5);
 delete_recursive("/system/");
-show_progress(0.500000, 20);
+show_progress(0.700000, 20);
 package_extract_dir("system", "/system");
 show_progress(0.100000, 5);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",

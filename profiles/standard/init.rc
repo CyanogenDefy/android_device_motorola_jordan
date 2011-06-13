@@ -55,7 +55,7 @@ loglevel 3
     mkdir /mnt/asec  0700 root system
     mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
 
-    mkdir /sd-ext 771 system sdcard_rw
+    mkdir /sd-ext 0775 system sdcard_rw
 
     # Filesystem image public mount points.
     mkdir /mnt/obb 0700 root system
