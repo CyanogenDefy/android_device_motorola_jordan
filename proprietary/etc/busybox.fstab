@@ -1,0 +1,12 @@
+<file system>      	<mount point>   <type>  <options>
+
+rootfs			/		rootfs	ro,relatime
+/dev/block/system	/system         ext3    rw
+/dev/block/cache	/cache		ext3	rw
+/dev/block/userdata	/data		ext3	rw,nosuid,noatime,errors=continue
+
+tmpfs			/tmp		tmpfs	rw,relatime,size=2048k
+
+/dev/block/mmcblk0p1	/sdcard 	vfat	rw
+/dev/block/mmcblk0p2	/sd-ext 	ext3	rw,errors=continue
+

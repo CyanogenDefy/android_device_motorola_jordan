@@ -31,6 +31,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/etc/custom_backup_list.txt:system/etc/custom_backup_list.txt \
 	device/motorola/jordan/proprietary/etc/profile:system/etc/profile \
 	device/motorola/jordan/proprietary/etc/sysctl.conf:system/etc/sysctl.conf \
+	device/motorola/jordan/proprietary/etc/busybox.fstab:system/etc/fstab \
 	device/motorola/jordan/proprietary/lib/modules/modules.alias:system/lib/modules/modules.alias \
 	device/motorola/jordan/proprietary/lib/modules/modules.dep:system/lib/modules/modules.dep
 
