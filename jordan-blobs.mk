@@ -55,7 +55,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/config/default_bootmode.conf:system/bootmenu/config/default_bootmode.conf \
 	device/motorola/jordan/proprietary/bootmenu/config/overclock.conf:system/bootmenu/config/overclock.conf \
 	device/motorola/jordan/proprietary/bootmenu/ext/su:system/bootmenu/ext/su \
-	device/motorola/jordan/proprietary/bootmenu/ext/Superuser.apk:system/bootmenu/ext/Superuser.apk \
 	external/bootmenu/images/background.png:system/bootmenu/images/background.png \
 	external/bootmenu/images/indeterminate1.png:system/bootmenu/images/indeterminate1.png \
 	external/bootmenu/images/indeterminate2.png:system/bootmenu/images/indeterminate2.png \
