@@ -15,7 +15,7 @@
 #
 
 #
-# This is the product configuration for a generic GSM passion,
+# This is the product configuration for a generic Motorla Defy (jordan),
 # not specialized for any geography.
 #
 
@@ -23,6 +23,9 @@
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
+
+## (2) Also get non-open-source files if available
+$(call inherit-product-if-exists, vendor/motorola/jordan/jordan-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -48,6 +51,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.setupwizard.enable_bypass=1 \
 	ro.default_usb_mode=4 \
 	ro.media.dec.jpeg.memcap=20000000 \
+	ro.media.dec.aud.wma.enabled=1 \
+	ro.media.dec.vid.wmv.enabled=1 \
+	ro.product.multi_touch_enabled=true \
+	ro.com.motorola.smartsensor=true \
 	dalvik.vm.lockprof.threshold=500 \
 	ro.kernel.android.checkjni=0 \
 	dalvik.vm.dexopt-data-only=1 \
@@ -108,7 +115,13 @@ PRODUCT_PACKAGES += DroidSSHD
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# Passion uses high-density artwork where available
+#Set en_US as default locale
+PRODUCT_LOCALES := en_US
+
+# Screen density is actually considered a locale (since it is taken into account
+# the the build-time selection of resources). The product definitions including
+# this file must pay attention to the fact that the first entry in the final
+# PRODUCT_LOCALES expansion must not be a density.
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
