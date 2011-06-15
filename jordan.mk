@@ -128,9 +128,15 @@ PRODUCT_COPY_FILES += \
     device/motorola/jordan/vold.fstab:system/etc/vold.fstab\
     device/motorola/jordan/apns-conf.xml:system/etc/apns-conf.xml
 
-# copy all kernel modules under the "modules" directory to system/lib/modules
+# copy all vendor (motorola) kernel modules to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
     find vendor/motorola/jordan/lib/modules -name '*.ko' \
+    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+    | tr '\n' ' ')
+
+# copy all others kernel modules under the "modules" directory to system/lib/modules
+PRODUCT_COPY_FILES += $(shell \
+    find device/motorola/jordan/modules -name '*.ko' \
     | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
     | tr '\n' ' ')
 
