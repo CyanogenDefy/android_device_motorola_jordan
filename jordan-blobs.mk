@@ -83,6 +83,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/nandroid-md5.sh:system/bootmenu/recovery/sbin/nandroid-md5.sh \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/parted:system/bootmenu/recovery/sbin/parted \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/postrecoveryboot.sh:system/bootmenu/recovery/sbin/postrecoveryboot.sh \
+	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/recovery:system/bootmenu/recovery/sbin/recovery_stable \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/sdparted:system/bootmenu/recovery/sbin/sdparted \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/mke2fs:system/bootmenu/recovery/sbin/mke2fs \
 	device/motorola/jordan/proprietary/bootmenu/recovery/sbin/mke2fs.bin:system/bootmenu/recovery/sbin/mke2fs.bin \
@@ -96,6 +97,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/script/post_bootmenu.sh:system/bootmenu/script/post_bootmenu.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/pre_bootmenu.sh:system/bootmenu/script/pre_bootmenu.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/recovery.sh:system/bootmenu/script/recovery.sh \
+	device/motorola/jordan/proprietary/bootmenu/script/recovery_stable.sh:system/bootmenu/script/recovery_stable.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/unroot.sh:system/bootmenu/script/unroot.sh \
 	device/motorola/jordan/proprietary/bootmenu/ext/modules/cpufreq_conservative.ko:system/bootmenu/ext/modules/cpufreq_conservative.ko \
