@@ -130,7 +130,7 @@ PRODUCT_COPY_FILES += \
 
 # copy all kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
-    find device/motorola/jordan/modules -name '*.ko' \
+    find vendor/motorola/jordan/lib/modules -name '*.ko' \
     | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
     | tr '\n' ' ')
 
