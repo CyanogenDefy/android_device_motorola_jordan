@@ -3,7 +3,6 @@ package_extract_file("system/etc/custom_backup_list.txt","/system/etc/custom_bac
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
 show_progress(0.100000, 5);
 run_program("/tmp/backuptool.sh", "backup");
-mount("ext3","EMMC","/dev/block/mmcblk1p21","/system");
 show_progress(0.100000, 5);
 delete_recursive("/system/");
 show_progress(0.800000, 20);
@@ -88,7 +87,6 @@ package_extract_file("system/bin/bootmenu", "/system/bootmenu/binary/bootmenu");
 set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/binary/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/script/");
-set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/dropbear/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/recovery/sbin/");	
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm(0, 3003, 02750, "/system/bin/netcfg");
