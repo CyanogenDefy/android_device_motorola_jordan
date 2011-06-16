@@ -104,6 +104,7 @@ PRODUCT_PACKAGES += \
     gps.jordan \
     sensors.jordan \
     lights.jordan \
+    libcamera \
     libaudiopolicy \
     bootmenu \
     Usb

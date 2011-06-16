@@ -54,8 +54,6 @@ WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := tiwlan_drv
 WIFI_FIRMWARE_LOADER        := wlan_loader
 
-
-BOARD_USE_FROYO_LIBCAMERA := true
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
 
