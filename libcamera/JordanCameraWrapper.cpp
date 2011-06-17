@@ -1,4 +1,27 @@
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#define LOG_TAG "JordanCameraWrapper"
+
 #include <dlfcn.h>
+#include <fcntl.h>
+#include <linux/videodev2.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <camera/Camera.h>
 #include "JordanCameraWrapper.h"
 
@@ -15,7 +38,7 @@ static void ensureMotoLibOpened()
         g_motoLibHandle = ::dlopen("libmotocamera.so", RTLD_NOW);
         if (g_motoLibHandle == NULL) {
             assert(0);
-            LOGE("%s: dlopen() error: %s\n", __func__, dlerror());
+            LOGE("dlopen() error: %s\n", dlerror());
         } else {
             g_motoOpenCameraHardware = (OpenCamFunc) ::dlsym(g_motoLibHandle, "openCameraHardware");
             assert(g_motoOpenCameraHardware != NULL);
@@ -60,9 +83,44 @@ sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
     return hardware;
 }
 
-JordanCameraWrapper::JordanCameraWrapper(int cameraId)
+static bool
+deviceCardMatches(const char *device, const char *matchCard)
 {
-    mMotoInterface = g_motoOpenCameraHardware(cameraId);
+    struct v4l2_capability caps;
+    int fd = ::open(device, O_RDWR);
+    bool ret;
+
+    if (fd < 0) {
+        return false;
+    }
+
+    if (::ioctl(fd, VIDIOC_QUERYCAP, &caps) < 0) {
+        ret = false;
+    } else {
+        const char *card = (const char *) caps.card;
+
+        LOGD("device %s card is %s\n", device, card);
+        ret = strstr(card, matchCard) != NULL;
+    }
+
+    ::close(fd);
+
+    return ret;
+}
+
+JordanCameraWrapper::JordanCameraWrapper(int cameraId) :
+    mMotoInterface(g_motoOpenCameraHardware(cameraId)),
+    mCameraType(CAM_UNKNOWN)
+{
+    struct v4l2_capability caps;
+
+    if (deviceCardMatches("/dev/video3", "camise")) {
+        LOGI("Detected SOC device\n");
+        mCameraType = CAM_SOC;
+    } else if (deviceCardMatches("/dev/video0", "mt9p012")) {
+        LOGI("Detected BAYER device\n");
+        mCameraType = CAM_BAYER;
+    }
 }
 
 JordanCameraWrapper::~JordanCameraWrapper()
@@ -197,10 +255,12 @@ JordanCameraWrapper::getParameters() const
 {
     CameraParameters ret = mMotoInterface->getParameters();
 
-    /* the original zoom ratio string is '100,200,300,400,500,600',
-       but 500 and 600 are broken for the SOC camera, so limiting
-       it here */
-    ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400");
+    if (mCameraType == CAM_SOC) {
+        /* the original zoom ratio string is '100,200,300,400,500,600',
+           but 500 and 600 are broken for the SOC camera, so limiting
+           it here */
+        ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400");
+    }
 
     return ret;
 }
