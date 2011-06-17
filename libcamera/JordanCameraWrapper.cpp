@@ -247,7 +247,15 @@ JordanCameraWrapper::cancelPicture()
 status_t
 JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
-    return mMotoInterface->setParameters(params);
+    CameraParameters pars(params.flatten());
+    int width, height;
+
+    pars.getPreviewSize(&width, &height);
+    if (width == 848 && height == 480) {
+        pars.setPreviewFrameRate(24);
+    }
+
+    return mMotoInterface->setParameters(pars);
 }
 
 CameraParameters
