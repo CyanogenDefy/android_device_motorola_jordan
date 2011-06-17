@@ -189,7 +189,6 @@ JordanCameraWrapper::cancelPicture()
 status_t
 JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
-    /* TODO: preview frame rate 24 for preview size 848x480 */
     return mMotoInterface->setParameters(params);
 }
 
@@ -198,6 +197,9 @@ JordanCameraWrapper::getParameters() const
 {
     CameraParameters ret = mMotoInterface->getParameters();
 
+    /* the original zoom ratio string is '100,200,300,400,500,600',
+       but 500 and 600 are broken for the SOC camera, so limiting
+       it here */
     ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400");
 
     return ret;
