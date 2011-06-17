@@ -5,7 +5,7 @@ show_progress(0.100000, 5);
 run_program("/tmp/backuptool.sh", "backup");
 show_progress(0.100000, 5);
 delete_recursive("/system/");
-show_progress(0.800000, 20);
+show_progress(0.800000, 30);
 package_extract_dir("system", "/system");
 show_progress(0.100000, 5);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
@@ -88,6 +88,8 @@ set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/binary/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/script/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/recovery/sbin/");	
+set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/2nd-init/sbin/");
+set_perm(0, 0, 0755, "/system/bootmenu/2nd-init/init");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm(0, 3003, 02750, "/system/bin/netcfg");
 set_perm(0, 3004, 02755, "/system/bin/ping");

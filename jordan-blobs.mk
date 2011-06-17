@@ -18,7 +18,7 @@
 # media config xml file
 
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/qwerty.kl:system/usr/keylayout/qwerty.kl
+	device/motorola/jordan/qwerty.kl:system/usr/keylayout/qwerty.kl 
 
 #bin
 PRODUCT_COPY_FILES += \
@@ -43,6 +43,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/profiles/standard/init.rc:system/bootmenu/2nd-init/init.rc \
 	device/motorola/jordan/profiles/standard/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
+	device/motorola/jordan/profiles/standard/ueventd.rc:system/bootmenu/2nd-init/ueventd.rc \
+	device/motorola/jordan/profiles/standard/init:system/bootmenu/2nd-init/init \
+	device/motorola/jordan/profiles/standard/sbin/ueventd:system/bootmenu/2nd-init/sbin/ueventd \
 	device/motorola/jordan/profiles/ramdisk-cache/init.rc:system/bootmenu/2nd-boot/init.rc \
 	device/motorola/jordan/profiles/ramdisk-cache/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
 	device/motorola/jordan/proprietary/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
