@@ -9,6 +9,16 @@ repo init -u git://github.com/CyanogenDefy/android.git -b gingerbread
 repo sync
 
 
+Download RomManager:
+====================
+
+mkdir vendor/cyanogen/proprietary
+cd vendor/cyanogen && ./get-rommanager
+
+RomManager is not compatible with Motorola Defy,
+it is removed from rom build system because it requires a real Recovery Image
+
+
 Build:
 ======
 
@@ -35,7 +45,7 @@ or...
 lunch cyanogen_jordan-eng
 mka bacon
 
-use the signed zip to update the defy with Second Init recovery, or CM7 bootmenu recovery, not the ota package
+Use the signed zip to update the defy with Second Init recovery, or CM7 bootmenu recovery, not the ota package
 
 Links:
 ======
