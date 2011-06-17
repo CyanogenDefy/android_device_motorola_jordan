@@ -15,8 +15,7 @@
 #
 
 #
-# This is the product configuration for a generic Motorla Defy (jordan),
-# not specialized for any geography.
+# This is the product configuration for a generic Motorola Defy (jordan)
 #
 
 # The gps config appropriate for this device
@@ -63,51 +62,51 @@ PRODUCT_PROPERTY_OVERRIDES += \
 DEVICE_PACKAGE_OVERLAYS += device/motorola/jordan/overlay
 
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
+	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+	frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+	frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 
 PRODUCT_PACKAGES += \
-    librs_jni \
-    tiwlan.ini \
-    dspexec \
-    Stk \
-    libbridge \
-    overlay.omap3 \
-    wlan_cu \
-    libtiOsLib \
-    wlan_loader \
-    libCustomWifi \
-    wpa_supplicant.conf \
-    dhcpcd.conf \
-    libOMX.TI.AAC.encode \
-    libOMX.TI.AAC.decode \
-    libOMX.TI.AMR.decode \
-    libOMX.TI.AMR.encode \
-    libOMX.TI.WBAMR.encode \
-    libOMX.TI.MP3.decode \
-    libOMX.TI.WBAMR.decode \
-    libOMX.TI.WMA.decode \
-    libOMX.TI.JPEG.Encoder \
-    libOMX.TI.Video.Decoder \
-    libOMX.TI.Video.encoder \
-    libVendor_ti_omx \
-    libLCML \
-    libOMX_Core \
-    gps.jordan \
-    sensors.jordan \
-    lights.jordan \
-    libcamera \
-    libaudiopolicy \
-    bootmenu \
-    Usb
+	librs_jni \
+	tiwlan.ini \
+	dspexec \
+	Stk \
+	libbridge \
+	overlay.omap3 \
+	wlan_cu \
+	libtiOsLib \
+	wlan_loader \
+	libCustomWifi \
+	wpa_supplicant.conf \
+	dhcpcd.conf \
+	libOMX.TI.AAC.encode \
+	libOMX.TI.AAC.decode \
+	libOMX.TI.AMR.decode \
+	libOMX.TI.AMR.encode \
+	libOMX.TI.WBAMR.encode \
+	libOMX.TI.MP3.decode \
+	libOMX.TI.WBAMR.decode \
+	libOMX.TI.WMA.decode \
+	libOMX.TI.JPEG.Encoder \
+	libOMX.TI.Video.Decoder \
+	libOMX.TI.Video.encoder \
+	libVendor_ti_omx \
+	libLCML \
+	libOMX_Core \
+	gps.jordan \
+	sensors.jordan \
+	lights.jordan \
+	libcamera \
+	libaudiopolicy \
+	bootmenu \
+	Usb
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHD
@@ -126,31 +125,32 @@ PRODUCT_LOCALES := en_US
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-    device/motorola/jordan/vold.fstab:system/etc/vold.fstab\
-    device/motorola/jordan/apns-conf.xml:system/etc/apns-conf.xml
+	device/motorola/jordan/vold.fstab:system/etc/vold.fstab \
+	device/motorola/jordan/apns-conf.xml:system/etc/apns-conf.xml
 
 # copy all vendor (motorola) kernel modules to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
-    find vendor/motorola/jordan/lib/modules -name '*.ko' \
-    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-    | tr '\n' ' ')
+	find vendor/motorola/jordan/lib/modules -name '*.ko' \
+	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+	| tr '\n' ' ')
 
 # copy all others kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
-    find device/motorola/jordan/modules -name '*.ko' \
-    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-    | tr '\n' ' ')
+	find device/motorola/jordan/modules -name '*.ko' \
+	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+	| tr '\n' ' ')
 
 # Prebuilt boot.img
 LOCAL_KERNEL := device/motorola/jordan/kernel
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel 
+	$(LOCAL_KERNEL):kernel
 
 # media profiles and capabilities spec
 $(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
 $(call inherit-product, device/motorola/jordan/jordan-vendor.mk)
-# stuff common to all HTC phones
-#$(call inherit-product, device/htc/common/common.mk)
+
+# stuff common to all Motorola phones
+#$(call inherit-product, device/motorola/common/common.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 
