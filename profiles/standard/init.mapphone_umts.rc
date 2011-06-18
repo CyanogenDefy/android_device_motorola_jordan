@@ -454,7 +454,7 @@ service pppd /system/bin/pppd silent ipparam dun plugin /system/lib/libpppd_plug
     user root
     disabled
     oneshot
-service locDrv /system/usr/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
+service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
     class post-zygote_services
     user radio
     group radio inet sdcard_rw
