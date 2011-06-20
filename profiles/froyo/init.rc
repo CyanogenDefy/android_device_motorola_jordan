@@ -169,6 +169,7 @@ loglevel 3
     mkdir /data/app-private 0771 system system
     mkdir /data/app 0771 system system
     mkdir /data/property 0700 root root
+
     mkdir /data/dropbear 0755 root shell
 
     # create dalvik-cache and double-check the perms
