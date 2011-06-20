@@ -267,7 +267,8 @@ JordanCameraWrapper::getParameters() const
         /* the original zoom ratio string is '100,200,300,400,500,600',
            but 500 and 600 are broken for the SOC camera, so limiting
            it here */
-        ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400");
+        ret.set(CameraParameters::KEY_MAX_ZOOM, "4");
+        ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400,500");
     }
 
     return ret;
