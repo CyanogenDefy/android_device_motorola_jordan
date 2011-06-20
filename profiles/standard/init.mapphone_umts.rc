@@ -39,7 +39,7 @@ on post-fs
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
     write /sys/power/enable_abb_mode 1
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 2048  
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
 # Change ownership for vibrators
     chown system system /sys/class/timed_output/lvibrator/enable
     chown system system /sys/class/timed_output/vibrator/enable

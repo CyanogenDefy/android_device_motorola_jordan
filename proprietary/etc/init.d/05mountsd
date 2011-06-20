@@ -6,7 +6,7 @@ BB="busybox";
 
 if [ "$SD_EXT_DIRECTORY" = "" ];
 then
-    SD_EXT_DIRECTORY=/sd-ext;
+    SD_EXT_DIRECTORY=/mnt/sdcard-ext;
 fi;
 
 # find SD Card

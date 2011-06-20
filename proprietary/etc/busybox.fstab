@@ -7,6 +7,6 @@ rootfs			/		rootfs	ro,relatime
 
 tmpfs			/tmp		tmpfs	rw,relatime,size=2048k
 
-/dev/block/mmcblk0p1	/sdcard 	vfat	rw
-/dev/block/mmcblk0p2	/sd-ext 	ext3	rw,errors=continue
+/dev/block/mmcblk0p1	/mnt/sdcard 	vfat	rw,errors=continue
+/dev/block/mmcblk0p2	/mnt/sdcard-ext	ext3	rw,errors=continue
 

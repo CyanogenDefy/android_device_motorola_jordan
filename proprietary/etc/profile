@@ -6,14 +6,15 @@
 export TERM=linux
 
 SDCARD=/
-[ -d /sdcard ]     && SDCARD=/sdcard
-[ -d /sdcard-ext ] && SDCARD=/sdcard-ext
-[ -d /sd-ext ]     && SDCARD=/sd-ext
+
+[ -f /mnt/sdcard/.profile ]     && SDCARD=/sdcard
+[ -f /mnt/sdcard-ext/.profile ] && SDCARD=/sdcard-ext
+[ -f /sd-ext/.profile ]         && SDCARD=/sd-ext
 
 export ENV=$SDCARD/.profile
 export HOME=$SDCARD
 
 alias l='ls -al'
 
-alias findinfiles='find . -type f | grep -v "LOST.DIR" | xargs grep -insI '
+alias findinfiles='find . -type f | xargs grep -insI '
 

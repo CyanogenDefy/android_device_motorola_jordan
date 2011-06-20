@@ -15,7 +15,8 @@ loglevel 3
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_ALT_STORAGE /mnt/sdcard-ext      
+    export EXTERNAL_ALT_STORAGE /mnt/sdcard-ext
+    export SD_EXT_DIRECTORY /mnt/sdcard-ext
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
@@ -28,7 +29,7 @@ loglevel 3
 # create mountpoints
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/sdcard-ext 0000 system system      
+    mkdir /mnt/sdcard-ext 0000 system system
     symlink /data/tmp /tmp
 
 # Create cgroup mount point for cpu accounting
@@ -38,7 +39,7 @@ loglevel 3
 
 # Backwards Compat - XXX: Going away in G*
     symlink /mnt/sdcard /sdcard
-    symlink /mnt/sdcard-ext /sdcard-ext    
+    symlink /mnt/sdcard-ext /sdcard-ext
 
     mkdir /system
     mkdir /data 0771 system system
@@ -110,7 +111,7 @@ on post-fs
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
-   
+
     mkdir /data/dontpanic
     chown root log /data/dontpanic
     chmod 0750 /data/dontpanic
@@ -176,8 +177,10 @@ on post-fs
     mkdir /data/property 0700 root root
     mkdir /data/tmp 0777 system system
 
-    chown system system /mnt/sdcard      
-    chmod 0777 /mnt/sdcard               
+    mkdir /data/dropbear 0755 root shell
+
+    chown system system /mnt/sdcard
+    chmod 0777 /mnt/sdcard
 
     # create dalvik-cache and double-check the perms
     mkdir /data/dalvik-cache 0771 system system
