@@ -10,7 +10,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 
 echo 1 > /sys/class/leds/green/brightness
-usleep 500000
+usleep 100000
 echo 0 > /sys/class/leds/green/brightness
 
 
@@ -41,7 +41,7 @@ rm /sbin/busybox
 
 rm -f /rootsh
 
-ln -s /system/xbin/busybox /sbin/modprobe
+# ln -s /system/xbin/busybox /sbin/modprobe
 
 /system/bootmenu/binary/2nd-init
 

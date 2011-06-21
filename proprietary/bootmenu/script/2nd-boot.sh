@@ -1,7 +1,7 @@
 #!/sbin/sh
 
 ######## BootMenu Script
-######## Execute [2nd-boot] Menu
+######## Execute [2nd-boot] Menu (froyo alt 2nd-init)
 
 
 export PATH=/sbin:/system/xbin:/system/bin
@@ -10,7 +10,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 
 echo 1 > /sys/class/leds/red/brightness
-usleep 500000
+usleep 100000
 echo 0 > /sys/class/leds/red/brightness
 
 
@@ -41,7 +41,7 @@ rm /sbin/busybox
 
 rm -f /rootsh
 
-ln -s /system/xbin/busybox /sbin/modprobe
+# ln -s /system/xbin/busybox /sbin/modprobe
 
 /system/bootmenu/binary/2nd-boot
 

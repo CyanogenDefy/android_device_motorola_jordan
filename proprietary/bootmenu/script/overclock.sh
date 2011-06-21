@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-######## BootMenu Script v0.8.0
+######## BootMenu Script
 ######## Overclock.sh
 
 export PATH=/sbin:/system/xbin:/system/bin

@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-######## BootMenu Script v0.8.6
+######## BootMenu Script
 ######## Execute Pre BootMenu
 
 

@@ -1,6 +1,6 @@
 #!/sbin/sh
 
-######## BootMenu Script v0.8.6
+######## BootMenu Script
 ######## Execute Post BootMenu
 
 
@@ -25,6 +25,21 @@ run-parts /system/bootmenu/init.d/
 
 # normal cleanup here (need fix in recovery first)
 # ...
+
+
+# fast button warning (to check when script is really used)
+echo 1 > /sys/class/leds/button-backlight/brightness
+usleep 50000
+echo 0 > /sys/class/leds/button-backlight/brightness
+usleep 50000
+echo 1 > /sys/class/leds/button-backlight/brightness
+usleep 50000
+echo 0 > /sys/class/leds/button-backlight/brightness
+usleep 50000
+echo 1 > /sys/class/leds/button-backlight/brightness
+usleep 50000
+echo 0 > /sys/class/leds/button-backlight/brightness
+
 
 ######## Don't Delete.... ########################
 mount -o remount,ro rootfs /
