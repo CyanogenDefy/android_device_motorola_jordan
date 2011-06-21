@@ -18,7 +18,7 @@ ifb.ko:
 em_u32.ko:
 dummy.ko:
 cls_u32.ko:
-cifs.ko:
+cifs.ko: nls_utf8.ko
 act_police.ko:
 act_mirred.ko:
 act_gact.ko:
