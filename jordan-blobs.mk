@@ -98,7 +98,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/proprietary/bootmenu/script/recovery.sh:system/bootmenu/script/recovery.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/recovery_stable.sh:system/bootmenu/script/recovery_stable.sh \
 	device/motorola/jordan/proprietary/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \
-	device/motorola/jordan/proprietary/bootmenu/script/unroot.sh:system/bootmenu/script/unroot.sh \
 	device/motorola/jordan/proprietary/bootmenu/ext/modules/cpufreq_conservative.ko:system/bootmenu/ext/modules/cpufreq_conservative.ko \
 	device/motorola/jordan/proprietary/bootmenu/ext/modules/cpufreq_interactive.ko:system/bootmenu/ext/modules/cpufreq_interactive.ko \
 	device/motorola/jordan/proprietary/bootmenu/ext/modules/cpufreq_ondemand.ko:system/bootmenu/ext/modules/cpufreq_ondemand.ko \
