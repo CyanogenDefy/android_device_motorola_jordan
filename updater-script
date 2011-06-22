@@ -83,6 +83,8 @@ symlink("toolbox", "/system/bin/cat", "/system/bin/cmp",
         "/system/bin/sync", "/system/bin/top", "/system/bin/uptime",
         "/system/bin/vmstat", "/system/bin/watchprops",
         "/system/bin/wipe");
+symlink("iwmulticall","/system/xbin/iwconfig","/system/xbin/iwlist",
+        "/system/xbin/iwpriv", "/system/xbin/iwspy", "/system/xbin/iwgetid");
 symlink("bootmenu", "/system/bin/logwrapper");
 symlink("logwrapper.bin","/system/xbin/logwrapper","/system/xbin/logwrapper.bin");
 package_extract_file("system/bin/bootmenu", "/system/bootmenu/binary/bootmenu");

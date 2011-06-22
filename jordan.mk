@@ -101,6 +101,7 @@ PRODUCT_PACKAGES += \
 	lights.jordan \
 	libcamera \
 	libaudiopolicy \
+	iwmulticall \
 	bootmenu \
 	Usb
 
