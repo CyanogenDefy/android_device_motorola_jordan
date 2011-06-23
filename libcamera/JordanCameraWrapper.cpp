@@ -16,6 +16,7 @@
 
 #define LOG_TAG "JordanCameraWrapper"
 
+#include <cmath>
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <linux/videodev2.h>
@@ -249,11 +250,25 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
     CameraParameters pars(params.flatten());
     int width, height;
+    char buf[10];
 
     pars.getPreviewSize(&width, &height);
     if (width == 848 && height == 480) {
         pars.setPreviewFrameRate(24);
     }
+
+    float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
+    /* exposure-compensation comes multiplied in the -9...9 range, while
+       we need it in the -3...3 range -> adjust for that */
+    exposure /= 3;
+
+    /* format the setting in a way the lib understands */
+    bool even = (exposure - round(exposure)) < 0.05;
+    snprintf(buf, sizeof(buf), even ? "%.0f" : "%.2f", exposure);
+    pars.set("mot-exposure-offset", buf);
+
+    /* kill off the original setting */
+    pars.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
 
     return mMotoInterface->setParameters(pars);
 }
@@ -270,6 +285,18 @@ JordanCameraWrapper::getParameters() const
         ret.set(CameraParameters::KEY_MAX_ZOOM, "3");
         ret.set(CameraParameters::KEY_ZOOM_RATIOS, "100,200,300,400");
     }
+
+    /* Motorola uses mot-exposure-offset instead of exposure-compensation
+       for whatever reason -> adapt the values.
+       The limits used here are taken from the lib, we surely also
+       could parse it, but it's likely not worth the hassle */
+    float exposure = ret.getFloat("mot-exposure-offset");
+    int exposureParam = (int) round(exposure * 3);
+
+    ret.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, exposureParam);
+    ret.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "9");
+    ret.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-9");
+    ret.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.3333333333333");
 
     return ret;
 }

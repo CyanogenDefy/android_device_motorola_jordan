@@ -44,8 +44,8 @@ public:
     static    sp<CameraHardwareInterface> createInstance(int cameraId);
 
 private:
-                        JordanCameraWrapper(int CameraId);
-    virtual             ~JordanCameraWrapper();
+            JordanCameraWrapper(int CameraId);
+    virtual ~JordanCameraWrapper();
 
     sp<CameraHardwareInterface> mMotoInterface;
 
@@ -56,6 +56,7 @@ private:
     } mCameraType;
 
     static wp<CameraHardwareInterface> singleton;
+
 };
 
 }; // namespace android
