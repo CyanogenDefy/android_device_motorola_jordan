@@ -101,14 +101,14 @@ on post-fs
     # double check the perms, in case lost+found already exists, and set owner
     chown root root /pds/lost+found
     chmod 0770 /pds/lost+found
-    #Create location directory
+    # create location directory
     mkdir /data/location 0771 radio radio
     #Create opprof directory
     mkdir /data/opprof 0770 radio shell
-    # Create anr directory and change permission to 777 to save trace.txt
+    # create anr directory and change permission to 777 to save trace.txt
     mkdir /data/anr
     chmod 0777 /data/anr
-# create the necessary dirs for tpapi with proper permission
+    # create the necessary dirs for tpapi with proper permission
     mkdir /pds/security
     mkdir /data/tpapi
     mkdir /data/tpapi/etc
@@ -129,9 +129,11 @@ on post-fs
     mkdir /pds/wmdrm 0775 mot_drm mot_drm
     # Temp workaround for HP library cleanup
     symlink /dev/hp3a-omap /dev/hp3A-omap
+
     # Enable ADB mode
-    # write /dev/usb_device_mode msc_adb
-# Permissions for video
+    #  write /dev/usb_device_mode msc_adb
+
+    # Permissions for video
     chmod 0770 /dev/hp3a-omap
     chmod 0770 /dev/hplens-omap
     chmod 0770 /dev/video0
@@ -142,11 +144,12 @@ on post-fs
     chown media camera /dev/video0
     chown media graphics /dev/video1
     chown media graphics /dev/video2
+
     mount rootfs rootfs / ro remount
 
 # Install kernel modules
 # Install BP related kernel modules
-    #Start the engine modules for netmux first for other daemons depends on it
+    # Start the engine modules for netmux first for other daemons depends on it
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/modem_pm_driver.ko
@@ -179,7 +182,7 @@ on early-boot
 on boot
 # Overwrite what init.rc selected for the memory killer params to match above.
     write /sys/module/lowmemorykiller/parameters/minfree 2464,3712,5632,7392,8608,9856
-\
+
 # Change the ownership of led files.
    chown system system /sys/class/leds/lcd-backlight/als
    chown system system /sys/class/leds/lcd-backlight/pwm_mode
@@ -351,7 +354,7 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     group bluetooth net_bt_admin
     disabled
     oneshot
-#service tcmd /system/bin/tcmd
+# service tcmd /system/bin/tcmd
 #    class post-zygote_services
 #    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin
 #    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
@@ -394,10 +397,10 @@ on property:tcmd.bt_mod=1
     stop hciattach
     stop hciattach_rfmd
     insmod /system/lib/modules/wl127x_test.ko
-#turn off bluetooth for tcmd
+# turn off bluetooth for tcmd
 on property:tcmd.bt_mod=0
     exec /system/bin/rmmod wl127x_test
-#execute tcmdhelp
+# execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
 service panic_daemon /system/bin/panic_daemon
