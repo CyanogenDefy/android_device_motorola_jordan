@@ -127,7 +127,7 @@ show_progress(0.100000, 5);
 #assert(package_extract_file("boot.img", "/tmp/boot.img"),
 #       write_raw_image("/tmp/boot.img", "/dev/block/mmcblk1p15"),
 #       delete("/tmp/boot.img"));
-#assert(package_extract_file("devtree.smg", "/tmp/devtree.img"),
+#assert(package_extract_file("devtree.img", "/tmp/devtree.img"),
 #       write_raw_image("/tmp/devtree.img", "/dev/block/mmcblk1p12"),
 #       delete("/tmp/devtree.img"));
 #unmount("/system");
