@@ -188,7 +188,7 @@ if [ -e $CONFIG_FILE ]; then
   if [ $enable -eq 1 ]; then
     get_address
     install_module
-	set_scaling	
+    set_scaling
     set_overclock_table
     #set_scaling_range
   fi
