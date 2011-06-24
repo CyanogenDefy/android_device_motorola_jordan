@@ -4,13 +4,11 @@
 ######## Overclock.sh
 
 export PATH=/sbin:/system/xbin:/system/bin
-chmod 666 "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
-chmod 666 "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
 CONFIG_FILE="/system/bootmenu/config/overclock.conf"
 MODULE_DIR="/system/bootmenu/ext/modules"
 SCALING_GOVERNOR="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
-SCALING_MIN="/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-SCALING_MAX="/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+#SCALING_MIN="/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+#SCALING_MAX="/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 
 #############################################################
 # Parameters Load
@@ -67,18 +65,17 @@ install_module()
 {
   # load module
   insmod $MODULE_DIR/overclock_defy.ko omap2_clk_init_cpufreq_table_addr=0x$cpufreq_table
-  # set cpufreq_stats_update_addr
+  #set cpufreq_stats_update_addr
   echo 0x$stats_update > /proc/overclock/cpufreq_stats_update_addr
-
   if [ $load_all -eq 1 ]; then
-    insmod $MODULE_DIR/cpufreq_ondemand.ko
-    insmod $MODULE_DIR/cpufreq_performance.ko
     insmod $MODULE_DIR/cpufreq_conservative.ko
     insmod $MODULE_DIR/cpufreq_interactive.ko nr_running_addr=0x$nr_running
-    insmod $MODULE_DIR/cpufreq_powersave.ko
     insmod $MODULE_DIR/symsearch.ko
     insmod $MODULE_DIR/cpufreq_smartass.ko
-    insmod $MODULE_DIR/cpufreq_userspace.ko
+    insmod $MODULE_DIR/cpufreq_powersave.ko
+    #insmod $MODULE_DIR/cpufreq_userspace.ko
+    #insmod $MODULE_DIR/cpufreq_ondemand.ko
+    #insmod $MODULE_DIR/cpufreq_performance.ko
   fi
 }
 
@@ -110,7 +107,7 @@ set_scaling()
     ;;
     "2" )
       if [ $load_all -eq 0 ]; then
-        insmod $MODULE_DIR/cpufreq_ondemand.ko
+      #  insmod $MODULE_DIR/cpufreq_ondemand.ko
       fi
       echo "ondemand" > $SCALING_GOVERNOR
 
@@ -119,7 +116,7 @@ set_scaling()
     ;;
     "3" )
       if [ $load_all -eq 0 ]; then
-        insmod $MODULE_DIR/cpufreq_performance.ko
+      #  insmod $MODULE_DIR/cpufreq_performance.ko
       fi
       echo "performance" > $SCALING_GOVERNOR
     ;;
@@ -162,25 +159,25 @@ set_scaling()
 
 set_overclock_table()
 {
-
+  echo "$vsel3" > /proc/overclock/max_vsel
+  echo "${clk3}000" > /proc/overclock/max_rate
   echo "3 ${clk3}000000 $vsel3" > /proc/overclock/mpu_opps
   echo "2 ${clk2}000000 $vsel2" > /proc/overclock/mpu_opps
   echo "1 ${clk1}000000 $vsel1" > /proc/overclock/mpu_opps
   echo "0 ${clk3}000" > /proc/overclock/freq_table
   echo "1 ${clk2}000" > /proc/overclock/freq_table
   echo "2 ${clk1}000" > /proc/overclock/freq_table
-
 }
 
 #############################################################
 # Set Scaling Range
 #############################################################
 
-set_scaling_range()
-{
-  echo "${clk1}000" > $SCALING_MIN
-  echo "${clk3}000" > $SCALING_MAX
-}
+#set_scaling_range()
+#{
+#  echo "${clk1}000" > $SCALING_MIN
+#  echo "${clk3}000" > $SCALING_MAX
+#}
 
 #############################################################
 # Main Scrpit
@@ -191,8 +188,8 @@ if [ -e $CONFIG_FILE ]; then
   if [ $enable -eq 1 ]; then
     get_address
     install_module
+	set_scaling	
     set_overclock_table
-    set_scaling_range
-    set_scaling
+    #set_scaling_range
   fi
 fi
