@@ -122,8 +122,7 @@ PRODUCT_LOCALES := en_US
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/vold.fstab:system/etc/vold.fstab \
-	device/motorola/jordan/apns-conf.xml:system/etc/apns-conf.xml
+	device/motorola/jordan/vold.fstab:system/etc/vold.fstab
 
 # copy all vendor (motorola) kernel modules to system/lib/modules
 PRODUCT_COPY_FILES += $(shell \
