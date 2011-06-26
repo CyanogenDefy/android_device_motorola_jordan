@@ -39,10 +39,6 @@ done
 
 rm /sbin/busybox
 
-rm -f /rootsh
-
-# ln -s /system/xbin/busybox /sbin/modprobe
-
 /system/bootmenu/binary/2nd-boot
 
 exit

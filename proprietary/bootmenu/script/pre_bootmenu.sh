@@ -45,15 +45,11 @@ chown 0.0 /sbin/adbd.root
 ## 2nd-boot menu option for alternative "2nd-init" (new kernels)
 #cp /system/bootmenu/2nd-init/* /system/bootmenu/2nd-boot/
 
-## rootsh create.
-
-cp -f /system/bin/sh /rootsh
-chown 0.0 /rootsh
-chmod 6755 /rootsh
-
 ## missing system files
 
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
+
+rm /d
 
 ## /default.prop replace..
 
