@@ -35,8 +35,8 @@ SCALING_GOVERNOR="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 # smt_max_cpu_load 80
 # smt_awake_min_freq 0
 # smt_sleep_max_freq 250000
-# smt_up_min_freq 1200000
-# smt_wakeup_freq 1200000
+# smt_up_min_freq 1000000
+# smt_wakeup_freq 1000000
 # smt_ramp_up_step 250000
 
 param_load()

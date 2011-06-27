@@ -34,7 +34,7 @@ cp -r -f /system/bootmenu/recovery/res/* /res/
 cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
-chmod 755 /sbin/*
+chmod +rx /sbin/*
 
 rm -f /sbin/postrecoveryboot.sh
 
@@ -70,9 +70,7 @@ fi
 
 #############################
 # mount in /sbin/postrecoveryboot.sh
-umount -l /system
-#umount -l /data
-#umount -l /cache
+umount /system
 
 usleep 50000
 mount -t ext3 -o rw,noatime,nodiratime /dev/block/mmcblk1p21 /system

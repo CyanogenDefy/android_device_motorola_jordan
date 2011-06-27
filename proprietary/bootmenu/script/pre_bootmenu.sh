@@ -20,8 +20,10 @@ cp -f /system/bootmenu/recovery/sbin/recovery $BUSYBOX
 cp -f /system/bootmenu/binary/lsof /sbin/lsof
 
 chmod 755 /sbin
+chmod 755 $BUSYBOX
 $BUSYBOX chown 0.0 $BUSYBOX
 $BUSYBOX chmod 4755 $BUSYBOX
+$BUSYBOX chmod +rx /sbin/*
 
 # busybox sym link..
 
@@ -34,22 +36,14 @@ busybox chmod -R +x /sbin
 # replace /sbin/adbd..
 
 cp -f /system/bootmenu/binary/adbd /sbin/adbd.root
-busybox chmod 4755 /sbin/adbd.root
+chmod 4755 /sbin/adbd.root
 chown 0.0 /sbin/adbd.root
 
-
-# disable some busybox applets we dont want
-[ -f /sbin/reboot ] && rm /sbin/reboot
-
-
-## 2nd-boot menu option for alternative "2nd-init" (new kernels)
-#cp /system/bootmenu/2nd-init/* /system/bootmenu/2nd-boot/
 
 ## missing system files
 
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
 
-rm /d
 
 ## /default.prop replace..
 
