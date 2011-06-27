@@ -18,6 +18,7 @@ lib/modules/tiwlan_drv.ko
 lib/modules/vpnclient.ko
 lib/modules/wl127x_test.ko
 bootmenu/config/overclock.conf
+bootmenu/binary/2nd-init
 etc/motorola/bp_nvm_default/File_GSM
 etc/motorola/bp_nvm_default/File_GPRS
 etc/motorola/bp_nvm_default/File_UMA
