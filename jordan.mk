@@ -96,7 +96,6 @@ PRODUCT_PACKAGES += \
 	libVendor_ti_omx \
 	libLCML \
 	libOMX_Core \
-	gps.jordan \
 	sensors.jordan \
 	lights.jordan \
 	libcamera \
