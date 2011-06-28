@@ -24,12 +24,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/recovery.fstab:system/etc/recovery.fstab \
 	device/motorola/jordan/proprietary/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
-	device/motorola/jordan/proprietary/etc/custom_backup_list.txt:system/etc/custom_backup_list.txt \
 	device/motorola/jordan/proprietary/etc/profile:system/etc/profile \
 	device/motorola/jordan/proprietary/etc/sysctl.conf:system/etc/sysctl.conf \
 	device/motorola/jordan/proprietary/etc/busybox.fstab:system/etc/fstab \
 	device/motorola/jordan/proprietary/lib/modules/modules.alias:system/lib/modules/modules.alias \
 	device/motorola/jordan/proprietary/lib/modules/modules.dep:system/lib/modules/modules.dep
+
+ifdef CYANOGEN_RELEASE
+        PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_release.txt:system/etc/custom_backup_list.txt
+else
+	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_list.txt:system/etc/custom_backup_list.txt
+endif
 
 #app
 PRODUCT_COPY_FILES += \
