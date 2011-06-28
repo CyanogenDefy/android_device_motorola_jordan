@@ -5,16 +5,15 @@
 
 export TERM=linux
 
-SDCARD=/
+HOME=/
 
-[ -f /mnt/sdcard/.profile ]     && SDCARD=/sdcard
-[ -f /mnt/sdcard-ext/.profile ] && SDCARD=/sdcard-ext
-[ -f /sd-ext/.profile ]         && SDCARD=/sd-ext
+[ -f /mnt/sdcard/.profile ]     && HOME=/sdcard
+[ -f /mnt/sdcard-ext/.profile ] && HOME=/sdcard-ext
+[ -f /sd-ext/.profile ]         && HOME=/sd-ext
 
-export ENV=$SDCARD/.profile
-export HOME=$SDCARD
+export ENV=$HOME/.profile
+export HOME
 
 alias l='ls -al'
 
 alias findinfiles='find . -type f | xargs grep -insI '
-

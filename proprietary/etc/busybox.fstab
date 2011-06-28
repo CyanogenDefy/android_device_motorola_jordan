@@ -1,12 +1,14 @@
-<file system>      	<mount point>   <type>  <options>
+# static file system information for automatic busybox mount
+# <file system>         <mount point>     <type>    <options>                      <dump> <pass>
 
-rootfs			/		rootfs	ro,relatime
-/dev/block/system	/system         ext3    rw
-/dev/block/cache	/cache		ext3	rw
-/dev/block/userdata	/data		ext3	rw,nosuid,noatime,errors=continue
-
-tmpfs			/tmp		tmpfs	rw,relatime,size=2048k
-
-/dev/block/mmcblk0p1	/mnt/sdcard 	vfat	rw,errors=continue
-/dev/block/mmcblk0p2	/mnt/sdcard-ext	ext3	rw,errors=continue
-
+rootfs                  /                 rootfs    ro,relatime                         0      0
+/dev/block/system       /system           ext3      ro,noatime,errors=continue          0      0
+/dev/block/userdata     /data             ext3      rw,nosuid,noatime,errors=continue   0      0
+/dev/block/cache        /cache            ext3      rw,noatime,errors=continue          0      0
+/dev/block/pds          /pds              ext3      ro,nosuid,noatime,errors=continue   0      0
+/dev/block/cdrom        /cdrom            iso9660   ro                                  0      0
+                                                    
+tmpfs                   /tmp              tmpfs     rw,relatime,size=2048k              0      0
+                                                    
+/dev/block/mmcblk0p1    /mnt/sdcard       vfat      rw,noatime,errors=continue          0      0
+/dev/block/mmcblk0p2    /mnt/sdcard-ext   ext3      rw,noatime,errors=continue          0      0
