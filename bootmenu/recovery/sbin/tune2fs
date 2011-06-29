@@ -14,12 +14,6 @@ for arg in $*; do
   elif [ $arg == "/dev/block/mmcblk1p25" ] || [ $arg == "/dev/block/userdata" ]; then
     $0.bin -C 1 $arg
     exit $?
-
-# Allow cache format, system can works without that (dalvik is in data)
-#  elif [ $arg == "/dev/block/mmcblk1p24" ] || [ $arg == "/dev/block/cache" ]; then
-#    $0.bin -C 1 $arg
-#    exit $?
-
   fi
 done
 

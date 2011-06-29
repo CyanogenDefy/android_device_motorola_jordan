@@ -27,14 +27,6 @@ for arg in $*; do
     mount -o remount,ro $arg
     exit $?
 
-# Allow cache format, system can works without that (dalvik is in data)
-#  elif [ $arg == "/dev/block/mmcblk1p24" ] || [ $arg == "/dev/block/cache" ]; then
-#    mount $arg /cache
-#    rm -rf /cache/*
-#    mkdir /cache/lost+found
-#    umount $arg
-#    exit $?
-
   fi
 done
 
