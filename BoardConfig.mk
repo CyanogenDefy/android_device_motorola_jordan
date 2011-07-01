@@ -44,16 +44,21 @@ COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3
 
 # Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
-WPA_SUPPLICANT_VERSION      := VER_0_6_X
 BOARD_WLAN_DEVICE           := wl1271
+WPA_SUPPLICANT_VERSION      := VER_0_6_X
+BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := tiwlan_drv
+WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1271.bin"
 WIFI_FIRMWARE_LOADER        := wlan_loader
 PRODUCT_WIRELESS_TOOLS      := true
+BOARD_SOFTAP_DEVICE         := wl1271
+AP_CONFIG_DRIVER_WILINK     := true
+WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_tiwlan_ap.bin"
 
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
+BOARD_CUSTOM_USB_CONTROLLER := ../../device/motorola/jordan/UsbController.cpp
 
 BOARD_HAVE_BLUETOOTH := true
 
@@ -66,6 +71,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 HARDWARE_OMX := true
 BUILD_WITH_TI_AUDIO := 1
 BUILD_PV_VIDEO_ENCODERS := 1
+BUILD_JPEG_DECODER := 1
+BUILD_JPEG_ENCODER := 1
 
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_NO_RGBX_8888 := true
@@ -73,10 +80,6 @@ BOARD_NO_RGBX_8888 := true
 
 # Changes related to bootmenu
 BOARD_USES_BOOTMENU := true
-
-# Keep old variables until system core patch is merged
-TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
-TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
@@ -95,10 +98,10 @@ TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 # In nighly builds only
 ifndef CYANOGEN_RELEASE
 
-BOARD_HAVE_FM_RADIO := true
-BOARD_FM_DEVICE := wl1271
-TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
+#BOARD_HAVE_FM_RADIO := true
+#BOARD_FM_DEVICE := wl1271
+#TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+#TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
 
 endif
 

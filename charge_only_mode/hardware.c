@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Copyright (c) 2008-2009, Motorola, Inc.
+Copyright (c) 2008-2011, Motorola, Inc.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -37,7 +37,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
- 
+
 /* Constants from frameworks/base/core/java/android/os/Power.java */
 
 #define BRIGHTNESS_OFF 0
@@ -53,8 +53,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* Charging - orange solid on */
 #define CHARGING_ARGB 0xFFFFFF00
-#define CHARGING_ON 0
-#define CHARGING_OFF 0
+#define CHARGING_ON 1
+#define CHARGING_OFF 1
 
 /* Charging Full - green solid on */
 #define CHARGING_FULL_ARGB 0xFF00FF00
@@ -63,84 +63,93 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static int sys_get_int_parameter(const char *path, int missing_value)
 {
-	char s[1024];
-	int r;
-	int fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return missing_value;
-	r = read(fd, s, sizeof(s) - 1);
-	close(fd);
-	if (r < 0)
-		return missing_value;
-	s[r] = 0;
-	return atoi(s);
+    char s[1024];
+    int r;
+    int fd = open(path, O_RDONLY);
+    if (fd < 0)
+        return missing_value;
+    r = read(fd, s, sizeof(s) - 1);
+    close(fd);
+    if (r < 0)
+        return missing_value;
+    s[r] = 0;
+    return atoi(s);
 }
 
 static int sys_get_string_parameter(const char *path, char *s, int size)
 {
-	int r;
-	int fd = open(path, O_RDONLY);
-	s[0] = 0;
-	if (fd < 0)
-		return 0;
-	r = read(fd, s, size - 1);
-	close(fd);
-	if (r >= 0)
-		s[r] = 0;
-	return r;
+    int r;
+    int fd = open(path, O_RDONLY);
+    s[0] = 0;
+    if (fd < 0)
+        return 0;
+    r = read(fd, s, size - 1);
+    close(fd);
+    if (r >= 0)
+        s[r] = 0;
+    return r;
 }
 
 int is_plugged_into_ac()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/ac/online", 0);
+    return sys_get_int_parameter("/sys/class/power_supply/ac/online", 0);
 }
 
 int is_plugged_into_usb()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/usb/online", 0);
+    return sys_get_int_parameter("/sys/class/power_supply/usb/online", 0);
 }
 
 int is_battery_present()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/battery/present", 0);
+    return sys_get_int_parameter("/sys/class/power_supply/battery/present", 0);
 }
 
 int is_charging()
 {
-	char status[128];
-	if (sys_get_string_parameter("/sys/class/power_supply/battery/status", status, sizeof(status)) < 0)
-		return 0;
-	return (strncmp(status, "Charging", 8) == 0)? 1 : 0;
+    char status[128];
+    if (sys_get_string_parameter("/sys/class/power_supply/battery/status", status, sizeof(status)) < 0)
+        return 0;
+    return (strncmp(status, "Charging", 8) == 0)? 1 : 0;
 
 }
 
 int is_unknown()
 {
-	char status[128];
-	if (sys_get_string_parameter("/sys/class/power_supply/battery/status", status, sizeof(status)) < 0)
-		return 0;
-	return (strncmp(status, "Unknown", 7) == 0) ? 1 : 0;
+    char status[128];
+    if (sys_get_string_parameter("/sys/class/power_supply/battery/status", status, sizeof(status)) < 0)
+        return 0;
+    return (strncmp(status, "Unknown", 7) == 0) ? 1 : 0;
 }
 
 int charge_level()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/battery/capacity", 0);
+    int value;
+    value = sys_get_int_parameter("/sys/class/power_supply/battery/charge_counter", 0);
+    if (!value)
+        value = sys_get_int_parameter("/sys/class/power_supply/battery/capacity", 0);
+    if (value < 0) {
+        value = 0;
+    } else if (value > 100) {
+        value = 100;
+    }
+    return value;
 }
 
 int voltage_level()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/battery/voltage_now", 0);
+    return sys_get_int_parameter("/sys/class/power_supply/battery/voltage_now", 0);
 }
 
 void get_device_state(struct device_state *s)
 {
-	s->is_plugged_into_ac = is_plugged_into_ac();
-	s->is_plugged_into_usb = is_plugged_into_usb();
-	s->is_battery_present = is_battery_present();
-	s->is_charging = is_charging();
-	s->is_unknown = is_unknown();
-	s->charge_level = charge_level();
-	s->voltage_level = voltage_level();
+    s->is_plugged_into_ac = is_plugged_into_ac();
+    s->is_plugged_into_usb = is_plugged_into_usb();
+    s->is_battery_present = is_battery_present();
+    s->is_charging = is_charging();
+    s->is_unknown = is_unknown();
+    s->charge_level = charge_level();
+    s->voltage_level = voltage_level();
 }
 
 const char* const RED_BRIGHTNESS_FILE = "/sys/class/leds/red/brightness";
@@ -151,18 +160,18 @@ static int write_string(const char* file, const char* string, int len)
 {
     int fd;
     ssize_t amt;
- 
+
     fd = open(file, O_RDWR);
     if (fd < 0) {
-        LOGD("%s open failed: %d\n", file, errno);
+    LOGD("%s open failed: %d\n", file, errno);
         return errno;
     }
- 
+
     amt = write(fd, string, len);
     if (amt < 0) {
         LOGD("%s write failed: %d\n", file, errno);
     }
- 
+
     close(fd);
     return amt >= 0 ? 0 : errno;
 }
@@ -173,72 +182,71 @@ static int __set_led_state(unsigned color, int on, int off)
     char buf[30];
     int alpha, red, green;
     int blink;
-    
+
     LOGD("set_led_state color=%08X, on=%d, off=%d\n", color, on, off);
-    
+
     /* alpha of 0 or color of 0 means off*/
     if ((color & 0xff000000) == 0 || (color & 0x00ffffff) == 0) {
         on = 0;
         off = 0;
     }
- 
 
-    if (on > 0 && off > 0) 
-    {        
+    if (on > 0 && off > 0)
+    {
         blink = 1;
         /* set lights and then set blink - on */
         red = (color >> 16) & 0xFF;
         green = (color >> 8) & 0xFF;
- 
+
         len = sprintf(buf, "%d", red);
         write_string(RED_BRIGHTNESS_FILE, buf, len);
         len = sprintf(buf, "%d", green);
         write_string(GREEN_BRIGHTNESS_FILE, buf, len);
- 
+
         len = sprintf(buf, "%d", blink);
         write_string(BLINK_ENABLE_FILE, buf, len);
-    } 
-    else 
+    }
+    else
     {
         blink = 0;
         /* set blink and then set light - off */
         len = sprintf(buf, "%d", blink);
         write_string(BLINK_ENABLE_FILE, buf, len);
- 
+
         red = (color >> 16) & 0xFF;
         green = (color >> 8) & 0xFF;
- 
-	len = sprintf(buf, "%d", red);
+
+        len = sprintf(buf, "%d", red);
         write_string(RED_BRIGHTNESS_FILE, buf, len);
         len = sprintf(buf, "%d", green);
         write_string(GREEN_BRIGHTNESS_FILE, buf, len);
     }
 
-	return 0;
+    return 0;
 }
 
 void set_battery_led(struct device_state *s)
 {
-	if (s->charge_level < LOW_BATTERY_THRESHOLD)
-		__set_led_state(CHARGING_LOW_ARGB,CHARGING_LOW_ON,CHARGING_LOW_OFF);
-	else if (s->charge_level < 100)
-		__set_led_state(CHARGING_ARGB,CHARGING_ON,CHARGING_OFF);
-	else
-		__set_led_state(CHARGING_FULL_ARGB,CHARGING_FULL_ON,CHARGING_FULL_OFF);
+    if (s->charge_level < LOW_BATTERY_THRESHOLD)
+        __set_led_state(CHARGING_LOW_ARGB,CHARGING_LOW_ON,CHARGING_LOW_OFF);
+    else if (s->charge_level < 100)
+        __set_led_state(CHARGING_ARGB,CHARGING_ON,CHARGING_OFF);
+    else
+        __set_led_state(CHARGING_FULL_ARGB,CHARGING_FULL_ON,CHARGING_FULL_OFF);
 
 }
 
 void set_brightness(float percent)
 {
-	int fd, n;
-	char b[20];
+    int fd, n;
+    char b[20];
 
-        LOGD("set_brightness: %f\n", percent);
-	fd = open("/sys/class/leds/lcd-backlight/brightness", O_RDWR);
-	if (fd < 0)
-		return;
-	n = sprintf(b, "%d\n", (int)(255*percent));
-	write(fd, b, n);
-	close(fd);
+    LOGD("set_brightness: %f\n", percent);
+    fd = open("/sys/class/leds/lcd-backlight/brightness", O_RDWR);
+    if (fd < 0)
+        return;
+    n = sprintf(b, "%d\n", (int)(255*percent));
+    write(fd, b, n);
+    close(fd);
 }
 

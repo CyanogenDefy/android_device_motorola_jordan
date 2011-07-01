@@ -7,8 +7,6 @@ export PATH=/sbin:/system/xbin:/system/bin
 CONFIG_FILE="/system/bootmenu/config/overclock.conf"
 MODULE_DIR="/system/bootmenu/ext/modules"
 SCALING_GOVERNOR="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
-#SCALING_MIN="/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-#SCALING_MAX="/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 
 #############################################################
 # Parameters Load
@@ -21,8 +19,8 @@ SCALING_GOVERNOR="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 # clk1 300
 # clk2 600
 # clk3 1000
-# vsel1 33
-# vsel2 48
+# vsel1 30
+# vsel2 46
 # vsel3 58
 # con_up_threshold 80
 # con_down_threshold 20
@@ -73,9 +71,6 @@ install_module()
     insmod $MODULE_DIR/symsearch.ko
     insmod $MODULE_DIR/cpufreq_smartass.ko
     insmod $MODULE_DIR/cpufreq_powersave.ko
-    #insmod $MODULE_DIR/cpufreq_userspace.ko
-    #insmod $MODULE_DIR/cpufreq_ondemand.ko
-    #insmod $MODULE_DIR/cpufreq_performance.ko
   fi
 }
 
@@ -91,7 +86,6 @@ set_scaling()
         insmod $MODULE_DIR/cpufreq_conservative.ko
       fi
       echo "conservative" > $SCALING_GOVERNOR
-
       echo $con_sampling_rate > /sys/devices/system/cpu/cpu0/cpufreq/conservative/sampling_rate
       echo $con_freq_step > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step
       echo $con_up_threshold > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold
@@ -102,22 +96,14 @@ set_scaling()
         insmod $MODULE_DIR/cpufreq_interactive.ko nr_running_addr=0x$nr_running
       fi
       echo "interactive" > $SCALING_GOVERNOR
-
       echo $int_min_sample_rate > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
     ;;
     "2" )
-      if [ $load_all -eq 0 ]; then
-      #  insmod $MODULE_DIR/cpufreq_ondemand.ko
-      fi
       echo "ondemand" > $SCALING_GOVERNOR
-
       echo $ond_sampling_rate > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
       echo $ond_up_threshold > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold
     ;;
     "3" )
-      if [ $load_all -eq 0 ]; then
-      #  insmod $MODULE_DIR/cpufreq_performance.ko
-      fi
       echo "performance" > $SCALING_GOVERNOR
     ;;
     "4" )
@@ -132,7 +118,6 @@ set_scaling()
         insmod $MODULE_DIR/cpufreq_smartass.ko
       fi
       echo "smartass" > $SCALING_GOVERNOR
-
       echo $smt_min_cpu_load > /sys/devices/system/cpu/cpu0/cpufreq/smartass/min_cpu_load
       echo $smt_max_cpu_load > /sys/devices/system/cpu/cpu0/cpufreq/smartass/max_cpu_load
       echo $smt_awake_min_freq > /sys/devices/system/cpu/cpu0/cpufreq/smartass/awake_min_freq
@@ -143,12 +128,11 @@ set_scaling()
     ;;
     "6" )
       if [ $load_all -eq 0 ]; then
-        insmod $MODULE_DIR/cpufreq_powersave.ko
+        insmod $MODULE_DIR/cpufreq_userspace.ko
       fi
       echo "userspace" > $SCALING_GOVERNOR
     ;;
      * )
-
     ;;
   esac
 }
@@ -170,16 +154,6 @@ set_overclock_table()
 }
 
 #############################################################
-# Set Scaling Range
-#############################################################
-
-#set_scaling_range()
-#{
-#  echo "${clk1}000" > $SCALING_MIN
-#  echo "${clk3}000" > $SCALING_MAX
-#}
-
-#############################################################
 # Main Scrpit
 #############################################################
 
@@ -190,6 +164,5 @@ if [ -e $CONFIG_FILE ]; then
     install_module
     set_scaling
     set_overclock_table
-    #set_scaling_range
   fi
 fi

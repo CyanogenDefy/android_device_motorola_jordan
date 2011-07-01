@@ -1,5 +1,5 @@
 #
-# system.prop for generic sdk
+# system.prop for jordan
 #
 
 rild.libpath=/system/lib/librilswitch.so
@@ -11,7 +11,11 @@ ro.sf.lcd_density=240
 
 # Default network type.
 # 3 -> GSM/WCDMA (auto mode, according to PRL)
-ro.telephony.default_network=3
+# ro.telephony.default_network=3
+
+# The interfaces to get DNS data from when using mobile data
+# Comma-separated
+mobiledata.interfaces=rmnet0,rmnet1,rmnet2,rmnet3,rmnet4,gannet0
 
 wifi.interface = tiwlan0
 # Time between scans in seconds. Keep it high to minimize battery drain.
@@ -19,28 +23,38 @@ wifi.interface = tiwlan0
 # but none are in range.
 wifi.supplicant_scan_interval = 60
 
+# Use TI hotspot code
+wifi.hotspot.ti = 1
+
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 ro.opengles.version = 131072
+
+# Enable Jpeg HW decoder for images > 300 kb (disabled, buggy)
+jpeg.libskiahw.decoder.enable=0
+jpeg.libskiahw.decoder.thresh=300000
+
+# Disable Jpeg HW encoder
+jpeg.libskiahw.encoder.enable=0
 
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapsize=40m
 
 # Forbid format of these partitions in mount menu :
-ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
+ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
 
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
 
-# declare we're using Usb.apk
+# Tell UsbService that we're using Usb.apk
 ro.usb.use_custom_service=1
-
-# disable Windows Media Sync Usb.apk mode
-ro.mtp_available=0
 
 # use 1% battery steps
 ro.product.use_charge_counter=1
 
 # use default multitouch configuration
 persist.input.multitouch_points=2
+
+# required for future java part (common omap3/4)
+com.ti.omap_enhancement=1
 

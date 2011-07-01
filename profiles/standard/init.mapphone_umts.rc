@@ -52,7 +52,7 @@ on post-fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 # Tweaks
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
 # Dont delete this line, used as event in bootmenu (3 par.)
     exec /system/bin/logwrapper echo pds Overclocking...

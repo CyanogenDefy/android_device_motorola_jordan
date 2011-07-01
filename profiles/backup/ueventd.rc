@@ -158,11 +158,11 @@
 /dev/bd7885               0770   media      camera
 /dev/cpcap_mot_rtc        0660   root       mot_sec_rtc
 /dev/netmon               0660   root       radio
-/dev/block/mmcblk0p1      0660   root       mot_tcmd
-/dev/block/misc           0660   root       mot_tcmd
+/dev/block/mmcblk0p1      0660   root       sdcard_rw
+/dev/block/misc           0660   root       misc
 /dev/block/mmcblk1p1      0660   root       mot_tcmd
-/dev/block/mmcblk0p6      0660   root       mot_tcmd
-/dev/block/mmcblk0p7      0660   root       mot_tcmd
+/dev/block/mmcblk1p6      0660   root       mot_tcmd
+/dev/block/mmcblk1p7      0660   root       mot_tcmd
 # sensor interface
 /dev/lis331dlh            0660   compass    compass
 /dev/lis3dh               0660   compass    compass

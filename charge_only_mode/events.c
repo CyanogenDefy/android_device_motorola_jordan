@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Copyright (c) 2008-2009, Motorola, Inc.
+Copyright (c) 2008-2011, Motorola, Inc.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -92,28 +92,28 @@ int ev_init(void)
 {
     int fd;
 
-	int i;
-	for (i=0;;i++) {
-		char fname[32];
-		sprintf(fname, "/dev/input/event%d", i);
-		fd = open(fname, O_RDONLY);
-		if (fd < 0)
-			break;
-		ev_type[ev_count] = EV_TYPE_KEYBOARD;
-		ev_fds[ev_count].fd = fd;
-		ev_fds[ev_count].events = POLLIN;
-		ev_count++;
-	}
+    int i;
+    for (i=0;;i++) {
+        char fname[32];
+        sprintf(fname, "/dev/input/event%d", i);
+        fd = open(fname, O_RDONLY);
+        if (fd < 0)
+            break;
+        ev_type[ev_count] = EV_TYPE_KEYBOARD;
+        ev_fds[ev_count].fd = fd;
+        ev_fds[ev_count].events = POLLIN;
+        ev_count++;
+    }
 
-	fd = open_uevent_socket();
-	if (fd >= 0) {
-		fcntl(fd, F_SETFD, FD_CLOEXEC);
-		fcntl(fd, F_SETFL, O_NONBLOCK);
-		ev_type[ev_count] = EV_TYPE_UEVENT;
-		ev_fds[ev_count].fd = fd;
-		ev_fds[ev_count].events = POLLIN;
-		ev_count++;
-	}
+    fd = open_uevent_socket();
+    if (fd >= 0) {
+        fcntl(fd, F_SETFD, FD_CLOEXEC);
+        fcntl(fd, F_SETFL, O_NONBLOCK);
+        ev_type[ev_count] = EV_TYPE_UEVENT;
+        ev_fds[ev_count].fd = fd;
+        ev_fds[ev_count].events = POLLIN;
+        ev_count++;
+    }
 
     return 0;
 }
@@ -129,60 +129,59 @@ int ev_get(int timeout_ms)
 {
     int r, i;
 
-	r = poll(ev_fds, ev_count, timeout_ms);
-	if (r <= 0)
-		return -1;
+    r = poll(ev_fds, ev_count, timeout_ms);
+    if (r <= 0)
+        return -1;
 
-	for (i=0;i<ev_count;i++) {
-		if ((ev_fds[i].revents & POLLIN) == 0)
-			continue;
+    for (i=0;i<ev_count;i++) {
+        if ((ev_fds[i].revents & POLLIN) == 0)
+            continue;
 
-		if (ev_type[i] == EV_TYPE_KEYBOARD) {
-			struct input_event ev;
-			r = read(ev_fds[i].fd, &ev, sizeof(ev));
-			fprintf(stderr, "keyboard event: (%x,%x,%x)\n", ev.type, ev.code, ev.value);
-			if(r == sizeof(ev)) {
+        if (ev_type[i] == EV_TYPE_KEYBOARD) {
+            struct input_event ev;
+            r = read(ev_fds[i].fd, &ev, sizeof(ev));
+            fprintf(stderr, "keyboard event: (%x,%x,%x)\n", ev.type, ev.code, ev.value);
+            if(r == sizeof(ev)) {
 
-				/* POWER key */
-				if ((ev.type == EV_KEY) && (ev.code == EV_POWER_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
-					return EVENT_POWER_KEY_DOWN;
-				if ((ev.type == EV_KEY) && (ev.code == EV_POWER_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
-					return EVENT_POWER_KEY_UP;
+                /* POWER key */
+                if ((ev.type == EV_KEY) && (ev.code == EV_POWER_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
+                    return EVENT_POWER_KEY_DOWN;
+                if ((ev.type == EV_KEY) && (ev.code == EV_POWER_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
+                    return EVENT_POWER_KEY_UP;
 
-				/* VOLUMEDOWN key */
-				if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEDOWN_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
-					return EVENT_VOLUMEDOWN_KEY_DOWN;
-				if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEDOWN_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
-					return EVENT_VOLUMEDOWN_KEY_UP;
+                /* VOLUMEDOWN key */
+                if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEDOWN_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
+                    return EVENT_VOLUMEDOWN_KEY_DOWN;
+                if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEDOWN_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
+                    return EVENT_VOLUMEDOWN_KEY_UP;
 
-				/* VOLUMEUP key */
-				if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEUP_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
-					return EVENT_VOLUMEUP_KEY_DOWN;
-				if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEUP_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
-					return EVENT_VOLUMEUP_KEY_UP;
-                                
-				/* CAMERA key */
-				if ((ev.type == EV_KEY) && (ev.code == EV_CAMERA_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
-					return EVENT_CAMERA_KEY_DOWN;
-				if ((ev.type == EV_KEY) && (ev.code == EV_CAMERA_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
-					return EVENT_CAMERA_KEY_UP;
-                                
-				return -1;
-			}
-		} else if (ev_type[i] == EV_TYPE_UEVENT) {
+                /* VOLUMEUP key */
+                if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEUP_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
+                    return EVENT_VOLUMEUP_KEY_DOWN;
+                if ((ev.type == EV_KEY) && (ev.code == EV_VOLUMEUP_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
+                    return EVENT_VOLUMEUP_KEY_UP;
 
-			char msg[1024];
-			while ((r = recv(ev_fds[i].fd, msg, sizeof(msg), 0)) > 0)
-				;
-			if(strstr(msg, "cpcap_battery"))
-			{
-				LOGD("cpcap_battery UEVENT msg : %s\n", msg);
-                                return EVENT_BATTERY;
+                /* CAMERA key */
+                if ((ev.type == EV_KEY) && (ev.code == EV_CAMERA_KEY_CODE) && (ev.value == EV_KEY_VALUE_DOWN))
+                    return EVENT_CAMERA_KEY_DOWN;
+                if ((ev.type == EV_KEY) && (ev.code == EV_CAMERA_KEY_CODE) && (ev.value == EV_KEY_VALUE_UP))
+                    return EVENT_CAMERA_KEY_UP;
 
-			}
+                return -1;
+            }
+        } else if (ev_type[i] == EV_TYPE_UEVENT) {
 
-		}
-	}
+            char msg[1024];
+            while ((r = recv(ev_fds[i].fd, msg, sizeof(msg), 0)) > 0)
+                ;
+            if(strstr(msg, "cpcap_battery"))
+            {
+                LOGD("cpcap_battery UEVENT msg : %s\n", msg);
+                return EVENT_BATTERY;
+            }
+
+        }
+    }
 
     return -1;
 }
