@@ -137,6 +137,4 @@ package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");
 set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");
 run_program("/tmp/modelid_cfg.sh");
 show_progress(0.100000, 5);
-assert(package_extract_file("logo.img", "/tmp/logo.img"),
-       write_raw_image("/tmp/logo.img", "/dev/block/mmcblk1p10"),
-       delete("/tmp/logo.img"));
+
