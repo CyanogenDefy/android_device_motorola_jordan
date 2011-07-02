@@ -68,7 +68,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
 	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-
 PRODUCT_PACKAGES += \
 	librs_jni \
 	tiwlan.ini \
@@ -106,7 +105,6 @@ PRODUCT_PACKAGES += \
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHD
 
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -123,13 +121,13 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/vold.fstab:system/etc/vold.fstab
 
 # copy all vendor (motorola) kernel modules to system/lib/modules
-PRODUCT_COPY_FILES += $(shell \
+PRODUCT_COPY_FILES += $(shell test -d vendor/motorola/jordan/lib/modules &&  \
 	find vendor/motorola/jordan/lib/modules -name '*.ko' \
 	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
 	| tr '\n' ' ')
 
 # copy all others kernel modules under the "modules" directory to system/lib/modules
-PRODUCT_COPY_FILES += $(shell \
+PRODUCT_COPY_FILES += $(shell test -d device/motorola/jordan/modules && \
 	find device/motorola/jordan/modules -name '*.ko' \
 	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
 	| tr '\n' ' ')
@@ -139,14 +137,23 @@ LOCAL_KERNEL := device/motorola/jordan/kernel
 PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel
 
-# media profiles and capabilities spec
+# Blobs
 $(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
-$(call inherit-product, device/motorola/jordan/jordan-vendor.mk)
 
-# stuff common to all Motorola phones
-#$(call inherit-product, device/motorola/common/common.mk)
+# Live wallpaper packages
+PRODUCT_PACKAGES += \
+        LiveWallpapers \
+        LiveWallpapersPicker \
+        MagicSmokeWallpapers \
+        VisualizationWallpapers
+
+# Publish that we support the live wallpaper feature.
+PRODUCT_COPY_FILES += \
+        packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+
 
 $(call inherit-product, build/target/product/full_base.mk)
 
 PRODUCT_NAME := generic_jordan
 PRODUCT_DEVICE := MB525
+
