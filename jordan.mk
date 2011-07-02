@@ -139,12 +139,8 @@ LOCAL_KERNEL := device/motorola/jordan/kernel
 PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel
 
-# media profiles and capabilities spec
+# Blobs
 $(call inherit-product, device/motorola/jordan/jordan-blobs.mk)
-$(call inherit-product, device/motorola/jordan/jordan-vendor.mk)
-
-# stuff common to all Motorola phones
-#$(call inherit-product, device/motorola/common/common.mk)
 
 $(call inherit-product, build/target/product/full_base.mk)
 
