@@ -344,4 +344,7 @@
     <!-- Enables SIP on WIFI only -->
     <bool name="config_sip_wifi_only">false</bool>
 
+    <string-array name="config_vendorServices">
+        <item>/system/framework/com.motorola.android.location.jar:com.android.server.LocationProxyService</item>
+    </string-array>
 </resources>
