@@ -92,11 +92,11 @@
         </EncoderProfile>  -->
 
         <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="10000000"
                    width="640"
                    height="480"
-                   frameRate="24" />
+                   frameRate="30" />
 
             <Audio codec="aac"
                    bitRate="96000"
@@ -109,7 +109,7 @@
                    bitRate="8000000"
                    width="848"
                    height="480"
-                   frameRate="24" />
+                   frameRate="30" />
 
             <Audio codec="aac"
                    bitRate="96000"
