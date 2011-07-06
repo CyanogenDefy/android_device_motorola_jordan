@@ -19,7 +19,7 @@
 #
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
