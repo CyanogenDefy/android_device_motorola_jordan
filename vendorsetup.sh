@@ -22,13 +22,13 @@
 
 add_lunch_combo generic_jordan-userdebug
 
-if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ] ; then
-   if [ -z "`echo :$PATH: | grep :$PWD/device/motorola/jordan/releasetools:`" ] ; then
-
-      echo "jordan specific releasetools added to path..."
-
-      PATH=$PWD/device/motorola/jordan/releasetools:$PATH:$PWD/vendor/cyanogen/tools
-      export PATH
-   fi
-fi
+#if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ] ; then
+#   if [ -z "`echo :$PATH: | grep :$PWD/device/motorola/jordan/releasetools:`" ] ; then
+#
+#      echo "jordan specific releasetools added to path..."
+#
+#      PATH=$PWD/device/motorola/jordan/releasetools:$PATH:$PWD/vendor/cyanogen/tools
+#      export PATH
+#   fi
+#fi
 
