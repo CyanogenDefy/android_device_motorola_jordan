@@ -261,8 +261,8 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     pars.remove("cam-mode");
 
     pars.getPreviewSize(&width, &height);
-    if (width == 848 && height == 480) {
-        pars.setPreviewFrameRate(24);
+    if (width == 848 && height == 480 && !mVideoMode) {
+        pars.setPreviewFrameRate(25);
     }
 
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
