@@ -97,6 +97,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/script/2nd-init.sh:system/bootmenu/script/2nd-init.sh \
 	device/motorola/jordan/bootmenu/script/2nd-boot.sh:system/bootmenu/script/2nd-boot.sh \
 	device/motorola/jordan/bootmenu/script/adbd.sh:system/bootmenu/script/adbd.sh \
+	device/motorola/jordan/bootmenu/script/bootmode_clean.sh:system/bootmenu/script/bootmode_clean.sh \
 	device/motorola/jordan/bootmenu/script/overclock.sh:system/bootmenu/script/overclock.sh \
 	device/motorola/jordan/bootmenu/script/post_bootmenu.sh:system/bootmenu/script/post_bootmenu.sh \
 	device/motorola/jordan/bootmenu/script/pre_bootmenu.sh:system/bootmenu/script/pre_bootmenu.sh \
