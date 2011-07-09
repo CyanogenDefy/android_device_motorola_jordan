@@ -54,6 +54,7 @@ WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 BOARD_WLAN_TI_STA_DK_ROOT   := system/wlan/ti/wilink_6_1
 WIFI_DRIVER_MODULE_NAME     := tiwlan_drv
 WIFI_FIRMWARE_LOADER        := wlan_loader
+PRODUCT_WIRELESS_TOOLS      := true
 
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
