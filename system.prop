@@ -32,5 +32,8 @@ ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
 
+# declare we're using Usb.apk
+ro.usb.use_custom_service=1
+
 # disable Windows Media Sync Usb.apk mode
 ro.mtp_available=0
