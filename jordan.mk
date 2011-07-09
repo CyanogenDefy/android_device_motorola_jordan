@@ -100,7 +100,8 @@ PRODUCT_PACKAGES += \
 	libaudiopolicy \
 	iwmulticall \
 	bootmenu \
-	Usb
+	Usb \
+	su
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHD
@@ -108,7 +109,7 @@ PRODUCT_PACKAGES += DroidSSHD
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-#Set en_US as default locale
+# Set en_US as default locale
 PRODUCT_LOCALES := en_US
 
 # Screen density is actually considered a locale (since it is taken into account

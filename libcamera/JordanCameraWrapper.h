@@ -48,6 +48,7 @@ private:
     virtual ~JordanCameraWrapper();
 
     sp<CameraHardwareInterface> mMotoInterface;
+    bool mVideoMode;
 
     enum {
 	CAM_UNKNOWN,

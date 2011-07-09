@@ -111,6 +111,7 @@ deviceCardMatches(const char *device, const char *matchCard)
 
 JordanCameraWrapper::JordanCameraWrapper(int cameraId) :
     mMotoInterface(g_motoOpenCameraHardware(cameraId)),
+    mVideoMode(false),
     mCameraType(CAM_UNKNOWN)
 {
     struct v4l2_capability caps;
@@ -252,9 +253,16 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     int width, height;
     char buf[10];
 
+    /*
+     * getInt returns -1 if the value isn't present and 0 on parse failure,
+     * so if it's larger than 0, we can be sure the value was parsed properly
+     */
+    mVideoMode = pars.getInt("cam-mode") > 0;
+    pars.remove("cam-mode");
+
     pars.getPreviewSize(&width, &height);
-    if (width == 848 && height == 480) {
-        pars.setPreviewFrameRate(24);
+    if (width == 848 && height == 480 && !mVideoMode) {
+        pars.setPreviewFrameRate(25);
     }
 
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
@@ -297,6 +305,8 @@ JordanCameraWrapper::getParameters() const
     ret.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "9");
     ret.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-9");
     ret.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.3333333333333");
+
+    ret.set("cam-mode", mVideoMode ? "1" : "0");
 
     return ret;
 }

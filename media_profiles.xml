@@ -92,7 +92,7 @@
         </EncoderProfile>  -->
 
         <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-            <Video codec="h264"
+            <Video codec="m4v"
                    bitRate="10000000"
                    width="640"
                    height="480"
