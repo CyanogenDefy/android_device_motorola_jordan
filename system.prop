@@ -37,3 +37,6 @@ ro.usb.use_custom_service=1
 
 # disable Windows Media Sync Usb.apk mode
 ro.mtp_available=0
+
+# use 1% battery steps
+ro.product.use_charge_counter=1
