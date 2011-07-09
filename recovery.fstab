@@ -1,8 +1,7 @@
-# mount point	fstype		device			[device2]
+# This file is used to build the different partitions
+# mount point   fstype      device
 
-/boot		mtd		/dev/block/mmcblk1p15
-/cache		ext3		/dev/block/mmcblk1p24
-/data		ext3		/dev/block/mmcblk1p25
-/sdcard		vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0
-/system		ext3		/dev/block/mmcblk1p21
-/recovery	mtd		/dev/block/mmcblk1p16
+/boot           mtd         /dev/block/mmcblk1p15
+/recovery       mtd         /dev/block/mmcblk1p16
+/system         ext3        /dev/block/mmcblk1p21
+/data           ext3        /dev/block/mmcblk1p25
