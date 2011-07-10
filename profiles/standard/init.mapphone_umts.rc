@@ -311,7 +311,7 @@ service bplogd_daemon /system/bin/bplogd_daemon
     user radio
     group radio inet log sdcard_rw mount
     oneshot
-service ssmgrd /system/xbin/ssmgrd
+service ssmgrd /system/bin/ssmgrd
     class post-zygote_services
     group radio input mot_pwric
     oneshot
