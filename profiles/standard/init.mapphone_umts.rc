@@ -166,6 +166,7 @@ on post-fs
     insmod /system/lib/modules/nls_utf8.ko
     insmod /system/lib/modules/slow-work.ko
     insmod /system/lib/modules/cifs.ko
+    insmod /system/lib/modules/defy_more.ko kallsyms_lookup_name_addr=0xc00939c4
 
 on early-boot
 # Adjust the out of memory thresholds to account for the larget
