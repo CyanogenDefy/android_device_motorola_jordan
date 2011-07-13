@@ -112,6 +112,10 @@ deviceCardMatches(const char *device, const char *matchCard)
 JordanCameraWrapper::JordanCameraWrapper(int cameraId) :
     mMotoInterface(g_motoOpenCameraHardware(cameraId)),
     mVideoMode(false),
+    mNotifyCb(NULL),
+    mDataCb(NULL),
+    mDataCbTimestamp(NULL),
+    mCbUserData(NULL),
     mCameraType(CAM_UNKNOWN)
 {
     struct v4l2_capability caps;
@@ -147,7 +151,94 @@ JordanCameraWrapper::setCallbacks(notify_callback notify_cb,
                                   data_callback_timestamp data_cb_timestamp,
                                   void* user)
 {
-    mMotoInterface->setCallbacks(notify_cb, data_cb, data_cb_timestamp, user);
+    mNotifyCb = notify_cb;
+    mDataCb = data_cb;
+    mDataCbTimestamp = data_cb_timestamp;
+    mCbUserData = user;
+
+    if (mNotifyCb != NULL) {
+        notify_cb = &JordanCameraWrapper::notifyCb;
+    }
+    if (mDataCb != NULL) {
+        data_cb = &JordanCameraWrapper::dataCb;
+    }
+    if (mDataCbTimestamp != NULL) {
+        data_cb_timestamp = &JordanCameraWrapper::dataCbTimestamp;
+    }
+
+    mMotoInterface->setCallbacks(notify_cb, data_cb, data_cb_timestamp, this);
+}
+
+void
+JordanCameraWrapper::notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void* user)
+{
+    JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
+    user = _this->mCbUserData;
+
+    _this->mNotifyCb(msgType, ext1, ext2, user);
+}
+
+void
+JordanCameraWrapper::dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* user)
+{
+    JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
+    user = _this->mCbUserData;
+
+    if (msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
+        _this->fixUpBrokenGpsLatitudeRef(dataPtr);
+    }
+
+    _this->mDataCb(msgType, dataPtr, user);
+}
+
+void
+JordanCameraWrapper::dataCbTimestamp(nsecs_t timestamp, int32_t msgType,
+                                     const sp<IMemory>& dataPtr, void* user)
+{
+    JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
+    user = _this->mCbUserData;
+
+    _this->mDataCbTimestamp(timestamp, msgType, dataPtr, user);
+}
+
+/*
+ * Motorola's libcamera fails in writing the GPS latitude reference
+ * tag properly. Instead of writing 'N' or 'S', it writes 'W' or 'E'.
+ * Below is a very hackish workaround for that: We search for the GPS
+ * latitude reference tag by pattern matching into the first couple of
+ * data bytes. As the output format of Motorola's libcamera is static,
+ * this should be fine until Motorola fixes their lib.
+ */
+void
+JordanCameraWrapper::fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr)
+{
+    ssize_t offset;
+    size_t size;
+    sp<IMemoryHeap> heap = dataPtr->getMemory(&offset, &size);
+    uint8_t *data = (uint8_t*)heap->base();
+
+    if (data != NULL) {
+        data += offset;
+
+        /* scan first 512 bytes for GPS latitude ref marker */
+        static const unsigned char sLatitudeRefMarker[] = {
+            0x01, 0x00, /* GPS Latitude ref tag */
+            0x02, 0x00, /* format: string */
+            0x02, 0x00, 0x00, 0x00 /* 2 bytes long */
+        };
+
+        for (size_t i = 0; i < 512 && i < (size - 10); i++) {
+            if (memcmp(data + i, sLatitudeRefMarker, sizeof(sLatitudeRefMarker)) == 0) {
+                char *ref = (char *) (data + i + sizeof(sLatitudeRefMarker));
+                if ((*ref == 'W' || *ref == 'E') && *(ref + 1) == '\0') {
+                    LOGI("Found broken GPS latitude ref marker, offset %d, item %c",
+                         i + sizeof(sLatitudeRefMarker), *ref);
+                    *ref = (*ref == 'W') ? 'N' : 'S';
+                }
+                break;
+            }
+        }
+    }
 }
 
 void
