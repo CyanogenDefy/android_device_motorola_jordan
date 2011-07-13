@@ -45,6 +45,15 @@ rm -f /default.prop
 cp -f /system/bootmenu/config/default.prop /default.prop
 
 ## reduce lcd backlight to save battery
-echo 44 > /sys/class/leds/lcd-backlight/brightness
+echo 64 > /sys/class/leds/lcd-backlight/brightness
+
+## mount cache
+mkdir -p /cache
+
+if [ -x /system/bin/mount_ext3.sh ]; then
+  /system/bin/mount_ext3.sh cache /cache
+else
+  mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/cache /cache
+fi
 
 exit
