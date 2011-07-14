@@ -23,13 +23,13 @@ PRODUCT_COPY_FILES += \
 #etc
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/recovery.fstab:system/etc/recovery.fstab \
-	device/motorola/jordan/proprietary/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
-	device/motorola/jordan/proprietary/etc/init.d/07multitouch:system/etc/init.d/07multitouch \
-	device/motorola/jordan/proprietary/etc/profile:system/etc/profile \
-	device/motorola/jordan/proprietary/etc/sysctl.conf:system/etc/sysctl.conf \
-	device/motorola/jordan/proprietary/etc/busybox.fstab:system/etc/fstab \
-	device/motorola/jordan/proprietary/lib/modules/modules.alias:system/lib/modules/modules.alias \
-	device/motorola/jordan/proprietary/lib/modules/modules.dep:system/lib/modules/modules.dep
+	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
+	device/motorola/jordan/prebuilt/etc/init.d/07multitouch:system/etc/init.d/07multitouch \
+	device/motorola/jordan/prebuilt/etc/profile:system/etc/profile \
+	device/motorola/jordan/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf \
+	device/motorola/jordan/prebuilt/etc/busybox.fstab:system/etc/fstab \
+	device/motorola/jordan/prebuilt/lib/modules/modules.alias:system/lib/modules/modules.alias \
+	device/motorola/jordan/prebuilt/lib/modules/modules.dep:system/lib/modules/modules.dep
 
 ifdef CYANOGEN_RELEASE
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_release.txt:system/etc/custom_backup_list.txt
@@ -39,7 +39,7 @@ endif
 
 #app
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/proprietary/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk
+	device/motorola/jordan/prebuilt/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk
 
 #Bootmenu
 PRODUCT_COPY_FILES += \
