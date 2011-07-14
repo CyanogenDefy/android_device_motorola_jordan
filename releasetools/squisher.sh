@@ -1,10 +1,11 @@
-# This script is included in vendor/cyanogen/tools/squisher
+# This script is included in squisher
 # It is the final build step (after OTA package)
 
 # Delete unwanted apps
-rm -f $REPACK/ota/system/app/RomManager.apk
+#rm -f $REPACK/ota/system/app/RomManager.apk
+#rm -f $REPACK/ota/system/xbin/irssi
 
-# prebuilt boo, devtree, logo & updater-script
+# prebuilt boot, devtree, logo & updater-script
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/boot-222-179-2.smg $REPACK/ota/boot.img
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/devtree-222-179-2.smg $REPACK/ota/devtree.img
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/logo-moto.raw $REPACK/ota/logo.img
