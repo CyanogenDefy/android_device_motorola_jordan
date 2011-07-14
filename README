@@ -15,9 +15,6 @@ Download RomManager:
 mkdir vendor/cyanogen/proprietary
 cd vendor/cyanogen && ./get-rommanager
 
-RomManager is not compatible with Motorola Defy,
-it is removed from rom build system because it requires a real Recovery Image
-
 
 Build:
 ======

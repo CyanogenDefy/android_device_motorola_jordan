@@ -1,0 +1,12 @@
+#!/system/bin/sh
+#
+# load multitouch module
+
+# Module location
+MODULE="/system/lib/modules/defy_more.ko"
+
+# Max number of fingers
+MAX_TOUCH=4
+
+# Load the module into address
+insmod $MODULE touch_num=$MAX_TOUCH

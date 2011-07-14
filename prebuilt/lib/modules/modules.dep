@@ -22,3 +22,4 @@ cifs.ko: nls_utf8.ko
 act_police.ko:
 act_mirred.ko:
 act_gact.ko:
+defy_more.ko:

@@ -28,6 +28,10 @@ $(call inherit-product-if-exists, vendor/motorola/jordan/jordan-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.media.capture.maxres=5m \
+	ro.media.capture.flash=led \
+	ro.media.capture.flashIntensity=41 \
+	ro.media.capture.torchIntensity=25 \
 	ro.media.capture.classification=classH \
 	ro.media.capture.flip=horizontalandvertical \
 	persist.sys.purgeable_assets=0 \

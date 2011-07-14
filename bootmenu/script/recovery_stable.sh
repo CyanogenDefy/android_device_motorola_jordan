@@ -1,22 +1,19 @@
 #!/sbin/sh
 
 ######## BootMenu Script
-######## Execute [Custom Recovery] Menu
+######## Execute [Stable Recovery] Menu
 
 
 export PATH=/sbin:/system/xbin:/system/bin
 
 ######## Main Script
 
-stop
-
-# Moto 2.3.3 /tmp is a link to /data/tmp, bad thing !
+## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp
+mkdir -p /tmp
 
-mkdir /tmp
-mkdir /cache
-mkdir /pds
-mkdir /res
+mkdir -p /pds
+mkdir -p /res
 
 rm -f /etc
 mkdir /etc
@@ -36,7 +33,7 @@ cp -r -f /system/bootmenu/recovery/res/* /res/
 cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
-chmod 755 /sbin/*
+chmod +rx /sbin/*
 
 rm -f /sbin/postrecoveryboot.sh
 
@@ -44,13 +41,7 @@ if [ ! -e /etc/recovery.fstab ]; then
   cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
 fi
 
-if [ -x /system/bin/mount_ext3.sh ]; then
-  /system/bin/mount_ext3.sh cache /cache
-else
-  mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/cache /cache
-fi
-
-mkdir /cache/recovery
+mkdir -p /cache/recovery
 touch /cache/recovery/command
 touch /cache/recovery/log
 touch /cache/recovery/last_log
@@ -72,9 +63,7 @@ fi
 
 #############################
 # mount in /sbin/postrecoveryboot.sh
-umount -l /system
-#umount -l /data
-#umount -l /cache
+umount /system
 
 usleep 50000
 mount -t ext3 -o rw,noatime,nodiratime /dev/block/mmcblk1p21 /system

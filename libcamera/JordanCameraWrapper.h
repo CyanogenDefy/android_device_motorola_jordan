@@ -47,8 +47,18 @@ private:
             JordanCameraWrapper(int CameraId);
     virtual ~JordanCameraWrapper();
 
+    static void notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void* user);
+    static void dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* user);
+    static void dataCbTimestamp(nsecs_t timestamp, int32_t msgType, const sp<IMemory>& dataPtr, void* user);
+    void fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr);
+
     sp<CameraHardwareInterface> mMotoInterface;
     bool mVideoMode;
+
+    notify_callback mNotifyCb;
+    data_callback mDataCb;
+    data_callback_timestamp mDataCbTimestamp;
+    void *mCbUserData;
 
     enum {
 	CAM_UNKNOWN,
