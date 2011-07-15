@@ -23,8 +23,9 @@ PRODUCT_COPY_FILES += \
 #etc
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/recovery.fstab:system/etc/recovery.fstab \
+	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
-	device/motorola/jordan/prebuilt/etc/init.d/07multitouch:system/etc/init.d/07multitouch \
+	device/motorola/jordan/prebuilt/etc/init.d/90multitouch:system/etc/init.d/90multitouch \
 	device/motorola/jordan/prebuilt/etc/profile:system/etc/profile \
 	device/motorola/jordan/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf \
 	device/motorola/jordan/prebuilt/etc/busybox.fstab:system/etc/fstab \

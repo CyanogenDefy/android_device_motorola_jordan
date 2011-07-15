@@ -2,8 +2,9 @@
 # It is the final build step (after OTA package)
 
 # Delete unwanted apps
-#rm -f $REPACK/ota/system/app/RomManager.apk
-#rm -f $REPACK/ota/system/xbin/irssi
+rm -f $REPACK/ota/system/app/RomManager.apk
+rm -f $REPACK/ota/system/app/FM.apk
+rm -f $REPACK/ota/system/xbin/irssi
 
 # prebuilt boot, devtree, logo & updater-script
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/boot-222-179-2.smg $REPACK/ota/boot.img
