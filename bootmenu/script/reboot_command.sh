@@ -4,10 +4,13 @@
 
 if [ "$1" = "recovery" ]; then
 
-  echo 1 > /sys/class/leds/blue/brightness
   echo "recovery" > /cache/recovery/bootmode.conf
-  sync
-  echo 0 > /sys/class/leds/blue/brightness
+
+fi
+
+if [ "$1" = "bootloader" ]; then
+
+  echo "bootmenu" > /cache/recovery/bootmode.conf
 
 fi
 
@@ -15,3 +18,4 @@ if [ -z "$1" ]; then
   rm /cache/recovery/bootmode.conf
 fi
 
+sync
