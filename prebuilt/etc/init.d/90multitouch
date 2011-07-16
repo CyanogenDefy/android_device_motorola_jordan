@@ -8,5 +8,7 @@ MODULE="/system/lib/modules/defy_more.ko"
 # Max number of fingers
 MAX_TOUCH=4
 
-# Load the module into address
-insmod $MODULE touch_num=$MAX_TOUCH
+# Load the module if MAX_TOUCH > 2
+if [ $MAX_TOUCH -gt 2 ]; then
+	insmod $MODULE touch_num=$MAX_TOUCH
+fi
