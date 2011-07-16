@@ -27,22 +27,9 @@
 USE_CAMERA_STUB := false
 BOARD_USES_GENERIC_AUDIO := false
 
-BOARD_USES_BOOTMENU := true
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_PREINSTALL := true
 TARGET_BOOTLOADER_BOARD_NAME := jordan
-
-# Script used to wrap reboot command to bootmenu before reboot
-TARGET_REBOOT_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh"
-TARGET_REBOOT_PRE_COMMAND_CLEAR_REASON := true
-
-# Keep old variables until system core patch is merged
-TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
-TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
-
-# Override cyanogen squisher to customize our update zip package
-TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 
 # Board properties
 TARGET_BOARD_PLATFORM := omap3
@@ -76,20 +63,36 @@ BOARD_SYSTEMIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x07500000)
 BOARD_USERDATAIMAGE_MAX_SIZE := $(call image-size-from-data-size,0x04ac0000)
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_RECOVERY_IGNORE_BOOTABLES := true
-BOARD_HAS_SMALL_RECOVERY := true
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_sholes librecovery_ui_generic
-#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
-
 HARDWARE_OMX := true
 BUILD_WITH_TI_AUDIO := 1
 BUILD_PV_VIDEO_ENCODERS := 1
 
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_NO_RGBX_8888 := true
+
+
+# Changes related to bootmenu
+BOARD_USES_BOOTMENU := true
+
+# Script used to wrap reboot command to bootmenu before reboot
+TARGET_REBOOT_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh"
+TARGET_REBOOT_PRE_COMMAND_CLEAR_REASON := true
+
+# Keep old variables until system core patch is merged
+TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
+TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
+
+# Override cyanogen squisher to customize our update zip package
+TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
+
+# Recovery
+BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_RECOVERY_IGNORE_BOOTABLES := true
+BOARD_HAS_SMALL_RECOVERY := true
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_generic
+#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
+
 
 # In nighly builds only
 ifndef CYANOGEN_RELEASE
