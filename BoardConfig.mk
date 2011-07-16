@@ -37,8 +37,9 @@ TARGET_BOOTLOADER_BOARD_NAME := jordan
 TARGET_REBOOT_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh"
 TARGET_REBOOT_PRE_COMMAND_CLEAR_REASON := true
 
-#TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
-#TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
+# Keep old variables until system core patch is merged
+TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
+TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
 
 # Override cyanogen squisher to customize our update zip package
 TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
