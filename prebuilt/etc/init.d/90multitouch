@@ -6,7 +6,7 @@
 MODULE="/system/lib/modules/defy_more.ko"
 
 # Max number of fingers
-MAX_TOUCH=4
+MAX_TOUCH=`cat /system/bootmenu/config/multitouch.conf`
 
 # Load the module if MAX_TOUCH > 2
 if [ $MAX_TOUCH -gt 2 ]; then
