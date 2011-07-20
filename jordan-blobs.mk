@@ -83,6 +83,8 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/recovery/res/images/progress_empty.png:system/bootmenu/recovery/res/images/progress_empty.png \
 	device/motorola/jordan/bootmenu/recovery/res/images/progress_fill.png:system/bootmenu/recovery/res/images/progress_fill.png \
 	device/motorola/jordan/bootmenu/recovery/res/images/icon_clockwork.png:system/bootmenu/recovery/res/images/icon_clockwork.png \
+	device/motorola/jordan/bootmenu/recovery/sbin/dedupe:system/bootmenu/recovery/sbin/dedupe \
+	device/motorola/jordan/bootmenu/recovery/sbin/dump_image:system/bootmenu/recovery/sbin/dump_image \
 	device/motorola/jordan/bootmenu/recovery/sbin/e2fsck:system/bootmenu/recovery/sbin/e2fsck \
 	device/motorola/jordan/bootmenu/recovery/sbin/fix_permissions:system/bootmenu/recovery/sbin/fix_permissions \
 	device/motorola/jordan/bootmenu/recovery/sbin/killrecovery.sh:system/bootmenu/recovery/sbin/killrecovery.sh \
