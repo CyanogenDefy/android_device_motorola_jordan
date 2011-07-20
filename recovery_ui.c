@@ -22,15 +22,15 @@
 
 char* MENU_HEADERS[] = { NULL };
 
-char* MENU_ITEMS[] = { "reboot system now",
-                       "apply update from sdcard",
-                       "wipe data/factory reset",
-                       "wipe cache partition",
-                       "install zip from sdcard",
-                       "backup and restore",
-                       "mounts and storage",
-                       "advanced",
-                       "power off",
+char* MENU_ITEMS[] = { "Reboot system now",
+                       "Apply update.zip from sdcard",
+                       "Wipe data/factory reset",
+                       "Wipe cache partition",
+                       "Install zip from sdcard",
+                       "Backup and restore",
+                       "Mounts and storage",
+                       "Advanced",
+                       "Power off",
                        NULL };
 
 int device_recovery_start() {
@@ -63,8 +63,10 @@ int device_handle_key(int key_code, int visible) {
             case KEY_VOLUMEUP:
                 return HIGHLIGHT_UP;
 
+            case 139:
             case KEY_END:
                 return SELECT_ITEM;
+
             case KEY_LEFTBRACE:
             case 31:
             case BTN_MOUSE:
