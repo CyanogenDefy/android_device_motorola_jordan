@@ -59,7 +59,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/config/bootmenu_bypass:system/bootmenu/config/bootmenu_bypass \
 	device/motorola/jordan/bootmenu/config/default.prop:system/bootmenu/config/default.prop \
 	device/motorola/jordan/bootmenu/config/default_bootmode.conf:system/bootmenu/config/default_bootmode.conf \
-	device/motorola/jordan/bootmenu/config/multitouch.conf:system/bootmenu/config/multitouch.conf \
 	device/motorola/jordan/bootmenu/config/overclock.conf:system/bootmenu/config/overclock.conf \
 	device/motorola/jordan/bootmenu/ext/su:system/bootmenu/ext/su \
 	device/motorola/jordan/bootmenu/images/background.png:system/bootmenu/images/background.png \
