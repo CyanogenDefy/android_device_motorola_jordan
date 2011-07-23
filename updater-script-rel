@@ -2,7 +2,7 @@ assert(package_extract_file("logo.img", "/tmp/logo.img"),
        write_raw_image("/tmp/logo.img", "/dev/block/mmcblk1p10"),
        delete("/tmp/logo.img"));
 assert(package_extract_file("boot.img", "/tmp/boot.img"),
-       write_raw_image("/tmp/boot.img", "/dev/block/mmcblk1p15"),
+       write_raw_image("/tmp/boot.img", "/dev/block/boot"),
        delete("/tmp/boot.img"));
 assert(package_extract_file("devtree.img", "/tmp/devtree.img"),
        write_raw_image("/tmp/devtree.img", "/dev/block/mmcblk1p12"),
