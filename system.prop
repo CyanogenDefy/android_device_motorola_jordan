@@ -42,4 +42,5 @@ ro.mtp_available=0
 ro.product.use_charge_counter=1
 
 # use default multitouch configuration
-ro.input.multitouch_points=2
+persist.input.multitouch_points=2
+

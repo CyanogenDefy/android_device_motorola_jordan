@@ -6,7 +6,7 @@
 MODULE="/system/lib/modules/defy_more.ko"
 
 # Max number of fingers
-MAX_TOUCH=`getprop ro.input.multitouch_points`
+MAX_TOUCH=`getprop persist.input.multitouch_points`
 
 # Load the module if MAX_TOUCH > 2
 if [ -n $MAX_TOUCH -a $MAX_TOUCH -gt 2 ]; then

@@ -342,7 +342,7 @@ on property:service.adb.tcp.port=-1
     start adbd
 
 on property:persist.input.multitouch_points=2
-    exec rmmod defy_more
+    exec modprobe -r defy_more
 
 on property:persist.input.multitouch_points=5
     exec modprobe -r defy_more
