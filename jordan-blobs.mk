@@ -49,11 +49,11 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/profiles/standard/ueventd.rc:system/bootmenu/2nd-init/ueventd.rc \
 	device/motorola/jordan/profiles/standard/init:system/bootmenu/2nd-init/init \
 	device/motorola/jordan/profiles/standard/sbin/ueventd:system/bootmenu/2nd-init/sbin/ueventd \
-	device/motorola/jordan/profiles/tests/init.rc:system/bootmenu/2nd-boot/init.rc \
-	device/motorola/jordan/profiles/tests/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
-	device/motorola/jordan/profiles/tests/ueventd.rc:system/bootmenu/2nd-boot/ueventd.rc \
-	device/motorola/jordan/profiles/tests/init:system/bootmenu/2nd-boot/init \
-	device/motorola/jordan/profiles/tests/sbin/ueventd:system/bootmenu/2nd-boot/sbin/ueventd \
+	device/motorola/jordan/profiles/backup/init.rc:system/bootmenu/2nd-boot/init.rc \
+	device/motorola/jordan/profiles/backup/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
+	device/motorola/jordan/profiles/backup/ueventd.rc:system/bootmenu/2nd-boot/ueventd.rc \
+	device/motorola/jordan/profiles/backup/init:system/bootmenu/2nd-boot/init \
+	device/motorola/jordan/profiles/backup/sbin/ueventd:system/bootmenu/2nd-boot/sbin/ueventd \
 	device/motorola/jordan/profiles/froyo/init.rc:system/bootmenu/froyo/init.rc \
 	device/motorola/jordan/profiles/froyo/init.mapphone_umts.rc:system/bootmenu/froyo/init.mapphone_umts.rc \
 	device/motorola/jordan/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
