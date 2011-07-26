@@ -9,6 +9,9 @@ MODULE="/system/lib/modules/defy_more.ko"
 MAX_TOUCH=`getprop persist.input.multitouch_points`
 
 # Load the module if MAX_TOUCH > 2
-if [ -n $MAX_TOUCH -a $MAX_TOUCH -gt 2 ]; then
-	insmod $MODULE touch_num=$MAX_TOUCH
+if [ -n "$MAX_TOUCH" ]; then
+  if [ $MAX_TOUCH -gt 2 ]; then
+    insmod $MODULE touch_num=$MAX_TOUCH
+  fi
 fi
+
