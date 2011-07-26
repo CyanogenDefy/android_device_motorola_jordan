@@ -6,6 +6,10 @@ rm -f $REPACK/ota/system/app/RomManager.apk
 rm -f $REPACK/ota/system/app/FM.apk
 rm -f $REPACK/ota/system/xbin/irssi
 
+mkdir -p $REPACK/ota/system/etc/terminfo/x
+mkdir -p $REPACK/ota/system/etc/terminfo/x/xterm
+cp $REPACK/ota/system/etc/terminfo/l/linux $REPACK/ota/system/etc/terminfo/x/xterm
+
 # prebuilt boot, devtree, logo & updater-script
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/boot-222-179-2.smg $REPACK/ota/boot.img
 cp -f $ANDROID_BUILD_TOP/vendor/motorola/jordan/devtree-222-179-2.smg $REPACK/ota/devtree.img

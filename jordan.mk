@@ -69,7 +69,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
 	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
 	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
 	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 PRODUCT_PACKAGES += \
@@ -128,14 +128,12 @@ PRODUCT_COPY_FILES += \
 # copy all vendor (motorola) kernel modules to system/lib/modules
 PRODUCT_COPY_FILES += $(shell test -d vendor/motorola/jordan/lib/modules &&  \
 	find vendor/motorola/jordan/lib/modules -name '*.ko' \
-	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-	| tr '\n' ' ')
+	-printf '%p:system/lib/modules/%f ')
 
 # copy all others kernel modules under the "modules" directory to system/lib/modules
 PRODUCT_COPY_FILES += $(shell test -d device/motorola/jordan/modules && \
 	find device/motorola/jordan/modules -name '*.ko' \
-	| sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-	| tr '\n' ' ')
+	-printf '%p:system/lib/modules/%f ')
 
 # Prebuilt boot.img
 LOCAL_KERNEL := device/motorola/jordan/kernel

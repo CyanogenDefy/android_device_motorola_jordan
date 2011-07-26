@@ -14,6 +14,12 @@ if [ "$1" = "bootloader" ]; then
 
 fi
 
+if [ "$1" = "bootmenu" ]; then
+
+  echo "bootmenu" > /cache/recovery/bootmode.conf
+
+fi
+
 if [ -z "$1" ]; then
   rm /cache/recovery/bootmode.conf
 fi

@@ -74,24 +74,22 @@ BOARD_NO_RGBX_8888 := true
 # Changes related to bootmenu
 BOARD_USES_BOOTMENU := true
 
-# Script used to wrap reboot command to bootmenu before reboot
-TARGET_REBOOT_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh"
-TARGET_REBOOT_PRE_COMMAND_CLEAR_REASON := true
-
 # Keep old variables until system core patch is merged
 TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
 TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
-
-# Override cyanogen squisher to customize our update zip package
-TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_HAS_SMALL_RECOVERY := true
+BOARD_NEVER_UMOUNT_SYSTEM := true
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_generic
 #TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
+
+
+# Override cyanogen squisher to customize our update zip package
+TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 
 
 # In nighly builds only
