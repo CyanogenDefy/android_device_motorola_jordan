@@ -40,3 +40,7 @@ ro.mtp_available=0
 
 # use 1% battery steps
 ro.product.use_charge_counter=1
+
+# use default multitouch configuration
+persist.input.multitouch_points=2
+
