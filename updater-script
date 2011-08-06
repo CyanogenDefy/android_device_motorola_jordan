@@ -1,5 +1,7 @@
 package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");
 package_extract_file("system/etc/custom_backup_list.txt","/system/etc/custom_backup_list.txt");
+run_program("/sbin/mkdir","/tmp/backupdir");
+run_program("/sbin/touch","/tmp/backupdir/force_backuptool");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
 show_progress(0.100000, 5);
 run_program("/tmp/backuptool.sh", "backup");
