@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009 The Android Open Source Project
+# Copyright (C) 2011 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.media.capture.torchIntensity=25 \
 	ro.media.capture.classification=classH \
 	ro.media.capture.flip=horizontalandvertical \
-	persist.sys.purgeable_assets=0 \
 	ro.com.android.wifi-watchlist=GoogleGuest \
 	ro.error.receiver.system.apps=com.google.android.feedback \
 	ro.setupwizard.enterprise_mode=1 \
@@ -46,7 +45,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.call_ring.multiple=false \
 	windowsmgr.max_events_per_sec=70 \
 	ro.telephony.call_ring.delay=3000 \
-	ro.url.safetylegal=http://www.motorola.com/staticfiles/Support/legal/?model=A855 \
+	ro.url.safetylegal=http://www.motorola.com/staticfiles/Support/legal/?model=MB525 \
 	ro.setupwizard.enable_bypass=1 \
 	ro.default_usb_mode=4 \
 	ro.media.dec.jpeg.memcap=20000000 \
