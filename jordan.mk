@@ -102,6 +102,8 @@ PRODUCT_PACKAGES += \
 	libcamera \
 	libaudiopolicy \
 	iwmulticall \
+	hostap \
+	hostapdcli \
 	bootmenu \
 	Usb \
 	su
