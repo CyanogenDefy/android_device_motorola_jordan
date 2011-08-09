@@ -137,6 +137,8 @@ set_perm(0, 0, 0755, "/system/etc/motorola/comm_drv/commdrv_fs.sh");
 show_progress(0.100000, 5);
 package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
+run_program("/sbin/cp","/tmp/.installscript /cache/recovery/old_installscript");
+run_program("/sbin/rm","-f /tmp/.installscript");
 run_program("/tmp/backuptool.sh", "restore");
 package_extract_file("system/bin/modelid_cfg.sh", "/tmp/modelid_cfg.sh");
 set_perm(0, 0, 0777, "/tmp/modelid_cfg.sh");
