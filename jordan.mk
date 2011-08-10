@@ -103,6 +103,7 @@ PRODUCT_PACKAGES += \
 	libaudiopolicy \
 	iwmulticall \
 	hostap \
+	hostapd.conf \
 	hostapdcli \
 	bootmenu \
 	Usb \
