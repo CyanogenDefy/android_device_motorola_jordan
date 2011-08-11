@@ -42,4 +42,10 @@ extern "C" void destroyAudioPolicyManager(AudioPolicyInterface *interface)
     delete interface;
 }
 
+#ifdef OMAP_ENHANCEMENT
+status_t AudioPolicyManager::setFMRxActive(bool status) {
+    return NO_ERROR;
+}
+#endif
+
 }; // namespace android

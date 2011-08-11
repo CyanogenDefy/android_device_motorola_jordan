@@ -42,5 +42,10 @@ protected:
         virtual bool a2dpUsedForSonification() const { return true; }
 #endif
 
+#ifdef OMAP_ENHANCEMENT
+	virtual status_t setFMRxActive(bool state);
+#endif
+
 };
-};
+
+}; //namespace
