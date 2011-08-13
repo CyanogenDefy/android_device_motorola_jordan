@@ -56,6 +56,7 @@ AP_CONFIG_DRIVER_WILINK     := true
 
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
+BOARD_CUSTOM_USB_CONTROLLER := ../../device/motorola/jordan/UsbController.cpp
 
 BOARD_HAVE_BLUETOOTH := true
 
