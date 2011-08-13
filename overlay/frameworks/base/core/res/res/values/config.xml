@@ -59,7 +59,6 @@
         <item>mobile_supl,3,0,2</item>
         <item>mobile_dun,4,0,2</item>
         <item>mobile_hipri,5,0,3</item>
-        <item>mobile_agps,30,0,2</item>
      </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
