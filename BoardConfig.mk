@@ -77,10 +77,6 @@ BOARD_NO_RGBX_8888 := true
 # Changes related to bootmenu
 BOARD_USES_BOOTMENU := true
 
-# Keep old variables until system core patch is merged
-TARGET_RECOVERY_PRE_COMMAND := "/system/bootmenu/script/reboot_command.sh recovery"
-TARGET_RECOVERY_PRE_COMMAND_CLEAR_REASON := true
-
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
 BOARD_HAS_NO_MISC_PARTITION := true
