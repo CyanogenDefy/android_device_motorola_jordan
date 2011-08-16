@@ -334,18 +334,6 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     disabled
     oneshot
 
-on property:sys.usb.tethered=1
-    stop usbd
-    exec /system/xbin/killall usbd
-    write /dev/usb_device_mode rndis_adb
-    start usbd
-
-on property:sys.usb.tethered=0
-    stop usbd
-    exec /system/xbin/killall usbd
-    write /dev/usb_device_mode msc_adb
-    start usbd
-
 # turn on wifi for tcmd step one
 on property:tcmd.load_wlan=1
     insmod /system/lib/modules/tiwlan_drv.ko
