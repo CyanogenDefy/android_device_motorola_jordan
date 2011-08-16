@@ -1,7 +1,10 @@
-all: exe copy
+TOP := ../../../..
+PRODUCT := jordan
+
+all: exe
 
 exe:
-	cd ~/a ; make -j8 out/target/product/morrison/obj/EXECUTABLES/charge_only_mode_intermediates/charge_only_mode ; cd -
+	make -j8 ${TOP}/out/target/product/${PRODUCT}/obj/EXECUTABLES/charge_only_mode_intermediates/charge_only_mode ; cd -
 
 copy:
-	adb push ~/a/out/target/product/morrison/obj/EXECUTABLES/charge_only_mode_intermediates/charge_only_mode data/com
+	adb push ${TOP}/out/target/product/${PRODUCT}/obj/EXECUTABLES/charge_only_mode_intermediates/charge_only_mode /system/bin/

@@ -1,3 +1,8 @@
+#!/bin/bash
+
+# requiere stream tool :
+# aptitude install imagemagick
+
 function extract_rgb16()
 {
 	DIMENSIONS=`identify $1 | awk '{print $3}'`
