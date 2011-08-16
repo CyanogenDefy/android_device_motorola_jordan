@@ -13,7 +13,8 @@
 # limitations under the License.
 
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/qwerty.kl:system/usr/keylayout/qwerty.kl 
+	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
+	device/motorola/jordan/prebuilt/usr/cpcap.kl:system/usr/keylayout/cpcap-key.kl \
 
 #etc
 PRODUCT_COPY_FILES += \
