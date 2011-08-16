@@ -31,7 +31,6 @@ PRODUCT_COPY_FILES += \
 
 #prebuilt binaries (for buggy versions)
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/bin/dnsmasq:system/bin/dnsmasq \
 	device/motorola/jordan/prebuilt/bin/iptables:system/bin/iptables \
 
 ifdef CYANOGEN_RELEASE
