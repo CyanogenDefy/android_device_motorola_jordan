@@ -98,7 +98,6 @@ symlink("toolbox", "/system/bin/cat", "/system/bin/cmp",
         "/system/bin/sync", "/system/bin/top", "/system/bin/uptime",
         "/system/bin/vmstat", "/system/bin/watchprops",
         "/system/bin/wipe");
-symlink("hostap","/system/bin/hostapd", "/system/bin/Hostapd");
 symlink("iwmulticall","/system/xbin/iwconfig","/system/xbin/iwlist",
         "/system/xbin/iwpriv", "/system/xbin/iwspy", "/system/xbin/iwgetid");
 symlink("bootmenu", "/system/bin/logwrapper");

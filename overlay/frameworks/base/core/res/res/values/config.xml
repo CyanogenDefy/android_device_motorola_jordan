@@ -81,10 +81,8 @@
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
- <string-array translatable="false" name="config_tether_wifi_regexs">
-  <!--  <item>wl.*</item>
-        <item>tiwlan.*</item>
-        <item>tiap.*</item> -->
+    <string-array translatable="false" name="config_tether_wifi_regexs">
+        <item>tiap\\d</item>
     </string-array>
 
     <!-- Dhcp range (min, max) to use for tethering purposes -->
