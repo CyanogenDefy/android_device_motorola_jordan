@@ -47,7 +47,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.telephony.call_ring.delay=3000 \
 	ro.url.safetylegal=http://www.motorola.com/staticfiles/Support/legal/?model=MB525 \
 	ro.setupwizard.enable_bypass=1 \
-	ro.default_usb_mode=4 \
 	ro.media.dec.jpeg.memcap=20000000 \
 	ro.media.dec.aud.wma.enabled=1 \
 	ro.media.dec.vid.wmv.enabled=1 \
