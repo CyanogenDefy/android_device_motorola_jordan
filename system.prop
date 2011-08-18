@@ -1,5 +1,5 @@
 #
-# system.prop for generic sdk
+# system.prop for jordan
 #
 
 rild.libpath=/system/lib/librilswitch.so
@@ -46,4 +46,7 @@ ro.product.use_charge_counter=1
 
 # use default multitouch configuration
 persist.input.multitouch_points=2
+
+# required for future java part (common omap3/4)
+com.ti.omap_enhancement=1
 

@@ -66,8 +66,10 @@ PRODUCT_COPY_FILES += \
 	frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
 	frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
 	frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+	frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+	frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
 	frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
 	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
 	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
@@ -91,9 +93,9 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.MP3.decode \
 	libOMX.TI.WBAMR.decode \
 	libOMX.TI.WMA.decode \
-	libOMX.TI.JPEG.Encoder \
 	libOMX.TI.Video.Decoder \
 	libOMX.TI.Video.encoder \
+	libOMX.TI.JPEG.decoder \
 	libVendor_ti_omx \
 	libLCML \
 	libOMX_Core \
@@ -104,7 +106,7 @@ PRODUCT_PACKAGES += \
 	iwmulticall \
 	hostap \
 	hostapd.conf \
-	hostapdcli \
+	libhostapdcli \
 	bootmenu \
 	Usb \
 	su
