@@ -11,7 +11,7 @@ ro.sf.lcd_density=240
 
 # Default network type.
 # 3 -> GSM/WCDMA (auto mode, according to PRL)
-ro.telephony.default_network=3
+# ro.telephony.default_network=3
 
 # The interfaces to get DNS data from when using mobile data
 # Comma-separated
@@ -34,7 +34,7 @@ ro.opengles.version = 131072
 dalvik.vm.heapsize=40m
 
 # Forbid format of these partitions in mount menu :
-ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
+ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
 
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
