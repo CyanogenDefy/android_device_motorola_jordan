@@ -35,15 +35,14 @@ ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
 
-# declare we're using Usb.apk
+# Usb mode selection Settings (Usb.apk)
 ro.usb.use_custom_service=1
-
 # default USB mode is 'none'
 ro.default_usb_mode=5
-
+# disable MTP only mode
+ro.mtp_available=0
 # disable RNDIS mode
 ro.rndis_available=0
-
 # and also modem mode
 ro.modem_available=0
 
