@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- If the currently active USB state should be written to a file, put file name here -->
+	<string name="current_usb_state_file_name" translatable="false">/tmp/usbd_current_state</string>
+</resources>

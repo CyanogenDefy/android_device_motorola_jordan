@@ -15,11 +15,12 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
 
 #define LOG_NDEBUG 0
 #define LOG_TAG "UsbController"
 #include <cutils/log.h>
-#include <cutils/properties.h>
 
 #include "UsbController.h"
 
@@ -41,22 +42,32 @@ int UsbController::stopRNDIS() {
 }
 
 int UsbController::enableRNDIS(bool enable) {
-    const char *state = enable ? "1" : "0";
     char buffer[128];
 
-    property_set("sys.usb.tethered", state);
     snprintf(buffer, sizeof(buffer),
-             "/system/bin/am broadcast -a com.motorola.intent.action.USB_TETHERING_TOGGLED --ei state %s",
-             state);
+             "/system/bin/am broadcast -a com.motorola.intent.action.USB_TETHERING_TOGGLED --ei state %d",
+             enable ? 1 : 0);
     system(buffer);
     return 0;
 }
 
 bool UsbController::isRNDISStarted() {
-    char value[PROPERTY_VALUE_MAX];
-    if (property_get("sys.usb.tethered", value, "0") <= 0) {
-        return false;
+    bool rndisActive = false;
+    FILE *stateFile = fopen("/tmp/usbd_current_state", "r");
+
+    if (stateFile != NULL) {
+        char buffer[128];
+
+        memset(buffer, 0, sizeof(buffer));
+        if (fread(buffer, 1, sizeof(buffer), stateFile) > 0) {
+            LOGD("Got USBD state %s", buffer);
+            rndisActive = strstr(buffer, "rndis") != NULL;
+        } else {
+            LOGD("Could not read USBD state file (errno %d)", errno);
+        }
+
+        fclose(stateFile);
     }
-    LOGD("Tethering state: %s", value);
-    return atoi(value) != 0;
+
+    return rndisActive;
 }
