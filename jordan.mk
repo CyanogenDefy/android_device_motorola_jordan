@@ -82,7 +82,7 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.WMA.decode \
 	libOMX.TI.Video.Decoder \
 	libOMX.TI.Video.encoder \
-	libOMX.TI.JPEG.decoder \
+	libOMX.TI.VPP \
 	libVendor_ti_omx \
 	libLCML \
 	libOMX_Core \
@@ -98,6 +98,9 @@ PRODUCT_PACKAGES += \
 	hijack_boot_2nd-init \
 	Usb \
 	su
+
+# for jpeg hw encoder/decoder
+PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHD

@@ -30,6 +30,13 @@ wifi.hotspot.ti = 1
 # This is a 16.16 fixed point number
 ro.opengles.version = 131072
 
+# Enable Jpeg HW decoder for images > 300 kb (disabled, buggy)
+jpeg.libskiahw.decoder.enable=0
+jpeg.libskiahw.decoder.thresh=300000
+
+# Disable Jpeg HW encoder
+jpeg.libskiahw.encoder.enable=0
+
 # This is a high density device with more memory, so larger vm heaps for it.
 dalvik.vm.heapsize=40m
 
