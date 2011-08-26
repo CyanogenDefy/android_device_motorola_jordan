@@ -48,14 +48,6 @@ ro.battery_light=true
 
 # Usb mode selection Settings (Usb.apk)
 ro.usb.use_custom_service=1
-# default USB mode is 'none'
-ro.default_usb_mode=5
-# disable MTP only mode
-ro.mtp_available=0
-# disable RNDIS mode
-ro.rndis_available=0
-# and also modem mode
-ro.modem_available=0
 
 # use 1% battery steps
 ro.product.use_charge_counter=1
