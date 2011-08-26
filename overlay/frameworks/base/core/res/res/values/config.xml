@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2009, The Android Open Source Project
+** Copyright 2011, The Android Open Source Project
 **
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
 **
-**     http://www.apache.org/licenses/LICENSE-2.0 
+**     http://www.apache.org/licenses/LICENSE-2.0
 **
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
 -->
@@ -25,18 +25,18 @@
          manager will disable alpha trasformation in animations where not
          strictly needed. -->
     <bool name="config_sf_limitedAlpha">false</bool>
-    
+
     <!-- Flag indicating whether the surface flinger is inefficient
          at performing a blur.  Used by parts of the UI to turn off
          the blur effect where it isn't worth the performance hit. -->
     <bool name="config_sf_slowBlur">false</bool>
-    
+
     <!-- The duration (in milliseconds) of a short animation. -->
     <integer name="config_shortAnimTime">150</integer>
-    
+
     <!-- The duration (in milliseconds) of a medium-length animation. -->
     <integer name="config_mediumAnimTime">300</integer>
-    
+
     <!-- The duration (in milliseconds) of a long animation. -->
     <integer name="config_longAnimTime">400</integer>
 
@@ -75,7 +75,7 @@
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
-      <item>usb1</item>  
+      <item>usb1</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -113,11 +113,11 @@
          the slider is open.  This can be set or unset depending how easily
          the slider can be opened (for example, in a pocket or purse). -->
     <bool name="config_bypass_keyguard_if_slider_open">true</bool>
-    
+
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
-    
+
     <!-- XXXXXX END OF RESOURCES USING WRONG NAMING CONVENTION -->
 
     <!-- The number of degrees to rotate the display when the keyboard is open. -->
@@ -173,7 +173,7 @@
         <item>0</item>
         <item>25</item>
     </integer-array>
-    
+
     <!-- Vibrator pattern for feedback about touching a virtual key -->
     <integer-array name="config_virtualKeyVibePattern">
         <item>0</item>
@@ -241,10 +241,10 @@
 
          Must be overridden in platform specific overlays -->
      <integer-array name="config_autoBrightnessLevels">
-	<item>15</item>
-	<item>100</item>
-	<item>3000</item>
-	<item>8000</item>
+        <item>15</item>
+        <item>100</item>
+        <item>3000</item>
+        <item>8000</item>
      </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -252,11 +252,11 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
       <integer-array name="config_autoBrightnessLcdBacklightValues">
-	<item>24</item>
-	<item>48</item>
-	<item>108</item>
-	<item>206</item>
-	<item>246</item>
+        <item>24</item>
+        <item>48</item>
+        <item>128</item>
+        <item>226</item>
+        <item>246</item>
       </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -264,11 +264,11 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
       <integer-array name="config_autoBrightnessButtonBacklightValues">
-	<item>1</item>
-	<item>0</item>
-	<item>0</item>
-	<item>0</item>
-	<item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
       </integer-array>
 
     <!-- Array of output values for keyboard backlight corresponding to the LUX values
@@ -276,11 +276,11 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
-	<item>0</item>
-	<item>0</item>
-	<item>0</item>
-	<item>0</item>
-	<item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
     </integer-array>
 
     <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
@@ -302,8 +302,8 @@
          from the touch driver. This code exists for one particular device,
          and should not be enabled for any others. -->
     <bool name="config_filterJumpyTouchEvents">false</bool>
-    
-    <!-- Component name of the default wallpaper. This will be ImageWallpaper if not 
+
+    <!-- Component name of the default wallpaper. This will be ImageWallpaper if not
          specified -->
     <string name="default_wallpaper_component">@null</string>
 
