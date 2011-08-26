@@ -19,6 +19,7 @@ loglevel 3
     export SD_EXT_DIRECTORY /mnt/sdcard-ext
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
+    export DSP_PATH /system/lib/dsp
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
 
 # Backward compatibility
