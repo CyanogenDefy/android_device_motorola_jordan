@@ -345,13 +345,6 @@ on property:service.adb.tcp.port=-1
     stop adbd
     start adbd
 
-on property:persist.input.multitouch_points=2
-    exec modprobe -r defy_more
-
-on property:persist.input.multitouch_points=5
-    exec modprobe -r defy_more
-    exec sh /etc/init.d/90multitouch
-
 service servicemanager /system/bin/servicemanager
     user system
     critical
