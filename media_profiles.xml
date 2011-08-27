@@ -91,19 +91,6 @@
                    channels="1" />
         </EncoderProfile>  -->
 
-        <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
-                   bitRate="10000000"
-                   width="640"
-                   height="480"
-                   frameRate="30" />
-
-            <Audio codec="aac"
-                   bitRate="96000"
-                   sampleRate="44100"
-                   channels="1" />
-        </EncoderProfile>
-
         <EncoderProfile quality="wide" fileFormat="mp4" duration="30">
             <Video codec="m4v"
                    bitRate="8000000"
@@ -116,7 +103,20 @@
                    sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
-			
+
+        <EncoderProfile quality="high" fileFormat="mp4" duration="30">
+            <Video codec="m4v"
+                   bitRate="6000000"
+                   width="640"
+                   height="480"
+                   frameRate="30" />
+
+            <Audio codec="aac"
+                   bitRate="96000"
+                   sampleRate="44100"
+                   channels="1" />
+        </EncoderProfile>
+
         <EncoderProfile quality="low" fileFormat="3gp" duration="30">
             <Video codec="h263"
                    bitRate="200000"
@@ -160,7 +160,7 @@
         minFrameWidth="176" maxFrameWidth="1280"
         minFrameHeight="144" maxFrameHeight="720"
         minFrameRate="1" maxFrameRate="30" />
-		
+
     <VideoEncoderCap name="h263" enabled="true"
         minBitRate="64000" maxBitRate="4000000"
         minFrameWidth="176" maxFrameWidth="640"
