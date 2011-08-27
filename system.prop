@@ -46,7 +46,7 @@ ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
 # BatteryLight while charging, enabled by default.
 ro.battery_light=true
 
-# Usb mode selection Settings (Usb.apk)
+# Tell UsbService that we're using Usb.apk
 ro.usb.use_custom_service=1
 
 # use 1% battery steps
