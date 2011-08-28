@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Copyright (c) 2008-2009, Motorola, Inc.
+Copyright (c) 2008-2011, Motorola, Inc.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted
@@ -32,104 +32,104 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct alarm_node
 {
-	struct alarm_node *next;
-	struct timeval alarm_time;
-	void (*f)(void *);
-	void *cookie;
+    struct alarm_node *next;
+    struct timeval alarm_time;
+    void (*f)(void *);
+    void *cookie;
 };
 
 static struct alarm_node *alarms = NULL;
 
 void alarm_process(void)
 {
-	struct alarm_node *a;
-	struct timeval now;
-	gettimeofday(&now, NULL);
+    struct alarm_node *a;
+    struct timeval now;
+    gettimeofday(&now, NULL);
 
-	while ((a = alarms) != NULL) {
-		if (now.tv_sec < a->alarm_time.tv_sec)
-			break;
-		if (	(now.tv_sec == a->alarm_time.tv_sec)  &&
-				(now.tv_usec < a->alarm_time.tv_usec))
-			break;
-		alarms = a->next;
+    while ((a = alarms) != NULL) {
+        if (now.tv_sec < a->alarm_time.tv_sec)
+            break;
+        if (    (now.tv_sec == a->alarm_time.tv_sec)  &&
+                (now.tv_usec < a->alarm_time.tv_usec))
+            break;
+        alarms = a->next;
 
-		(a->f)(a->cookie);
-		free(a);
-	}
+        (a->f)(a->cookie);
+        free(a);
+    }
 }
 
 int alarm_get_time_until_next(void)
 {
-	struct timeval now;
-	int delta;
-	if (!alarms)
-		return 0x7fffffff;
-	gettimeofday(&now, NULL);
-	delta =	(alarms->alarm_time.tv_sec - now.tv_sec) * 1000 +
-			(alarms->alarm_time.tv_usec - now.tv_usec) / 1000;
-	LOGD("alarm_get_time_until_next, delta = %d\n", delta);
-	return delta;
+    struct timeval now;
+    int delta;
+    if (!alarms)
+        return 0x7fffffff;
+    gettimeofday(&now, NULL);
+    delta = (alarms->alarm_time.tv_sec - now.tv_sec) * 1000 +
+            (alarms->alarm_time.tv_usec - now.tv_usec) / 1000;
+    LOGD("alarm_get_time_until_next, delta = %d\n", delta);
+    return delta;
 }
 
 int alarm_set_relative(void (*f)(void *), void *cookie, int ms)
 {
-	struct alarm_node *p, *c, *a = malloc(sizeof(*a));
-	if (!a)
-		return -1;
-	a->next = NULL;
-	gettimeofday(&a->alarm_time, NULL);
-	a->alarm_time.tv_usec += ms * 1000;
-	if (a->alarm_time.tv_usec >= 1000000) {
-		a->alarm_time.tv_sec += (a->alarm_time.tv_usec / 1000000);
-		a->alarm_time.tv_usec %= 1000000;
-	}
-	a->f = f;
-	a->cookie = cookie;
+    struct alarm_node *p, *c, *a = malloc(sizeof(*a));
+    if (!a)
+        return -1;
+    a->next = NULL;
+    gettimeofday(&a->alarm_time, NULL);
+    a->alarm_time.tv_usec += ms * 1000;
+    if (a->alarm_time.tv_usec >= 1000000) {
+        a->alarm_time.tv_sec += (a->alarm_time.tv_usec / 1000000);
+        a->alarm_time.tv_usec %= 1000000;
+    }
+    a->f = f;
+    a->cookie = cookie;
 
-	p = NULL;
-	c = alarms;
-	while (c) {
-		if (c->alarm_time.tv_sec > a->alarm_time.tv_sec)
-			break;
-		if (	(c->alarm_time.tv_sec == a->alarm_time.tv_sec)  &&
-				(c->alarm_time.tv_usec > a->alarm_time.tv_usec))
-			break;
+    p = NULL;
+    c = alarms;
+    while (c) {
+        if (c->alarm_time.tv_sec > a->alarm_time.tv_sec)
+            break;
+        if (    (c->alarm_time.tv_sec == a->alarm_time.tv_sec)  &&
+                (c->alarm_time.tv_usec > a->alarm_time.tv_usec))
+            break;
 
-		p = c;
-		c = c->next;
-	}
+        p = c;
+        c = c->next;
+    }
 
-	if (!p) {
-		a->next = alarms;
-		alarms = a;
-	} else {
-		a->next = p->next;
-		p->next = a;
-	}
-	return 0;
+    if (!p) {
+        a->next = alarms;
+        alarms = a;
+    } else {
+        a->next = p->next;
+        p->next = a;
+    }
+    return 0;
 }
 
 int alarm_cancel(void (*f)(void *))
 {
-	struct alarm_node *p, *c;
-	int cancelled = 0;
-	p = NULL;
-	c = alarms;
-	while (c) {
-		if (c->f == f) {
-			struct alarm_node *a = c;
-			if (p)
-				p->next = c->next;
-			else
-				alarms = c->next;
-			c = c->next;
-			free(a);
-			cancelled++;
-			continue;
-		}
-		p = c;
-		c = c->next;
-	}
-	return cancelled;
+    struct alarm_node *p, *c;
+    int cancelled = 0;
+    p = NULL;
+    c = alarms;
+    while (c) {
+        if (c->f == f) {
+            struct alarm_node *a = c;
+            if (p)
+                p->next = c->next;
+            else
+                alarms = c->next;
+            c = c->next;
+            free(a);
+            cancelled++;
+            continue;
+        }
+        p = c;
+        c = c->next;
+    }
+    return cancelled;
 }
