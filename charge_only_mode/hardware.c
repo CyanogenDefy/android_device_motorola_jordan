@@ -124,7 +124,16 @@ int is_unknown()
 
 int charge_level()
 {
-	return sys_get_int_parameter("/sys/class/power_supply/battery/capacity", 0);
+	int value;
+	value = sys_get_int_parameter("/sys/class/power_supply/battery/charge_counter", 0);
+	if (!value)
+		value = sys_get_int_parameter("/sys/class/power_supply/battery/capacity", 0);
+	if (value < 0) {
+		value = 0;
+	} else if (value > 100) {
+		value = 100;
+	}
+	return value;
 }
 
 int voltage_level()
