@@ -14,7 +14,7 @@ mount -o remount,rw rootfs /
 BB="/sbin/busybox"
 
 # RECOVERY tool includes busybox
-cp -f /system/bootmenu/recovery/sbin/recovery $BB
+cp -f /system/bootmenu/recovery/sbin/recovery_stable $BB
 
 # add lsof to debug locks
 cp -f /system/bootmenu/binary/lsof /sbin/lsof
