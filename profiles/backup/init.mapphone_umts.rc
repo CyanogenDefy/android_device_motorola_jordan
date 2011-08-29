@@ -334,18 +334,6 @@ service map /system/bin/sdptool add --channel=20 --network=1 MAP
     disabled
     oneshot
 
-on property:sys.usb.tethered=1
-    stop usbd
-    exec /system/xbin/killall usbd
-    write /dev/usb_device_mode rndis_adb
-    start usbd
-
-on property:sys.usb.tethered=0
-    stop usbd
-    exec /system/xbin/killall usbd
-    write /dev/usb_device_mode msc_adb
-    start usbd
-
 # turn on wifi for tcmd step one
 on property:tcmd.load_wlan=1
     insmod /system/lib/modules/tiwlan_drv.ko
@@ -386,17 +374,28 @@ on property:tcmd.bt_mod=0
 service akmd2 /system/bin/akmd2
     user compass
     group compass misc input
+
+# Wifi firmware uploader services
 service wlan_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271.bin -i /system/etc/wifi/tiwlan.ini -e /pds/wifi/nvs_map.bin
+    group wifi
     disabled
     oneshot
+
+# in init.rc
+# service wlan_ap_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
+#    group wifi
+#    disabled
+#    oneshot
+
+# we will start as root and wpa_supplicant will switch to user wifi
+# after setting up the capabilities required for WEXT
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-    # we will start as root and wpa_supplicant will switch to user wifi
-    # after setting up the capabilities required for WEXT
     # user wifi
     # group wifi inet keystore
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
+
 service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
     disabled
     oneshot

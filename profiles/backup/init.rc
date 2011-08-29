@@ -19,6 +19,7 @@ loglevel 3
     export SD_EXT_DIRECTORY /mnt/sdcard-ext
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
+    export DSP_PATH /system/lib/dsp
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
 
 # Backward compatibility
@@ -182,6 +183,9 @@ on post-fs
     chown system system /mnt/sdcard
     chmod 0777 /mnt/sdcard
 
+    # copy hostapd configuration
+    copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
+
     # create dalvik-cache and double-check the perms
     mkdir /data/dalvik-cache 0771 system system
     chown system system /data/dalvik-cache
@@ -341,13 +345,6 @@ on property:service.adb.tcp.port=-1
     stop adbd
     start adbd
 
-on property:persist.input.multitouch_points=2
-    exec modprobe -r defy_more
-
-on property:persist.input.multitouch_points=5
-    exec modprobe -r defy_more
-    exec sh /etc/init.d/90multitouch
-
 service servicemanager /system/bin/servicemanager
     user system
     critical
@@ -452,18 +449,17 @@ service dumpstate /system/bin/dumpstate -s
     disabled
     oneshot
 
-service ap_fmloader /system/bin/logwrapper /system/bin/wlan_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
+service wlan_ap_loader /system/bin/logwrapper /system/bin/tiap_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
 
-service ap_fmloader_rfmd /system/bin/logwrapper /system/bin/wlan_loader -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini -e /pds/wifi/nvs_map.bin
+service wlan_ap_loader_rfmd /system/bin/logwrapper /system/bin/tiap_loader -f /system/etc/wifi/fw_tiwlan_ap_rfmd.bin -i /system/etc/wifi/tiwlan_ap_rfmd.ini -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
 
-# service hostapd /system/bin/logwrapper /system/bin/Hostapd -d /data/misc/wifi/hostapd.conf
-#    socket hostapd_tiwlan0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
+service hostapd /system/bin/logwrapper /system/bin/hostap -d /data/misc/wifi/hostapd.conf
+    disabled
+    oneshot
 
 service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
     group wifi
