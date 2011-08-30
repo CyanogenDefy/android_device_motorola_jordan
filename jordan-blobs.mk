@@ -129,5 +129,5 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/modules/cpufreq_smartass.ko:system/bootmenu/ext/modules/cpufreq_smartass.ko \
 	device/motorola/jordan/bootmenu/modules/cpufreq_userspace.ko:system/bootmenu/ext/modules/cpufreq_userspace.ko \
 	device/motorola/jordan/bootmenu/modules/overclock_defy.ko:system/bootmenu/ext/modules/overclock_defy.ko \
-	device/motorola/jordan/bootmenu/modules/symsearch.ko:system/bootmenu/ext/modules/symsearch.ko \
+	device/motorola/jordan/modules/symsearch.ko:system/bootmenu/ext/modules/symsearch.ko \
 
