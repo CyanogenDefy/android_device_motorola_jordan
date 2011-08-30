@@ -87,7 +87,7 @@ int unhook(struct hook_info *hi) {
 	return 0;
 }
 
-void hook_init(void) {
+int hook_init(void) {
 	int i;
 	SYMSEARCH_BIND_FUNCTION_TO(dsifix, kallsyms_lookup_name, pkallsyms_lookup_name);
 	SYMSEARCH_BIND_FUNCTION_TO(dsifix, kallsyms_lookup, pkallsyms_lookup);
@@ -96,6 +96,7 @@ void hook_init(void) {
 		hook(&g_hi[i]);
 	}
 	unlock_kernel();
+	return 0;
 }
 
 void hook_exit(void) {

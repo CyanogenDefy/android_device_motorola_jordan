@@ -35,7 +35,7 @@ int hook(struct hook_info *);
 
 int unhook(struct hook_info *);
 
-void hook_init(void);
+int hook_init(void);
 void hook_exit(void);
 
 extern struct hook_info g_hi[];

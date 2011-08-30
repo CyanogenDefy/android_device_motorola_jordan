@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Require a Motorola Android Repository
+
+#config :
+# vi kernel/arch/arm/configs/mapphone_defconfig
+
+#output :
+# out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/.config
+# out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/symsearch.ko
+
+make MOTO_PREBUILT_DIR= kernel $*
+
+cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/symsearch.ko ./
+cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/mmcfix.ko ./
