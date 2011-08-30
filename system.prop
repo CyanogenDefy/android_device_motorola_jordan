@@ -58,3 +58,6 @@ persist.input.multitouch_points=2
 # required for future java part (common omap3/4)
 com.ti.omap_enhancement=1
 
+# Shutter sound enabled
+persist.sys.camera-mute=0
+

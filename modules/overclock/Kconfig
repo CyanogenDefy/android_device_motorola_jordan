@@ -1,0 +1,21 @@
+menu "Defy Overclock"
+	depends on ARCH_OMAP3
+config  CPUFREQ_OVERCLOCK
+	bool "overclock"
+	default y
+config  CPUFREQ_GOV_SMARTASS
+	bool "smartass"
+	default y
+config  CPUFREQ_GOV_INTERACTIVE
+	bool "interactive"
+	default y
+config  CPUFREQ_GOV_CONSERVATIVE
+	bool "conservative"
+	default y
+config  CPUFREQ_GOV_POWERSAVE
+        bool "powersave"
+        default y
+config  CPUFREQ_STAT
+	bool "stats"
+	default y
+endmenu

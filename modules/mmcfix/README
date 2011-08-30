@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Require a Motorola Android Repository
+# 1. put modules folders in /drivers/misc/
+# 2. edit drivers/misc/Makefile and add :
+#     obj-m += symsearch/
+#     obj-m += overclock/
+#     obj-m += mmcfix/
+# 3. edit drivers/misc/Kconfig and add :
+#     source "drivers/misc/symsearch/Kconfig"
+#     source "drivers/misc/overclock/Kconfig"
+#     source "drivers/misc/mmcfix/Kconfig"
+
+# edit config :
+#     vi kernel/arch/arm/configs/mapphone_defconfig
+#
+# and add :
+#     CONFIG_SYMSEARCH=m
+#     CONFIG_MMCFIX=m
+#     CONFIG_CPUFREQ_OVERCLOCK=m
+#     CONFIG_CPUFREQ_GOV_SMARTASS=m
+#     CONFIG_CPUFREQ_GOV_INTERACTIVE=m
+
+#output :
+# out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/.config  (to clean, rm -r)
+# out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/
+
+make MOTO_PREBUILT_DIR= kernel $*
+
+OUT_DIR=./
+
+cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/symsearch/symsearch.ko $OUT_DIR
+cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/overclock/*.ko $OUT_DIR
+cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/mmcfix.ko $OUT_DIR

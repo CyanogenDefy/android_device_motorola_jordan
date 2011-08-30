@@ -1,0 +1,4 @@
+config MMCFIX
+        bool "SDCard fix"
+        default y
+

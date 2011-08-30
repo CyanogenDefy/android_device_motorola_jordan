@@ -1,0 +1,4 @@
+config SYMSEARCH
+        bool "Symsearch"
+        default y
+

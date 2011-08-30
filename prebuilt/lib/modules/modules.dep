@@ -1,3 +1,5 @@
+symsearch.ko:
+mmcfix.ko: symsearch.ko
 wl127x_test.ko:
 vpnclient.ko:
 tun.ko:

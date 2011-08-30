@@ -20,6 +20,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/recovery.fstab:system/etc/recovery.fstab \
 	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
+	device/motorola/jordan/prebuilt/etc/init.d/04mmcfix:system/etc/init.d/04mmcfix \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
 	device/motorola/jordan/prebuilt/etc/init.d/10dnsconf:system/etc/init.d/10dnsconf \
 	device/motorola/jordan/prebuilt/etc/init.d/90multitouch:system/etc/init.d/90multitouch \
@@ -120,13 +121,14 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \
 	device/motorola/jordan/bootmenu/script/sdcard.sh:system/bootmenu/script/sdcard.sh \
 	device/motorola/jordan/bootmenu/script/system.sh:system/bootmenu/script/system.sh \
-	device/motorola/jordan/bootmenu/modules/cpufreq_conservative.ko:system/bootmenu/ext/modules/cpufreq_conservative.ko \
-	device/motorola/jordan/bootmenu/modules/cpufreq_interactive.ko:system/bootmenu/ext/modules/cpufreq_interactive.ko \
 	device/motorola/jordan/bootmenu/modules/cpufreq_ondemand.ko:system/bootmenu/ext/modules/cpufreq_ondemand.ko \
 	device/motorola/jordan/bootmenu/modules/cpufreq_performance.ko:system/bootmenu/ext/modules/cpufreq_performance.ko \
-	device/motorola/jordan/bootmenu/modules/cpufreq_powersave.ko:system/bootmenu/ext/modules/cpufreq_powersave.ko \
-	device/motorola/jordan/bootmenu/modules/cpufreq_smartass.ko:system/bootmenu/ext/modules/cpufreq_smartass.ko \
 	device/motorola/jordan/bootmenu/modules/cpufreq_userspace.ko:system/bootmenu/ext/modules/cpufreq_userspace.ko \
 	device/motorola/jordan/bootmenu/modules/overclock_defy.ko:system/bootmenu/ext/modules/overclock_defy.ko \
-	device/motorola/jordan/bootmenu/modules/symsearch.ko:system/bootmenu/ext/modules/symsearch.ko \
+	device/motorola/jordan/modules/cpufreq_conservative.ko:system/bootmenu/ext/modules/cpufreq_conservative.ko \
+	device/motorola/jordan/modules/cpufreq_interactive.ko:system/bootmenu/ext/modules/cpufreq_interactive.ko \
+	device/motorola/jordan/modules/cpufreq_powersave.ko:system/bootmenu/ext/modules/cpufreq_powersave.ko \
+	device/motorola/jordan/modules/cpufreq_smartass.ko:system/bootmenu/ext/modules/cpufreq_smartass.ko \
+	device/motorola/jordan/modules/cpufreq_stats.ko:system/bootmenu/ext/modules/cpufreq_stats.ko \
+	device/motorola/jordan/modules/symsearch.ko:system/bootmenu/ext/modules/symsearch.ko \
 
