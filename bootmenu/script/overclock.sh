@@ -68,8 +68,8 @@ install_module()
   if [ $load_all -eq 1 ]; then
     insmod $MODULE_DIR/cpufreq_conservative.ko
     insmod $MODULE_DIR/cpufreq_interactive.ko nr_running_addr=0x$nr_running
-    insmod $MODULE_DIR/symsearch.ko
-    insmod $MODULE_DIR/cpufreq_smartass.ko
+#    insmod $MODULE_DIR/symsearch.ko
+#    insmod $MODULE_DIR/cpufreq_smartass.ko
     insmod $MODULE_DIR/cpufreq_powersave.ko
   fi
 }
