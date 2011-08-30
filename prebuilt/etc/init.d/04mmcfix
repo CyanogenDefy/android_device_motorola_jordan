@@ -5,7 +5,7 @@
 # Module location
 MODULE="/system/lib/modules/mmcfix.ko"
 
-# Max number of fingers
+# Property to disable the module
 LOAD_MMCFIX=`getprop persist.sys.mmcfix.disable`
 
 if [ "$LOAD_MMCFIX" != "1" ]; then
