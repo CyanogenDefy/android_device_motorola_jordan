@@ -1,4 +1,4 @@
-/* 
+/*
  * symsearch: - looks up also for unexproted symbols in the kernel
  * exports function:
  *
@@ -43,7 +43,7 @@
 
 #define SYMSEARCH_GET_ADDRESS(name) \
 	name##_address
-	
+
 //functions
 
 #define SYMSEARCH_DECLARE_FUNCTION(ret,name,...) \
@@ -53,10 +53,10 @@
 #define SYMSEARCH_DECLARE_FUNCTION_STATIC(ret,name,...) \
 	typedef	ret (*name##_fp) ( __VA_ARGS__ ); \
 	static name##_fp name = 0
-		
+
 #define SYMSEARCH_INIT_FUNCTION(name) \
 	name##_fp name = (name##_fp)0
-				
+
 //binding (call this in module_init and module is the module name)
 
 #define SYMSEARCH_BIND_ADDRESS(module,name) \
@@ -66,7 +66,7 @@
 		printk(KERN_INFO #module ": Could not find symbol: " #name ".\n"); \
 		return -EBUSY; \
 	}
-	
+
 #define SYMSEARCH_BIND_ADDRESS_TO(module,name,sym) \
 	sym##_address = lookup_symbol_address(#name); \
 	if(!sym##_address) \
@@ -82,7 +82,7 @@
 		printk(KERN_INFO #module ": Could not find symbol: " #name ".\n"); \
 		return -EBUSY; \
 	}
-	
+
 #define SYMSEARCH_BIND_FUNCTION_TO(module,name,sym) \
 	sym = (sym##_fp)lookup_symbol_address(#name); \
 	if(!sym) \
@@ -104,8 +104,8 @@ struct hijack_info
 };
 
 SYMSEARCH_DECLARE_FUNCTION(unsigned long, lookup_symbol_address, const char *name);
-	
+
 struct hijack_info hijack_function(unsigned long hijack_address, unsigned long redirection_address);
 void restore_function(struct hijack_info hijack);
-	
+
 #endif

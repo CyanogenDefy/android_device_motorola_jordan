@@ -1,5 +1,5 @@
 /*
- * n
+ * hook - Hook utilities.
  *
  * Copyright (C) 2010 Nothize
  *
