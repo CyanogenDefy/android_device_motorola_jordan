@@ -6,11 +6,12 @@
 MODULE="/system/lib/modules/defy_more.ko"
 
 # Max number of fingers
-MAX_TOUCH=`getprop persist.input.multitouch_points`
+MAX_TOUCH=`getprop persist.sys.multitouch`
 
 # Load the module if MAX_TOUCH > 2
 if [ -n "$MAX_TOUCH" ]; then
   if [ $MAX_TOUCH -gt 2 ]; then
+    modprobe -r $MODULE 2>/dev/null
     insmod $MODULE touch_num=$MAX_TOUCH
   fi
 fi
