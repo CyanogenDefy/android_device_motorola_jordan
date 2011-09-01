@@ -129,5 +129,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/modules/cpufreq_conservative.ko:system/bootmenu/ext/modules/cpufreq_conservative.ko \
 	device/motorola/jordan/modules/cpufreq_interactive.ko:system/bootmenu/ext/modules/cpufreq_interactive.ko \
 	device/motorola/jordan/modules/cpufreq_smartass.ko:system/bootmenu/ext/modules/cpufreq_smartass.ko \
+	device/motorola/jordan/modules/cpufreq_stats.ko:system/bootmenu/ext/modules/cpufreq_stats.ko \
 	device/motorola/jordan/modules/symsearch.ko:system/bootmenu/ext/modules/symsearch.ko \
 

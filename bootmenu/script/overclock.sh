@@ -52,7 +52,6 @@ get_address()
 {
   cpufreq_table=`grep -e omap2_clk_init_cpufreq_table /proc/kallsyms | sed -e "s/\([0-9A-Fa-f]\{8\}\).*/\1/"`
   stats_update=`grep -e cpufreq_stats_update /proc/kallsyms | sed -e "s/\([0-9A-Fa-f]\{8\}\).*/\1/"`
-  nr_running=`grep -e nr_running /proc/kallsyms | sed -e "s/\([0-9A-Fa-f]\{8\}\).*/\1/"`
 }
 
 #############################################################
@@ -67,8 +66,9 @@ install_module()
   echo 0x$stats_update > /proc/overclock/cpufreq_stats_update_addr
   if [ $load_all -eq 1 ]; then
     insmod $MODULE_DIR/cpufreq_conservative.ko
-    insmod $MODULE_DIR/cpufreq_interactive.ko nr_running_addr=0x$nr_running
     insmod $MODULE_DIR/symsearch.ko
+    insmod $MODULE_DIR/cpufreq_stats.ko
+    insmod $MODULE_DIR/cpufreq_interactive.ko
     insmod $MODULE_DIR/cpufreq_smartass.ko
     insmod $MODULE_DIR/cpufreq_powersave.ko
   fi
@@ -93,7 +93,9 @@ set_scaling()
     ;;
     "1" )
       if [ $load_all -eq 0 ]; then
-        insmod $MODULE_DIR/cpufreq_interactive.ko nr_running_addr=0x$nr_running
+        insmod $MODULE_DIR/symsearch.ko
+        insmod $MODULE_DIR/cpufreq_stats.ko
+        insmod $MODULE_DIR/cpufreq_interactive.ko
       fi
       echo "interactive" > $SCALING_GOVERNOR
       echo $int_min_sample_rate > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
