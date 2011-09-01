@@ -131,7 +131,7 @@ static int qtouch_hw_init(struct qtouch_ts_data *ts) {
         checksumNeedsCorrection = false;
         ts->eeprom_checksum = eeprom_checksum;
     }
-    return HOOK_INVOKE(ss_qtouch_hw_init, ts);
+    return HOOK_INVOKE(qtouch_hw_init, ts);
 }
 
 static int proc_num_touch_read(char *buffer, char **buffer_location,
@@ -169,8 +169,8 @@ static int proc_num_touch_write(struct file *filp, const char __user *buffer,
                 checksumNeedsCorrection = true;
                 ss_qtouch_force_reset(ts_, 0);
 
-                hooked = false;
                 hook_exit();
+                hooked = false;
             } else
                 printk(KERN_INFO MODULE_TAG": ts address not set!\n");
                 printk(KERN_INFO MODULE_TAG": was the screen off at the time of insmod?\n");
@@ -190,12 +190,14 @@ static int __init multitouch_init(void) {
     struct proc_dir_entry *proc_entry;
     SYMSEARCH_BIND_FUNCTION_TO(multitouch, mapphone_touch_reset, ss_mapphone_touch_reset);
     SYMSEARCH_BIND_FUNCTION_TO(multitouch, qtouch_force_reset, ss_qtouch_force_reset);
-    hooked = true;
+
     buf = (char *)vmalloc(BUF_SIZE);
     proc_mkdir("qtouch", NULL);
-    proc_entry = create_proc_read_entry("qtouch/num_touch", 0644, NULL, proc_num_touch_read, NULL);
+    proc_entry = create_proc_read_entry("qtouch/num_touch", 0666, NULL, proc_num_touch_read, NULL);
     proc_entry->write_proc = proc_num_touch_write;
+
     hook_init();
+    hooked = true;
     /* reset will provoke multitouch_read call, so we can get the ts struct address immediately */
     ss_mapphone_touch_reset();
     return 0;
