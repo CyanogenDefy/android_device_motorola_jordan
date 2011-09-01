@@ -11,7 +11,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 mkdir -p /tmp
 
 echo acm > /dev/usb_device_mode
-sleep1
+sleep 1
 
 echo charge_adb > /dev/usb_device_mode
 

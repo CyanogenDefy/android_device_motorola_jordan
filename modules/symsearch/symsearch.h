@@ -1,5 +1,5 @@
 /*
- * symsearch: - looks up also for unexproted symbols in the kernel
+ * symsearch: - looks up for unexported kernel symbols
  *
  * Copyright (C) 2010 Skrilax_CZ
  * GPL
