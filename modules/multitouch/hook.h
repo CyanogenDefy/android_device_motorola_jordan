@@ -1,5 +1,5 @@
 /*
- * n
+ * hook - Hook utilities.
  *
  * Copyright (C) 2010 Nothize
  *
@@ -32,6 +32,7 @@ struct hook_info {
 };
 
 int hook(struct hook_info *);
+
 int unhook(struct hook_info *);
 
 int hook_init(void);
