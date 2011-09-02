@@ -4,7 +4,9 @@
  * needs symsearch module by Skrilaz
  *
  * number of touches can be set by write to /proc/qtouch/num_touch (2-10)
- * the screen has to be on (touchscreen active) at the time of write
+ *
+ * Limit !
+ * the screen has to be On (touchscreen active) at the time of write
  *
  * Copyright (C) 2011 CyanogenDefy, based on sources by Nadlabak
  *
@@ -99,13 +101,13 @@ struct qtouch_ts_data *ts_;
 
 static int num_touch = 2;
 module_param(num_touch, int, 0);
+
 static bool hooked = false;
 static bool checksumNeedsCorrection = false;
 static uint16_t eeprom_checksum;
 
 //static void qtouch_force_reset(struct qtouch_ts_data *ts, uint8_t sw_reset)
 SYMSEARCH_DECLARE_FUNCTION_STATIC(void, ss_qtouch_force_reset, struct qtouch_ts_data *ts, uint8_t sw_reset);
-
 SYMSEARCH_DECLARE_FUNCTION_STATIC(int, ss_mapphone_touch_reset, void);
 
 /* used to find out ts address */
@@ -169,6 +171,7 @@ static int proc_num_touch_write(struct file *filp, const char __user *buffer,
                 checksumNeedsCorrection = true;
                 ss_qtouch_force_reset(ts_, 0);
 
+                //hook locks touchscreen, so unhook when change is made
                 hook_exit();
                 hooked = false;
             } else
@@ -214,6 +217,7 @@ module_init(multitouch_init);
 module_exit(multitouch_exit);
 
 MODULE_ALIAS("multitouch");
-MODULE_DESCRIPTION("Customize qtouch num_touch");
-MODULE_AUTHOR("CyanogenDefy, based on Nadlabak sources");
+MODULE_DESCRIPTION("Read and customize qtouch number of touch contacts");
+MODULE_AUTHOR("Tanguy Pruvot, Pavel Kucera");
 MODULE_LICENSE("GPL");
+
