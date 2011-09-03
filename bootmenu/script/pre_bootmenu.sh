@@ -26,6 +26,11 @@ $BB chown 0.0 $BB
 $BB chmod 4755 $BB
 $BB chmod +rx /sbin/*
 
+if [ -f /sbin/chmod ]; then
+  # job already done...
+  exit 0
+fi
+
 # busybox sym link..
 for cmd in $($BB --list); do
   $BB ln -s /sbin/busybox /sbin/$cmd
@@ -57,4 +62,4 @@ else
   mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/cache /cache
 fi
 
-exit
+exit 0
