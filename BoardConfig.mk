@@ -94,6 +94,8 @@ BOARD_NEVER_UMOUNT_SYSTEM := true
 # Override cyanogen squisher to customize our update zip package
 TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 
+# Jordan requires the common boot hijack
+TARGET_NEEDS_MOTOROLA_HIJACK := true
 
 # In nighly builds only
 ifndef CYANOGEN_RELEASE
