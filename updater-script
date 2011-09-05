@@ -104,14 +104,12 @@ symlink("iwmulticall","/system/xbin/iwconfig","/system/xbin/iwlist",
 symlink("bootmenu", "/system/bin/logwrapper");
 symlink("/system/bin/logwrapper.bin","/system/xbin/logwrapper");
 package_extract_file("system/bin/bootmenu", "/system/bootmenu/binary/bootmenu");
-symlink("/init", "/system/bootmenu/2nd-init/sbin/ueventd");
 set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/binary/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/script/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/recovery/sbin/");
-set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/2nd-init/sbin/");
-set_perm(0, 0, 0755, "/system/bootmenu/2nd-init/init");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/2nd-boot/sbin/");
+set_perm(0, 0, 0755, "/system/bootmenu/2nd-init/init");
 set_perm(0, 0, 0755, "/system/bootmenu/2nd-boot/init");
 set_perm_recursive(0, 2000, 0775, 0664, "/system/bootmenu/config/");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
