@@ -11,7 +11,7 @@ ro.sf.lcd_density=240
 
 # Default network type.
 # 3 -> GSM/WCDMA (auto mode, according to PRL)
-# ro.telephony.default_network=3
+ro.telephony.default_network=3
 
 # The interfaces to get DNS data from when using mobile data
 # Comma-separated
