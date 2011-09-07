@@ -24,11 +24,11 @@
 #include "../symsearch/symsearch.h"
 
 #define SYS_LD_USBLED_DEV "usb"
-#define LD_USBLED_DEV "ld-usb-led"
+#define LD_USBLED_DEV "ld-usb"
 
 struct usb_led_data {
 	struct cpcap_device *cpcap;
-	struct led_classdev ld_cpcap_usb_class_dev;
+	struct led_classdev ld_cpcap_usbled_class_dev;
 };
 
 SYMSEARCH_DECLARE_FUNCTION_STATIC(int, _cpcap_device_register,struct platform_device *pdev);
@@ -42,13 +42,15 @@ static struct platform_device cpcap_usbled_device = {
 	.dev.platform_data  = NULL,
 };
 
-static void ld_cpcap_usb_store(struct led_classdev *led_cdev,
+static void ld_cpcap_usbled_store(struct led_classdev *led_cdev,
 				enum led_brightness value)
 {
-	struct usb_led_data *cpusb_data =
-	    container_of(led_cdev, struct usb_led_data,
-			 ld_cpcap_usb_class_dev);
 	int cpcap_status = 0;
+	struct usb_led_data *cpusb_data = container_of(
+		led_cdev,
+		struct usb_led_data,
+		ld_cpcap_usbled_class_dev
+	);
 
 	SYMSEARCH_BIND_FUNCTION_TO_NORET(usbled, cpcap_regacc_write, _cpcap_regacc_write);
 
@@ -62,7 +64,8 @@ static void ld_cpcap_usb_store(struct led_classdev *led_cdev,
 			CPCAP_BIT_CHRG_LED_EN);
 	}
 }
-static int ld_cpcap_usb_probe(struct platform_device *pdev)
+
+static int ld_cpcap_usbled_probe(struct platform_device *pdev)
 {
 	int ret;
 	struct usb_led_data *info;
@@ -73,7 +76,6 @@ static int ld_cpcap_usb_probe(struct platform_device *pdev)
 	if (pdev == NULL) {
 		pr_err("%s: platform data required\n", __func__);
 		return -ENODEV;
-
 	}
 	info = kzalloc(sizeof(struct usb_led_data), GFP_KERNEL);
 	if (info == NULL) {
@@ -93,13 +95,12 @@ static int ld_cpcap_usb_probe(struct platform_device *pdev)
 	}
 	value &= CPCAP_BIT_CHRG_LED_EN;
 
-	info->ld_cpcap_usb_class_dev.name = SYS_LD_USBLED_DEV;
-	info->ld_cpcap_usb_class_dev.brightness_set = ld_cpcap_usb_store;
-	info->ld_cpcap_usb_class_dev.max_brightness = 1;
-	info->ld_cpcap_usb_class_dev.brightness = (value != 0);
+	info->ld_cpcap_usbled_class_dev.name = SYS_LD_USBLED_DEV;
+	info->ld_cpcap_usbled_class_dev.brightness_set = ld_cpcap_usbled_store;
+	info->ld_cpcap_usbled_class_dev.max_brightness = 1;
+	info->ld_cpcap_usbled_class_dev.brightness = (value != 0);
 
-	ret = led_classdev_register(&pdev->dev,
-				    &info->ld_cpcap_usb_class_dev);
+	ret = led_classdev_register(&pdev->dev, &info->ld_cpcap_usbled_class_dev);
 	if (ret < 0) {
 		pr_err("%s: Register led class failed: \n", __func__);
 		kfree(info);
@@ -108,54 +109,63 @@ static int ld_cpcap_usb_probe(struct platform_device *pdev)
 	return ret;
 }
 
-static int ld_cpcap_usb_remove(struct platform_device *pdev)
+static int ld_cpcap_usbled_remove(struct platform_device *pdev)
 {
 	struct usb_led_data *info = platform_get_drvdata(pdev);
 
-	led_classdev_unregister(&info->ld_cpcap_usb_class_dev);
+	led_classdev_unregister(&info->ld_cpcap_usbled_class_dev);
 
 	return 0;
 }
 
-static struct platform_driver ld_cpcap_usb_driver = {
-	.probe = ld_cpcap_usb_probe,
-	.remove = ld_cpcap_usb_remove,
+static int cpcap_usbled_unregister(void)
+{
+	int ret=0;
+
+	SYMSEARCH_BIND_FUNCTION_TO(usbled, cpcap_device_unregister, _cpcap_device_unregister);
+	ret = _cpcap_device_unregister(&cpcap_usbled_device);
+
+	return ret;
+}
+
+static struct platform_driver ld_cpcap_usbled_driver = {
+	.probe = ld_cpcap_usbled_probe,
+	.remove = ld_cpcap_usbled_remove,
 	.driver = {
 		.name = "cpcap_usbled",
 		.owner = THIS_MODULE,
 	},
 };
 
-static int __init ld_cpcap_usb_init(void)
+static int __init ld_cpcap_usbled_init(void)
 {
 	int ret;
 
-	ret = cpcap_driver_register(&ld_cpcap_usb_driver);
+	SYMSEARCH_BIND_FUNCTION_TO(usbled, cpcap_device_register, _cpcap_device_register);
+
+	ret = cpcap_driver_register(&ld_cpcap_usbled_driver);
 	if (ret < 0) {
-		pr_err("%s: init cpcap driver failed: \n", __func__);
+		pr_err("%s: init cpcap usb led driver failed: \n", __func__);
 		return ret;
 	}
-
-	SYMSEARCH_BIND_FUNCTION_TO(usbled, cpcap_device_register, _cpcap_device_register);
 	ret = _cpcap_device_register(&cpcap_usbled_device);
 	if (ret < 0) {
-		pr_err("%s: init cpcap device failed: \n", __func__);
+		pr_err("%s: init cpcap usb led device failed: \n", __func__);
 		return ret;
 	}
 
 	return ret;
 }
 
-static void __exit ld_cpcap_usb_exit(void)
+static void __exit ld_cpcap_usbled_exit(void)
 {
-	SYMSEARCH_BIND_FUNCTION_TO_NORET(usbled, cpcap_device_unregister, _cpcap_device_unregister);
-	_cpcap_device_unregister(&cpcap_usbled_device);
+	cpcap_usbled_unregister();
 
-	platform_driver_unregister(&ld_cpcap_usb_driver);
+	platform_driver_unregister(&ld_cpcap_usbled_driver);
 }
 
-module_init(ld_cpcap_usb_init);
-module_exit(ld_cpcap_usb_exit);
+module_init(ld_cpcap_usbled_init);
+module_exit(ld_cpcap_usbled_exit);
 
 MODULE_DESCRIPTION("USB Charge LED Driver");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
