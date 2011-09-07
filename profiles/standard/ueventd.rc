@@ -52,6 +52,7 @@
 /dev/udi_ctrl             0600   root       root
 /dev/DspBridge            0666   audio      graphics
 /dev/hp3a-omap            0770   media      camera
+/dev/hplens-omap          0770   media      camera
 /dev/video0               0770   media      camera
 /dev/video1               0770   media      graphics
 /dev/video2               0770   system     graphics
