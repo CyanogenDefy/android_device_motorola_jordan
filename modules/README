@@ -6,20 +6,12 @@
 #     obj-m += symsearch/
 #     obj-m += overclock/
 #     obj-m += mmcfix/
+#     obj-m += usbled/
 # 3. edit drivers/misc/Kconfig and add :
 #     source "drivers/misc/symsearch/Kconfig"
 #     source "drivers/misc/overclock/Kconfig"
 #     source "drivers/misc/mmcfix/Kconfig"
-
-# edit config :
-#     vi kernel/arch/arm/configs/mapphone_defconfig
-#
-# and add :
-#     CONFIG_SYMSEARCH=m
-#     CONFIG_MMCFIX=m
-#     CONFIG_CPUFREQ_OVERCLOCK=m
-#     CONFIG_CPUFREQ_GOV_SMARTASS=m
-#     CONFIG_CPUFREQ_GOV_INTERACTIVE=m
+#     source "drivers/misc/usbled/Kconfig"
 
 #output :
 # out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/.config  (to clean, rm -r)
@@ -27,8 +19,11 @@
 
 make MOTO_PREBUILT_DIR= kernel $*
 
+OUTPUT=out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc
 OUT_DIR=./
 
-cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/symsearch/symsearch.ko $OUT_DIR
-cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/overclock/*.ko $OUT_DIR
-cp out/target/product/generic/obj/PARTITIONS/kernel_intermediates/build/drivers/misc/mmcfix.ko $OUT_DIR
+cp $OUTPUT/symsearch/symsearch.ko $OUT_DIR
+cp $OUTPUT/overclock/*.ko $OUT_DIR
+cp $OUTPUT/mmcfix/mmcfix.ko $OUT_DIR
+cp $OUTPUT/usbled/usbled.ko $OUT_DIR
+

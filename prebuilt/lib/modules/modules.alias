@@ -1,3 +1,4 @@
+alias usbled usbled
 alias MMC-fix mmcfix
 alias platform:wl127x-test wl127x_test
 alias char-major-10-200 tun

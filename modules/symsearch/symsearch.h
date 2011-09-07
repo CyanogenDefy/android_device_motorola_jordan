@@ -91,6 +91,14 @@
 		return -EBUSY; \
 	}
 
+#define SYMSEARCH_BIND_FUNCTION_TO_NORET(module,name,sym) \
+	sym = (sym##_fp)lookup_symbol_address(#name); \
+	if(!sym) \
+	{ \
+		printk(KERN_INFO #module ": Could not find symbol: " #name ".\n"); \
+		return; \
+	}
+
 //hijacking function
 //injects a Branch instruction to the function beginning
 

@@ -1,4 +1,5 @@
 symsearch.ko:
+usbled.ko: symsearch.ko
 mmcfix.ko: symsearch.ko
 wl127x_test.ko:
 vpnclient.ko:
