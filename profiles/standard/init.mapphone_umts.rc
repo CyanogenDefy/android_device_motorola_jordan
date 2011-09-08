@@ -192,7 +192,7 @@ service gkisystem /system/bin/gkisystem
     socket location_shim stream 660 radio system
     socket gpshal_socket stream 660 radio system
     socket opprofdaemon stream 660 radio system
-    group system radio
+    group radio system
 service battd /system/bin/battd
     socket battdsock stream 660 root system
     user root
