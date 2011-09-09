@@ -128,6 +128,8 @@ on post-fs
     insmod /system/lib/modules/nls_utf8.ko
     insmod /system/lib/modules/slow-work.ko
     insmod /system/lib/modules/cifs.ko
+    insmod /system/lib/modules/symsearch.ko
+    insmod /system/lib/modules/usbled.ko
 
 on boot
 
@@ -144,6 +146,7 @@ on boot
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/usb/brightness
     chown system system /sys/class/leds/torch-flash/camera_strobe
     chown system system /sys/class/leds/torch-flash/flash_light
     chown system system /sys/class/leds/spotlight/brightness
@@ -155,6 +158,7 @@ on boot
     chmod 0660 /sys/class/leds/red/brightness
     chmod 0660 /sys/class/leds/green/brightness
     chmod 0660 /sys/class/leds/blue/brightness
+    chmod 0660 /sys/class/leds/usb/brightness
     chmod 0660 /sys/class/leds/torch-flash/camera_strobe
     chmod 0660 /sys/class/leds/torch-flash/flash_light
     chmod 0666 /sys/class/leds/spotlight/brightness
