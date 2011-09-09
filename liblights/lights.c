@@ -71,7 +71,7 @@ void init_globals(void)
     memset(&g_battery, 0, sizeof(g_battery));
     memset(&g_notification, 0, sizeof(g_notification));
 
-    property_get("ro.battery_light", prop, "rgb");
+    property_get("persist.sys.charge_led", prop, "rgb");
     if (strcmp(prop, "white") == 0) {
         g_charge_led_mode = CHARGE_LED_WHITE;
     } else if (strcmp(prop, "rgb") == 0) {

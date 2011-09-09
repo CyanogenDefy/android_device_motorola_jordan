@@ -43,8 +43,11 @@ dalvik.vm.heapsize=40m
 # Forbid format of these partitions in mount menu :
 ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
 
-# BatteryLight while charging (off/white/rgb)
-ro.battery_light=white
+# LED charging indicator mode
+# off = keep LED off during charging
+# white = white LED for 'charging', green LED for 'charged'
+# rgb = mixed yellowish LED for 'charging', green LED for 'charged'
+persist.sys.charge_led=white
 
 # Tell UsbService that we're using Usb.apk
 ro.usb.use_custom_service=1
