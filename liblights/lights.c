@@ -39,12 +39,17 @@
 
 /******************************************************************************/
 
+#define CHARGE_LED_OFF   0
+#define CHARGE_LED_RGB   1
+#define CHARGE_LED_WHITE 2
+
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static struct light_state_t g_battery;
 static struct light_state_t g_notification;
-static int g_use_charging_light;
+static int g_charge_led_mode;
+static int g_charge_led_active;
 
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
@@ -55,6 +60,7 @@ char const*const RED_LED_FILE = "/sys/class/leds/red/brightness";
 char const*const RED_BLINK_FILE = "/sys/class/leds/red/blink";
 char const*const GREEN_LED_FILE = "/sys/class/leds/green/brightness";
 char const*const BLUE_LED_FILE = "/sys/class/leds/blue/brightness";
+char const*const CHARGE_LED_FILE = "/sys/class/leds/usb/brightness";
 
 void init_globals(void)
 {
@@ -65,8 +71,17 @@ void init_globals(void)
     memset(&g_battery, 0, sizeof(g_battery));
     memset(&g_notification, 0, sizeof(g_notification));
 
-    property_get("ro.battery_light", prop, "true");
-    g_use_charging_light = strcmp(prop, "false") != 0;
+    property_get("ro.battery_light", prop, "rgb");
+    if (strcmp(prop, "white") == 0) {
+        g_charge_led_mode = CHARGE_LED_WHITE;
+    } else if (strcmp(prop, "rgb") == 0) {
+        g_charge_led_mode = CHARGE_LED_RGB;
+    } else {
+        g_charge_led_mode = CHARGE_LED_OFF;
+    }
+    LOGD("Got charge mode property value %s, mode is %d", prop, g_charge_led_mode);
+
+    g_charge_led_active = 0;
 }
 
 static int
@@ -176,14 +191,23 @@ set_light_locked(struct light_device_t *dev, struct light_state_t *state)
     return err;
 }
 
+
 static int
 handle_light_locked(struct light_device_t *dev)
 {
+    int retval = 0;
+    int show_charge = g_charge_led_active;
+
     if (is_lit(&g_notification)) {
-	return set_light_locked(dev, &g_notification);
+        retval = set_light_locked(dev, &g_notification);
+        show_charge = 0;
+    } else {
+        retval = set_light_locked(dev, &g_battery);
     }
 
-    return set_light_locked(dev, &g_battery);
+    write_int(CHARGE_LED_FILE, show_charge);
+
+    return retval;
 }
 
 static int
@@ -193,11 +217,18 @@ set_light_battery(struct light_device_t* dev,
     pthread_mutex_lock(&g_lock);
 
     g_battery = *state;
+    g_charge_led_active = 0;
 
     /* if green is set, it means the device is charging -> only
      * use it if the user wants it */
-    if ((state->color & 0xff00) && !g_use_charging_light) {
-        memset(&g_battery, 0, sizeof(g_battery));
+    if (state->color & 0xff00) {
+        if (state->color & 0xff0000 && g_charge_led_mode == CHARGE_LED_WHITE) {
+            /* not pure green -> charging -> use charge LED */
+            g_charge_led_active = 1;
+        }
+        if (g_charge_led_active || g_charge_led_mode == CHARGE_LED_OFF) {
+            memset(&g_battery, 0, sizeof(g_battery));
+        }
     }
 
     handle_light_locked(dev);
