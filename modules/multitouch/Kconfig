@@ -1,3 +1,4 @@
 config QTOUCH_MULTITOUCH
-        bool "Multitouch 1 to 16 points for Defy"
-        default y
+        tristate "Multitouch 1 to 16 points for Defy"
+        default m
+
