@@ -28,25 +28,6 @@
 
 namespace android {
 
-typedef sp<CameraHardwareInterface> (*OpenCamFunc)(int);
-
-static void * g_motoLibHandle = NULL;
-static OpenCamFunc g_motoOpenCameraHardware = NULL;
-
-static void ensureMotoLibOpened()
-{
-    if (g_motoLibHandle == NULL) {
-        g_motoLibHandle = ::dlopen("libmotocamera.so", RTLD_NOW);
-        if (g_motoLibHandle == NULL) {
-            assert(0);
-            LOGE("dlopen() error: %s\n", dlerror());
-        } else {
-            g_motoOpenCameraHardware = (OpenCamFunc) ::dlsym(g_motoLibHandle, "openCameraHardware");
-            assert(g_motoOpenCameraHardware != NULL);
-        }
-    }
-}
-
 extern "C" int HAL_getNumberOfCameras()
 {
     return 1;
@@ -61,28 +42,10 @@ extern "C" void HAL_getCameraInfo(int cameraId, struct CameraInfo* cameraInfo)
 extern "C" sp<CameraHardwareInterface> HAL_openCameraHardware(int cameraId)
 {
     LOGV("openCameraHardware: call createInstance");
-    ensureMotoLibOpened();
     return JordanCameraWrapper::createInstance(cameraId);
 }
 
 wp<CameraHardwareInterface> JordanCameraWrapper::singleton;
-
-sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
-{
-    LOGV("%s :", __func__);
-    if (singleton != NULL) {
-        sp<CameraHardwareInterface> hardware = singleton.promote();
-        if (hardware != NULL) {
-            return hardware;
-        }
-    }
-
-    ensureMotoLibOpened();
-
-    sp<CameraHardwareInterface> hardware(new JordanCameraWrapper(cameraId));
-    singleton = hardware;
-    return hardware;
-}
 
 static bool
 deviceCardMatches(const char *device, const char *matchCard)
@@ -109,24 +72,74 @@ deviceCardMatches(const char *device, const char *matchCard)
     return ret;
 }
 
-JordanCameraWrapper::JordanCameraWrapper(int cameraId) :
-    mMotoInterface(g_motoOpenCameraHardware(cameraId)),
+static sp<CameraHardwareInterface>
+openMotoInterface(const char *libName, const char *funcName)
+{
+    sp<CameraHardwareInterface> interface;
+    void *libHandle = ::dlopen(libName, RTLD_NOW);
+
+    if (libHandle != NULL) {
+        typedef sp<CameraHardwareInterface> (*OpenCamFunc)();
+        OpenCamFunc func = (OpenCamFunc) ::dlsym(libHandle, funcName);
+        if (func != NULL) {
+            interface = func();
+        } else {
+            LOGE("Could not find library entry point!");
+        }
+    } else {
+        LOGE("dlopen() error: %s\n", dlerror());
+    }
+
+    return interface;
+}
+
+sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
+{
+    LOGV("%s :", __func__);
+    if (singleton != NULL) {
+        sp<CameraHardwareInterface> hardware = singleton.promote();
+        if (hardware != NULL) {
+            return hardware;
+        }
+    }
+
+    CameraType type = CAM_SOC;
+    sp<CameraHardwareInterface> motoInterface;
+    sp<CameraHardwareInterface> hardware;
+
+    if (deviceCardMatches("/dev/video3", "camise")) {
+        LOGI("Detected SOC device\n");
+        /* entry point of SOC driver is android::CameraHalSocImpl::createInstance() */
+        motoInterface = openMotoInterface("libsoccamera.so", "_ZN7android16CameraHalSocImpl14createInstanceEv");
+        type = CAM_SOC;
+    } else if (deviceCardMatches("/dev/video0", "mt9p012")) {
+        LOGI("Detected BAYER device\n");
+        /* entry point of Bayer driver is android::CameraHal::createInstance() */
+        motoInterface = openMotoInterface("libbayercamera.so", "_ZN7android9CameraHal14createInstanceEv");
+        type = CAM_BAYER;
+    } else {
+        LOGE("Camera type detection failed");
+    }
+
+    if (motoInterface != NULL) {
+        hardware = new JordanCameraWrapper(motoInterface, type);
+        singleton = hardware;
+    } else {
+        LOGE("Could not open hardware interface");
+    }
+
+    return hardware;
+}
+
+JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type) :
+    mMotoInterface(motoInterface),
+    mCameraType(type),
     mVideoMode(false),
     mNotifyCb(NULL),
     mDataCb(NULL),
     mDataCbTimestamp(NULL),
-    mCbUserData(NULL),
-    mCameraType(CAM_UNKNOWN)
+    mCbUserData(NULL)
 {
-    struct v4l2_capability caps;
-
-    if (deviceCardMatches("/dev/video3", "camise")) {
-        LOGI("Detected SOC device\n");
-        mCameraType = CAM_SOC;
-    } else if (deviceCardMatches("/dev/video0", "mt9p012")) {
-        LOGI("Detected BAYER device\n");
-        mCameraType = CAM_BAYER;
-    }
 }
 
 JordanCameraWrapper::~JordanCameraWrapper()

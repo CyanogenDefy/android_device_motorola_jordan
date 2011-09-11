@@ -44,7 +44,12 @@ public:
     static    sp<CameraHardwareInterface> createInstance(int cameraId);
 
 private:
-            JordanCameraWrapper(int CameraId);
+    typedef enum {
+        CAM_SOC,
+        CAM_BAYER
+    } CameraType;
+
+    JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type);
     virtual ~JordanCameraWrapper();
 
     static void notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void* user);
@@ -53,18 +58,13 @@ private:
     void fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr);
 
     sp<CameraHardwareInterface> mMotoInterface;
+    CameraType mCameraType;
     bool mVideoMode;
 
     notify_callback mNotifyCb;
     data_callback mDataCb;
     data_callback_timestamp mDataCbTimestamp;
     void *mCbUserData;
-
-    enum {
-	CAM_UNKNOWN,
-	CAM_SOC,
-	CAM_BAYER
-    } mCameraType;
 
     static wp<CameraHardwareInterface> singleton;
 
