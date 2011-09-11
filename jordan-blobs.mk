@@ -28,8 +28,16 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf \
 	device/motorola/jordan/prebuilt/etc/busybox.fstab:system/etc/fstab \
 	device/motorola/jordan/prebuilt/etc/wifi/dnsmasq.conf:system/etc/wifi/dnsmasq.conf \
-	device/motorola/jordan/prebuilt/lib/modules/modules.alias:system/lib/modules/modules.alias \
-	device/motorola/jordan/prebuilt/lib/modules/modules.dep:system/lib/modules/modules.dep
+	device/motorola/jordan/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
+	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
+	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_ap_rfmd.ini:system/etc/wifi/tiwlan_ap_rfmd.ini \
+	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_rfmd.ini:system/etc/wifi/tiwlan_rfmd.ini \
+	device/motorola/jordan/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	device/motorola/jordan/prebuilt/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
+	device/motorola/jordan/prebuilt/etc/location.cfg:system/etc/location.cfg \
+	device/motorola/jordan/media_profiles.xml:system/etc/media_profiles.xml \
+	device/motorola/jordan/modules/modules.alias:system/lib/modules/modules.alias \
+	device/motorola/jordan/modules/modules.dep:system/lib/modules/modules.dep \
 
 #prebuilt binaries (for buggy versions)
 PRODUCT_COPY_FILES += \
@@ -47,11 +55,8 @@ PRODUCT_COPY_FILES += \
 
 #Bootmenu
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/profiles/standard/init.rc:system/bootmenu/2nd-init/init.rc \
 	device/motorola/jordan/profiles/standard/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
 	device/motorola/jordan/profiles/standard/ueventd.rc:system/bootmenu/2nd-init/ueventd.rc \
-	device/motorola/jordan/profiles/standard/init:system/bootmenu/2nd-init/init \
-	device/motorola/jordan/profiles/standard/sbin/ueventd:system/bootmenu/2nd-init/sbin/ueventd \
 	device/motorola/jordan/profiles/backup/init.rc:system/bootmenu/2nd-boot/init.rc \
 	device/motorola/jordan/profiles/backup/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
 	device/motorola/jordan/profiles/backup/ueventd.rc:system/bootmenu/2nd-boot/ueventd.rc \

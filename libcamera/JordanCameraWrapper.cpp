@@ -28,25 +28,6 @@
 
 namespace android {
 
-typedef sp<CameraHardwareInterface> (*OpenCamFunc)(int);
-
-static void * g_motoLibHandle = NULL;
-static OpenCamFunc g_motoOpenCameraHardware = NULL;
-
-static void ensureMotoLibOpened()
-{
-    if (g_motoLibHandle == NULL) {
-        g_motoLibHandle = ::dlopen("libmotocamera.so", RTLD_NOW);
-        if (g_motoLibHandle == NULL) {
-            assert(0);
-            LOGE("dlopen() error: %s\n", dlerror());
-        } else {
-            g_motoOpenCameraHardware = (OpenCamFunc) ::dlsym(g_motoLibHandle, "openCameraHardware");
-            assert(g_motoOpenCameraHardware != NULL);
-        }
-    }
-}
-
 extern "C" int HAL_getNumberOfCameras()
 {
     return 1;
@@ -61,28 +42,10 @@ extern "C" void HAL_getCameraInfo(int cameraId, struct CameraInfo* cameraInfo)
 extern "C" sp<CameraHardwareInterface> HAL_openCameraHardware(int cameraId)
 {
     LOGV("openCameraHardware: call createInstance");
-    ensureMotoLibOpened();
     return JordanCameraWrapper::createInstance(cameraId);
 }
 
 wp<CameraHardwareInterface> JordanCameraWrapper::singleton;
-
-sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
-{
-    LOGV("%s :", __func__);
-    if (singleton != NULL) {
-        sp<CameraHardwareInterface> hardware = singleton.promote();
-        if (hardware != NULL) {
-            return hardware;
-        }
-    }
-
-    ensureMotoLibOpened();
-
-    sp<CameraHardwareInterface> hardware(new JordanCameraWrapper(cameraId));
-    singleton = hardware;
-    return hardware;
-}
 
 static bool
 deviceCardMatches(const char *device, const char *matchCard)
@@ -109,28 +72,95 @@ deviceCardMatches(const char *device, const char *matchCard)
     return ret;
 }
 
-JordanCameraWrapper::JordanCameraWrapper(int cameraId) :
-    mMotoInterface(g_motoOpenCameraHardware(cameraId)),
+static sp<CameraHardwareInterface>
+openMotoInterface(const char *libName, const char *funcName)
+{
+    sp<CameraHardwareInterface> interface;
+    void *libHandle = ::dlopen(libName, RTLD_NOW);
+
+    if (libHandle != NULL) {
+        typedef sp<CameraHardwareInterface> (*OpenCamFunc)();
+        OpenCamFunc func = (OpenCamFunc) ::dlsym(libHandle, funcName);
+        if (func != NULL) {
+            interface = func();
+        } else {
+            LOGE("Could not find library entry point!");
+        }
+    } else {
+        LOGE("dlopen() error: %s\n", dlerror());
+    }
+
+    return interface;
+}
+
+static void
+setSocTorchMode(bool enable)
+{
+    int fd = ::open("/sys/class/leds/torch-flash/flash_light", O_WRONLY);
+    if (fd >= 0) {
+        const char *value = enable ? "100" : "0";
+        write(fd, value, sizeof(value));
+        close(fd);
+    }
+}
+
+sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
+{
+    LOGV("%s :", __func__);
+    if (singleton != NULL) {
+        sp<CameraHardwareInterface> hardware = singleton.promote();
+        if (hardware != NULL) {
+            return hardware;
+        }
+    }
+
+    CameraType type = CAM_SOC;
+    sp<CameraHardwareInterface> motoInterface;
+    sp<CameraHardwareInterface> hardware;
+
+    if (deviceCardMatches("/dev/video3", "camise")) {
+        LOGI("Detected SOC device\n");
+        /* entry point of SOC driver is android::CameraHalSocImpl::createInstance() */
+        motoInterface = openMotoInterface("libsoccamera.so", "_ZN7android16CameraHalSocImpl14createInstanceEv");
+        type = CAM_SOC;
+    } else if (deviceCardMatches("/dev/video0", "mt9p012")) {
+        LOGI("Detected BAYER device\n");
+        /* entry point of Bayer driver is android::CameraHal::createInstance() */
+        motoInterface = openMotoInterface("libbayercamera.so", "_ZN7android9CameraHal14createInstanceEv");
+        type = CAM_BAYER;
+    } else {
+        LOGE("Camera type detection failed");
+    }
+
+    if (motoInterface != NULL) {
+        hardware = new JordanCameraWrapper(motoInterface, type);
+        singleton = hardware;
+    } else {
+        LOGE("Could not open hardware interface");
+    }
+
+    return hardware;
+}
+
+JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type) :
+    mMotoInterface(motoInterface),
+    mCameraType(type),
     mVideoMode(false),
     mNotifyCb(NULL),
     mDataCb(NULL),
     mDataCbTimestamp(NULL),
-    mCbUserData(NULL),
-    mCameraType(CAM_UNKNOWN)
+    mCbUserData(NULL)
 {
-    struct v4l2_capability caps;
-
-    if (deviceCardMatches("/dev/video3", "camise")) {
-        LOGI("Detected SOC device\n");
-        mCameraType = CAM_SOC;
-    } else if (deviceCardMatches("/dev/video0", "mt9p012")) {
-        LOGI("Detected BAYER device\n");
-        mCameraType = CAM_BAYER;
-    }
 }
 
 JordanCameraWrapper::~JordanCameraWrapper()
 {
+    /* mLastFlashMode is only set in the SOC case */
+    if (mLastFlashMode == CameraParameters::FLASH_MODE_ON ||
+        mLastFlashMode == CameraParameters::FLASH_MODE_TORCH)
+    {
+        setSocTorchMode(false);
+    }
 }
 
 sp<IMemoryHeap>
@@ -343,6 +373,7 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     CameraParameters pars(params.flatten());
     int width, height;
     char buf[10];
+    bool isWide;
 
     /*
      * getInt returns -1 if the value isn't present and 0 on parse failure,
@@ -352,12 +383,32 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     pars.remove("cam-mode");
 
     pars.getPreviewSize(&width, &height);
-    if (width == 848 && height == 480 && !mVideoMode) {
+    isWide = width == 848 && height == 480;
+
+    if (isWide && !mVideoMode) {
         pars.setPreviewFrameRate(24);
     }
     if (mCameraType == CAM_BAYER && mVideoMode) {
         pars.setPreviewFrameRate(24);
     }
+
+    if (mCameraType == CAM_SOC) {
+        /*
+         * libsoccamera fails to turn flash on if 16:9 recording is enabled (no matter
+         * whether it's photo or video recording), thus we do it ourselves in that case.
+         * Luckily libsoccamera handles the automatic flash properly also in the 16:9 case.
+         */
+        const char *flashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
+        if (flashMode != NULL) {
+            if (isWide && mLastFlashMode != flashMode) {
+                bool shouldBeOn = strcmp(flashMode, CameraParameters::FLASH_MODE_TORCH) == 0 ||
+                                  strcmp(flashMode, CameraParameters::FLASH_MODE_ON) == 0;
+                setSocTorchMode(shouldBeOn);
+            }
+            mLastFlashMode = flashMode;
+        }
+    }
+
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
        we need it in the -3...3 range -> adjust for that */

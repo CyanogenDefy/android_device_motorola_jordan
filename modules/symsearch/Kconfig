@@ -1,4 +1,4 @@
 config SYMSEARCH
-        bool "Symsearch"
-        default y
+        tristate "Symsearch, to use kernel symbols in modules"
+        default m
 
