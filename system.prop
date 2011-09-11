@@ -2,9 +2,7 @@
 # system.prop for jordan
 #
 
-rild.libpath=/system/lib/librilswitch.so
-rilswitch.vendorlibpath=/system/lib/libril-moto-umts-1.so
-rilswitch.ganlibpath=/system/lib/libganril.so
+rild.libpath=/system/lib/libril-moto-umts-1.so
 rild.libargs=-d /dev/ttyS0
 
 ro.sf.lcd_density=240
