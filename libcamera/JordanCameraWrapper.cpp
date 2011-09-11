@@ -93,6 +93,17 @@ openMotoInterface(const char *libName, const char *funcName)
     return interface;
 }
 
+static void
+setSocTorchMode(bool enable)
+{
+    int fd = ::open("/sys/class/leds/torch-flash/flash_light", O_WRONLY);
+    if (fd >= 0) {
+        const char *value = enable ? "100" : "0";
+        write(fd, value, sizeof(value));
+        close(fd);
+    }
+}
+
 sp<CameraHardwareInterface> JordanCameraWrapper::createInstance(int cameraId)
 {
     LOGV("%s :", __func__);
@@ -144,6 +155,12 @@ JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterf
 
 JordanCameraWrapper::~JordanCameraWrapper()
 {
+    /* mLastFlashMode is only set in the SOC case */
+    if (mLastFlashMode == CameraParameters::FLASH_MODE_ON ||
+        mLastFlashMode == CameraParameters::FLASH_MODE_TORCH)
+    {
+        setSocTorchMode(false);
+    }
 }
 
 sp<IMemoryHeap>
@@ -356,6 +373,7 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     CameraParameters pars(params.flatten());
     int width, height;
     char buf[10];
+    bool isWide;
 
     /*
      * getInt returns -1 if the value isn't present and 0 on parse failure,
@@ -365,12 +383,32 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     pars.remove("cam-mode");
 
     pars.getPreviewSize(&width, &height);
-    if (width == 848 && height == 480 && !mVideoMode) {
+    isWide = width == 848 && height == 480;
+
+    if (isWide && !mVideoMode) {
         pars.setPreviewFrameRate(24);
     }
     if (mCameraType == CAM_BAYER && mVideoMode) {
         pars.setPreviewFrameRate(24);
     }
+
+    if (mCameraType == CAM_SOC) {
+        /*
+         * libsoccamera fails to turn flash on if 16:9 recording is enabled (no matter
+         * whether it's photo or video recording), thus we do it ourselves in that case.
+         * Luckily libsoccamera handles the automatic flash properly also in the 16:9 case.
+         */
+        const char *flashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
+        if (flashMode != NULL) {
+            if (isWide && mLastFlashMode != flashMode) {
+                bool shouldBeOn = strcmp(flashMode, CameraParameters::FLASH_MODE_TORCH) == 0 ||
+                                  strcmp(flashMode, CameraParameters::FLASH_MODE_ON) == 0;
+                setSocTorchMode(shouldBeOn);
+            }
+            mLastFlashMode = flashMode;
+        }
+    }
+
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
        we need it in the -3...3 range -> adjust for that */

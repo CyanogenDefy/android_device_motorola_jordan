@@ -60,6 +60,7 @@ private:
     sp<CameraHardwareInterface> mMotoInterface;
     CameraType mCameraType;
     bool mVideoMode;
+    String8 mLastFlashMode;
 
     notify_callback mNotifyCb;
     data_callback mDataCb;
