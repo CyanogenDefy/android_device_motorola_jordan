@@ -217,8 +217,8 @@ on boot
     chown system system /sys/class/backlight/lm3532_bl/brightness
     chmod 0666 /sys/class/leds/spotlight/brightness
 
-   # Change the ownership of touch screen file
-   chown root mot_tcmd /sys/devices/platform/i2c_omap.1/i2c-1/1-004a/irq_enable
+    # Change the ownership of touch screen file
+    chown root mot_tcmd /sys/devices/platform/i2c_omap.1/i2c-1/1-004a/irq_enable
 
     # Define TCP buffer sizes for various networks
     # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -375,17 +375,11 @@ service akmd2 /system/bin/akmd2
     user compass
     group compass misc input
 
-# Wifi firmware uploader services
+# Wifi firmware uploader service
 service wlan_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271.bin -i /system/etc/wifi/tiwlan.ini -e /pds/wifi/nvs_map.bin
     group wifi
     disabled
     oneshot
-
-# in init.rc
-# service wlan_ap_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
-#    group wifi
-#    disabled
-#    oneshot
 
 # we will start as root and wpa_supplicant will switch to user wifi
 # after setting up the capabilities required for WEXT
