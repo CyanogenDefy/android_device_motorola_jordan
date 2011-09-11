@@ -59,7 +59,7 @@ ro.product.use_charge_counter=1
 persist.sys.multitouch=2
 
 # required for future java part (common omap3/4)
-com.ti.omap_enhancement=1
+# com.ti.omap_enhancement=1
 
 # Shutter sound enabled
 persist.sys.camera-mute=0
