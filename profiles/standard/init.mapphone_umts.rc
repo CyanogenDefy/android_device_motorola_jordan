@@ -19,6 +19,10 @@ on post-fs
 # Busybox
     export HISTFILE /data/local/tmp/.ash_history
     export HISTFILESIZE 1000
+    export ENV /system/etc/profile
+
+# Other global env variables
+    export DSP_PATH /system/lib/dsp
 
 # Mount tmpfs
     mkdir /tmp 0777 root root
