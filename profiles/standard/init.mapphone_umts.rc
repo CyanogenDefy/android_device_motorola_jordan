@@ -16,6 +16,14 @@ on post-fs
 
     mount rootfs rootfs / rw remount
 
+# Busybox
+    export HISTFILE /data/local/tmp/.ash_history
+    export HISTFILESIZE 1000
+    export ENV /system/etc/profile
+
+# Other global env variables
+    export DSP_PATH /system/lib/dsp
+
 # Mount tmpfs
     mkdir /tmp 0777 root root
     mount tmpfs tmpfs /tmp size=1m
@@ -130,6 +138,7 @@ on post-fs
     insmod /system/lib/modules/cifs.ko
     insmod /system/lib/modules/symsearch.ko
     insmod /system/lib/modules/usbled.ko
+    insmod /system/lib/modules/xt_multiport.ko
 
 on boot
 
@@ -211,35 +220,6 @@ service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flo
     user bluetooth
     group bluetooth net_bt_admin
     disabled
-service hciattach_rfmd /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt_rfmd 3000000 flow
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-service nap /system/bin/sdptool add NAP
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-service del_nap /system/bin/sdptool remove NAP
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-service panu /system/bin/sdptool add PANU
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-service del_panu /system/bin/sdptool remove PANU
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-service map /system/bin/sdptool add --channel=20 --network=1 MAP
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
@@ -260,20 +240,7 @@ service wlan_ap_loader /system/bin/logwrapper /system/bin/tiap_loader -f /system
 service hostapd /system/bin/logwrapper /system/bin/hostap -d /data/misc/wifi/hostapd.conf
     disabled
     oneshot
-service dnsmasq /system/bin/logwrapper /system/bin/dnsmasq -C/data/misc/wifi/dns.conf -k
-    group wifi
-    disabled
-    oneshot
 service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
-    disabled
-    oneshot
-service autoip /system/bin/dhcpcd -BK tiwlan0
-    disabled
-    oneshot
-service btdhcpcd /system/bin/dhcpcd -ABKL bnep0
-    disabled
-    oneshot
-service btautoip /system/bin/dhcpcd -BK bnep0
     disabled
     oneshot
 

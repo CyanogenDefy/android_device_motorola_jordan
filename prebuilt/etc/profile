@@ -1,18 +1,6 @@
-[ -f /etc/banner ] && cat /etc/banner
-
-#disabled : doesnt works with default sh, only with "ash"
-#export PS1='\u:\w\$ '
+[ -f /system/etc/banner ] && cat /system/etc/banner
 
 export TERM=linux
-
-HOME=/
-
-[ -f /mnt/sdcard/.profile ]     && HOME=/sdcard
-[ -f /mnt/sdcard-ext/.profile ] && HOME=/sdcard-ext
-[ -f /sd-ext/.profile ]         && HOME=/sd-ext
-
-export ENV=$HOME/.profile
-export HOME
 
 alias l='ls -al'
 

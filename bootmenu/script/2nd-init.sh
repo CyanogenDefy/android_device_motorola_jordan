@@ -14,7 +14,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 #echo 0 > /sys/class/leds/green/brightness
 
 mount -o remount,rw /
-rm -r -f /*.rc
+rm -f /*.rc
 cp -r -f /system/bootmenu/2nd-init/* /
 ln -s /init /sbin/ueventd
 chmod 755 /*.rc

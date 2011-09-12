@@ -15,7 +15,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 
 mount -o remount,rw /
-rm -r -f /*.rc
+rm -f /*.rc
 cp -r -f /system/bootmenu/2nd-boot/* /
 chmod 755 /*.rc
 chmod 4755 /system/bootmenu/binary/2nd-boot

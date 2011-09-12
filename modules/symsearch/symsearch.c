@@ -69,7 +69,7 @@ symsearch_init(void)
 
 module_init(symsearch_init);
 MODULE_ALIAS("symsearch");
-MODULE_AUTHOR("Tanguy Pruvot, Pavel Kucera");
+MODULE_AUTHOR("Skrilax_CZ, verified by CyanogenDefy");
 MODULE_DESCRIPTION("symsearch - lookup kernel symbols helper to fix signed kernel features");
 MODULE_LICENSE("GPL");
 
