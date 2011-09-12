@@ -16,6 +16,10 @@ on post-fs
 
     mount rootfs rootfs / rw remount
 
+# Busybox
+    export HISTFILE /data/local/tmp/.ash_history
+    export HISTFILESIZE 1000
+
 # Mount tmpfs
     mkdir /tmp 0777 root root
     mount tmpfs tmpfs /tmp size=1m
