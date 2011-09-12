@@ -30,8 +30,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/etc/wifi/dnsmasq.conf:system/etc/wifi/dnsmasq.conf \
 	device/motorola/jordan/prebuilt/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini \
 	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_ap.ini:system/etc/wifi/tiwlan_ap.ini \
-	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_ap_rfmd.ini:system/etc/wifi/tiwlan_ap_rfmd.ini \
-	device/motorola/jordan/prebuilt/etc/wifi/tiwlan_rfmd.ini:system/etc/wifi/tiwlan_rfmd.ini \
 	device/motorola/jordan/prebuilt/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/motorola/jordan/prebuilt/etc/gpsconfig.xml:system/etc/gpsconfig.xml \
 	device/motorola/jordan/prebuilt/etc/location.cfg:system/etc/location.cfg \
