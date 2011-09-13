@@ -138,6 +138,7 @@ on post-fs
     insmod /system/lib/modules/cifs.ko
     insmod /system/lib/modules/symsearch.ko
     insmod /system/lib/modules/usbled.ko
+    insmod /system/lib/modules/xt_multiport.ko
 
 on boot
 
