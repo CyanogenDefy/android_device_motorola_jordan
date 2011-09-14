@@ -69,8 +69,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 HARDWARE_OMX := true
 BUILD_WITH_TI_AUDIO := 1
 BUILD_PV_VIDEO_ENCODERS := 1
-# BUILD_JPEG_DECODER := 1
-# BUILD_JPEG_ENCODER := 1
 
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_NO_RGBX_8888 := true
@@ -92,7 +90,7 @@ BOARD_NEVER_UMOUNT_SYSTEM := true
 # Override cyanogen squisher to customize our update zip package
 TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
 
-# Jordan requires the common boot hijack
+# Jordan need 2nd-init binary from motorola common
 TARGET_NEEDS_MOTOROLA_HIJACK := true
 
 # In nighly builds only
