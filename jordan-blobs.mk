@@ -36,10 +36,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/modules/modules.alias:system/lib/modules/modules.alias \
 	device/motorola/jordan/modules/modules.dep:system/lib/modules/modules.dep \
 
-#prebuilt binaries (for buggy versions)
-PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/bin/iptables:system/bin/iptables \
-
 ifdef CYANOGEN_RELEASE
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_release.txt:system/etc/custom_backup_list.txt
 else
