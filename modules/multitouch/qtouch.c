@@ -1,7 +1,7 @@
 /*
  * multitouch - Dynamic module for Motorola Defy
  * hooking taken from "n - for testing kernel function hooking" by Nothize
- * needs symsearch module by Skrilaz
+ * require symsearch module by Skrilax_CZ
  *
  * number of touches can be set by write to /proc/qtouch/num_touch (2-10)
  *
