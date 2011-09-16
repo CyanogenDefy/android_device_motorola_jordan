@@ -22,9 +22,9 @@
 #include <cutils/properties.h>
 #include <cutils/log.h>
 
-#define MOTO_PU_REASON_CHARGE_ONLY    "0x00000100" 
+#define MOTO_PU_REASON_CHARGER   0x00000100
+#define MOTO_PU_REASON_USB_CABLE 0x00000010
 #define MOTO_CID_RECOVER_BOOT	      "0x01"
-#define MOTO_DATA_12M		      "1"
 
 /********************************************************************
  * Check POWERUPREASON, decide phone powerup to charge only mode or not 
@@ -38,7 +38,7 @@ int boot_reason_charge_only(void)
     char data[1024], powerup_reason[32];
     int fd, n;
     char *x, *pwrup_rsn;
-
+    unsigned long reason = 0;
 
     fd = open("/proc/bootinfo", O_RDONLY);
     if (fd < 0) return 0;
@@ -65,13 +65,12 @@ int boot_reason_charge_only(void)
             }
             powerup_reason[n] = '\0';
             LOGD("MOTO_PUPD: powerup_reason=%s\n", powerup_reason);
+            reason = strtoul(powerup_reason, NULL, 0);
         }
     }
-    if (!strncmp(powerup_reason, MOTO_PU_REASON_CHARGE_ONLY, 
-		 		(sizeof(MOTO_PU_REASON_CHARGE_ONLY)-1)))
-	return 1; 
-    else 
-	return 0; 
+
+    return reason == MOTO_PU_REASON_CHARGER ||
+           reason == MOTO_PU_REASON_USB_CABLE;
 }
 
 /********************************************************************
