@@ -153,6 +153,7 @@ int main()
     if (screen_init() < 0)
         goto err1;
     ev_init();
+    led_init();
 
     sleep(3);
 
@@ -206,10 +207,9 @@ int main()
         }
     }
 
+    led_uninit();
     ev_exit();
     screen_uninit();
-
-    set_brightness(1.0);
 
     return 0;
 
