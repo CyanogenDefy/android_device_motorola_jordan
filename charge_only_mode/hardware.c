@@ -187,7 +187,7 @@ void led_init(void)
 {
     hw_module_t *module;
 
-    if (hw_get_module(LIGHTS_HARDWARE_MODULE_ID, (hw_module_t const**)&module) == 0) {
+    if (hw_get_module(LIGHTS_HARDWARE_MODULE_ID, (const hw_module_t **) &module) == 0) {
         if (module->methods->open(module, LIGHT_ID_BACKLIGHT, (hw_device_t **) &screen_light) != 0) {
             screen_light = NULL;
         }
@@ -199,4 +199,5 @@ void led_init(void)
 
 void led_uninit(void)
 {
+    set_color(screen_light, 0xffffffff);
 }
