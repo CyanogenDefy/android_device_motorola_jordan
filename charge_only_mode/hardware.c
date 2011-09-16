@@ -168,7 +168,7 @@ void set_battery_led(struct device_state *s)
 {
     if (s->charge_level < LOW_BATTERY_THRESHOLD) {
         set_color(battery_light, CHARGING_LOW_ARGB);
-    } else if (s->is_charging) {
+    } else if (s->charge_level < 100) {
         set_color(battery_light, CHARGING_ARGB);
     } else {
         set_color(battery_light, CHARGING_FULL_ARGB);
