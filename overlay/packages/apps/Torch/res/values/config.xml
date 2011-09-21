@@ -25,12 +25,9 @@
 
     <!-- Full path to the sysfs toggle -->
 
-<!--
-    !! Defy use torch-flash sys folder for strobe, but spotlight for flash !!
+    <!-- Defy has a torch-flash sys folder, but use spotlight for "death ray" -->
 
     <string name="flashDevice">/sys/class/leds/spotlight/brightness</string>
--->
-    <string name="flashDevice">/sys/class/leds/torch-flash/brightness</string>
 
     <!-- Lowest setting -->
     <integer name="valueOn">100</integer>
