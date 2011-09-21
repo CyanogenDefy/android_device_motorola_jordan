@@ -18,7 +18,7 @@ PRODUCT_COPY_FILES += \
 
 #etc
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/recovery.fstab:system/etc/recovery.fstab \
+	device/motorola/jordan/bootmenu/recovery/recovery.fstab:system/etc/recovery.fstab \
 	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
 	device/motorola/jordan/prebuilt/etc/init.d/04mmcfix:system/etc/init.d/04mmcfix \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \

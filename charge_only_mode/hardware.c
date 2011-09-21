@@ -33,6 +33,9 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOG_TAG "CHARGE_ONLY_MODE"
 #include <cutils/log.h>
 
+#include <hardware/hardware.h>
+#include <hardware/lights.h>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -46,20 +49,12 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BRIGHTNESS_LOW_BATTERY 10
 #define LOW_BATTERY_THRESHOLD 10
 
-/* Charging Low - red solid on */
+/* Charging Low - solid red */
 #define CHARGING_LOW_ARGB 0xFFFF0000
-#define CHARGING_LOW_ON 0
-#define CHARGING_LOW_OFF 0
-
-/* Charging - orange solid on */
+/* Charging - solid orange */
 #define CHARGING_ARGB 0xFFFFFF00
-#define CHARGING_ON 1
-#define CHARGING_OFF 1
-
-/* Charging Full - green solid on */
+/* Charging Full - solid green */
 #define CHARGING_FULL_ARGB 0xFF00FF00
-#define CHARGING_FULL_ON 0
-#define CHARGING_FULL_OFF 0
 
 static int sys_get_int_parameter(const char *path, int missing_value)
 {
@@ -152,101 +147,57 @@ void get_device_state(struct device_state *s)
     s->voltage_level = voltage_level();
 }
 
-const char* const RED_BRIGHTNESS_FILE = "/sys/class/leds/red/brightness";
-const char* const GREEN_BRIGHTNESS_FILE = "/sys/class/leds/green/brightness";
-const char* const BLINK_ENABLE_FILE = "/sys/class/leds/red/blink";
+static struct light_device_t *battery_light = NULL;
+static struct light_device_t *screen_light = NULL;
 
-static int write_string(const char* file, const char* string, int len)
+static void set_color(struct light_device_t *light, int color)
 {
-    int fd;
-    ssize_t amt;
+    if (light != NULL) {
+        struct light_state_t state;
 
-    fd = open(file, O_RDWR);
-    if (fd < 0) {
-    LOGD("%s open failed: %d\n", file, errno);
-        return errno;
+        memset(&state, 0, sizeof(state));
+        state.color = color;
+        state.flashMode = LIGHT_FLASH_NONE;
+        state.brightnessMode = BRIGHTNESS_MODE_USER;
+
+        light->set_light(light, &state);
     }
-
-    amt = write(fd, string, len);
-    if (amt < 0) {
-        LOGD("%s write failed: %d\n", file, errno);
-    }
-
-    close(fd);
-    return amt >= 0 ? 0 : errno;
-}
-
-static int __set_led_state(unsigned color, int on, int off)
-{
-    int len;
-    char buf[30];
-    int alpha, red, green;
-    int blink;
-
-    LOGD("set_led_state color=%08X, on=%d, off=%d\n", color, on, off);
-
-    /* alpha of 0 or color of 0 means off*/
-    if ((color & 0xff000000) == 0 || (color & 0x00ffffff) == 0) {
-        on = 0;
-        off = 0;
-    }
-
-    if (on > 0 && off > 0)
-    {
-        blink = 1;
-        /* set lights and then set blink - on */
-        red = (color >> 16) & 0xFF;
-        green = (color >> 8) & 0xFF;
-
-        len = sprintf(buf, "%d", red);
-        write_string(RED_BRIGHTNESS_FILE, buf, len);
-        len = sprintf(buf, "%d", green);
-        write_string(GREEN_BRIGHTNESS_FILE, buf, len);
-
-        len = sprintf(buf, "%d", blink);
-        write_string(BLINK_ENABLE_FILE, buf, len);
-    }
-    else
-    {
-        blink = 0;
-        /* set blink and then set light - off */
-        len = sprintf(buf, "%d", blink);
-        write_string(BLINK_ENABLE_FILE, buf, len);
-
-        red = (color >> 16) & 0xFF;
-        green = (color >> 8) & 0xFF;
-
-        len = sprintf(buf, "%d", red);
-        write_string(RED_BRIGHTNESS_FILE, buf, len);
-        len = sprintf(buf, "%d", green);
-        write_string(GREEN_BRIGHTNESS_FILE, buf, len);
-    }
-
-    return 0;
 }
 
 void set_battery_led(struct device_state *s)
 {
-    if (s->charge_level < LOW_BATTERY_THRESHOLD)
-        __set_led_state(CHARGING_LOW_ARGB,CHARGING_LOW_ON,CHARGING_LOW_OFF);
-    else if (s->charge_level < 100)
-        __set_led_state(CHARGING_ARGB,CHARGING_ON,CHARGING_OFF);
-    else
-        __set_led_state(CHARGING_FULL_ARGB,CHARGING_FULL_ON,CHARGING_FULL_OFF);
-
+    if (s->charge_level < LOW_BATTERY_THRESHOLD) {
+        set_color(battery_light, CHARGING_LOW_ARGB);
+    } else if (s->charge_level < 100) {
+        set_color(battery_light, CHARGING_ARGB);
+    } else {
+        set_color(battery_light, CHARGING_FULL_ARGB);
+    }
 }
 
 void set_brightness(float percent)
 {
-    int fd, n;
-    char b[20];
+    int brightness = (int) 255 * percent;
+    int color = 0xff000000 | (brightness << 16) | (brightness << 8) | brightness;
 
-    LOGD("set_brightness: %f\n", percent);
-    fd = open("/sys/class/leds/lcd-backlight/brightness", O_RDWR);
-    if (fd < 0)
-        return;
-    n = sprintf(b, "%d\n", (int)(255*percent));
-    write(fd, b, n);
-    close(fd);
+    set_color(screen_light, color);
 }
 
+void led_init(void)
+{
+    hw_module_t *module;
+
+    if (hw_get_module(LIGHTS_HARDWARE_MODULE_ID, (const hw_module_t **) &module) == 0) {
+        if (module->methods->open(module, LIGHT_ID_BACKLIGHT, (hw_device_t **) &screen_light) != 0) {
+            screen_light = NULL;
+        }
+        if (module->methods->open(module, LIGHT_ID_BATTERY, (hw_device_t **) &battery_light) != 0) {
+            battery_light = NULL;
+        }
+    }
+}
+
+void led_uninit(void)
+{
+    set_color(screen_light, 0xffffffff);
+}

@@ -41,4 +41,7 @@ void get_device_state(struct device_state *s);
 void set_battery_led(struct device_state *s);
 void set_brightness(float percent);
 
+void led_init(void);
+void led_uninit(void);
+
 #endif

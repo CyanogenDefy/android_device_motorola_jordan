@@ -151,15 +151,6 @@ if [ -z "$CYANOGEN_NIGHTLY" ]; then
 	OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
 else
 	OUTFILE=$OUT/update-squished.zip
-	if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ]; then
-		MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-		OUTFILE=$OUT/cm$MODVERSION.zip
-		OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
-		if [ -n "$CYANOGEN_NIGHTLY_BOOT" ]; then
-			MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CYANOGEN_NIGHTLY_BOOT'/'`
-			OUTFILE=$OUT/cm$MODVERSION.zip
-		fi
-	fi
 fi
 
 # Pack it up and sign

@@ -82,10 +82,18 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/motorola/jordan/recovery_ui.c
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_HAS_SMALL_RECOVERY := true
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+
+BOARD_SDCARD_DEVICE_PRIMARY   := /dev/block/mmcblk0p1
+BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk0
+BOARD_SDEXT_DEVICE  := /dev/block/mmcblk0p2
+BOARD_SYSTEM_DEVICE := /dev/block/mmcblk1p21
+BOARD_DATA_DEVICE   := /dev/block/mmcblk1p25
+
 BOARD_NEVER_UMOUNT_SYSTEM := true
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_generic
 #TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_generic
-
 
 # Override cyanogen squisher to customize our update zip package
 TARGET_CUSTOM_RELEASETOOL := ./device/motorola/jordan/releasetools/squisher
