@@ -5,4 +5,4 @@
 /data           ext3        /dev/block/mmcblk1p25
 /system         ext3        /dev/block/mmcblk1p21
 /sdcard         vfat        /dev/block/mmcblk0p1    /dev/block/mmcblk0
-#/sd-ext         ext3        /dev/block/mmcblk0p2    NULL /dev/block/mmcblk0
+/sd-ext         ext3        /dev/block/mmcblk0p2    /dev/block/mmcblk0

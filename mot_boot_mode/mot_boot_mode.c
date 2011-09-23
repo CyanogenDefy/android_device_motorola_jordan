@@ -1,15 +1,15 @@
 /*
  *   mot_boot_mode - Check phone bootup mode, which will be
  *                   executed in init.rc to decide what kind
- *                   of services should be started during phone 
- *                   powerup.  
- *  
+ *                   of services should be started during phone
+ *                   powerup.
+ *
  *   Copyright Motorola 2009
- *  
+ *
  *   Date         Author      Comment
  *   01/03/2009   Motorola    Creat initial version
  *   17/04/2009   Motorola    Support Charge Only Mode
- *   					       
+ *   20/09/2011   D.Baumann   Integer modes
  */
 
 #include <stdio.h>
@@ -24,14 +24,14 @@
 
 #define MOTO_PU_REASON_CHARGER   0x00000100
 #define MOTO_PU_REASON_USB_CABLE 0x00000010
-#define MOTO_CID_RECOVER_BOOT	      "0x01"
+#define MOTO_CID_RECOVER_BOOT         "0x01"
 
 /********************************************************************
- * Check POWERUPREASON, decide phone powerup to charge only mode or not 
+ * Check POWERUPREASON, decide phone powerup to charge only mode or not
  * Return value:
  * Type: int
  * 1: charge_only_mode
- * 0: NOT charge_only_mode 
+ * 0: NOT charge_only_mode
  ********************************************************************/
 int boot_reason_charge_only(void)
 {
@@ -69,8 +69,8 @@ int boot_reason_charge_only(void)
         }
     }
 
-    return reason == MOTO_PU_REASON_CHARGER ||
-           reason == MOTO_PU_REASON_USB_CABLE;
+    return reason == MOTO_PU_REASON_CHARGER;
+    //  || reason == MOTO_PU_REASON_USB_CABLE;
 }
 
 /********************************************************************
@@ -87,10 +87,10 @@ int check_cid_recover_boot(void)
     char *x, *m_bmode;
 
     memset(cid_recover_boot, 0, 32);
-    
+
     fd = open("/proc/bootinfo", O_RDONLY);
     if (fd < 0) return 0;
-   
+
     n = read(fd, data, 1023);
     close(fd);
     if (n < 0) return 0;
@@ -112,16 +112,16 @@ int check_cid_recover_boot(void)
             LOGD("MOTO_PUPD: cid_recover_boot=%s\n", cid_recover_boot);
         }
     }
-    
-    if (!strncmp(cid_recover_boot, MOTO_CID_RECOVER_BOOT, 
-		 		(sizeof(MOTO_CID_RECOVER_BOOT)-1)))
-	return 1; 
-    else 
-	return 0; 
+
+    if (!strncmp(cid_recover_boot, MOTO_CID_RECOVER_BOOT,
+                       (sizeof(MOTO_CID_RECOVER_BOOT)-1)))
+        return 1;
+    else
+        return 0;
 }
 
 /********************************************************************
- * Check 12m file is set or not (tcmd suspend related) 
+ * Check 12m file is set or not (tcmd suspend related)
  * return value:
  * Type: int
  * 1: 12m is set
