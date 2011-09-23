@@ -98,8 +98,8 @@ echo 1 > /sys/class/leds/button-backlight/brightness
 echo 0 > /sys/class/leds/button-backlight/brightness
 
 # remount system & data if unmounted
-[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/userdata /data
-[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/system /system
+[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p25 /data
+[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p21 /system
 
 if [ -f /system/build.prop ] ; then
 	echo 0 > /sys/class/leds/red/brightness
