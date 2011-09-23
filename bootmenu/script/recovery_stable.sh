@@ -33,6 +33,10 @@ cp -r -f /system/bootmenu/recovery/res/* /res/
 cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
+if [ ! -f /sbin/recovery_stable ]; then
+  ln -s /sbin/recovery /sbin/recovery_stable
+fi
+
 chmod +rx /sbin/*
 
 rm -f /sbin/postrecoveryboot.sh
