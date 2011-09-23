@@ -9,7 +9,7 @@
  *   Date         Author      Comment
  *   01/03/2009   Motorola    Creat initial version
  *   17/04/2009   Motorola    Support Charge Only Mode
- *
+ *   20/09/2011   D.Baumann   Integer modes
  */
 
 #include <stdio.h>
