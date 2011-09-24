@@ -6,7 +6,6 @@ run_program("/sbin/touch","/tmp/backupdir/force_backuptool");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
 show_progress(0.100000, 5);
 run_program("/tmp/backuptool.sh", "backup");
-show_progress(0.100000, 5);
 delete_recursive("/system/");
 show_progress(0.800000, 25);
 package_extract_dir("system", "/system");
