@@ -4,10 +4,9 @@
 
 BB="busybox";
 
-if [ "$SD_EXT_DIRECTORY" = "" ];
-then
-    SD_EXT_DIRECTORY=/mnt/sdcard-ext;
-fi;
+if [ "$SD_EXT_DIRECTORY" = "" ]; then
+    SD_EXT_DIRECTORY=/sd-ext
+fi
 
 # find SD Card
 for MMC_NUM in `seq 0 9`;
