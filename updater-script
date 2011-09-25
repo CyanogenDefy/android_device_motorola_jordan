@@ -4,12 +4,12 @@ package_extract_file("system/etc/custom_backup_list.txt","/system/etc/custom_bac
 run_program("/sbin/mkdir","/tmp/backupdir");
 run_program("/sbin/touch","/tmp/backupdir/force_backuptool");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
-show_progress(0.100000, 5);
+show_progress(0.100000, 3);
 run_program("/tmp/backuptool.sh", "backup");
 delete_recursive("/system/");
 show_progress(0.800000, 25);
 package_extract_dir("system", "/system");
-show_progress(0.100000, 5);
+show_progress(0.100000, 2);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
         "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",
