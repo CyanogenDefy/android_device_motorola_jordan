@@ -43,8 +43,8 @@ else
 endif
 
 #prebuilt from CyanogenDefy repo :
-PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/lib/libbridge.so:system/lib/libbridge.so \
+#PRODUCT_COPY_FILES += \
+#	device/motorola/jordan/prebuilt/lib/libbridge.so:system/lib/libbridge.so \
 
 #app
 PRODUCT_COPY_FILES += \
