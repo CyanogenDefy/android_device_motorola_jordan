@@ -59,7 +59,7 @@ mkdir -p /cache
 if [ -x /system/bin/mount_ext3.sh ]; then
   /system/bin/mount_ext3.sh cache /cache
 else
-  mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/cache /cache
+  mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/mmcblk1p24 /cache
 fi
 
 exit 0
