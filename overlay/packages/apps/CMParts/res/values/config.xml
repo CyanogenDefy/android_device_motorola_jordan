@@ -3,15 +3,10 @@
     <!-- Whether or not to display the trackball settings -->
     <bool name="has_trackball">false</bool>
 
-    <!-- Whether or not to display the camera button settings -->
-    <bool name="has_camera_button">false</bool>
-
+    <!-- Notification LED can show any color -->
     <bool name="has_rgb_notification_led">true</bool>
-    <bool name="has_dual_notification_led">false</bool>
 
     <!-- LED Flashlight -->
     <bool name="has_led_flash">true</bool>
-    <!-- Auto Backlight -->
-    <bool name="light_decrease_enabled">true</bool>
 
 </resources>
