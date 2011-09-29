@@ -42,10 +42,6 @@ else
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_list.txt:system/etc/custom_backup_list.txt
 endif
 
-#prebuilt from CyanogenDefy repo :
-#PRODUCT_COPY_FILES += \
-#	device/motorola/jordan/prebuilt/lib/libbridge.so:system/lib/libbridge.so \
-
 #app
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk
