@@ -4,10 +4,10 @@ package_extract_file("system/etc/custom_backup_list.txt","/system/etc/custom_bac
 run_program("/sbin/mkdir","/tmp/backupdir");
 run_program("/sbin/touch","/tmp/backupdir/force_backuptool");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
-show_progress(0.050000, 3);
+show_progress(0.100000, 4);
 run_program("/tmp/backuptool.sh", "backup");
 delete_recursive("/system/");
-show_progress(0.750000, 25);
+show_progress(0.750000, 35);
 package_extract_dir("system", "/system");
 show_progress(0.050000, 2);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
@@ -133,7 +133,7 @@ set_perm(0, 0, 06755, "/system/xbin/procrank");
 set_perm(0, 0, 06755, "/system/xbin/su");
 set_perm(0, 0, 06755, "/system/xbin/tcpdump");
 set_perm(0, 0, 0755, "/system/etc/motorola/comm_drv/commdrv_fs.sh");
-show_progress(0.050000, 5);
+show_progress(0.100000, 5);
 package_extract_file("system/bin/backuptool.sh", "/tmp/backuptool.sh");
 set_perm(0, 0, 0777, "/tmp/backuptool.sh");
 delete("/tmp/.installscript");
