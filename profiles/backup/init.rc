@@ -15,8 +15,8 @@ loglevel 3
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_ALT_STORAGE /mnt/sdcard-ext
-    export SD_EXT_DIRECTORY /mnt/sdcard-ext
+    export EXTERNAL_ALT_STORAGE /sd-ext
+    export SD_EXT_DIRECTORY /sd-ext
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export DSP_PATH /system/lib/dsp
@@ -29,7 +29,7 @@ loglevel 3
 # create mountpoints
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
-    mkdir /mnt/sdcard-ext 0000 system system
+    mkdir /sd-ext 0000 system system
     symlink /data/tmp /tmp
 
 # Create cgroup mount point for cpu accounting
@@ -39,7 +39,6 @@ loglevel 3
 
 # Backwards Compat - XXX: Going away in G*
     symlink /mnt/sdcard /sdcard
-    symlink /mnt/sdcard-ext /sdcard-ext
 
     mkdir /system
     mkdir /data 0771 system system
