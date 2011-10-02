@@ -102,7 +102,7 @@ PRODUCT_PACKAGES += \
 # for jpeg hw encoder/decoder
 # PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 
-# Add DroidSSHd (dropbear) Management App - tpruvot/android_app_droidsshd @ github
+# Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHd
 
 # we have enough storage space to hold precise GC data
