@@ -286,7 +286,7 @@
     <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
          For this time after the screen turns on, the Power Manager
          will not debounce light sensor readings -->
-    <integer name="config_lightSensorWarmupTime">0</integer>
+    <integer name="config_lightSensorWarmupTime">2000</integer>
 
     <!-- Enables swipe versus poly-finger touch disambiguation in the KeyboardView -->
     <bool name="config_swipeDisambiguation">true</bool>
@@ -336,7 +336,7 @@
     <bool name="config_animateScreenLights">false</bool>
 
     <!-- Allows the light sensor to be ignored when flashlight is on -->
-    <bool name="config_flashlight_affects_lightsensor">true</bool>
+    <bool name="config_flashlight_affects_lightsensor">false</bool>
 
     <!-- Enables SIP on WIFI only -->
     <bool name="config_sip_wifi_only">false</bool>
