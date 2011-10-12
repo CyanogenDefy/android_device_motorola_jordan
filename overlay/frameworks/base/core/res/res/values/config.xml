@@ -285,8 +285,8 @@
 
     <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
          For this time after the screen turns on, the Power Manager
-         will not debounce light sensor readings -->
-    <integer name="config_lightSensorWarmupTime">2000</integer>
+         will not debounce light sensor readings, 500ms is also the minimum interval -->
+    <integer name="config_lightSensorWarmupTime">500</integer>
 
     <!-- Enables swipe versus poly-finger touch disambiguation in the KeyboardView -->
     <bool name="config_swipeDisambiguation">true</bool>
