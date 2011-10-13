@@ -43,7 +43,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.media.dec.vid.wmv.enabled=1 \
 	dalvik.vm.lockprof.threshold=500 \
 	ro.kernel.android.checkjni=0 \
-	dalvik.vm.dexopt-data-only=1
+	dalvik.vm.dexopt-data-only=1 \
+	ro.vold.umsdirtyratio=20
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/jordan/overlay
 
