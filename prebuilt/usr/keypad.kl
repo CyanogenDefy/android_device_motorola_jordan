@@ -1,4 +1,4 @@
-key 399   GRAVE             WAKE_DROPPED
+key 399   GRAVE
 key 2     1                 WAKE_DROPPED
 key 3     2                 WAKE_DROPPED
 key 4     3                 WAKE_DROPPED
@@ -9,16 +9,13 @@ key 8     7                 WAKE_DROPPED
 key 9     8                 WAKE_DROPPED
 key 10    9                 WAKE_DROPPED
 key 11    0                 WAKE_DROPPED
-key 1     BACK              WAKE_DROPPED
 key 158   BACK              WAKE_DROPPED
 key 230   SOFT_RIGHT        WAKE
 key 60    SOFT_RIGHT        WAKE
-key 107   ENDCALL           WAKE_DROPPED
+key 107   POWER             WAKE_DROPPED
 key 62    ENDCALL           WAKE_DROPPED
-key 126   MENU              WAKE_DROPPED
 key 229   MENU              WAKE_DROPPED
 key 139   MENU              WAKE_DROPPED
-key 125   MENU              WAKE_DROPPED
 key 59    MENU              WAKE_DROPPED
 key 127   SEARCH            WAKE_DROPPED
 key 217   SEARCH            WAKE_DROPPED
@@ -36,7 +33,7 @@ key 115   VOLUME_UP         WAKE_DROPPED
 key 114   VOLUME_DOWN       WAKE_DROPPED
 key 116   POWER             WAKE
 key 211   FOCUS
-key 212   CAMERA            WAKE_DROPPED
+key 212   CAMERA
 
 key 16    Q                 WAKE_DROPPED
 key 17    W                 WAKE_DROPPED
@@ -49,7 +46,7 @@ key 23    I                 WAKE_DROPPED
 key 24    O                 WAKE_DROPPED
 key 25    P                 WAKE_DROPPED
 key 26    LEFT_BRACKET      WAKE_DROPPED
-key 27    RIGHT_BRACKET     WAKE_DROPPED
+key 214   RIGHT_BRACKET     WAKE_DROPPED
 key 43    BACKSLASH         WAKE_DROPPED
 
 key 30    A                 WAKE_DROPPED
@@ -65,7 +62,6 @@ key 39    SEMICOLON         WAKE_DROPPED
 key 40    APOSTROPHE        WAKE_DROPPED
 key 14    DEL               WAKE_DROPPED
 
-key 111   DEL               WAKE_DROPPED
 key 44    Z                 WAKE_DROPPED
 key 45    X                 WAKE_DROPPED
 key 46    C                 WAKE_DROPPED
@@ -91,31 +87,7 @@ key 12    MINUS             WAKE_DROPPED
 key 13    EQUALS            WAKE_DROPPED
 key 215   AT                WAKE_DROPPED
 
-key 55    STAR
-key 71    7
-key 72    8
-key 73    9
-key 74    MINUS
-key 75    4
-key 76    5
-key 77    6
-key 78    PLUS
-key 79    1
-key 80    2
-key 81    3
-key 82    0
-key 83    PERIOD
-key 98    SLASH
-key 96    ENTER
-key 58    CAPS
+key 226   HEADSETHOOK       WAKE
 
-key 41    GRAVE
-
-key 166   MEDIA_STOP          WAKE
-key 163   MEDIA_NEXT          WAKE
-key 165   MEDIA_PREVIOUS      WAKE
-key 168   MEDIA_REWIND        WAKE
-key 164   MEDIA_PLAY_PAUSE    WAKE
-key 128   MEDIA_STOP          WAKE
-key 159   MEDIA_FAST_FORWARD  WAKE
+#key 112   MODE_CHANGE       WAKE
 
