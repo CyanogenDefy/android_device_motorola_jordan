@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#key layouts, names must fit the ones in /proc/bus/input/devices, qwerty.kl is the fallback one.
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
+	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qtouch-touchscreen.kl \
+	device/motorola/jordan/prebuilt/usr/keypad.kl:system/usr/keylayout/sholes-keypad.kl \
+	device/motorola/jordan/prebuilt/usr/keypad.kl:system/usr/keylayout/umts_jordan-keypad.kl \
 	device/motorola/jordan/prebuilt/usr/cpcap.kl:system/usr/keylayout/cpcap-key.kl \
 
 #etc
