@@ -107,7 +107,7 @@ key 82    0
 key 83    PERIOD
 key 98    SLASH
 key 96    ENTER
-key 58    CAPS
+#key 58    CAPS
 
 key 41    GRAVE
 
