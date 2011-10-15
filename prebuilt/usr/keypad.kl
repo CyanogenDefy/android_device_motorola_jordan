@@ -29,8 +29,8 @@ key 103   DPAD_UP           WAKE_DROPPED
 key 102   HOME              WAKE
 key 105   DPAD_LEFT         WAKE_DROPPED
 key 106   DPAD_RIGHT        WAKE_DROPPED
-key 115   VOLUME_UP         WAKE
-key 114   VOLUME_DOWN       WAKE
+key 115   VOLUME_UP         WAKE_DROPPED
+key 114   VOLUME_DOWN       WAKE_DROPPED
 key 116   POWER             WAKE
 key 211   FOCUS
 key 212   CAMERA
