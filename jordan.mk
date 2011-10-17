@@ -84,7 +84,6 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.Video.Decoder \
 	libOMX.TI.Video.encoder \
 	libOMX.TI.VPP \
-	libVendor_ti_omx \
 	libLCML \
 	libOMX_Core \
 	sensors.jordan \
