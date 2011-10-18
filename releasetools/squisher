@@ -152,7 +152,9 @@ if [ -z "$CYANOGEN_NIGHTLY" ]; then
 else
 	OUTFILE=$OUT/update-squished.zip
 	if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ]; then
+		REALDATE=`sed -n -r 's/ro.build.version.incremental=//p' $REPACK/ota/system/build.prop`
 		MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
+		MODVERSION=`echo $MODVERSION | sed -r 's/[0-9]{8}/'$REALDATE'/'`
 		OUTFILE=$OUT/cm$MODVERSION.zip
 		if [ -n "$CYANOGEN_NIGHTLY_BOOT" ]; then
 			MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CYANOGEN_NIGHTLY_BOOT'/'`
