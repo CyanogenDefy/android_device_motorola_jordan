@@ -83,7 +83,6 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.WMA.decode \
 	libOMX.TI.Video.Decoder \
 	libOMX.TI.Video.encoder \
-	libOMX.TI.VPP \
 	libLCML \
 	libOMX_Core \
 	sensors.jordan \
@@ -101,6 +100,9 @@ PRODUCT_PACKAGES += \
 
 # for jpeg hw encoder/decoder
 # PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
+
+# hw video prepost processor (require dsp lib)
+# PRODUCT_PACKAGES += libOMX.TI.VPP
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
