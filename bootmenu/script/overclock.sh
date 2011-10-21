@@ -5,7 +5,7 @@
 
 export PATH=/sbin:/system/xbin:/system/bin
 CONFIG_FILE="/system/bootmenu/config/overclock.conf"
-MODULE_DIR="/system/bootmenu/ext/modules"
+MODULE_DIR="/system/lib/modules"
 SCALING_GOVERNOR="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 
 #############################################################
@@ -66,11 +66,11 @@ install_module()
   echo 0x$stats_update > /proc/overclock/cpufreq_stats_update_addr
   if [ $load_all -eq 1 ]; then
     insmod $MODULE_DIR/cpufreq_conservative.ko
+    insmod $MODULE_DIR/cpufreq_powersave.ko
     insmod $MODULE_DIR/symsearch.ko
     insmod $MODULE_DIR/cpufreq_stats.ko
     insmod $MODULE_DIR/cpufreq_interactive.ko
     insmod $MODULE_DIR/cpufreq_smartass.ko
-    insmod $MODULE_DIR/cpufreq_powersave.ko
   fi
 }
 
@@ -86,10 +86,10 @@ set_scaling()
         insmod $MODULE_DIR/cpufreq_conservative.ko
       fi
       echo "conservative" > $SCALING_GOVERNOR
-      echo $con_sampling_rate > /sys/devices/system/cpu/cpu0/cpufreq/conservative/sampling_rate
       echo $con_freq_step > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step
-      echo $con_up_threshold > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold
       echo $con_down_threshold > /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold
+      echo $con_sampling_rate > /sys/devices/system/cpu/cpu0/cpufreq/conservative/sampling_rate
+      echo $con_up_threshold > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold
     ;;
     "1" )
       if [ $load_all -eq 0 ]; then
@@ -98,12 +98,12 @@ set_scaling()
         insmod $MODULE_DIR/cpufreq_interactive.ko
       fi
       echo "interactive" > $SCALING_GOVERNOR
-      echo $int_min_sample_rate > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+      echo $int_min_sample_rate > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
     ;;
     "2" )
       echo "ondemand" > $SCALING_GOVERNOR
-      echo $ond_sampling_rate > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate
-      echo $ond_up_threshold > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold
+      echo $ond_sampling_rate > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+      echo $ond_up_threshold > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
     ;;
     "3" )
       echo "performance" > $SCALING_GOVERNOR
