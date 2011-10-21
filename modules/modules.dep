@@ -26,3 +26,9 @@ act_police.ko:
 act_mirred.ko:
 act_gact.ko:
 defy_more.ko:
+overclock_defy.ko:
+cpufreq_stats.ko:
+cpufreq_smartass.ko: symsearch.ko
+cpufreq_interactive.ko: symsearch.ko cpufreq_stats.ko
+cpufreq_conservative.ko:
+

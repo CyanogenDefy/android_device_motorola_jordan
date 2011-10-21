@@ -27,9 +27,9 @@ if [ -z "$OUT" -o ! -d "$OUT" ]; then
 fi
 
 if [ "$TARGET_BUILD_TYPE" = "debug" ]; then
-    OTAPACKAGE=$OUT/${TARGET_PRODUCT}_debug-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
+    OTAPACKAGE=$OUT/${TARGET_PRODUCT}_debug-ota-$TARGET_BUILD_VARIANT.$USER.zip
 else
-    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
+    OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$USER.zip
 fi
 if [ ! -f "$OTAPACKAGE" ]; then
 	echo "$OTAPACKAGE doesn't exist!";
@@ -127,7 +127,7 @@ $SED -i \
 	$REPACK/ota/system/build.prop
 
 # Include device specific script
-if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ]; then
+if [ -f $ANDROID_BUILD_TOP/device/motorola/jordan/releasetools/squisher.sh ]; then
 	. $ANDROID_BUILD_TOP/device/motorola/jordan/releasetools/squisher.sh
 fi
 
@@ -142,7 +142,7 @@ rm -rf $REPACK/ota/recovery
 
 # Strip modules
 [ -d $REPACK/ota/system/lib/modules ] && \
-	find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
+	find $REPACK/ota/system/lib/modules -name "*.ko" -not -name "overclock*" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # Determine what to name the new signed package
 if [ -z "$CYANOGEN_NIGHTLY" ]; then
@@ -186,6 +186,10 @@ $MD5 $img >$img.md5sum
 echo
 echo "Package complete: $OUTFILE"
 cat $img.md5sum
+echo
+# Build date and current time:
+cat $OUT/system/build.prop | grep ro.build.date=
+date "+%Y%m%d-%H%M"
 echo
 )
 
