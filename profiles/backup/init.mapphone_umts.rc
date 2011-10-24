@@ -54,8 +54,8 @@ on post-fs
 # Tweaks
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
-# Dont delete this line, used as event in bootmenu (3 par.)
-    exec /system/bin/logwrapper echo pds Overclocking...
+# Dont delete this line, used as event in bootmenu (cpu settings & postbootmenu)
+    exec /system/bin/logwrapper postbootmenu
 
 # Create basic filesystem structure
     # We chown/chmod /pds again so because mount is run as root + defaults
