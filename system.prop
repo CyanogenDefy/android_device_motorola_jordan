@@ -38,7 +38,7 @@ jpeg.libskiahw.decoder.thresh=300000
 jpeg.libskiahw.encoder.enable=0
 
 # This is a high density device with more memory, so larger vm heaps for it.
-dalvik.vm.heapsize=40m
+dalvik.vm.heapsize=48m
 
 # Forbid format of these partitions in mount menu :
 ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
