@@ -43,6 +43,12 @@ else
     losetup /dev/block/loop7 /data/pds.img
     busybox mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
 
+    if [ -d /data/battd ] ; then
+        cd /data/battd
+        busybox find -user 9000 -exec chown 1000 {} \;
+        busybox find -group 9000 -exec chgrp 1000 {} \;
+    fi
+
     if [ -d /pds/public ] ; then
         echo "PDS partition mounted from data image."
     fi
