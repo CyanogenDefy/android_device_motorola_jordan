@@ -108,15 +108,6 @@ PRODUCT_PACKAGES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# Set en_US as default locale
-PRODUCT_LOCALES := en_US
-
-# Screen density is actually considered a locale (since it is taken into account
-# the the build-time selection of resources). The product definitions including
-# this file must pay attention to the fact that the first entry in the final
-# PRODUCT_LOCALES expansion must not be a density.
-PRODUCT_LOCALES += hdpi
-
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/vold.fstab:system/etc/vold.fstab
 
@@ -151,6 +142,9 @@ PRODUCT_COPY_FILES += \
 
 
 $(call inherit-product, build/target/product/full_base.mk)
+
+# Should be after the full_base include, which loads languages_full
+PRODUCT_LOCALES += hdpi
 
 PRODUCT_NAME := generic_jordan
 PRODUCT_DEVICE := MB525
