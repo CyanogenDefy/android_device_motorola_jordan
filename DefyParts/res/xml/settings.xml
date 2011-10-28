@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Charge LED mode -->
+    <ListPreference android:key="charge_led_mode"
+                    android:persistent="false"
+                    android:title="@string/charge_led_mode_title"
+                    android:summary="@string/charge_led_mode_summary"
+                    android:entries="@array/charge_led_mode_entries"
+                    android:entryValues="@array/charge_led_mode_values" />
+
+    <!-- Number of multitouch points -->
+    <ListPreference android:key="touch_points"
+                    android:persistent="false"
+                    android:title="@string/touch_points_title"
+                    android:summary="@string/touch_points_summary"
+                    android:entries="@array/touch_point_entries"
+                    android:entryValues="@array/touch_point_values" />
+
+</PreferenceScreen>
