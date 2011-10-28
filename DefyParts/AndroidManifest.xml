@@ -6,14 +6,12 @@
           android:versionName="1.0" >
 
     <application
-        android:icon="@drawable/icon"
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
             android:name=".SettingsActivity" >
             <intent-filter >
                 <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
