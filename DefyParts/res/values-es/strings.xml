@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ajustes Defy</string>
+
+    <string name="charge_led_mode_title">LED de carga USB</string>
+    <string name="charge_led_mode_summary">Modificar el comportamiento de los LEDs de notificación mientras carga</string>
+    <string name="charge_led_mode_white">LED blanco</string>
+    <string name="charge_led_mode_rgb">LED naranja (rojo+verde)</string>
+    <string name="charge_led_mode_off">Sin LED</string>
+
+    <string name="touch_points_title">Multitouch</string>
+    <string name="touch_points_summary">Modificar el numero de puntos simultáneos manejados por la pantalla</string>
+    <string name="touch_point_entry_2points">2 points (normal)</string>
+
+    <string name="touch_point_warning_title">Cuidado</string>
+    <string name="touch_point_warning_message">Aumentar la cantidad de puntos manejados puede reducir la reactividad de la pantalla al inicio del telefono.\n\n¿ Quiere activar esta función ?</string>
+
+</resources>
