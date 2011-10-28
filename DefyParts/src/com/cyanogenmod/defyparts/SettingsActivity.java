@@ -50,7 +50,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
             /* only show warning when moving away from the default value */
             if (TextUtils.equals(value, defaultValue) || !TextUtils.equals(oldValue, defaultValue)) {
-                SystemProperties.set(PROP_CHARGE_LED_MODE, value);
+                SystemProperties.set(PROP_TOUCH_POINTS, value);
             } else {
                 AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.touch_point_warning_title)
@@ -58,7 +58,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SystemProperties.set(PROP_CHARGE_LED_MODE, value);
+                            SystemProperties.set(PROP_TOUCH_POINTS, value);
                             touchPointsPref.setValue(value);
                         }
                     })
