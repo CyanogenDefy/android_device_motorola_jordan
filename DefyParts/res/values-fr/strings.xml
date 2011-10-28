@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Spécifique Defy</string>
+    <string name="app_name">Defy Settings</string>
 
-    <string name="charge_led_mode_title">LED de Charge USB</string>
-    <string name="charge_led_mode_summary">Modifie le comportement des LEDs de notification pendant le chargement</string>
+    <string name="charge_led_mode_title">LED de charge</string>
+    <string name="charge_led_mode_summary">Modifie la couleur de la LED de chargement de la batterie</string>
     <string name="charge_led_mode_white">LED blanche</string>
-    <string name="charge_led_mode_rgb">LED \'Orange\' (rouge+vert)</string>
+    <string name="charge_led_mode_rgb">LED orange (rouge+vert)</string>
     <string name="charge_led_mode_off">Pas de LED</string>
 
     <string name="touch_points_title">Multitouch</string>
