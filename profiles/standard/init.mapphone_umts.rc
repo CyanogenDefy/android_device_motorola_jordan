@@ -5,7 +5,7 @@ on fs
     mount ext3 /dev/block/mmcblk1p21 /system ro remount
     mount ext3 /dev/block/mmcblk1p24 /cache nosuid nodev noatime nodiratime barrier=0
     mount ext3 /dev/block/mmcblk1p25 /data nosuid nodev noatime nodiratime barrier=0
-    mount ext3 /dev/block/mmcblk1p7 /pds nosuid nodev noatime nodiratime barrier=1
+    # mount ext3 /dev/block/mmcblk1p7 /pds nosuid nodev noatime nodiratime barrier=1
 
 on post-fs
 
