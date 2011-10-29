@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Настройки Defy</string>
+
+    <string name="charge_led_mode_title">Цвет индикатора зарядки</string>
+    <string name="charge_led_mode_summary">Задать цвет светодиода при зарядке</string>
+    <string name="charge_led_mode_white">Белый</string>
+    <string name="charge_led_mode_rgb">Смешанный цвет (красный+зеленый)</string>
+    <string name="charge_led_mode_off">Отключить</string>
+
+    <string name="touch_points_title">Мультитач</string>
+    <string name="touch_points_summary">Задать максимальное число одновременных нажатий</string>
+    <string name="touch_point_entry_2points">2 Точки (по умолчанию)</string>
+    <string name="touch_point_entry_3points">3 Точки</string>
+    <string name="touch_point_entry_4points">4 Точки</string>
+    <string name="touch_point_entry_5points">5 Точек</string>
+
+    <string name="touch_point_warning_title">Предупреждение</string>
+    <string name="touch_point_warning_message">Увеличение числа одновременных нажатий может привести к ухудшению чувствительности тачскрина.\nВы уверены, что хотите продолжить?</string>
+
+</resources>
