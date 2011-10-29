@@ -19,4 +19,6 @@
     <string name="touch_point_warning_title">Warnung</string>
     <string name="touch_point_warning_message">Das Erhöhen der Anzahl der Multi-Touch-Punkte kann die Reaktionsfähigkeit des Touchscreens verschlechtern.\nSind Sie sicher, die Einstellung verändern zu wollen?</string>
 
+    <string name="reboot_notice_title">Hinweis</string>
+    <string name="reboot_notice_summary">Um die neuen Einstellungen anzuwenden, muss das Gerät neu gestartet werden.</string>
 </resources>

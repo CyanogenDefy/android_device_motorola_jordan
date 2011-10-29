@@ -14,6 +14,7 @@ import android.text.TextUtils;
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener {
     private ListPreference chargeLedModePref;
     private ListPreference touchPointsPref;
+    private Preference rebootNotice;
 
     private static final String PROP_CHARGE_LED_MODE = "persist.sys.charge_led";
     private static final String PROP_TOUCH_POINTS = "persist.sys.multitouch";
@@ -28,6 +29,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         chargeLedModePref.setOnPreferenceChangeListener(this);
         touchPointsPref = (ListPreference) screen.findPreference("touch_points");
         touchPointsPref.setOnPreferenceChangeListener(this);
+        rebootNotice = screen.findPreference("reboot_notice");
+        screen.removePreference(rebootNotice);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == chargeLedModePref) {
             String value = (String) newValue;
-            SystemProperties.set(PROP_CHARGE_LED_MODE, value);
+            applyPersistentPref(PROP_CHARGE_LED_MODE, value);
         } else if (preference == touchPointsPref) {
             final String value = (String) newValue;
             final String oldValue = touchPointsPref.getValue();
@@ -50,7 +53,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
             /* only show warning when moving away from the default value */
             if (TextUtils.equals(value, defaultValue) || !TextUtils.equals(oldValue, defaultValue)) {
-                SystemProperties.set(PROP_TOUCH_POINTS, value);
+                applyPersistentPref(PROP_TOUCH_POINTS, value);
             } else {
                 AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.touch_point_warning_title)
@@ -58,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SystemProperties.set(PROP_TOUCH_POINTS, value);
+                            applyPersistentPref(PROP_TOUCH_POINTS, value);
                             touchPointsPref.setValue(value);
                         }
                     })
@@ -71,5 +74,13 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         }
 
         return true;
+    }
+
+    private void applyPersistentPref(String key, String value) {
+        PreferenceScreen screen = getPreferenceScreen();
+        if (screen.findPreference(rebootNotice.getKey()) == null) {
+            screen.addPreference(rebootNotice);
+        }
+        SystemProperties.set(key, value);
     }
 }
