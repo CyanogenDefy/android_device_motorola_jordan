@@ -19,4 +19,6 @@
     <string name="touch_point_warning_title">Предупреждение</string>
     <string name="touch_point_warning_message">Увеличение числа одновременных нажатий может привести к ухудшению чувствительности тачскрина.\nВы уверены, что хотите продолжить?</string>
 
+    <string name="reboot_notice_title">Уведомление</string>
+    <string name="reboot_notice_summary">Для того, чтобы изменения вступили в силу, необходимо перезагрузить устройство.</string>
 </resources>
