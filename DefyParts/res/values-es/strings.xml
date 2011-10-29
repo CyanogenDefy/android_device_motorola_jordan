@@ -16,4 +16,7 @@
     <string name="touch_point_warning_title">Cuidado</string>
     <string name="touch_point_warning_message">Aumentar la cantidad de puntos manejados puede reducir la reactividad de la pantalla al inicio del telefono.\n\n¿ Quiere activar esta función ?</string>
 
+    <string name="reboot_notice_title">Notice</string>
+    <string name="reboot_notice_summary">Es necesario reiniciar para hacer efectivos los cambios.</string>
+
 </resources>

@@ -16,4 +16,7 @@
     <string name="touch_point_warning_title">Attention</string>
     <string name="touch_point_warning_message">Augmenter le nombre de contacts peut réduire la réactivité de l\'écran au démarrage du téléphone.\n\nEtes-vous certain de vouloir activer cette fonction ?</string>
 
+    <string name="reboot_notice_title">Note</string>
+    <string name="reboot_notice_summary">Un redémarrage est nécessaire pour appliquer ces paramètres.</string>
+
 </resources>
