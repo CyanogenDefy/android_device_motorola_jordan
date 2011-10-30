@@ -1,0 +1,5 @@
+config DEFY_GPIOFIX
+        tristate "Defy: Fix Touch panel GPIO Hardware Reset"
+        default m
+        depends on SYMSEARCH
+
