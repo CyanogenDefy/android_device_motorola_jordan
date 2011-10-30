@@ -27,6 +27,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/etc/init.d/02pdsbackup:system/etc/init.d/02pdsbackup \
 	device/motorola/jordan/prebuilt/etc/init.d/04mmcfix:system/etc/init.d/04mmcfix \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
+	device/motorola/jordan/prebuilt/etc/init.d/07gpiofix:system/etc/init.d/07gpiofix \
 	device/motorola/jordan/prebuilt/etc/init.d/90multitouch:system/etc/init.d/90multitouch \
 	device/motorola/jordan/prebuilt/etc/profile:system/etc/profile \
 	device/motorola/jordan/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf \
