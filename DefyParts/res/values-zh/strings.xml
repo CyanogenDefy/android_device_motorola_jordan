@@ -19,4 +19,6 @@
     <string name="touch_point_warning_title">警告</string>
     <string name="touch_point_warning_message">当触摸点数增加时屏幕的灵敏度可能会下降。\n是否保存当前触摸点数设置？</string>
 
+    <string name="reboot_notice_title">注意</string>
+    <string name="reboot_notice_summary">需要重启以使设置生效。</string>
 </resources>
