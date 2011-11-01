@@ -1,0 +1,4 @@
+config DEFY_BACKLIGHT
+        tristate "Defy: handle button backlight brightness"
+        default m
+        depends on SYMSEARCH
