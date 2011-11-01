@@ -1,0 +1,4 @@
+config DEFY_LEDSFIX
+        tristate "Defy: fix brightness levels for soft buttons"
+        default m
+        depends on SYMSEARCH
