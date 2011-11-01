@@ -69,6 +69,10 @@ static int animate = 1;
 module_param(animate , int, 0);
 MODULE_PARM_DESC(brightness,  "Animation on module load (default 1)");
 
+static int hook_enable = 0;
+module_param(hook_enable , int, 0);
+MODULE_PARM_DESC(hook_enable, "Enable hook on cpcap, required if liblight is not present (default 0)");
+
 // Stats
 static int wr_count = 0;
 
@@ -280,8 +284,10 @@ static int __init backlight_init(void) {
 
 	if (animate) test_fading(brightness);
 
-	hook_init();
-	hooked = 1;
+	if (hook_enable) {
+		hook_init();
+		hooked = 1;
+	}
 
 	return 0;
 }
