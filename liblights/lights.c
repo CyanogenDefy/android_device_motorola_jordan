@@ -53,7 +53,8 @@ static int g_charge_led_active;
 
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
-char const*const BUTTON_FILE = "/sys/class/leds/button-backlight/brightness";
+char const*const BUTTON_ON_FILE = "/sys/class/leds/button-backlight/brightness";
+char const*const BUTTON_BRIGHT_FILE = "/proc/ledsfix/brightness";
 
 /* RGB file descriptors */
 char const*const RED_LED_FILE = "/sys/class/leds/red/brightness";
@@ -158,7 +159,10 @@ set_light_buttons(struct light_device_t* dev,
     int brightness = rgb_to_brightness(state);
 
     pthread_mutex_lock(&g_lock);
-    err = write_int(BUTTON_FILE, brightness);
+    err = write_int(BUTTON_ON_FILE, brightness ? 1 : 0);
+    if (err == 0) {
+        err = write_int(BUTTON_BRIGHT_FILE, brightness);
+    }
     pthread_mutex_unlock(&g_lock);
 
     return err;
