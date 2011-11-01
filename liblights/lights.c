@@ -54,7 +54,7 @@ static int g_charge_led_active;
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
 char const*const BUTTON_ON_FILE = "/sys/class/leds/button-backlight/brightness";
-char const*const BUTTON_BRIGHT_FILE = "/proc/ledsfix/brightness";
+char const*const BUTTON_BRIGHT_FILE = "/proc/backlight/brightness";
 
 /* RGB file descriptors */
 char const*const RED_LED_FILE = "/sys/class/leds/red/brightness";

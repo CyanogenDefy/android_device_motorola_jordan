@@ -1,5 +1,5 @@
 /*
- * ledsfix - cpcap io sniffer module for Motorola Defy
+ * backlight - Button backlight cpcap fix for Motorola Defy
  *
  * hooking taken from "n - for testing kernel function hooking" by Nothize
  * require symsearch module by Skrilaz
@@ -36,7 +36,7 @@
 #include "hook.h"
 #include "../symsearch/symsearch.h"
 
-#define TAG "ledsfix"
+#define TAG "backlight"
 
 #define BUF_SIZE 32
 static char *buf=NULL;
@@ -72,7 +72,7 @@ MODULE_PARM_DESC(brightness,  "Animation on module load (default 1)");
 // Stats
 static int wr_count = 0;
 
-static bool hooked = false;
+static int hooked = 0;
 
 SYMSEARCH_DECLARE_FUNCTION_STATIC(
 	int, _cpcap_direct_misc_write, unsigned short reg, unsigned short value, unsigned short mask);
@@ -103,20 +103,20 @@ unsigned short bright_to_cpcap(int level) {
 /*
  * Animation
  */
-int test_anim(int level) {
+int test_fading(int level) {
 	int n;
 	unsigned short val;
 
-	SYMSEARCH_BIND_FUNCTION_TO(ledsfix, cpcap_direct_misc_write, _cpcap_direct_misc_write);
-	for (n=1; n <=31; n++) {
+	SYMSEARCH_BIND_FUNCTION_TO(backlight, cpcap_direct_misc_write, _cpcap_direct_misc_write);
+	for (n=1; n < 32; n++) {
 		val = bright_to_cpcap(n*8 - 1);
 		_cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
 		msleep_interruptible(3);
 	}
-	for (n=30; n >= 1; n--) {
+	for (n=32; n > 0; n--) {
 		val = bright_to_cpcap(n*8 - 1);
 		_cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
-		if ((n*8) < level) break;
+		//if ((n*8) < level) break;
 		msleep_interruptible(1);
 	}
 	return 0;
@@ -150,7 +150,7 @@ int cpcap_regacc_write(struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned 
 }
 
 /*
- * /proc read/write functions 
+ * /proc read/write functions
  */
 static int proc_brightness_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
 	int ret = 0;
@@ -161,13 +161,11 @@ static int proc_brightness_read(char *buffer, char **start, off_t offset, int co
 static int proc_brightness_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
 
 	uint32_t newval=0;
-	int ret;
 	unsigned short val=0;
+	int ret;
 
-	if (!len || len >= BUF_SIZE)
-		return -ENOSPC;
-	if (copy_from_user(buf, buffer, len))
-		return -EFAULT;
+	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
 
 	if (sscanf(buf, "%d", (uint32_t *) &newval) > 0) {
@@ -176,7 +174,7 @@ static int proc_brightness_write(struct file *filp, const char __user *buffer, u
 		val = bright_to_cpcap(newval);
 
 		printk(KERN_INFO TAG": brightness=%x\n", val);
-		SYMSEARCH_BIND_FUNCTION_TO(ledsfix, cpcap_direct_misc_write, _cpcap_direct_misc_write);
+		SYMSEARCH_BIND_FUNCTION_TO(backlight, cpcap_direct_misc_write, _cpcap_direct_misc_write);
 		ret = _cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
 		if (ret < 0) {
 			printk(KERN_ERR TAG": cpcap_direct_misc_write error %d !\n", ret);
@@ -188,15 +186,40 @@ static int proc_brightness_write(struct file *filp, const char __user *buffer, u
 	return len;
 }
 
-static int proc_wr_count_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
+static int proc_hook_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
 	int ret = 0;
-	if (!offset) ret = scnprintf(buffer, count, "%u\n", wr_count);
+	if (!offset) ret = scnprintf(buffer, count, "%u\n", hooked);
 	return ret;
+}
+
+static int proc_hook_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
+	uint32_t newval=0;
+
+	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (copy_from_user(buf, buffer, len)) return -EFAULT;
+	buf[len] = 0;
+	if (sscanf(buf, "%d", (uint32_t *) &newval) > 0) {
+
+		if  (!newval && hooked) {
+			hook_exit();
+			hooked = 0;
+		} else if (newval && !hooked) {
+			hook_init();
+			hooked = 1;
+		}
+	}
+	return len;
 }
 
 static int proc_log_enable_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
 	int ret=0;
 	if (!offset) ret = scnprintf(buffer, count, "%u\n", log_enable);
+	return ret;
+}
+
+static int proc_wr_count_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
+	int ret = 0;
+	if (!offset) ret = scnprintf(buffer, count, "%u\n", wr_count);
 	return ret;
 }
 
@@ -227,11 +250,11 @@ struct hook_info g_hi[] = {
 	HOOK_INIT_END
 };
 
-static int __init ledsfix_init(void) {
+static int __init backlight_init(void) {
 	struct proc_dir_entry *proc_entry;
 
 	printk(KERN_INFO  TAG": loading button backlight brightness fix.\n");
-	printk(KERN_DEBUG TAG": CPCAP_REG_ADLC=0x%x CPCAP_REG_KLC=0x%x CPCAP_REG_MDLC=0x%x\n", 
+	printk(KERN_DEBUG TAG": CPCAP_REG_ADLC=0x%x CPCAP_REG_KLC=0x%x CPCAP_REG_MDLC=0x%x\n",
 		CPCAP_REG_ADLC, CPCAP_REG_KLC, CPCAP_REG_MDLC);
 
 	buf = (char *)vmalloc(BUF_SIZE);
@@ -247,39 +270,41 @@ static int __init ledsfix_init(void) {
 	proc_entry = create_proc_read_entry(TAG"/log_enable", 0666, NULL, proc_log_enable_read, NULL);
 	proc_entry->write_proc = proc_log_enable_write;
 
+	proc_entry = create_proc_read_entry(TAG"/hook_enable", 0666, NULL, proc_hook_read, NULL);
+	proc_entry->write_proc = proc_hook_write;
+
 	proc_entry = create_proc_read_entry(TAG"/brightness", 0666, NULL, proc_brightness_read, NULL);
 	proc_entry->write_proc = proc_brightness_write;
 
-	//allowed: 0 1f 2f 3f 4f 5f 6f 7f  .. 3ff (64 levels)
 	brightness &= 0xFF;
 
-	if (animate)
-	test_anim(brightness);
+	if (animate) test_fading(brightness);
 
 	hook_init();
-	hooked = true;
+	hooked = 1;
 
 	return 0;
 }
 
-static void __exit ledsfix_exit(void) {
+static void __exit backlight_exit(void) {
 
 	if (hooked) {
 		hook_exit();
-		hooked = false;
+		hooked = 0;
 	}
 
 	remove_proc_entry("brightness", proc_root);
 	remove_proc_entry("wr_count", proc_root);
 	remove_proc_entry("log_enable", proc_root);
+	remove_proc_entry("hook_enable", proc_root);
 	remove_proc_entry(TAG, NULL);
 
 	vfree(btreg);
 	vfree(buf);
 }
 
-module_init(ledsfix_init);
-module_exit(ledsfix_exit);
+module_init(backlight_init);
+module_exit(backlight_exit);
 
 MODULE_ALIAS(TAG);
 MODULE_VERSION("1.0");

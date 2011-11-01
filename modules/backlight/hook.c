@@ -27,8 +27,8 @@
 #include <linux/smp_lock.h>
 
 //FIX ME (dynamic module name)
-#define MODULE_NAME "ledsfix"
-#define MODULE_TAG ledsfix
+#define MODULE_NAME "backlight"
+#define MODULE_TAG backlight
 
 //#define DEBUG_HOOK
 #ifdef DEBUG_HOOK
@@ -93,8 +93,8 @@ int unhook(struct hook_info *hi) {
 
 int hook_init(void) {
 	int i;
-	SYMSEARCH_BIND_FUNCTION_TO(ledsfix, kallsyms_lookup_name, pkallsyms_lookup_name);
-	SYMSEARCH_BIND_FUNCTION_TO(ledsfix, kallsyms_lookup, pkallsyms_lookup);
+	SYMSEARCH_BIND_FUNCTION_TO(backlight, kallsyms_lookup_name, pkallsyms_lookup_name);
+	SYMSEARCH_BIND_FUNCTION_TO(backlight, kallsyms_lookup, pkallsyms_lookup);
 	lock_kernel();
 	for (i = 0; g_hi[i].newfunc; ++i) {
 		hook(&g_hi[i]);
