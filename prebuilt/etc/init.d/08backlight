@@ -9,6 +9,6 @@ MODULE="/system/lib/modules/backlight.ko"
 LOAD_MODULE=`getprop persist.sys.backlight.disable`
 
 if [ "$LOAD_MODULE" != "1" ]; then
-    insmod $MODULE log_enable=0 brightness=4
+    insmod $MODULE brightness=4 log_enable=0 hook_enable=0
 fi
 
