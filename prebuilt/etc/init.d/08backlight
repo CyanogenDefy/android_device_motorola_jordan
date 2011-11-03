@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/system/xbin/ash
 #
 # load module to allow button backlight level changes
 
@@ -8,7 +8,12 @@ MODULE="/system/lib/modules/backlight.ko"
 # Property to disable the module
 LOAD_MODULE=`getprop persist.sys.backlight.disable`
 
+DEFYPLUS=0
+if [ -f /proc/socinfo ]; then
+    DEFYPLUS=1
+fi
+
 if [ "$LOAD_MODULE" != "1" ]; then
-    insmod $MODULE brightness=4 log_enable=0 hook_enable=0
+    /system/xbin/insmod $MODULE brightness=4 log_enable=0 hook_enable=0 defy_plus=$DEFYPLUS animate=1
 fi
 
