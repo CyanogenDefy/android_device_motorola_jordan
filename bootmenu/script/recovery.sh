@@ -52,7 +52,10 @@ touch /cache/recovery/last_log
 touch /tmp/recovery.log
 
 killall adbd
-sleep 1
+
+# load overclock settings to reduce heat and battery use
+/system/bootmenu/script/overclock.sh
+
 ps | grep -v grep | grep adbd
 ret=$?
 
