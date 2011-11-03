@@ -4,121 +4,112 @@
  * hooking taken from "n - for testing kernel function hooking" by Nothize
  * require symsearch module by Skrilaz
  *
- * Copyright (C) 2011 CyanogenDefy
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
+ * Copyright (C) 2011 CyanogenDefy - GPL
  */
 
 #include <linux/module.h>
+#include <linux/moduleparam.h>
+
 #include <linux/delay.h>
 #include <linux/device.h>
-#include <linux/earlysuspend.h>
 #include <linux/proc_fs.h>
-#include <linux/vmalloc.h>
-#include <asm/uaccess.h>
 
+#include <linux/leds.h>
 #include <linux/spi/cpcap.h>
-#include <linux/leds-ld-cpcap.h>
 
 #include "hook.h"
 #include "../symsearch/symsearch.h"
 
 #define TAG "backlight"
 
-#define BUF_SIZE 32
-static char *buf=NULL;
+#define CPCAP_BUTTON_DEV       "button-backlight"
 
-#define REG_FMT "%02x"
+//Only in Defy kernel, not in Defy+
+#ifndef DEFYPLUS
+# include <linux/leds-ld-cpcap.h> //for LD_BUTTON_CPCAP_MASK (0x3FF)
+# define CPCAP_BUTTON_DEV       "button-backlight"
+# define CPCAP_BUTTON_BACKLIGHT CPCAP_REG_ADLC
+# define CPCAP_BUTTON_WR_MASK   LD_BUTTON_CPCAP_MASK
+#else
+# define CPCAP_BUTTON_BACKLIGHT 0x9e
+# define CPCAP_BUTTON_WR_MASK   0x7ff
+#endif
 
-// storage for register last states
-typedef struct {
-	enum cpcap_reg reg;
-	unsigned short mask_wr;
-	unsigned short last_value;
-} st_cpcap_reg;
+// module parameters (see end of file for descriptions)
+static short brightness = -1;
+static short animate = 0;
+static short defy_plus = 0;
+static short log_enable = 0;
+static short hook_enable = 0;
 
-static st_cpcap_reg *btreg;
-struct proc_dir_entry *proc_root;
+// internals
+static short hooked = 0;
+static struct proc_dir_entry *proc_root;
+static struct led_classdev *button_dev = NULL;
 
-#define CPCAP_BUTTON_BACKLIGHT CPCAP_REG_ADLC
-#define CPCAP_BUTTON_WR_MASK   LD_BUTTON_CPCAP_MASK
+// storage for last register state
+unsigned short g_reg;
+unsigned short g_mask_wr;
+unsigned short g_last_value;
 
-static int log_enable = 0;
-module_param(log_enable , int, 0);
-MODULE_PARM_DESC(log_enable,  "Enable dmesg logs (0/1)");
+// small buffer for procfs i/o
+static char buf[32];
 
-static int brightness = 32;
-module_param(brightness, int, 0);
-MODULE_PARM_DESC(brightness,  "Brightness level (0-255)");
-
-static int animate = 1;
-module_param(animate , int, 0);
-MODULE_PARM_DESC(brightness,  "Animation on module load (default 1)");
-
-static int hook_enable = 0;
-module_param(hook_enable , int, 0);
-MODULE_PARM_DESC(hook_enable, "Enable hook on cpcap, required if liblight is not present (default 0)");
-
-// Stats
-static int hook_count = 0;
-
-static int hooked = 0;
-
-SYMSEARCH_DECLARE_FUNCTION_STATIC(
-	int, _cpcap_direct_misc_write, unsigned short reg, unsigned short value, unsigned short mask);
+#define DBG(format, ...) if (log_enable) printk(KERN_DEBUG TAG ": " format, ## __VA_ARGS__)
 
 /*
  * Conversion 0-255 to CPCAP REG
  */
-unsigned short brightness_to_cpcap(int level) {
+unsigned short brightness_to_cpcap(unsigned short level) {
+	unsigned short val, newval;
 
-	unsigned short val=0;
-	unsigned int newval;
+	level &= 0xFF; //255 is max
 
-	//allowed: 0 1f 2f 3f 4f 5f 6f 7f  .. 3ff (64 levels)
-	level = level & 0xFF;
-	newval = (level * 4) | 0xF;
+	if (defy_plus) {
+
+		//some (bits) seems reversed, to tune or fix..
+		// 32 is problematic :/
+
+		//0b0111 1111 100X
+		newval = level * 8 | ((level & 0xC0) / 0x20);
+
+		if (level < 8) newval = level * 8;
+
+		if (level) newval |= 0x1; //(X for on/off)
+
+	} else {
+		//allowed: 0 1f 2f 3f 4f 5f 6f 7f  .. 3ff (64 levels)
+		newval = (level * 4) | 0xF;
+
+		if (level <= 4) newval = 0xF;
+	}
 
 	if (level == 0) newval=0;
-	else if (newval < 1) newval=0xF;
 
-	val = (unsigned short) newval & btreg->mask_wr;
+	val = newval & g_mask_wr;
 
-	if (log_enable & 1)
-		printk(KERN_DEBUG TAG": convert %d -> 0x%x\n", level, val);
+	DBG("convert %d -> 0x%x\n", level, val);
 
 	return val;
 }
 
+SYMSEARCH_DECLARE_FUNCTION_STATIC(
+	int, _cpcap_direct_misc_write, unsigned short reg, unsigned short value, unsigned short mask);
 /*
  * Animation
  */
-int brightness_fading(int level) {
-	int n;
-	unsigned short val;
+int brightness_fading(short level) {
+	unsigned short n, val;
 
 	SYMSEARCH_BIND_FUNCTION_TO(backlight, cpcap_direct_misc_write, _cpcap_direct_misc_write);
-	for (n=1; n < 32; n++) {
+	for (n=2; n < 32; n++) {
 		val = brightness_to_cpcap(n*8 - 1);
-		_cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
+		_cpcap_direct_misc_write(g_reg, val, g_mask_wr);
 		msleep_interruptible(3);
 	}
 	for (n=31; n > 0; n--) {
 		val = brightness_to_cpcap(n*8 - 1);
-		_cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
+		_cpcap_direct_misc_write(g_reg, val, g_mask_wr);
 		//if ((n*8) < level) break;
 		msleep_interruptible(1);
 	}
@@ -131,23 +122,28 @@ int brightness_fading(int level) {
 int cpcap_regacc_write(struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned short value, unsigned short mask) {
 	int ret = 0;
 
-	if (reg == CPCAP_BUTTON_BACKLIGHT && value > 1) {
-		if (log_enable & 1)
-			printk(KERN_DEBUG TAG": got value 0x%x(%d) mask %x\n", value, value, mask);
-		value = brightness_to_cpcap(brightness);
-		if (log_enable & 1)
-			printk(KERN_DEBUG TAG": override brightness set 0x%x(%d) mask %x\n", value, value, mask);
+	if (reg != CPCAP_BUTTON_BACKLIGHT) {
+		return HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 	}
+
+	DBG("got value 0x%x(%d) mask %x\n", value, value, mask);
+
+	// read original value
+	if (button_dev) {
+		if (button_dev->brightness > 1) {
+			brightness = button_dev->brightness;
+		}
+		DBG("got button->brightness=%d\n", brightness);
+	}
+	value = brightness_to_cpcap(brightness);
+	DBG("override brightness set 0x%x(%d) mask %x\n", value, value, mask);
+
 	ret = HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 
-	if (reg != CPCAP_BUTTON_BACKLIGHT) return ret;
-	hook_count ++;
+	g_mask_wr |= mask;
+	g_last_value = value;
 
-	btreg->mask_wr |= mask;
-	btreg->last_value = value;
-
-	if (log_enable & 1)
-		printk(KERN_DEBUG TAG": write REG 0x"REG_FMT"(%d.) set/mask %x/%x\n", (unsigned int) reg, reg, value, mask);
+	DBG("write REG 0x%02x(%d) set/mask %x/%x\n", (unsigned int) reg, reg, value, mask);
 
 	return ret;
 }
@@ -167,7 +163,7 @@ static int proc_brightness_write(struct file *filp, const char __user *buffer, u
 	unsigned short val=0;
 	int ret;
 
-	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
 	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
 
@@ -175,10 +171,15 @@ static int proc_brightness_write(struct file *filp, const char __user *buffer, u
 
 		brightness = newval & 0xff;
 		val = brightness_to_cpcap(newval);
-		if (log_enable & 1)
-			printk(KERN_INFO TAG": brightness set to %d 0x%x\n", brightness, val);
+		DBG("brightness set to %d 0x%x\n", brightness, val);
+
+		if (button_dev) {
+			button_dev->brightness = brightness;
+			DBG("button_dev->brightness set to %d\n", brightness);
+		}
+
 		SYMSEARCH_BIND_FUNCTION_TO(backlight, cpcap_direct_misc_write, _cpcap_direct_misc_write);
-		ret = _cpcap_direct_misc_write(btreg->reg, val, btreg->mask_wr);
+		ret = _cpcap_direct_misc_write(g_reg, val, g_mask_wr);
 		if (ret < 0) {
 			printk(KERN_ERR TAG": cpcap_direct_misc_write error %d !\n", ret);
 		}
@@ -198,7 +199,7 @@ static int proc_hook_read(char *buffer, char **start, off_t offset, int count, i
 static int proc_hook_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
 	uint32_t newval=0;
 
-	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
 	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
 	if (sscanf(buf, "%d", (uint32_t *) &newval) > 0) {
@@ -220,21 +221,14 @@ static int proc_log_enable_read(char *buffer, char **start, off_t offset, int co
 	return ret;
 }
 
-static int proc_hook_count_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
-	int ret = 0;
-	if (!offset) ret = scnprintf(buffer, count, "%u\n", hook_count);
-	return ret;
-}
-
 //set log type (1: simple dmesg, 2: /proc entries)
 static int proc_log_enable_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
 
 	uint32_t enable=0;
-	if (!len || len >= BUF_SIZE)
-		return -ENOSPC;
-	if (copy_from_user(buf, buffer, len))
-		return -EFAULT;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
+	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
+
 	if (sscanf(buf, "%u", (uint32_t *) &enable) == 1) {
 
 		printk(KERN_INFO TAG": log enable=%d\n", enable);
@@ -243,6 +237,40 @@ static int proc_log_enable_write(struct file *filp, const char __user *buffer, u
 	} else
 		printk(KERN_ERR TAG": wrong parameter !\n");
 	return len;
+}
+
+/*
+ * Original Led Interface
+ */
+extern struct rw_semaphore leds_list_lock;
+extern struct list_head leds_list;
+
+// Find and read current brightness set in led system
+static int find_led_brightness(void) {
+	struct led_classdev *led_cdev = NULL;
+	int ret=-1;
+
+	down_read(&leds_list_lock);
+	list_for_each_entry(led_cdev, &leds_list, node) {
+		if (strcmp(led_cdev->name, CPCAP_BUTTON_DEV) == 0) {
+			button_dev = led_cdev;
+			ret=0;
+			break;
+		}
+	}
+
+	// more logs
+	if (log_enable > 1) {
+		printk(KERN_INFO TAG": leds");
+		list_for_each_entry(led_cdev, &leds_list, node) {
+			printk(" %s", led_cdev->name);
+		}
+		printk("\n");
+	}
+
+	up_read(&leds_list_lock);
+
+	return ret;
 }
 
 /*
@@ -256,33 +284,36 @@ struct hook_info g_hi[] = {
 static int __init backlight_init(void) {
 	struct proc_dir_entry *proc_entry;
 
-	printk(KERN_INFO  TAG": loading button backlight brightness fix.\n");
-	printk(KERN_DEBUG TAG": CPCAP_REG_ADLC=0x%x CPCAP_REG_KLC=0x%x CPCAP_REG_MDLC=0x%x\n",
-		CPCAP_REG_ADLC, CPCAP_REG_KLC, CPCAP_REG_MDLC);
+	printk(KERN_INFO TAG": loading button backlight brightness fix.\n");
+	DBG("CPCAP_REG_ADLC=0x%x mode=%s\n", CPCAP_REG_ADLC, defy_plus ? "defy+":"defy");
 
-	buf = (char *)vmalloc(BUF_SIZE);
-	btreg = (st_cpcap_reg *)vmalloc(sizeof(st_cpcap_reg));
+	memset(buf, 0, sizeof(buf));
 
-	memset(btreg, 0, sizeof(st_cpcap_reg));
-	btreg->reg = CPCAP_BUTTON_BACKLIGHT;
-	btreg->mask_wr = CPCAP_BUTTON_WR_MASK;
+	g_reg     = CPCAP_BUTTON_BACKLIGHT;
+	g_mask_wr = CPCAP_BUTTON_WR_MASK;
+	if (defy_plus) g_mask_wr = 0x7ff; //0b1111.111.111.1
 
 	proc_root = proc_mkdir(TAG, NULL);
-	create_proc_read_entry("hook_count", 0444, proc_root, proc_hook_count_read, NULL);
 
 	proc_entry = create_proc_read_entry("log_enable", 0666, proc_root, proc_log_enable_read, NULL);
 	proc_entry->write_proc = proc_log_enable_write;
-
 	proc_entry = create_proc_read_entry("hook_enable", 0666, proc_root, proc_hook_read, NULL);
 	proc_entry->write_proc = proc_hook_write;
-
 	proc_entry = create_proc_read_entry("brightness", 0666, proc_root, proc_brightness_read, NULL);
 	proc_entry->write_proc = proc_brightness_write;
 
+	if (find_led_brightness() == 0) {
+		if (brightness == -1) {
+			brightness = button_dev->brightness;
+		}
+		DBG("button_dev->brightness = %d\n", button_dev->brightness);
+	}
+	if (brightness == -1 || brightness == 1 || brightness == 255) {
+		brightness = 4;
+	}
 	brightness &= 0xFF;
 
 	if (animate) brightness_fading(brightness);
-
 	if (hook_enable) {
 		hook_init();
 		hooked = 1;
@@ -299,20 +330,27 @@ static void __exit backlight_exit(void) {
 	}
 
 	remove_proc_entry("brightness", proc_root);
-	remove_proc_entry("hook_count", proc_root);
 	remove_proc_entry("log_enable", proc_root);
 	remove_proc_entry("hook_enable", proc_root);
 	remove_proc_entry(TAG, NULL);
-
-	vfree(btreg);
-	vfree(buf);
 }
+
+module_param(defy_plus, short, 0);
+MODULE_PARM_DESC(defy_plus,   "Defy (Froyo) or Defy+ (Gingerbread) kernel (0-1)");
+module_param(animate , short, 0);
+MODULE_PARM_DESC(animate,     "Animation on module load (default 1)");
+module_param(log_enable , short, 0);
+MODULE_PARM_DESC(log_enable,  "Enable dmesg logs (0/1)");
+module_param(hook_enable , short, 0);
+MODULE_PARM_DESC(hook_enable, "Enable hook on cpcap, required if liblight is not present (default 0)");
+module_param(brightness, short, 0);
+MODULE_PARM_DESC(brightness,  "Default brightness level (0-255)");
 
 module_init(backlight_init);
 module_exit(backlight_exit);
 
 MODULE_ALIAS(TAG);
-MODULE_VERSION("1.0");
+MODULE_VERSION("1.3");
 MODULE_DESCRIPTION("Fix button backlight brightness level");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
 MODULE_LICENSE("GPL");

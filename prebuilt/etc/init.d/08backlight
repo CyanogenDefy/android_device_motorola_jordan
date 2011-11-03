@@ -8,7 +8,13 @@ MODULE="/system/lib/modules/backlight.ko"
 # Property to disable the module
 LOAD_MODULE=`getprop persist.sys.backlight.disable`
 
+DEFYPLUS=0
+if [ -f /proc/socinfo ]; then
+    DEFYPLUS=1
+fi
+
 if [ "$LOAD_MODULE" != "1" ]; then
-    insmod $MODULE brightness=4 log_enable=0 hook_enable=0
+    # brightness=6 to set the default brightness after test "animation" on module load
+    /system/xbin/insmod $MODULE animate=1 brightness=6 log_enable=0 hook_enable=0 defy_plus=$DEFYPLUS
 fi
 
