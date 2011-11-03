@@ -12,10 +12,7 @@
 
 #include <linux/delay.h>
 #include <linux/device.h>
-#include <linux/earlysuspend.h>
 #include <linux/proc_fs.h>
-#include <linux/vmalloc.h>
-#include <asm/uaccess.h>
 
 #include <linux/leds.h>
 #include <linux/spi/cpcap.h>
@@ -47,7 +44,6 @@ static short hook_enable = 0;
 
 // internals
 static short hooked = 0;
-static unsigned int hook_count = 0;
 static struct proc_dir_entry *proc_root;
 static struct led_classdev *button_dev = NULL;
 
@@ -57,8 +53,7 @@ unsigned short g_mask_wr;
 unsigned short g_last_value;
 
 // small buffer for procfs i/o
-#define BUF_SIZE 32
-static char *buf=NULL;
+static char buf[32];
 
 #define DBG(format, ...) if (log_enable) printk(KERN_DEBUG TAG ": " format, ## __VA_ARGS__)
 
@@ -127,23 +122,23 @@ int brightness_fading(short level) {
 int cpcap_regacc_write(struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned short value, unsigned short mask) {
 	int ret = 0;
 
-	if (reg == CPCAP_BUTTON_BACKLIGHT) {
-		DBG("got value 0x%x(%d) mask %x\n", value, value, mask);
-
-		// read original value
-		if (button_dev) {
-			if (button_dev->brightness > 1) {
-				brightness = button_dev->brightness;
-			}
-			DBG("got button->brightness=%d\n", brightness);
-		}
-		value = brightness_to_cpcap(brightness);
-		DBG("override brightness set 0x%x(%d) mask %x\n", value, value, mask);
+	if (reg != CPCAP_BUTTON_BACKLIGHT) {
+		return HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 	}
-	ret = HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 
-	if (reg != CPCAP_BUTTON_BACKLIGHT) return ret;
-	hook_count ++;
+	DBG("got value 0x%x(%d) mask %x\n", value, value, mask);
+
+	// read original value
+	if (button_dev) {
+		if (button_dev->brightness > 1) {
+			brightness = button_dev->brightness;
+		}
+		DBG("got button->brightness=%d\n", brightness);
+	}
+	value = brightness_to_cpcap(brightness);
+	DBG("override brightness set 0x%x(%d) mask %x\n", value, value, mask);
+
+	ret = HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 
 	g_mask_wr |= mask;
 	g_last_value = value;
@@ -168,7 +163,7 @@ static int proc_brightness_write(struct file *filp, const char __user *buffer, u
 	unsigned short val=0;
 	int ret;
 
-	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
 	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
 
@@ -204,7 +199,7 @@ static int proc_hook_read(char *buffer, char **start, off_t offset, int count, i
 static int proc_hook_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
 	uint32_t newval=0;
 
-	if (!len || len >= BUF_SIZE) return -ENOSPC;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
 	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
 	if (sscanf(buf, "%d", (uint32_t *) &newval) > 0) {
@@ -226,21 +221,14 @@ static int proc_log_enable_read(char *buffer, char **start, off_t offset, int co
 	return ret;
 }
 
-static int proc_hook_count_read(char *buffer, char **start, off_t offset, int count, int *eof, void *data) {
-	int ret = 0;
-	if (!offset) ret = scnprintf(buffer, count, "%u\n", hook_count);
-	return ret;
-}
-
 //set log type (1: simple dmesg, 2: /proc entries)
 static int proc_log_enable_write(struct file *filp, const char __user *buffer, unsigned long len, void *data) {
 
 	uint32_t enable=0;
-	if (!len || len >= BUF_SIZE)
-		return -ENOSPC;
-	if (copy_from_user(buf, buffer, len))
-		return -EFAULT;
+	if (!len || len >= sizeof(buf)) return -ENOSPC;
+	if (copy_from_user(buf, buffer, len)) return -EFAULT;
 	buf[len] = 0;
+
 	if (sscanf(buf, "%u", (uint32_t *) &enable) == 1) {
 
 		printk(KERN_INFO TAG": log enable=%d\n", enable);
@@ -299,21 +287,18 @@ static int __init backlight_init(void) {
 	printk(KERN_INFO TAG": loading button backlight brightness fix.\n");
 	DBG("CPCAP_REG_ADLC=0x%x mode=%s\n", CPCAP_REG_ADLC, defy_plus ? "defy+":"defy");
 
-	buf = (char *)vmalloc(BUF_SIZE);
+	memset(buf, 0, sizeof(buf));
 
 	g_reg     = CPCAP_BUTTON_BACKLIGHT;
 	g_mask_wr = CPCAP_BUTTON_WR_MASK;
 	if (defy_plus) g_mask_wr = 0x7ff; //0b1111.111.111.1
 
 	proc_root = proc_mkdir(TAG, NULL);
-	create_proc_read_entry("hook_count", 0444, proc_root, proc_hook_count_read, NULL);
 
 	proc_entry = create_proc_read_entry("log_enable", 0666, proc_root, proc_log_enable_read, NULL);
 	proc_entry->write_proc = proc_log_enable_write;
-
 	proc_entry = create_proc_read_entry("hook_enable", 0666, proc_root, proc_hook_read, NULL);
 	proc_entry->write_proc = proc_hook_write;
-
 	proc_entry = create_proc_read_entry("brightness", 0666, proc_root, proc_brightness_read, NULL);
 	proc_entry->write_proc = proc_brightness_write;
 
@@ -347,16 +332,13 @@ static void __exit backlight_exit(void) {
 	remove_proc_entry("brightness", proc_root);
 	remove_proc_entry("log_enable", proc_root);
 	remove_proc_entry("hook_enable", proc_root);
-	remove_proc_entry("hook_count", proc_root);
 	remove_proc_entry(TAG, NULL);
-
-	vfree(buf);
 }
 
 module_param(defy_plus, short, 0);
-MODULE_PARM_DESC(defy_plus,  "Defy+ or gingerbread kernel (0-1)");
+MODULE_PARM_DESC(defy_plus,   "Defy (Froyo) or Defy+ (Gingerbread) kernel (0-1)");
 module_param(animate , short, 0);
-MODULE_PARM_DESC(animate,  "Animation on module load (default 1)");
+MODULE_PARM_DESC(animate,     "Animation on module load (default 1)");
 module_param(log_enable , short, 0);
 MODULE_PARM_DESC(log_enable,  "Enable dmesg logs (0/1)");
 module_param(hook_enable , short, 0);
@@ -368,7 +350,7 @@ module_init(backlight_init);
 module_exit(backlight_exit);
 
 MODULE_ALIAS(TAG);
-MODULE_VERSION("1.2");
+MODULE_VERSION("1.3");
 MODULE_DESCRIPTION("Fix button backlight brightness level");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
 MODULE_LICENSE("GPL");
