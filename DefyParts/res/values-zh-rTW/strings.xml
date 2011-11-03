@@ -14,7 +14,7 @@
     <string name="touch_point_entry_5points">5點</string>
     <string name="touch_point_warning_title">警告</string>
     <string name="touch_point_warning_message">"當觸控的點數增加時，螢幕的操控靈敏度可能會降低。
-是否儲存變更後的觸控點數設定值?"</string>
+是否確定要變更多點觸控的設定值?"</string>
     <string name="reboot_notice_title">注意</string>
-    <string name="reboot_notice_summary">需要重新啟動，新的設定值才會生效。</string>
+    <string name="reboot_notice_summary">需要重新啟動，新的設定值才會生效</string>
 </resources>
