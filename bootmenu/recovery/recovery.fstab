@@ -1,6 +1,9 @@
 # mount point   fstype      device                  [device2]
 
 /boot           emmc        /dev/block/mmcblk1p15
+/recovery       emmc        /dev/block/mmcblk1p16
+/devtree        emmc        /dev/block/mmcblk1p12
+/pds            ext3        /dev/block/loop7
 /cache          ext3        /dev/block/mmcblk1p24
 /data           ext3        /dev/block/mmcblk1p25
 /system         ext3        /dev/block/mmcblk1p21

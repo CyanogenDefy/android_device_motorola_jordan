@@ -1,4 +1,6 @@
 # static file system information for automatic busybox mount
+# note: ramfs is auto extensible
+
 # <file system>         <mount point>     <type>    <options>                      <dump> <pass>
 
 rootfs                  /                 rootfs    ro,relatime                         0      0
@@ -7,12 +9,9 @@ rootfs                  /                 rootfs    ro,relatime                 
 /dev/block/mmcblk1p24   /cache            ext3      rw,noatime,errors=continue          0      0
 /dev/block/mmcblk1p17   /cdrom            iso9660   ro                                  0      0
 
-#/dev/block/mmcblk1p12  /devtree          ext3      rw                                  0      0
-
-#/dev/block/mmcblk1p7   /pds              ext3      ro,nosuid,noatime,errors=continue   0      0
 /dev/block/loop7        /pds              ext3      rw,nosuid,noatime,errors=continue   0      0
 
-tmpfs                   /tmp              tmpfs     rw,relatime,size=2048k              0      0
+tmpfs                   /tmp              ramfs     rw,relatime,size=512k               0      0
 
 /dev/block/mmcblk0p1    /mnt/sdcard       vfat      rw,noatime,errors=continue          0      0
 /dev/block/mmcblk0p2    /sd-ext           ext3      rw,noatime,errors=continue          0      0
