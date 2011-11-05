@@ -8,6 +8,9 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 ######## Main Script
 
+PART_DATA=/dev/block/mmcblk1p25
+PART_SYSTEM=/dev/block/mmcblk1p21
+
 ## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp
 mkdir -p /tmp
@@ -51,11 +54,18 @@ touch /tmp/recovery.log
 
 killall adbd
 
-# mount image of pds, for backup purpose (4MB)
-dd if=/dev/block/mmcblk1p7 of=/tmp/pds.img bs=4096
+# mount fake image of pds, for backup purpose (4MB)
+[ ! -d /data/data ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
+if [ ! -f /data/pds.img ]; then
+    /system/etc/init.d/02pdsbackup
+    umount /pds
+    losetup -d /dev/block/loop7
+fi
+cp /data/pds.img /tmp/pds.img
 if [ -f /tmp/pds.img ] ; then
     mkdir -p /pds
     umount /pds 2>/dev/null
+    losetup -d /dev/block/loop7 2>/dev/null
     losetup /dev/block/loop7 /tmp/pds.img
     busybox mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
 fi
@@ -77,13 +87,12 @@ fi
 umount /system
 
 usleep 50000
-mount -t ext3 -o rw,noatime,nodiratime /dev/block/mmcblk1p21 /system
+mount -t ext3 -o rw,noatime,nodiratime $PART_SYSTEM /system
 
 # retry without type & options if not mounted
-[ ! -f /system/build.prop ] && mount -o rw /dev/block/mmcblk1p21 /system
+[ ! -f /system/build.prop ] && mount -o rw $PART_SYSTEM /system
 
 # set red led if problem with system
-
 echo 0 > /sys/class/leds/red/brightness
 echo 0 > /sys/class/leds/green/brightness
 echo 0 > /sys/class/leds/blue/brightness
@@ -92,20 +101,19 @@ echo 0 > /sys/class/leds/blue/brightness
 #############################
 
 # turn on button backlight (back button is used in CWM Recovery 3.x)
-echo 1 > /sys/class/leds/button-backlight/brightness
-
+# echo 1 > /sys/class/leds/button-backlight/brightness
 
 /sbin/recovery_stable
 
 
 # Post Recovery (back to bootmenu)
 
-# bootmenu doesnt support buttons
-echo 0 > /sys/class/leds/button-backlight/brightness
+# bootmenu support buttons too
+# echo 0 > /sys/class/leds/button-backlight/brightness
 
 # remount system & data if unmounted
-[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p25 /data
-[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p21 /system
+[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
+[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_SYSTEM /system
 
 if [ -f /system/build.prop ] ; then
 	echo 0 > /sys/class/leds/red/brightness
