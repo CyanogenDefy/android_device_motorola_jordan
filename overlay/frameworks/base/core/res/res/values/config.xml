@@ -264,8 +264,8 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
       <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>1</item>
-        <item>0</item>
+        <item>32</item>
+        <item>192</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
