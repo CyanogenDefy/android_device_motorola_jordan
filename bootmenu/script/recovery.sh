@@ -32,7 +32,7 @@ cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
 if [ ! -f /sbin/recovery ]; then
-  ln -s /sbin/recovery_stable /sbin/recovery
+    ln -s /sbin/recovery_stable /sbin/recovery
 fi
 
 chmod +rx /sbin/*

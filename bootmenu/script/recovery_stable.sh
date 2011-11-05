@@ -11,8 +11,6 @@ export PATH=/sbin:/system/xbin:/system/bin
 ## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp
 mkdir -p /tmp
-
-mkdir -p /pds
 mkdir -p /res
 
 rm -f /etc
@@ -34,7 +32,7 @@ cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
 if [ ! -f /sbin/recovery_stable ]; then
-  ln -s /sbin/recovery /sbin/recovery_stable
+    ln -s /sbin/recovery /sbin/recovery_stable
 fi
 
 chmod +rx /sbin/*
@@ -42,7 +40,7 @@ chmod +rx /sbin/*
 rm -f /sbin/postrecoveryboot.sh
 
 if [ ! -e /etc/recovery.fstab ]; then
-  cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
+    cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
 fi
 
 mkdir -p /cache/recovery
@@ -84,13 +82,12 @@ mount -t ext3 -o rw,noatime,nodiratime /dev/block/mmcblk1p21 /system
 # retry without type & options if not mounted
 [ ! -f /system/build.prop ] && mount -o rw /dev/block/mmcblk1p21 /system
 
-# set red led if problem with system, green led else
+# set red led if problem with system
 
 echo 0 > /sys/class/leds/red/brightness
 echo 0 > /sys/class/leds/green/brightness
 echo 0 > /sys/class/leds/blue/brightness
 [ ! -f /system/build.prop ] && echo 1 > /sys/class/leds/red/brightness
-# [ -f /system/build.prop ] && echo 1 > /sys/class/leds/green/brightness
 
 #############################
 
