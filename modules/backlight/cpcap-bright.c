@@ -79,7 +79,7 @@ unsigned short brightness_to_cpcap(unsigned short level) {
 		//allowed: 0 1f 2f 3f 4f 5f 6f 7f  .. 3ff (64 levels)
 		newval = (level * 4) | 0xF;
 
-		if (level <= 4) newval = 0x1F;
+		if (level <= 5) newval = 0x1F;
 	}
 
 	if (level == 0) newval=0;
@@ -336,7 +336,7 @@ static void __exit backlight_exit(void) {
 module_param(defy_plus, short, 0);
 MODULE_PARM_DESC(defy_plus,   "Defy (Froyo) or Defy+ (Gingerbread) kernel (0-1)");
 module_param(animate , short, 0);
-MODULE_PARM_DESC(animate,     "Animation on module load (default 1)");
+MODULE_PARM_DESC(animate,     "Animation on module load (default 0)");
 module_param(log_enable , short, 0);
 MODULE_PARM_DESC(log_enable,  "Enable dmesg logs (0/1)");
 module_param(hook_enable , short, 0);
@@ -348,7 +348,7 @@ module_init(backlight_init);
 module_exit(backlight_exit);
 
 MODULE_ALIAS(TAG);
-MODULE_VERSION("1.4");
+MODULE_VERSION("1.5");
 MODULE_DESCRIPTION("Fix button backlight brightness level");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
 MODULE_LICENSE("GPL");
