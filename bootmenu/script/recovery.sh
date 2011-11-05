@@ -8,11 +8,12 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 ######## Main Script
 
+PART_DATA=/dev/block/mmcblk1p25
+PART_SYSTEM=/dev/block/mmcblk1p21
+
 ## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp
 mkdir -p /tmp
-
-mkdir -p /pds
 mkdir -p /res
 
 rm -f /etc
@@ -34,7 +35,7 @@ cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
 cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
 if [ ! -f /sbin/recovery ]; then
-  ln -s /sbin/recovery_stable /sbin/recovery
+    ln -s /sbin/recovery_stable /sbin/recovery
 fi
 
 chmod +rx /sbin/*
@@ -42,8 +43,11 @@ chmod +rx /sbin/*
 rm -f /sbin/postrecoveryboot.sh
 
 if [ ! -e /etc/recovery.fstab ]; then
-  cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
+    cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
 fi
+
+# for ext3 format
+cp /system/etc/mke2fs.conf /etc/
 
 mkdir -p /cache/recovery
 touch /cache/recovery/command
@@ -52,7 +56,26 @@ touch /cache/recovery/last_log
 touch /tmp/recovery.log
 
 killall adbd
-sleep 1
+
+# load overclock settings to reduce heat and battery use
+/system/bootmenu/script/overclock.sh
+
+# mount image of pds, for backup purpose (4MB)
+[ ! -d /data/data ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
+if [ ! -f /data/pds.img ]; then
+    /system/etc/init.d/02pdsbackup
+    umount /pds
+    losetup -d /dev/block/loop7
+fi
+cp /data/pds.img /tmp/pds.img
+if [ -f /tmp/pds.img ] ; then
+    mkdir -p /pds
+    umount /pds 2>/dev/null
+    losetup -d /dev/block/loop7 2>/dev/null
+    losetup /dev/block/loop7 /tmp/pds.img
+    busybox mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
+fi
+
 ps | grep -v grep | grep adbd
 ret=$?
 
@@ -70,18 +93,16 @@ fi
 umount /system
 
 usleep 50000
-mount -t ext3 -o rw,noatime,nodiratime /dev/block/mmcblk1p21 /system
+mount -t ext3 -o rw,noatime,nodiratime $PART_SYSTEM /system
 
 # retry without type & options if not mounted
-[ ! -f /system/build.prop ] && mount -o rw /dev/block/mmcblk1p21 /system
+[ ! -f /system/build.prop ] && mount -o rw $PART_SYSTEM /system
 
-# set red led if problem with system, green led else
-
+# set red led if problem with system
 echo 0 > /sys/class/leds/red/brightness
 echo 0 > /sys/class/leds/green/brightness
 echo 0 > /sys/class/leds/blue/brightness
 [ ! -f /system/build.prop ] && echo 1 > /sys/class/leds/red/brightness
-# [ -f /system/build.prop ] && echo 1 > /sys/class/leds/green/brightness
 
 #############################
 
@@ -94,12 +115,12 @@ echo 1 > /sys/class/leds/button-backlight/brightness
 
 # Post Recovery (back to bootmenu)
 
-# bootmenu doesnt support buttons
-echo 0 > /sys/class/leds/button-backlight/brightness
+# bootmenu support buttons too...
+# echo 0 > /sys/class/leds/button-backlight/brightness
 
 # remount system & data if unmounted
-[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p25 /data
-[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue /dev/block/mmcblk1p21 /system
+[ ! -d /data/data ] &&         mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
+[ ! -f /system/build.prop ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_SYSTEM /system
 
 if [ -f /system/build.prop ] ; then
 	echo 0 > /sys/class/leds/red/brightness
