@@ -11,7 +11,7 @@ rootfs                  /                 rootfs    ro,relatime                 
 
 /dev/block/loop7        /pds              ext3      rw,nosuid,noatime,errors=continue   0      0
 
-tmpfs                   /tmp              ramfs     rw,relatime,size=512k               0      0
+ramfs                   /tmp              ramfs     rw,relatime,size=512k               0      0
 
 /dev/block/mmcblk0p1    /mnt/sdcard       vfat      rw,noatime,errors=continue          0      0
 /dev/block/mmcblk0p2    /sd-ext           ext3      rw,noatime,errors=continue          0      0
