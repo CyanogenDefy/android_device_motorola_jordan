@@ -460,6 +460,7 @@ fp_end()
    if $TEST $SYSMOUNT -eq 1; then
       #$UMOUNT /system > /dev/null 2>&1
       echo "skipping umount /system.."
+      sync
    fi
    
    if $TEST $DATAMOUNT -eq 1; then
