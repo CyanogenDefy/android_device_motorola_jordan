@@ -52,7 +52,16 @@ touch /cache/recovery/last_log
 touch /tmp/recovery.log
 
 killall adbd
-sleep 1
+
+# mount image of pds, for backup purpose (4MB)
+dd if=/dev/block/mmcblk1p7 of=/tmp/pds.img bs=4096
+if [ -f /tmp/pds.img ] ; then
+    mkdir -p /pds
+    umount /pds 2>/dev/null
+    losetup /dev/block/loop7 /tmp/pds.img
+    busybox mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
+fi
+
 ps | grep -v grep | grep adbd
 ret=$?
 

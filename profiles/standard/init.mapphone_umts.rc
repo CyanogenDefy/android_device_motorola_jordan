@@ -5,7 +5,6 @@ on fs
     mount ext3 /dev/block/mmcblk1p21 /system ro remount
     mount ext3 /dev/block/mmcblk1p24 /cache nosuid nodev noatime nodiratime barrier=0
     mount ext3 /dev/block/mmcblk1p25 /data nosuid nodev noatime nodiratime barrier=0
-    # mount ext3 /dev/block/mmcblk1p7 /pds nosuid nodev noatime nodiratime barrier=1
 
 on post-fs
 
@@ -24,9 +23,17 @@ on post-fs
 # Other global env variables
     export DSP_PATH /system/lib/dsp
 
-# Mount tmpfs
-    mkdir /tmp 0777 root root
-    mount tmpfs tmpfs /tmp size=1m
+# Mount tmp, we dont have swap, use ramfs which can grow if required
+    mkdir /tmp
+    mount ramfs ramfs /tmp size=512k relatime
+    chmod 0777 /tmp
+    chown system shell /tmp
+
+# Restore good uid, mount as ramfs reset to root root 755
+    chown root system /mnt/asec
+    chmod 0755 /mnt/asec
+    chown root system /mnt/obb
+    chmod 0755 /mnt/obb
 
 # Configure kernel options
     # Enable automatic power control for EHCI USB IPC

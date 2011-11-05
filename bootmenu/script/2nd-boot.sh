@@ -8,27 +8,22 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 ######## Main Script
 
-
-#echo 1 > /sys/class/leds/red/brightness
-#usleep 100000
-#echo 0 > /sys/class/leds/red/brightness
-
-
 mount -o remount,rw /
 rm -f /*.rc
 cp -r -f /system/bootmenu/2nd-boot/* /
 chmod 755 /*.rc
-chmod 4755 /system/bootmenu/binary/2nd-boot
 
 ## unmount devices
 sync
 umount /acct
-umount /mnt/asec
 umount /dev/cpuctl
 umount /dev/pts
+umount /mnt/asec
 umount /mnt/obb
 umount /cache
+umount /data/tmp
 umount /data
+mount -o remount,rw,relatime,mode=775,size=128k /dev
 
 ######## Cleanup
 
