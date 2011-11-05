@@ -9,7 +9,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 ######## Main Script
 
 mkdir -p /tmp
-chown shell:system /tmp
+chown system:shell /tmp
 chmod 0777 /tmp
 
 echo acm > /dev/usb_device_mode
