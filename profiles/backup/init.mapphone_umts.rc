@@ -10,10 +10,17 @@ on post-fs
 
     symlink /dev/ttyGS0 /dev/acm0
 
-# Create mountpoints and mount tmpfs
-    mkdir /pds 0775 system system
-    mkdir /tmp 0777 system system
-    mount tmpfs tmpfs /tmp size=2m
+# Mount tmp, we dont have swap, use ramfs which can grow if required
+    mkdir /tmp
+    mount ramfs ramfs /tmp size=512k relatime
+    chmod 0777 /tmp
+    chown system system /tmp
+
+# Restore good uids, if mounted as ramfs
+    chown root system /mnt/asec
+    chmod 0775 /mnt/asec
+    chown root system /mnt/obb
+    chmod 0775 /mnt/obb
 
 # Configure kernel options
     # Enable automatic power control for EHCI USB IPC
