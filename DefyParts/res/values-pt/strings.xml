@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Definições do Defy</string>
+
+    <string name="charge_led_mode_title">Modo LED carregamento</string>
+    <string name="charge_led_mode_summary">Ajustar o comportamento da LED de notificação durante o carregamento</string>
+    <string name="charge_led_mode_white">LED Branca</string>
+    <string name="charge_led_mode_rgb">LED Mista (vermelho/verde)</string>
+    <string name="charge_led_mode_off">Desligado</string>
+
+    <string name="touch_points_title">Pontos de Multi-Toque</string>
+    <string name="touch_points_summary">Ajustar o número de pontos simultâneos de toque a serem reconhecidos pelo sistema</string>
+    <string name="touch_point_entry_2points">2 pontos (omissão)</string>
+    <string name="touch_point_entry_3points">3 pontos</string>
+    <string name="touch_point_entry_4points">4 pontos</string>
+    <string name="touch_point_entry_5points">5 pontos</string>
+
+    <string name="touch_point_warning_title">Advertência</string>
+    <string name="touch_point_warning_message">Aumentar o número de pontos de toque pode degradar o tempo de resposta do ecrã. Tem a certeza que pretende continuar?</string>
+
+    <string name="reboot_notice_title">Aviso</string>
+    <string name="reboot_notice_summary">Necessita de reiniciar para que as novas definições surtam efeito.</string>
+</resources>
