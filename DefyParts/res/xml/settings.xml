@@ -22,4 +22,13 @@
                 android:persistent="false"
                 android:title="@string/reboot_notice_title"
                 android:summary="@string/reboot_notice_summary" />
+		
+    <PreferenceScreen android:key="audio_effects"
+                      android:title="@string/audio_effects">
+                      <intent
+                         android:action="android.intent.action.MAIN"
+                         android:targetPackage="com.motorola.android.AudioEffectSettings"
+                         android:targetClass="com.motorola.android.AudioEffectSettings.DeviceListActivity" />
+    </PreferenceScreen>
+
 </PreferenceScreen>
