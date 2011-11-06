@@ -323,7 +323,7 @@ on property:ro.secure=0
     start console
 
 # adbd is controlled by the persist.service.adb.enable system property
-service adbd /sbin/adbd
+service adbd /system/bin/adbd
     disabled
 
 # adbd on at boot in emulator
