@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Impostazioni Defy</string>
+
+    <string name="charge_led_mode_title">Modalità caricamento LED</string>
+    <string name="charge_led_mode_summary">Modifica il comportamento del LED di notificazione durante il caricamento</string>
+    <string name="charge_led_mode_white">LED Bianco</string>
+    <string name="charge_led_mode_rgb">LED Misto (rosso/verde)</string>
+    <string name="charge_led_mode_off">LED Spento</string>
+
+    <string name="touch_points_title">Multi-touch</string>
+    <string name="touch_points_summary">Modifica il numero dei punti simultanei gestiti dallo schermo</string>
+    <string name="touch_point_entry_2points">2 punti (predefinito)</string>
+    <string name="touch_point_entry_3points">3 punti</string>
+    <string name="touch_point_entry_4points">4 punti</string>
+    <string name="touch_point_entry_5points">5 punti</string>
+
+    <string name="touch_point_warning_title">Attenzione</string>
+    <string name="touch_point_warning_message">Aumentare il numero dei punti può diminuire la reattività del touch screen.\nSei sicuro di voler cambiare le impostazioni?</string>
+
+    <string name="reboot_notice_title">Nota</string>
+    <string name="reboot_notice_summary">È richiesto un riavvio affinché le nuove impostazioni abbiano effetto.</string>
+</resources>
