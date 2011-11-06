@@ -204,7 +204,7 @@ on property:service.adb.tcp.port=-1
 service usbd /system/bin/usbd
     user root
 service nvm-daemon /system/bin/nvm_daemon
-    user radio
+    user root
     group radio
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
     oneshot
