@@ -19,4 +19,6 @@
     <string name="reboot_notice_title">Note</string>
     <string name="reboot_notice_summary">Un redémarrage est nécessaire pour appliquer ces paramètres.</string>
 
+    <string name="audio_effects">Filtres Audio</string>
+
 </resources>
