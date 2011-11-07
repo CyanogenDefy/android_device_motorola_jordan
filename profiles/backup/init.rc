@@ -30,7 +30,10 @@ loglevel 3
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
     mkdir /sd-ext 0000 system system
-    mount ramfs ramfs /tmp mode=4775,gid=1000,size=512k
+
+    mount ramfs ramfs /tmp mode=4775,size=512k
+    chmod 0777 /tmp
+    chown system system /tmp
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
