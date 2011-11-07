@@ -5,6 +5,10 @@
 rm -f $REPACK/ota/system/app/RomManager.apk
 # rm -f $REPACK/ota/system/xbin/irssi
 
+# add an empty script to prevent logcat errors (moto init.rc)
+touch $REPACK/ota/system/bin/mount_ext3.sh
+chmod +x $REPACK/ota/system/bin/mount_ext3.sh
+
 mkdir -p $REPACK/ota/system/etc/terminfo/x
 cp $REPACK/ota/system/etc/terminfo/l/linux $REPACK/ota/system/etc/terminfo/x/xterm
 

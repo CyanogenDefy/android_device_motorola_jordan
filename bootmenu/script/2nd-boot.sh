@@ -11,7 +11,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 mount -o remount,rw /
 rm -f /*.rc
 cp -r -f /system/bootmenu/2nd-boot/* /
-chmod 755 /*.rc
+# chmod 755 /*.rc
 
 ## unmount devices
 sync
@@ -38,7 +38,7 @@ rm /sbin/busybox
 
 
 ## adbd shell
-ln -s /system/xbin/sh /sbin/sh
+ln -s /system/xbin/bash /sbin/sh
 
 ## reduce lcd backlight to save battery
 echo 18 > /sys/class/leds/lcd-backlight/brightness
