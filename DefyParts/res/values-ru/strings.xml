@@ -21,4 +21,7 @@
 
     <string name="reboot_notice_title">Уведомление</string>
     <string name="reboot_notice_summary">Для того, чтобы изменения вступили в силу, необходимо перезагрузить устройство.</string>
+
+    <string name="audio_effects">Аудио эффекты</string>
+
 </resources>
