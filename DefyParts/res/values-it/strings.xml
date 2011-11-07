@@ -3,8 +3,8 @@
 
     <string name="app_name">Impostazioni Defy</string>
 
-    <string name="charge_led_mode_title">Modalità caricamento LED</string>
-    <string name="charge_led_mode_summary">Modifica il comportamento del LED di notificazione durante il caricamento</string>
+    <string name="charge_led_mode_title">Modalità LED</string>
+    <string name="charge_led_mode_summary">Modifica il comportamento del LED di notificazione durante il caricamento della batteria</string>
     <string name="charge_led_mode_white">LED Bianco</string>
     <string name="charge_led_mode_rgb">LED Misto (rosso/verde)</string>
     <string name="charge_led_mode_off">LED Spento</string>
@@ -21,4 +21,6 @@
 
     <string name="reboot_notice_title">Nota</string>
     <string name="reboot_notice_summary">È richiesto un riavvio affinché le nuove impostazioni abbiano effetto.</string>
+
+    <string name="audio_effects">Effetti audio</string>
 </resources>
