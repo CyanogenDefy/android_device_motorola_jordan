@@ -79,53 +79,39 @@ on post-fs
     chown radio radio /pds/bp_nvm
     chmod 0770 /pds/bp_nvm
     # wifi dirs
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/comm_drv 0770 radio radio
-    mkdir /data/gki 0770 radio radio
-    mkdir /tmp/commdrv 0770 radio radio
     mkdir /data/misc/wifi/hostapd.sockets 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/comm_drv 0770 radio radio
     chown dhcp dhcp /data/misc/dhcp
+
     # following two dirs are for storing BP Flex and PDS files. NVM Daemon is using these folders
     mkdir /data/bp_nvm
+    mkdir /data/gki 0770 radio radio
+    mkdir /tmp/commdrv 0770 radio radio
     chown radio radio /data/bp_nvm
     chmod 0770 /data/bp_nvm
-    # create system directory
-    mkdir /data/system 0771 system system
     # create location directory
     mkdir /data/location 0771 radio radio
     # create opprof directory
     mkdir /data/opprof 0770 radio shell
     # create dropbear directory
     mkdir /data/dropbear 0755 root shell
-    # create anr directory and change permission to 777 to save trace.txt
-    mkdir /data/anr
-    chmod 0777 /data/anr
     # create the necessary dirs for tpapi with proper permission
     mkdir /data/tpapi
     mkdir /data/tpapi/etc
     mkdir /data/tpapi/etc/tpa
     mkdir /data/tpapi/etc/tpa/persistent
-    mkdir /data/local 0771 system shell
-    mkdir /data/local/tmp 0771 system shell
-    mkdir /data/local/12m 0771 system shell
-    mkdir /data/local/12m/batch 0771 system shell
-    chmod 2770 /pds/security
-    chmod 2770 /data/tpapi
-    chmod 2770 /data/tpapi/etc
-    chmod 2770 /data/tpapi/etc/tpa
-    chmod 2770 /data/tpapi/etc/tpa/persistent
+    chmod 0770 /pds/security
+    chmod 0770 /data/tpapi
+    chmod 0770 /data/tpapi/etc
+    chmod 0770 /data/tpapi/etc/tpa
+    chmod 0770 /data/tpapi/etc/tpa/persistent
     chown system system /pds/security
     chown system system /data/tpapi
     chown system system /data/tpapi/etc
     chown system system /data/tpapi/etc/tpa
     chown system system /data/tpapi/etc/tpa/persistent
-    chown system shell /data/local
-    chown system shell /data/local/12m
-    chown system shell /data/local/12m/batch
-    chown system shell /data/local/tmp
 
     # copy hostapd configuration
     copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
