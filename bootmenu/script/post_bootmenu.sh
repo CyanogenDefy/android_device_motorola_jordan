@@ -28,6 +28,8 @@ run-parts /system/bootmenu/init.d/
 
 
 # fast button warning (to check when script is really used)
+if [ -f /sbin/busybox ]; then
+
 echo 1 > /sys/class/leds/button-backlight/brightness
 usleep 50000
 echo 0 > /sys/class/leds/button-backlight/brightness
@@ -40,10 +42,13 @@ echo 1 > /sys/class/leds/button-backlight/brightness
 usleep 50000
 echo 0 > /sys/class/leds/button-backlight/brightness
 
+exit 1
+
+fi
 
 ######## Don't Delete.... ########################
 mount -o remount,ro rootfs /
 mount -o remount,ro /dev/block/mmcblk1p21 /system
 ##################################################
 
-exit
+exit 0

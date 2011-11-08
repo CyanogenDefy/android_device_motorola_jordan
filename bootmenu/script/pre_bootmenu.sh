@@ -6,6 +6,7 @@
 
 export PATH=/sbin:/system/xbin:/system/bin
 
+PART_CACHE=/dev/block/mmcblk1p24
 
 ######## Main Script
 
@@ -27,13 +28,13 @@ $BB chmod 4755 $BB
 $BB chmod +rx /sbin/*
 
 if [ -f /sbin/chmod ]; then
-  # job already done...
-  exit 0
+    # job already done...
+    exit 0
 fi
 
 # busybox sym link..
 for cmd in $($BB --list); do
-  $BB ln -s /sbin/busybox /sbin/$cmd
+    $BB ln -s /sbin/busybox /sbin/$cmd
 done
 
 $BB chmod -R +x /sbin
@@ -53,13 +54,18 @@ cp -f /system/bootmenu/config/default.prop /default.prop
 ## reduce lcd backlight to save battery
 echo 64 > /sys/class/leds/lcd-backlight/brightness
 
+
 ## mount cache
 mkdir -p /cache
 
+# stock mount, with fsck
 if [ -x /system/bin/mount_ext3.sh ]; then
-  /system/bin/mount_ext3.sh cache /cache
-else
-  mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/mmcblk1p24 /cache
+    /system/bin/mount_ext3.sh cache /cache
+fi
+
+# mount cache to know boot mode and recovery logs
+if [ ! -d /cache/recovery ]; then
+    mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 $PART_CACHE /cache
 fi
 
 exit 0

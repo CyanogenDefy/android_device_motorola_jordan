@@ -17,13 +17,10 @@
 /dev/ttyGS0               0660   root       system
 /dev/uinput               0660   system     bluetooth
 /dev/alarm                0664   system     radio
-/dev/tty0                 0660   root       system
 /dev/graphics/*           0660   root       graphics
 /dev/input/*              0660   root       input
 /dev/snd/*                0664   system     audio
 /dev/mt9t013              0660   system     system
-/dev/akm8973_dev          0660   compass    compass
-/dev/akm8973_aot          0660   compass    compass
 /dev/bus/usb/*            0660   root       system
 
 # CDMA radio interface MUX
@@ -82,9 +79,9 @@
 /dev/block/mmcblk1p7      0660   root       system
 
 # sensor interface
+/dev/akm8973_dev          0660   compass    compass
+/dev/akm8973_aot          0660   compass    compass
 /dev/kxtf9                0660   compass    compass
-/dev/akm8975_dev          0660   compass    compass
-/dev/akm8975_aot          0660   compass    compass
 /dev/isl29030             0660   compass    compass
 /dev/ttyS0                0640   radio      radio
 # bluetooth uart
