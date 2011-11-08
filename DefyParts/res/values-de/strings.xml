@@ -3,6 +3,7 @@
 
     <string name="app_name">Defy-Einstellungen</string>
 
+    <string name="general_settings_title">Allgemeine Einstellungen</string>
     <string name="charge_led_mode_title">Lade-LED-Modus</string>
     <string name="charge_led_mode_summary">Verhalten der Benachrichtigungs-LED beim Laden</string>
     <string name="charge_led_mode_white">Weiße LED</string>
@@ -21,4 +22,7 @@
 
     <string name="reboot_notice_title">Hinweis</string>
     <string name="reboot_notice_summary">Um die neuen Einstellungen anzuwenden, muss das Gerät neu gestartet werden.</string>
+
+    <string name="audio_settings_title">Ton-Einstellungen</string>
+    <string name="audio_effects">Audio-Effekte</string>
 </resources>

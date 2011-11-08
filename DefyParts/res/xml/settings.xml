@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Charge LED mode -->
-    <ListPreference android:key="charge_led_mode"
-                    android:persistent="false"
-                    android:title="@string/charge_led_mode_title"
-                    android:summary="@string/charge_led_mode_summary"
-                    android:entries="@array/charge_led_mode_entries"
-                    android:entryValues="@array/charge_led_mode_values" />
+    <PreferenceCategory android:key="general"
+                        android:title="@string/general_settings_title">
 
-    <!-- Number of multitouch points -->
-    <ListPreference android:key="touch_points"
-                    android:persistent="false"
-                    android:title="@string/touch_points_title"
-                    android:summary="@string/touch_points_summary"
-                    android:entries="@array/touch_point_entries"
-                    android:entryValues="@array/touch_point_values" />
+        <!-- Charge LED mode -->
+        <ListPreference android:key="charge_led_mode"
+                        android:persistent="false"
+                        android:title="@string/charge_led_mode_title"
+                        android:summary="@string/charge_led_mode_summary"
+                        android:entries="@array/charge_led_mode_entries"
+                        android:entryValues="@array/charge_led_mode_values" />
 
-    <!-- Reboot notice -->
-    <Preference android:key="reboot_notice"
-                android:persistent="false"
-                android:title="@string/reboot_notice_title"
-                android:summary="@string/reboot_notice_summary" />
-		
-    <PreferenceScreen android:key="audio_effects"
-                      android:title="@string/audio_effects">
-                      <intent
-                         android:action="android.intent.action.MAIN"
-                         android:targetPackage="com.motorola.android.AudioEffectSettings"
-                         android:targetClass="com.motorola.android.AudioEffectSettings.DeviceListActivity" />
-    </PreferenceScreen>
+        <!-- Number of multitouch points -->
+        <ListPreference android:key="touch_points"
+                        android:persistent="false"
+                        android:title="@string/touch_points_title"
+                        android:summary="@string/touch_points_summary"
+                        android:entries="@array/touch_point_entries"
+                        android:entryValues="@array/touch_point_values" />
+
+        <!-- Reboot notice -->
+        <Preference android:key="reboot_notice"
+                    android:persistent="false"
+                    android:title="@string/reboot_notice_title"
+                    android:summary="@string/reboot_notice_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/audio_settings_title">
+
+        <PreferenceScreen android:key="audio_effects"
+                          android:title="@string/audio_effects">
+                          <intent
+                             android:action="android.intent.action.MAIN"
+                             android:targetPackage="com.motorola.android.AudioEffectSettings"
+                             android:targetClass="com.motorola.android.AudioEffectSettings.DeviceListActivity" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
