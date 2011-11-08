@@ -46,6 +46,9 @@ if [ ! -e /etc/recovery.fstab ]; then
     cp /system/bootmenu/recovery/recovery.fstab /etc/recovery.fstab
 fi
 
+# for ext3 format
+cp /system/etc/mke2fs.conf /etc/
+
 mkdir -p /cache/recovery
 touch /cache/recovery/command
 touch /cache/recovery/log
