@@ -3,6 +3,8 @@
 
     <string name="app_name">Настройки Defy</string>
 
+    <string name="general_settings_title">Основные настройки</string>
+
     <string name="charge_led_mode_title">Цвет индикатора зарядки</string>
     <string name="charge_led_mode_summary">Задать цвет светодиода при зарядке</string>
     <string name="charge_led_mode_white">Белый</string>
@@ -24,5 +26,8 @@
 
     <string name="audio_settings_title">Аудио настройки</string>
     <string name="audio_effects">Аудио эффекты</string>
+
+    <string name="other_settings_title">Другие настройки</string>
+    <string name="compass_calibrate">Калибровка компаса</string>
 
 </resources>
