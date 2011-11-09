@@ -19,6 +19,9 @@
     <string name="reboot_notice_title">Note</string>
     <string name="reboot_notice_summary">Un redémarrage est nécessaire pour appliquer ces paramètres.</string>
 
-    <string name="audio_effects">Filtres Audio</string>
+    <string name="audio_effects">Filtres Audio et DSP</string>
+
+    <string name="other_settings_title">Autres paramètres</string>
+    <string name="compass_calibrate">Calibration boussole</string>
 
 </resources>
