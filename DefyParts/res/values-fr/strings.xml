@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Defy Settings</string>
+    <string name="app_name">Paramètres spécifiques Defy</string>
+
+    <string name="general_settings_title">Général</string>
 
     <string name="charge_led_mode_title">LED de charge</string>
     <string name="charge_led_mode_summary">Modifie la couleur de la LED de chargement de la batterie</string>
@@ -19,6 +21,7 @@
     <string name="reboot_notice_title">Note</string>
     <string name="reboot_notice_summary">Un redémarrage est nécessaire pour appliquer ces paramètres.</string>
 
+    <string name="audio_settings_title">Paramètres Audio</string>
     <string name="audio_effects">Filtres Audio et DSP</string>
 
     <string name="other_settings_title">Autres paramètres</string>
