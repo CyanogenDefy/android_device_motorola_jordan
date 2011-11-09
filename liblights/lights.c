@@ -50,6 +50,7 @@ static struct light_state_t g_battery;
 static struct light_state_t g_notification;
 static int g_charge_led_mode;
 static int g_charge_led_active;
+static int g_last_button_brightness;
 
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
@@ -83,6 +84,7 @@ void init_globals(void)
     LOGD("Got charge mode property value %s, mode is %d", prop, g_charge_led_mode);
 
     g_charge_led_active = 0;
+    g_last_button_brightness = -1;
 }
 
 static int
@@ -159,10 +161,20 @@ set_light_buttons(struct light_device_t* dev,
     int brightness = rgb_to_brightness(state);
 
     pthread_mutex_lock(&g_lock);
-    err = write_int(BUTTON_ON_FILE, brightness ? 1 : 0);
-    if (err == 0) {
+
+    if (g_last_button_brightness < 0 ||
+        (g_last_button_brightness == 0 && brightness > 0) ||
+        (g_last_button_brightness > 0 && brightness == 0))
+    {
+        err = write_int(BUTTON_ON_FILE, brightness ? 1 : 0);
+    }
+
+    if (err == 0 && brightness > 0 && brightness != g_last_button_brightness) {
         err = write_int(BUTTON_BRIGHT_FILE, brightness);
     }
+
+    g_last_button_brightness = brightness;
+
     pthread_mutex_unlock(&g_lock);
 
     return err;
