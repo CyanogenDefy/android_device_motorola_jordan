@@ -25,7 +25,7 @@
     <string name="reboot_notice_summary">A reboot is required for the new settings to take effect.</string>
 
     <string name="audio_settings_title">Audio Settings</string>
-    <string name="audio_effects">Audio Effects</string>
+    <string name="audio_effects">Audio Effects and DSP</string>
 
     <string name="other_settings_title">Other settings</string>
     <string name="compass_calibrate">Compass calibrator</string>
