@@ -40,4 +40,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/other_settings_title">
+        <PreferenceScreen android:key="compass_calibrate"
+                          android:title="@string/compass_calibrate">
+                          <intent
+                             android:action="android.intent.action.MAIN"
+                             android:targetPackage="com.motorola.CompassCalibrate"
+                             android:targetClass="com.motorola.CompassCalibrate.CompassCalibrate" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
 </PreferenceScreen>
