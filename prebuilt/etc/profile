@@ -2,6 +2,6 @@
 
 export TERM=linux
 
-alias l='ls -al'
+alias l='ls -al --color=auto'
 
 alias findinfiles='find . -type f | xargs grep -insI '
