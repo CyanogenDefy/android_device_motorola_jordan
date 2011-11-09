@@ -34,8 +34,8 @@
                           android:title="@string/audio_effects">
                           <intent
                              android:action="android.intent.action.MAIN"
-                             android:targetPackage="com.motorola.android.AudioEffectSettings"
-                             android:targetClass="com.motorola.android.AudioEffectSettings.DeviceListActivity" />
+                             android:targetPackage="com.bel.android.dspmanager"
+                             android:targetClass="com.bel.android.dspmanager.activity.DSPManager" />
         </PreferenceScreen>
 
     </PreferenceCategory>
