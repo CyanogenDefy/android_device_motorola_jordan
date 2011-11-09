@@ -27,5 +27,5 @@
     <string name="audio_effects">Audio-Effekte</string>
 
     <string name="other_settings_title">Andere Einstellungen</string>
-    <string name="compass_calibrate">Kompass-Kalibrierung</string>
+    <string name="compass_calibrate">Kompasskalibrierung</string>
 </resources>
