@@ -5,6 +5,10 @@
 rm -f $REPACK/ota/system/app/RomManager.apk
 # rm -f $REPACK/ota/system/xbin/irssi
 
+# these scripts are not required
+rm $REPACK/ota/system/etc/init.d/03firstboot
+rm $REPACK/ota/system/etc/init.d/04modules
+
 # add an empty script to prevent logcat errors (moto init.rc)
 touch $REPACK/ota/system/bin/mount_ext3.sh
 chmod +x $REPACK/ota/system/bin/mount_ext3.sh
