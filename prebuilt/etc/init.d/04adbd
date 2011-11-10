@@ -1,0 +1,10 @@
+#!/system/bin/sh
+#
+# load adbd during boot if property is set
+
+LOAD_ADBD=`getprop persist.service.adb.enable`
+
+if [ "$LOAD_ADBD" -eq "1" ]; then
+    echo charge_adb > /dev/usb_device_mode
+fi
+
