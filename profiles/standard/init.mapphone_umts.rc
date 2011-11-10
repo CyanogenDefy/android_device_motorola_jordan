@@ -117,7 +117,7 @@ on post-fs
     copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
 
     # Enable ADB mode
-    # write /dev/usb_device_mode msc_adb
+    # write /dev/usb_device_mode charge_adb
 
     mount rootfs rootfs / ro remount
 

@@ -24,8 +24,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/recovery/recovery.fstab:system/etc/recovery.fstab \
 	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
-	device/motorola/jordan/prebuilt/etc/init.d/02pdsbackup:system/etc/init.d/02pdsbackup \
-	device/motorola/jordan/prebuilt/etc/init.d/04adbd:system/etc/init.d/04adbd \
+	device/motorola/jordan/prebuilt/etc/init.d/03adbd:system/etc/init.d/03adbd \
+	device/motorola/jordan/prebuilt/etc/init.d/04pdsbackup:system/etc/init.d/04pdsbackup \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
 	device/motorola/jordan/prebuilt/etc/init.d/08backlight:system/etc/init.d/08backlight \
 	device/motorola/jordan/prebuilt/etc/init.d/90multitouch:system/etc/init.d/90multitouch \

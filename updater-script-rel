@@ -8,3 +8,5 @@ assert(package_extract_file("devtree.img", "/tmp/devtree.img"),
        write_raw_image("/tmp/devtree.img", "/dev/block/mmcblk1p12"),
        delete("/tmp/devtree.img"));
 
+mount("ext3", "EMMC", "/dev/block/mmcblk1p25", "/data");
+delete_recursive("/data/dalvik-cache");

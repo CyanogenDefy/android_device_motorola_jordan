@@ -41,7 +41,7 @@ jpeg.libskiahw.encoder.enable=0
 dalvik.vm.heapsize=48m
 
 # Forbid format of these partitions in mount menu :
-ro.cwm.forbid_format=/misc,/boot,/recovery,/pds,/system
+ro.cwm.forbid_format=/misc,/devtree,/config,/boot,/recovery,/pds,/system
 
 # LED charging indicator mode
 # off = keep LED off during charging
@@ -57,9 +57,6 @@ ro.product.use_charge_counter=1
 
 # use default multitouch configuration
 persist.sys.multitouch=2
-
-# required for future java part (common omap3/4)
-# com.ti.omap_enhancement=1
 
 # Shutter sound enabled
 persist.sys.camera-mute=0
