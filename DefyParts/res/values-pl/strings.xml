@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ustawienia urządzenia</string>
+
+    <string name="general_settings_title">Ustawienia generalne	</string>
+
+    <string name="charge_led_mode_title">Dostosowanie diody LED</string>
+    <string name="charge_led_mode_summary">Ustawienia diody LED podczas ładowania</string>
+    <string name="charge_led_mode_white">Biała LED</string>
+    <string name="charge_led_mode_rgb">Mix LED (czerwony/zielony)</string>
+    <string name="charge_led_mode_off">Brak</string>
+
+    <string name="touch_points_title">Multidotyk</string>
+    <string name="touch_points_summary">Ustawienia punktów multidotyku na ekranie</string>
+    <string name="touch_point_entry_2points">2 punkty (domyślnie)</string>
+    <string name="touch_point_entry_3points">3 punkty</string>
+    <string name="touch_point_entry_4points">4 punkty</string>
+    <string name="touch_point_entry_5points">5 punktów</string>
+
+    <string name="touch_point_warning_title">UWAGA</string>
+    <string name="touch_point_warning_message">Zwiększenie liczby punktów może pogorszyć reakcje ekranu. Czy na pewno chcesz zmienić ustawienia ?</string>
+
+    <string name="reboot_notice_title">Uwaga</string>
+    <string name="reboot_notice_summary">Aby ustawienia działały wymagany jest restart urządzenia.</string>
+
+    <string name="audio_settings_title">Ustawienia audio</string>
+    <string name="audio_effects">Efekty audio i DSP</string>
+
+    <string name="other_settings_title">Inne ustawienia</string>
+    <string name="compass_calibrate">Kalibracja kompasu</string>
+
+</resources>
