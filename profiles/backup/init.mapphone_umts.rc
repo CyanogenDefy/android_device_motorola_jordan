@@ -137,7 +137,7 @@ on post-fs
     symlink /dev/hp3a-omap /dev/hp3A-omap
 
     # Enable ADB mode
-    # write /dev/usb_device_mode msc_adb
+    # write /dev/usb_device_mode charge_adb
 
     # Permissions for video
     chmod 0770 /dev/hp3a-omap
