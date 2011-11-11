@@ -7,5 +7,5 @@ ro.debuggable=0
 persist.service.adb.enable=1
 
 # Forbid format of these partitions in mount menu (use only rm -r)
-ro.cwm.forbid_format=/misc,/radio,/boot,/recovery,/pds,/system,/data,/sd-ext
+ro.cwm.forbid_format=/misc,/devtree,/config,/boot,/recovery,/pds,/system,/logo
 
