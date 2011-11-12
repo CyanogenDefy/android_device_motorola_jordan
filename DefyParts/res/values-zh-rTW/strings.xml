@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Defy設定</string>
+
+    <string name="general_settings_title">一般設定</string>
+
     <string name="charge_led_mode_title">充電指示燈設定</string>
     <string name="charge_led_mode_summary">設定充電時LED指示燈的顯示模式</string>
     <string name="charge_led_mode_white">白色指示燈</string>
     <string name="charge_led_mode_rgb">混合色彩(紅/綠混合)</string>
     <string name="charge_led_mode_off">關閉指示燈</string>
+
     <string name="touch_points_title">多點觸控</string>
     <string name="touch_points_summary">設定系統多點觸控的點數</string>
     <string name="touch_point_entry_2points">2點(預設)</string>
     <string name="touch_point_entry_3points">3點</string>
     <string name="touch_point_entry_4points">4點</string>
     <string name="touch_point_entry_5points">5點</string>
+
     <string name="touch_point_warning_title">警告</string>
-    <string name="touch_point_warning_message">"當觸控的點數增加時，螢幕的操控靈敏度可能會降低。
-是否確定要變更多點觸控的設定值?"</string>
+    <string name="touch_point_warning_message">當觸控的點數增加時，螢幕的操控靈敏度可能會降低。\n是否確定要變更多點觸控的設定值?</string>
+
     <string name="reboot_notice_title">注意</string>
     <string name="reboot_notice_summary">需要重新啟動，新的設定值才會生效</string>
+
+    <string name="audio_settings_title">音效設定</string>
+    <string name="audio_effects">聲音效果與DSP</string>
+
+    <string name="other_settings_title">其他設定</string>
+    <string name="compass_calibrate">電子羅盤校正</string>
+
 </resources>
