@@ -8,10 +8,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceCategory;
 import android.text.TextUtils;
 
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceChangeListener {
+    private PreferenceCategory generalSettings;
     private ListPreference chargeLedModePref;
     private ListPreference touchPointsPref;
     private Preference rebootNotice;
@@ -24,13 +25,13 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-        PreferenceScreen screen = getPreferenceScreen();
-        chargeLedModePref = (ListPreference) screen.findPreference("charge_led_mode");
+        generalSettings = (PreferenceCategory) getPreferenceScreen().findPreference("general");
+        chargeLedModePref = (ListPreference) generalSettings.findPreference("charge_led_mode");
         chargeLedModePref.setOnPreferenceChangeListener(this);
-        touchPointsPref = (ListPreference) screen.findPreference("touch_points");
+        touchPointsPref = (ListPreference) generalSettings.findPreference("touch_points");
         touchPointsPref.setOnPreferenceChangeListener(this);
-        rebootNotice = screen.findPreference("reboot_notice");
-        screen.removePreference(rebootNotice);
+        rebootNotice = generalSettings.findPreference("reboot_notice");
+        generalSettings.removePreference(rebootNotice);
     }
 
     @Override
@@ -77,9 +78,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     }
 
     private void applyPersistentPref(String key, String value) {
-        PreferenceScreen screen = getPreferenceScreen();
-        if (screen.findPreference(rebootNotice.getKey()) == null) {
-            screen.addPreference(rebootNotice);
+        if (generalSettings.findPreference(rebootNotice.getKey()) == null) {
+            generalSettings.addPreference(rebootNotice);
         }
         SystemProperties.set(key, value);
     }

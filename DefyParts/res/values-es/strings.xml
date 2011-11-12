@@ -22,4 +22,6 @@
     <string name="reboot_notice_title">Aviso</string>
     <string name="reboot_notice_summary">Es necesario reiniciar para hacer efectivos los cambios.</string>
 
+    <string name="audio_effects">Filtros audio</string>
+
 </resources>
