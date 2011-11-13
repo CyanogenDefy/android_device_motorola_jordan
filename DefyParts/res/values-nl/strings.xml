@@ -3,6 +3,8 @@
 
     <string name="app_name">Defy instellingen</string>
 
+    <string name="general_settings_title">Algemene instellingen</string>
+
     <string name="charge_led_mode_title">LED bij opladen</string>
     <string name="charge_led_mode_summary">Pas het gedrag aan van de notificatie LED tijdens het opladen</string>
     <string name="charge_led_mode_white">Witte LED</string>
@@ -17,9 +19,16 @@
     <string name="touch_point_entry_5points">5 punten</string>
 
     <string name="touch_point_warning_title">Waarschuwing</string>
-    <string name="touch_point_warning_message">Het aantal touch punten verhogen kan de responsiviteit van het scherm verlagen.\nBen je zeker dat je deze instelling wilt wijzigen?</string>
+    <string name="touch_point_warning_message">Het aantal touch punten verhogen kan de reactiesnelheid van het scherm verlagen.\nBen je zeker dat je deze instelling wilt wijzigen?</string>
 
     <string name="reboot_notice_title">NB</string>
     <string name="reboot_notice_summary">Één keer herstarten is noodzakelijk opdat de nieuwe instellingen van kracht gaan.</string>
+
+    <string name="audio_settings_title">Audio instellingen</string>
+    <string name="audio_effects">Audio effecten en DSP</string>
+
+    <string name="other_settings_title">Andere instellingen</string>
+    <string name="compass_calibrate">Kalibreer Kompas</string>
+
 </resources>
 
