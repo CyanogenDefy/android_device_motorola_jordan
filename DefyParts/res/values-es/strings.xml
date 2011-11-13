@@ -22,7 +22,7 @@
     <string name="reboot_notice_title">Aviso</string>
     <string name="reboot_notice_summary">Es necesario reiniciar para hacer efectivos los cambios.</string>
 
-    <string name="audio_effects">Ajustes audio</string>
+    <string name="audio_settings_title">Ajustes audio</string>
     <string name="audio_effects">Filtros de Audio y DSP</string>
 
     <string name="other_settings_title">Otros ajustes</string>
