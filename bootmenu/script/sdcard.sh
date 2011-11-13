@@ -9,6 +9,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 ######## Main Script
 
 # acm to reset msc
+sync
 echo "acm" > /dev/usb_device_mode
 umount /sdcard
 sleep 1

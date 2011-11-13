@@ -13,12 +13,9 @@ cp -f /system/bootmenu/2nd-init/* /
 ln -s /init /sbin/ueventd
 cp -f /system/bin/adbd /sbin/adbd
 
-# chmod 755 /*.rc
-# chmod 4755 /system/bootmenu/binary/2nd-init
-
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
 if [ -z "$ADB_RUNNING" ]; then
-    rm /sbin/adbd.root
+    rm -f /sbin/adbd.root
 fi
 
 ## unmount devices
@@ -34,14 +31,14 @@ mount -o remount,rw,relatime,mode=775,size=128k /dev
 
 ######## Cleanup
 
-rm /sbin/lsof
+rm -f /sbin/lsof
 
 ## busybox cleanup..
 for cmd in $(/sbin/busybox --list); do
   [ -L "/sbin/$cmd" ] && rm "/sbin/$cmd"
 done
 
-rm /sbin/busybox
+rm -f /sbin/busybox
 
 ## used for adbd shell (can be bash also)
 /system/xbin/ln -s /system/xbin/busybox /sbin/sh

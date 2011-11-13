@@ -1,4 +1,4 @@
-#!/sbin/sh
+#!/system/bin/sh
 
 ######## BootMenu Script
 ######## Execute Post BootMenu
