@@ -63,7 +63,7 @@ killall adbd
 # mount image of pds, for backup purpose (4MB)
 [ ! -d /data/data ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
 if [ ! -f /data/pds.img ]; then
-    /system/etc/init.d/02pdsbackup
+    /system/etc/init.d/04pdsbackup
     umount /pds
     losetup -d /dev/block/loop7
 fi

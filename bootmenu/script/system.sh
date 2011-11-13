@@ -8,6 +8,7 @@ export PATH=/sbin:/system/xbin:/system/bin
 ######## Main Script
 
 # acm to disable MSC
+sync
 echo 'acm' > /dev/usb_device_mode
 sleep 1
 

@@ -11,7 +11,11 @@ export PATH=/sbin:/system/xbin:/system/bin
 mount -o remount,rw /
 rm -f /*.rc
 cp -r -f /system/bootmenu/2nd-boot/* /
-# chmod 755 /*.rc
+
+ADBD_RUNNING=`ps | grep adbd | grep -v grep`
+if [ -z "$ADB_RUNNING" ]; then
+    rm -f /sbin/adbd.root
+fi
 
 ## unmount devices
 sync
@@ -34,7 +38,7 @@ for cmd in $(/sbin/busybox --list); do
   [ -L "/sbin/$cmd" ] && rm "/sbin/$cmd"
 done
 
-rm /sbin/busybox
+rm -f /sbin/busybox
 
 
 ## adbd shell
