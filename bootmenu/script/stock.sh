@@ -1,7 +1,7 @@
 #!/sbin/sh
 
 ######## BootMenu Script
-######## Execute [Normal] Boot
+######## Execute [Normal] Boot (disabled in cm7)
 
 
 export PATH=/sbin:/system/xbin:/system/bin
@@ -17,10 +17,10 @@ chown root.system /sbin/adbd
 
 rm -f /sbin/lsof
 
-## busybox cleanup..
-#for cmd in $(/sbin/busybox --list); do
-#  [ -L "/sbin/$cmd" ] && rm "/sbin/$cmd"
-#done
+## busybox applets cleanup..
+for cmd in $(/sbin/busybox --list); do
+  [ -L "/sbin/$cmd" ] && [ "$cmd" != "sh" ] && rm "/sbin/$cmd"
+done
 
 #rm /sbin/busybox
 

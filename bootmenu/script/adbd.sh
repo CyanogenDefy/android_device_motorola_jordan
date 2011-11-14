@@ -12,14 +12,15 @@ mkdir -p /tmp
 chown system.shell /tmp
 chmod 0777 /tmp
 
+# acm to disable MSC
 sync
 echo acm > /dev/usb_device_mode
 sleep 1
 
-echo charge_adb > /dev/usb_device_mode
-
 # load overclock settings to reduce heat and battery use
 /system/bootmenu/script/overclock.sh
+
+echo charge_adb > /dev/usb_device_mode
 
 # busybox ash history
 export HISTFILE=/tmp/.ash_history
