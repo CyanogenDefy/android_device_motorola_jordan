@@ -10,6 +10,9 @@
     <string name="charge_led_mode_rgb">\'Orange\' LED (rot/grün)</string>
     <string name="charge_led_mode_off">Keine Lade-LED</string>
 
+    <string name="button_brightness_scale_title">Tasten-Helligkeit</string>
+    <string name="button_brightness_scale_summary">Helligkeit der Tastenbeleuchtung, z.B. bei manueller Helligkeitsregelung, reduzieren</string>
+
     <string name="touch_points_title">Multi-Touch-Punkte</string>
     <string name="touch_points_summary">Anzahl der gleichzeitig registrierten Multi-Touch-Punkte</string>
     <string name="touch_point_entry_2points">2 Punkte (Standard)</string>

@@ -49,6 +49,9 @@ ro.cwm.forbid_format=/misc,/devtree,/config,/boot,/recovery,/pds,/system
 # rgb = mixed yellowish LED for 'charging', green LED for 'charged'
 persist.sys.charge_led=white
 
+# Brightness scaling of the button backlight
+persist.sys.button_brightness=100
+
 # Tell UsbService that we're using Usb.apk
 ro.usb.use_custom_service=1
 

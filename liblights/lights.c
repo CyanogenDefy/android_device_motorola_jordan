@@ -51,6 +51,7 @@ static struct light_state_t g_notification;
 static int g_charge_led_mode;
 static int g_charge_led_active;
 static int g_last_button_brightness;
+static int g_button_brightness_scale;
 
 char const*const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 char const*const ALS_FILE = "/sys/class/leds/lcd-backlight/als";
@@ -82,6 +83,9 @@ void init_globals(void)
         g_charge_led_mode = CHARGE_LED_OFF;
     }
     LOGD("Got charge mode property value %s, mode is %d", prop, g_charge_led_mode);
+
+    property_get("persist.sys.button_brightness", prop, "100");
+    g_button_brightness_scale = atoi(prop);
 
     g_charge_led_active = 0;
     g_last_button_brightness = -1;
@@ -161,6 +165,10 @@ set_light_buttons(struct light_device_t* dev,
     int brightness = rgb_to_brightness(state);
 
     pthread_mutex_lock(&g_lock);
+
+    if (g_button_brightness_scale != 100) {
+        brightness = (brightness * g_button_brightness_scale + 50) / 100;
+    }
 
     if (g_last_button_brightness < 0 ||
         (g_last_button_brightness == 0 && brightness > 0) ||
