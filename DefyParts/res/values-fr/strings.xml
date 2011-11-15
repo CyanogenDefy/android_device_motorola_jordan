@@ -11,6 +11,9 @@
     <string name="charge_led_mode_rgb">LED orange (rouge+vert)</string>
     <string name="charge_led_mode_off">Pas de LED</string>
 
+    <string name="button_brightness_scale_title">Rétroéclairage boutons</string>
+    <string name="button_brightness_scale_summary">Réduit la luminosité du rétroéclairage des boutons, surtout utile lorsque l\'on utilise les modes manuels</string>
+
     <string name="touch_points_title">Multitouch</string>
     <string name="touch_points_summary">Modifie le nombre de contacts simultanés gérés par l\'écran</string>
     <string name="touch_point_entry_2points">2 points (normal)</string>
