@@ -85,8 +85,6 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.Video.encoder \
 	libLCML \
 	libOMX_Core \
-	sensors.jordan \
-	lights.jordan \
 	libcamera \
 	libaudiopolicy \
 	iwmulticall \

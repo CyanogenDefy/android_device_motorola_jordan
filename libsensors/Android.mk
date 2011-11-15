@@ -1,4 +1,4 @@
-# Copyright (C) 2008 The Android Open Source Project
+# Copyright (C) 2011 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,14 +25,15 @@ LOCAL_MODULE := sensors.jordan
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
-LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_TAGS := eng
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 
-LOCAL_SRC_FILES :=	sensors.c 				\
-					nusensors.cpp 			\
-					InputEventReader.cpp	\
-					SensorBase.cpp
+LOCAL_SRC_FILES := \
+	sensors.c \
+	nusensors.cpp \
+	InputEventReader.cpp \
+	SensorBase.cpp
 
 LOCAL_SRC_FILES +=  SensorKXTF9.cpp
 LOCAL_SRC_FILES +=  SensorAK8973.cpp
