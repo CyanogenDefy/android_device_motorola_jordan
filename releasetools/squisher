@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Squish a CM otapackage for distribution
-# cyanogen
+# cyanogen / CyanogenDefy
 #
 
 echo "JORDAN SQUISHER:"
@@ -32,7 +32,7 @@ else
     OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$USER.zip
 fi
 if [ ! -f "$OTAPACKAGE" ]; then
-	echo "$OTAPACKAGE doesn't exist!";
+	echo "$OTAPACKAGE doesn't exist!"
 	exit 1
 fi
 
@@ -85,9 +85,13 @@ printf "Unpacking $OTAPACKAGE..."
 unzip $QUIET $OTAPACKAGE
 echo
 cd $REPACK/ota/system/framework
-$OPTICHARGER framework-res.apk
-cd $REPACK/ota/system/app
-find ./ -name \*.apk | $XARGS $OPTICHARGER
+if [ "$1" != "fast" ]; then
+	$OPTICHARGER framework-res.apk
+	cd $REPACK/ota/system/app
+	find ./ -name \*.apk | $XARGS $OPTICHARGER
+else
+	echo "skipping apk optimization"
+fi
 )
 
 
@@ -128,11 +132,33 @@ $SED -i \
 
 # Include device specific script
 if [ -f $ANDROID_BUILD_TOP/device/motorola/jordan/releasetools/squisher.sh ]; then
+	echo "squisher.sh..."
 	. $ANDROID_BUILD_TOP/device/motorola/jordan/releasetools/squisher.sh
 fi
 
 # Delete unnecessary binaries
-( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
+if [ -n "$DELETE_BINS" ]; then
+
+	echo "Remove unwanted binaries"
+	cd $REPACK/ota/system/bin && echo $DELETE_BINS | xargs /bin/rm -f
+fi
+
+cd $REPACK/ota/system/bin && find -name "*_test" -exec /bin/rm -f {} \;
+cd $REPACK/ota/system/bin && find -name "*_Test" -exec /bin/rm -f {} \;
+cd $REPACK/ota/system/bin && find -name "test_*" -exec /bin/rm -f {} \;
+cd $REPACK/ota/system/bin && find -name "*Test*" -exec /bin/rm -f {} \;
+cd $REPACK
+
+# Move vendor bin/lib
+if [ -d $REPACK/ota/system/vendor ]; then
+
+	echo "Move vendor subfolder"
+	cp -R $REPACK/ota/system/vendor/lib/* $REPACK/ota/system/lib/
+	rm -r $REPACK/ota/system/vendor/lib
+	cp -R $REPACK/ota/system/vendor/bin/* $REPACK/ota/system/bin/
+	rm -r $REPACK/ota/system/vendor/bin
+	touch $REPACK/ota/system/vendor/empty
+fi
 
 # Delete leftover wireless driver
 # rm -rf $REPACK/ota/system/lib/modules/*/kernel/drivers/net
@@ -169,7 +195,7 @@ printf "Zipping package..."
 echo
 printf "Signing package..."
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
-java -Xmx512m \
+java -Xmx768m \
 	-jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
 	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
 	$REPACK/update.zip $OUTFILE
@@ -189,7 +215,7 @@ cat $img.md5sum
 echo
 # Build date and current time:
 cat $OUT/system/build.prop | grep ro.build.date=
-date "+%Y%m%d-%H%M"
+ls -l $OUTFILE
 echo
 )
 
