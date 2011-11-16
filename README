@@ -1,4 +1,4 @@
-CyanogenMod 7.1 for Motorola Defy (Android 2.3.5 AOSP)
+CyanogenMod 7.2 for Motorola Defy (Android 2.3.7 AOSP)
 
 
 Download:
@@ -9,8 +9,8 @@ repo init -u git://github.com/CyanogenDefy/android.git -b gingerbread
 repo sync
 
 
-Download RomManager:
-====================
+Download RomManager (DELETED IN BUILD)
+======================================
 
 mkdir vendor/cyanogen/proprietary
 cd vendor/cyanogen && ./get-rommanager
@@ -25,7 +25,6 @@ optional :
     export CROSS_COMPILE=arm-eabi-
     export TARGET_OUT_INTERMEDIATES=out
     export JAVA_HOME=/usr/lib/jvm/java-6-sun
-    export BOARD_USES_QCOM_HARDWARE=true
     export PATH=$PLATFORM_DIR/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin:$JAVA_HOME/bin:$PATH
     cd $PLATFORM_DIR
 

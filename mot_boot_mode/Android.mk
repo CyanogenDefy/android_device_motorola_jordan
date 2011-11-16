@@ -7,7 +7,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
         mot_boot_mode.c
 
-LOCAL_MODULE_TAGS := eng
+LOCAL_MODULE_TAGS := eng debug
 LOCAL_MODULE := mot_boot_mode
 
 LOCAL_SHARED_LIBRARIES := libcutils libc

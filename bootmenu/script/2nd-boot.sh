@@ -15,6 +15,7 @@ cp -r -f /system/bootmenu/2nd-boot/* /
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
 if [ -z "$ADB_RUNNING" ]; then
     rm -f /sbin/adbd.root
+    rm -f /tmp/usbd_current_state
 fi
 
 ## unmount devices
@@ -35,7 +36,7 @@ rm /sbin/lsof
 
 ## busybox cleanup..
 for cmd in $(/sbin/busybox --list); do
-  [ -L "/sbin/$cmd" ] && rm "/sbin/$cmd"
+    [ -L "/sbin/$cmd" ] && rm "/sbin/$cmd"
 done
 
 rm -f /sbin/busybox

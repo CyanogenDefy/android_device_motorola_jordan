@@ -11,7 +11,6 @@ show_progress(0.750000, 35);
 package_extract_dir("system", "/system");
 show_progress(0.050000, 2);
 run_program("/sbin/touch","/system/firstboot");
-run_program("/sbin/mkdir","/system/vendor");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
         "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",

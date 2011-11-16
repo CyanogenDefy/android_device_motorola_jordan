@@ -9,6 +9,9 @@
     <string name="charge_led_mode_rgb">LED naranja (rojo+verde)</string>
     <string name="charge_led_mode_off">Sin LED</string>
 
+    <string name="button_brightness_scale_title">Brillo de los botones</string>
+    <string name="button_brightness_scale_summary">Permite reducir el brillo de los botones, especialmente útil cuando se utiliza el brillo en modo manual</string>
+
     <string name="touch_points_title">Multitouch</string>
     <string name="touch_points_summary">Modificar el numero de puntos simultáneos manejados por la pantalla</string>
     <string name="touch_point_entry_2points">2 puntos (normal)</string>
