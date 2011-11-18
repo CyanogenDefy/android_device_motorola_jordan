@@ -92,6 +92,7 @@ PRODUCT_PACKAGES += \
 	hostapd.conf \
 	libhostapdcli \
 	bootmenu \
+	static_busybox \
 	hijack_boot_2nd-init \
 	DefyParts \
 	Usb \
