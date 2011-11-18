@@ -10,16 +10,22 @@ PART_CACHE=/dev/block/mmcblk1p24
 
 ######## Main Script
 
-mount -o remount,rw rootfs /
+
+BB_STATIC="/system/bootmenu/binary/busybox"
 
 BB="/sbin/busybox"
 
-# RECOVERY tool includes busybox
-cp -f /system/bootmenu/recovery/sbin/recovery $BB
-cp -f /system/bootmenu/recovery/sbin/recovery_stable $BB
+## reduce lcd backlight to save battery
+echo 64 > /sys/class/leds/lcd-backlight/brightness
 
-# add lsof to debug locks
-cp -f /system/bootmenu/binary/lsof /sbin/lsof
+
+# these first commands are duplicated for broken systems
+mount -o remount,rw rootfs /
+$BB_STATIC mount -o remount,rw /
+
+# we will use the static busybox
+cp -f $BB_STATIC $BB
+$BB_STATIC cp -f $BB_STATIC $BB
 
 chmod 755 /sbin
 chmod 755 $BB
@@ -37,22 +43,25 @@ for cmd in $($BB --list); do
     $BB ln -s /sbin/busybox /sbin/$cmd
 done
 
-$BB chmod -R +x /sbin
+chmod -R +x /sbin
+
+
+
+# add lsof to debug locks
+cp -f /system/bootmenu/binary/lsof /sbin/lsof
 
 # replace /sbin/adbd..
 cp -f /system/bootmenu/binary/adbd /sbin/adbd.root
-$BB chmod 4755 /sbin/adbd.root
-$BB chown 0.0 /sbin/adbd.root
+chmod 4755 /sbin/adbd.root
+chown 0.0 /sbin/adbd.root
 
 ## missing system files
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
 
-## /default.prop replace..
+## /default.prop replace.. (TODO: check if that works)
 rm -f /default.prop
 cp -f /system/bootmenu/config/default.prop /default.prop
 
-## reduce lcd backlight to save battery
-echo 64 > /sys/class/leds/lcd-backlight/brightness
 
 
 ## mount cache
@@ -63,7 +72,7 @@ if [ -x /system/bin/mount_ext3.sh ]; then
     /system/bin/mount_ext3.sh cache /cache
 fi
 
-# mount cache to know boot mode and recovery logs
+# mount cache for boot mode and recovery logs
 if [ ! -d /cache/recovery ]; then
     mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 $PART_CACHE /cache
 fi

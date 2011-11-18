@@ -29,3 +29,6 @@ cp -f $ANDROID_BUILD_TOP/out/target/product/jordan/root/init $REPACK/ota/system/
 cp -f $ANDROID_BUILD_TOP/out/target/product/jordan/root/init.rc $REPACK/ota/system/bootmenu/2nd-init/init.rc
 cp -f $ANDROID_BUILD_TOP/out/target/product/jordan/root/sbin/adbd $REPACK/ota/system/bin/adbd
 
+# use the static busybox in bootmenu, this helps a lot on incomplete roms and ics
+cp -f $ANDROID_BUILD_TOP/out/target/product/jordan/utilities/busybox $REPACK/ota/system/bootmenu/binary/busybox
+
