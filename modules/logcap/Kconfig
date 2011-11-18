@@ -1,0 +1,4 @@
+config DEFY_LOGCAP
+        tristate "Defy: log cpcap registers read/write"
+        default m
+        depends on SYMSEARCH

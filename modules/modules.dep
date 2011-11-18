@@ -3,6 +3,7 @@ usbled.ko: symsearch.ko
 mmcfix.ko: symsearch.ko
 backlight.ko: symsearch.ko
 gpiofix.ko: symsearch.ko
+logcap.ko: symsearch.ko
 wl127x_test.ko:
 vpnclient.ko:
 tun.ko:
