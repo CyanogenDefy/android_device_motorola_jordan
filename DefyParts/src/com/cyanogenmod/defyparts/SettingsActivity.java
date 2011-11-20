@@ -15,12 +15,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     private PreferenceCategory generalSettings;
     private ListPreference chargeLedModePref;
     private ListPreference touchPointsPref;
-    private BrightnessPreference buttonBrightnessPref;
     private Preference rebootNotice;
 
     private static final String PROP_CHARGE_LED_MODE = "persist.sys.charge_led";
     private static final String PROP_TOUCH_POINTS = "persist.sys.multitouch";
-    private static final String PROP_BUTTON_BRIGHTNESS = "persist.sys.button_brightness";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,8 +30,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         chargeLedModePref.setOnPreferenceChangeListener(this);
         touchPointsPref = (ListPreference) generalSettings.findPreference("touch_points");
         touchPointsPref.setOnPreferenceChangeListener(this);
-        buttonBrightnessPref = (BrightnessPreference) generalSettings.findPreference("button_brightness_scale");
-        buttonBrightnessPref.setOnPreferenceChangeListener(this);
         rebootNotice = generalSettings.findPreference("reboot_notice");
         generalSettings.removePreference(rebootNotice);
     }
@@ -44,7 +40,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
         chargeLedModePref.setValue(SystemProperties.get(PROP_CHARGE_LED_MODE));
         touchPointsPref.setValue(SystemProperties.get(PROP_TOUCH_POINTS));
-        buttonBrightnessPref.setValue(SystemProperties.getInt(PROP_BUTTON_BRIGHTNESS, 100));
     }
 
     @Override
@@ -77,9 +72,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
                 dialog.show();
                 return false;
             }
-        } else if (preference == buttonBrightnessPref) {
-            String value = newValue.toString();
-            applyPersistentPref(PROP_BUTTON_BRIGHTNESS, value);
         }
 
         return true;

@@ -1,10 +1,14 @@
 package com.cyanogenmod.defyparts;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.SystemProperties;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 import android.preference.SeekBarPreference;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -15,8 +19,11 @@ public class BrightnessPreference extends SeekBarPreference implements SeekBar.O
 {
     private SeekBar mSeekBar;
     private TextView mValueText;
+    private Window mWindow;
 
-    private int mValue = 0, mOldValue;
+    private static final String PROP_NAME = "persist.sys.button_brightness";
+
+    private int mOldValue;
 
     public BrightnessPreference(Context context, AttributeSet attrs) {
         super(context,attrs);
@@ -28,39 +35,45 @@ public class BrightnessPreference extends SeekBarPreference implements SeekBar.O
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        if (shouldPersist()) {
-            mValue = getPersistedInt(0);
-        }
-        mOldValue = mValue;
+        mOldValue = SystemProperties.getInt(PROP_NAME, 100);
+        SystemProperties.set(PROP_NAME, "100");
 
         mSeekBar = getSeekBar(view);
         mSeekBar.setMax(100);
-        mSeekBar.setProgress(mValue);
+        mSeekBar.setProgress(mOldValue);
         mSeekBar.setOnSeekBarChangeListener(this);
 
         mValueText = (TextView) view.findViewById(R.id.brightness_value);
-        setValue(mValue);
+        updateBrightness();
+        updateValueText();
     }
 
     @Override
-    protected void onSetInitialValue(boolean restore, Object defaultValue) {
-        super.onSetInitialValue(restore, defaultValue);
-        if (restore) {
-            mValue = shouldPersist() ? getPersistedInt(0) : 0;
-        } else {
-            mValue = (Integer) defaultValue;
+    protected void showDialog(Bundle state) {
+        super.showDialog(state);
+        if (getDialog() != null) {
+            mWindow = getDialog().getWindow();
         }
+        updateBrightness();
     }
 
     @Override
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
-        mValue = value;
+        updateBrightness();
         updateValueText();
+    }
+
+    private void updateBrightness() {
+        if (mWindow != null) {
+            LayoutParams params = mWindow.getAttributes();
+            params.buttonBrightness = (float) mSeekBar.getProgress() / 100;
+            mWindow.setAttributes(params);
+        }
     }
 
     private void updateValueText() {
         if (mValueText != null) {
-            String text = String.valueOf(mValue) + "%";
+            String text = String.valueOf(mSeekBar.getProgress()) + "%";
             mValueText.setText(text);
         }
     }
@@ -75,24 +88,17 @@ public class BrightnessPreference extends SeekBarPreference implements SeekBar.O
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
+        int value;
 
         if (positiveResult) {
-            persistInt(mValue);
-            callChangeListener(new Integer(mValue));
+            value = mSeekBar.getProgress();
+            callChangeListener(new Integer(value));
         } else {
-            mSeekBar.setProgress(mOldValue);
+            value = mOldValue;
         }
-    }
 
-    public void setValue(int value) {
-        mValue = Math.max(0, Math.min(value, 100));
-        persistInt(mValue);
-        updateValueText();
-    }
-
-    public int getValue() {
-        return mValue;
+        SystemProperties.set(PROP_NAME, Integer.toString(value));
+        super.onDialogClosed(positiveResult);
     }
 }
 
