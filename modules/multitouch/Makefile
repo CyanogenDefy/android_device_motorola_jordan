@@ -3,4 +3,4 @@
 #
 
 obj-m           += multitouch.o
-multitouch-objs := qtouch.o hook.o
+multitouch-objs := defy-multitouch.o hook.o

@@ -13,10 +13,11 @@
 
     <string name="touch_points_title">Мультитач</string>
     <string name="touch_points_summary">Задать максимальное число одновременных нажатий</string>
-    <string name="touch_point_entry_2points">2 Точки (по умолчанию)</string>
-    <string name="touch_point_entry_3points">3 Точки</string>
-    <string name="touch_point_entry_4points">4 Точки</string>
-    <string name="touch_point_entry_5points">5 Точек</string>
+    <string name="touch_point_entry_2points">2 точки (по умолчанию)</string>
+    <string name="touch_point_entry_3points">3 точки</string>
+    <string name="touch_point_entry_4points">4 точки</string>
+    <string name="touch_point_entry_5points">5 точек</string>
+    <string name="touch_point_entry_8points">8 точек</string>
 
     <string name="touch_point_warning_title">Предупреждение</string>
     <string name="touch_point_warning_message">Увеличение числа одновременных нажатий может привести к ухудшению чувствительности тачскрина.\nВы уверены, что хотите продолжить?</string>
@@ -24,8 +25,8 @@
     <string name="reboot_notice_title">Уведомление</string>
     <string name="reboot_notice_summary">Для того, чтобы изменения вступили в силу, необходимо перезагрузить устройство.</string>
 
-    <string name="audio_settings_title">Аудио настройки</string>
-    <string name="audio_effects">Аудио эффекты</string>
+    <string name="audio_settings_title">Настройки звука</string>
+    <string name="audio_effects">Аудио-эффекты</string>
 
     <string name="other_settings_title">Другие настройки</string>
     <string name="compass_calibrate">Калибровка компаса</string>

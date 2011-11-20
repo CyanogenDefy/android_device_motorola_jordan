@@ -15,6 +15,7 @@
     <string name="touch_point_entry_3points">3 puntos</string>
     <string name="touch_point_entry_4points">4 puntos</string>
     <string name="touch_point_entry_5points">5 puntos</string>
+    <string name="touch_point_entry_8points">8 puntos</string>
 
     <string name="touch_point_warning_title">Aviso</string>
     <string name="touch_point_warning_message">Aumentar la cantidad de puntos manejados puede reducir la reactividad de la pantalla al inicio del telefono.\n\n¿ Quiere activar esta función ?</string>

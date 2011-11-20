@@ -17,6 +17,7 @@
         <item>@string/touch_point_entry_3points</item>
         <item>@string/touch_point_entry_4points</item>
         <item>@string/touch_point_entry_5points</item>
+        <item>@string/touch_point_entry_8points</item>
     </string-array>
 
     <string-array name="touch_point_values">
@@ -24,6 +25,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>8</item>
     </string-array>
 
 </resources>

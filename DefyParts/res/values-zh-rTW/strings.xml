@@ -17,6 +17,7 @@
     <string name="touch_point_entry_3points">3點</string>
     <string name="touch_point_entry_4points">4點</string>
     <string name="touch_point_entry_5points">5點</string>
+    <string name="touch_point_entry_8points">8點</string>
 
     <string name="touch_point_warning_title">警告</string>
     <string name="touch_point_warning_message">當觸控的點數增加時，螢幕的操控靈敏度可能會降低。\n是否確定要變更多點觸控的設定值?</string>
