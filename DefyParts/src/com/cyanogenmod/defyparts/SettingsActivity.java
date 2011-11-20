@@ -2,6 +2,7 @@ package com.cyanogenmod.defyparts;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.preference.ListPreference;
@@ -45,8 +46,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == chargeLedModePref) {
-            String value = (String) newValue;
-            applyPersistentPref(PROP_CHARGE_LED_MODE, value);
+            SystemProperties.set(PROP_CHARGE_LED_MODE, (String) newValue);
+            /* make NotificationManagerService update the LED, so the new setting takes effect */
+            sendBroadcast(new Intent("com.android.server.NotificationManagerService.UPDATE_LED"));
         } else if (preference == touchPointsPref) {
             final String value = (String) newValue;
             final String oldValue = touchPointsPref.getValue();
