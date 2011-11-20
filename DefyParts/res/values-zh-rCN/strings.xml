@@ -3,6 +3,8 @@
 
     <string name="app_name">Defy设置</string>
 
+    <string name="general_settings_title">一般设置</string>
+
     <string name="charge_led_mode_title">充电指示灯设置</string>
     <string name="charge_led_mode_summary">调整充电时LED指示灯的显示模式</string>
     <string name="charge_led_mode_white">白色指示灯</string>
@@ -22,4 +24,11 @@
 
     <string name="reboot_notice_title">注意</string>
     <string name="reboot_notice_summary">需要重启以使设置生效。</string>
+
+    <string name="audio_settings_title">音效设置</string>
+    <string name="audio_effects">声音效果与DSP</string>
+
+    <string name="other_settings_title">其它设置</string>
+    <string name="compass_calibrate">电子指南针校准</string>
+
 </resources>
