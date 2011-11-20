@@ -55,3 +55,6 @@ symsearch
 cpufreq_smartass.ko
 symsearch
 
+multitouch.ko
+symsearch
+

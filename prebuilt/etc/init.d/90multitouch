@@ -3,14 +3,13 @@
 # load multitouch module
 
 # Module location
-MODULE="/system/lib/modules/defy_more.ko"
+MODULE="/system/lib/modules/multitouch.ko"
 
 # Max number of fingers
 MAX_TOUCH=`getprop persist.sys.multitouch`
 
 # Load the module if MAX_TOUCH > 2
 if [ -n "$MAX_TOUCH" ]; then
-  modprobe -r $MODULE 2>/dev/null
   if [ $MAX_TOUCH -gt 2 ]; then
     insmod $MODULE touch_num=$MAX_TOUCH
   fi

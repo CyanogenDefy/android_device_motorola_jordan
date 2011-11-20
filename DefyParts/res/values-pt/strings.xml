@@ -15,6 +15,7 @@
     <string name="touch_point_entry_3points">3 pontos</string>
     <string name="touch_point_entry_4points">4 pontos</string>
     <string name="touch_point_entry_5points">5 pontos</string>
+    <string name="touch_point_entry_8points">8 pontos</string>
 
     <string name="touch_point_warning_title">Advertência</string>
     <string name="touch_point_warning_message">Aumentar o número de pontos de toque pode degradar o tempo de resposta do ecrã. Tem a certeza que pretende continuar?</string>

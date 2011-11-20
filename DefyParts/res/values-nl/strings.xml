@@ -17,6 +17,7 @@
     <string name="touch_point_entry_3points">3 punten</string>
     <string name="touch_point_entry_4points">4 punten</string>
     <string name="touch_point_entry_5points">5 punten</string>
+    <string name="touch_point_entry_8points">8 punten</string>
 
     <string name="touch_point_warning_title">Waarschuwing</string>
     <string name="touch_point_warning_message">Het aantal touch punten verhogen kan de reactiesnelheid van het scherm verlagen.\nBen je zeker dat je deze instelling wilt wijzigen?</string>

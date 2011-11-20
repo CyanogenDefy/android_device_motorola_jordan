@@ -15,6 +15,7 @@
     <string name="touch_point_entry_3points">3 punti</string>
     <string name="touch_point_entry_4points">4 punti</string>
     <string name="touch_point_entry_5points">5 punti</string>
+    <string name="touch_point_entry_8points">8 punti</string>
 
     <string name="touch_point_warning_title">Attenzione</string>
     <string name="touch_point_warning_message">Aumentare il numero dei punti può diminuire la reattività del touch screen.\nSei sicuro di voler cambiare le impostazioni?</string>
