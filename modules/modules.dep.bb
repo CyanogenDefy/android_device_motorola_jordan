@@ -47,8 +47,6 @@ vpnclient.ko
 
 wl127x_test.ko platform:wl127x_test
 
-defy_more.ko
-
 cpufreq_interactive.ko
 symsearch
 
