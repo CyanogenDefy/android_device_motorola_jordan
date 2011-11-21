@@ -88,6 +88,7 @@ PRODUCT_PACKAGES += \
 	sensors.jordan \
 	lights.jordan \
 	libcamera \
+	libfnc \
 	libaudiopolicy \
 	iwmulticall \
 	hostap \
