@@ -25,9 +25,6 @@
     <string name="touch_point_warning_title">Warning</string>
     <string name="touch_point_warning_message">Increasing the number of touch points may degrade the responsiveness of the touch screen.\nAre you sure you want to change the setting?</string>
 
-    <string name="reboot_notice_title">Notice</string>
-    <string name="reboot_notice_summary">A reboot is required for the new settings to take effect.</string>
-
     <string name="audio_settings_title">Audio Settings</string>
     <string name="audio_effects">Audio Effects and DSP</string>
 

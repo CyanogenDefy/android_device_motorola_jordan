@@ -28,12 +28,6 @@
                         android:entries="@array/touch_point_entries"
                         android:entryValues="@array/touch_point_values" />
 
-        <!-- Reboot notice -->
-        <Preference android:key="reboot_notice"
-                    android:persistent="false"
-                    android:title="@string/reboot_notice_title"
-                    android:summary="@string/reboot_notice_summary" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/audio_settings_title">
