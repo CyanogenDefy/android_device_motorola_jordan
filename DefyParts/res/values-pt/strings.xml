@@ -20,9 +20,6 @@
     <string name="touch_point_warning_title">Advertência</string>
     <string name="touch_point_warning_message">Aumentar o número de pontos de toque pode degradar o tempo de resposta do ecrã. Tem a certeza que pretende continuar?</string>
 
-    <string name="reboot_notice_title">Aviso</string>
-    <string name="reboot_notice_summary">Necessita de reiniciar para que as novas definições surtam efeito.</string>
-
     <string name="audio_effects">Filtros de áudio</string>
 
 </resources>

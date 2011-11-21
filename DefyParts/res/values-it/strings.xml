@@ -20,8 +20,5 @@
     <string name="touch_point_warning_title">Attenzione</string>
     <string name="touch_point_warning_message">Aumentare il numero dei punti può diminuire la reattività del touch screen.\nSei sicuro di voler cambiare le impostazioni?</string>
 
-    <string name="reboot_notice_title">Nota</string>
-    <string name="reboot_notice_summary">È richiesto un riavvio affinché le nuove impostazioni abbiano effetto.</string>
-
     <string name="audio_effects">Effetti audio</string>
 </resources>

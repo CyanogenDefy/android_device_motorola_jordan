@@ -22,9 +22,6 @@
     <string name="touch_point_warning_title">Waarschuwing</string>
     <string name="touch_point_warning_message">Het aantal touch punten verhogen kan de reactiesnelheid van het scherm verlagen.\nBen je zeker dat je deze instelling wilt wijzigen?</string>
 
-    <string name="reboot_notice_title">NB</string>
-    <string name="reboot_notice_summary">Één keer herstarten is noodzakelijk opdat de nieuwe instellingen van kracht gaan.</string>
-
     <string name="audio_settings_title">Audio instellingen</string>
     <string name="audio_effects">Audio effecten en DSP</string>
 

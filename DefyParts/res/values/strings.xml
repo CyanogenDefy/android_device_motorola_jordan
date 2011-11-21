@@ -11,6 +11,9 @@
     <string name="charge_led_mode_rgb">Mixed LED (red/green)</string>
     <string name="charge_led_mode_off">Off</string>
 
+    <string name="button_brightness_scale_title">Button brightness</string>
+    <string name="button_brightness_scale_summary">Allows reducing the button brightness, especially useful when using manual brightness</string>
+
     <string name="touch_points_title">Multi-touch points</string>
     <string name="touch_points_summary">Adjust the number of multi-touch points registered by the system</string>
     <string name="touch_point_entry_2points">2 points (default)</string>
@@ -21,9 +24,6 @@
 
     <string name="touch_point_warning_title">Warning</string>
     <string name="touch_point_warning_message">Increasing the number of touch points may degrade the responsiveness of the touch screen.\nAre you sure you want to change the setting?</string>
-
-    <string name="reboot_notice_title">Notice</string>
-    <string name="reboot_notice_summary">A reboot is required for the new settings to take effect.</string>
 
     <string name="audio_settings_title">Audio Settings</string>
     <string name="audio_effects">Audio Effects and DSP</string>
