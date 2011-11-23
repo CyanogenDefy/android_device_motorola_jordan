@@ -155,12 +155,19 @@ JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterf
 
 JordanCameraWrapper::~JordanCameraWrapper()
 {
-    /* mLastFlashMode is only set in the SOC case */
-    if (mLastFlashMode == CameraParameters::FLASH_MODE_ON ||
-        mLastFlashMode == CameraParameters::FLASH_MODE_TORCH)
-    {
+    if (torchShouldBeOn()) {
         setSocTorchMode(false);
     }
+}
+
+bool
+JordanCameraWrapper::torchShouldBeOn()
+{
+    if (mCameraType != CAM_SOC) {
+        return false;
+    }
+    return mFlashMode == CameraParameters::FLASH_MODE_ON ||
+           mFlashMode == CameraParameters::FLASH_MODE_TORCH;
 }
 
 sp<IMemoryHeap>
@@ -322,12 +329,18 @@ JordanCameraWrapper::previewEnabled()
 status_t
 JordanCameraWrapper::startRecording()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(true);
+    }
     return mMotoInterface->startRecording();
 }
 
 void
 JordanCameraWrapper::stopRecording()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(false);
+    }
     mMotoInterface->stopRecording();
 }
 
@@ -371,6 +384,8 @@ status_t
 JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
     CameraParameters pars(params.flatten());
+    String8 oldFlashMode = mFlashMode;
+    status_t retval;
     int width, height;
     char buf[10];
     bool isWide;
@@ -392,22 +407,7 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
         pars.setPreviewFrameRate(24);
     }
 
-    if (mCameraType == CAM_SOC) {
-        /*
-         * libsoccamera fails to turn flash on if 16:9 recording is enabled (no matter
-         * whether it's photo or video recording), thus we do it ourselves in that case.
-         * Luckily libsoccamera handles the automatic flash properly also in the 16:9 case.
-         */
-        const char *flashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
-        if (flashMode != NULL) {
-            if (isWide && mLastFlashMode != flashMode) {
-                bool shouldBeOn = strcmp(flashMode, CameraParameters::FLASH_MODE_TORCH) == 0 ||
-                                  strcmp(flashMode, CameraParameters::FLASH_MODE_ON) == 0;
-                setSocTorchMode(shouldBeOn);
-            }
-            mLastFlashMode = flashMode;
-        }
-    }
+    mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
 
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
@@ -422,7 +422,14 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     /* kill off the original setting */
     pars.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
 
-    return mMotoInterface->setParameters(pars);
+    retval = mMotoInterface->setParameters(pars);
+
+    if (torchShouldBeOn() && oldFlashMode != mFlashMode) {
+        /* turn off torch, it's turned on again on recording/snapshot */
+        setSocTorchMode(false);
+    }
+
+    return retval;
 }
 
 CameraParameters
