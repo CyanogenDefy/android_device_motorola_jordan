@@ -189,6 +189,13 @@ on property:service.adb.tcp.port=5555
 on property:service.adb.tcp.port=-1
     restart adbd
 
+# triggered by holding down volume down, volume up and power
+service reboot_key /system/bin/reboot
+    user root
+    oneshot
+    keycodes 114 115 107
+    disabled
+
 service usbd /system/bin/usbd
     user root
 service nvm-daemon /system/bin/nvm_daemon
@@ -258,3 +265,4 @@ service fmradio /system/bin/fmradioserver
     disabled
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
+

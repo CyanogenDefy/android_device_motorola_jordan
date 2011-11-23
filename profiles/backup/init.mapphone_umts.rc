@@ -280,6 +280,14 @@ on property:sys.shutdown=1
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
+
+# Reboot triggered by holding down volume down, volume up and power
+service reboot_key /system/bin/reboot
+    user root
+    oneshot
+    keycodes 114 115 107
+    disabled
+
 service usbd /system/bin/usbd
 
 service nvm-daemon /system/bin/nvm_daemon
