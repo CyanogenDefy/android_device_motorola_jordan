@@ -29,7 +29,7 @@
                         android:entryValues="@array/touch_point_values" />
 
     </PreferenceCategory>
-<!--
+
     <PreferenceCategory android:title="@string/audio_settings_title">
 
         <PreferenceScreen android:key="audio_effects"
@@ -41,7 +41,7 @@
         </PreferenceScreen>
 
     </PreferenceCategory>
--->
+
     <PreferenceCategory android:title="@string/other_settings_title">
         <PreferenceScreen android:key="compass_calibrate"
                           android:title="@string/compass_calibrate">
