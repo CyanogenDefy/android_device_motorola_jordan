@@ -155,12 +155,19 @@ JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterf
 
 JordanCameraWrapper::~JordanCameraWrapper()
 {
-    /* mLastFlashMode is only set in the SOC case */
-    if (mLastFlashMode == CameraParameters::FLASH_MODE_ON ||
-        mLastFlashMode == CameraParameters::FLASH_MODE_TORCH)
-    {
+    if (torchShouldBeOn()) {
         setSocTorchMode(false);
     }
+}
+
+bool
+JordanCameraWrapper::torchShouldBeOn()
+{
+    if (mCameraType != CAM_SOC) {
+        return false;
+    }
+    return mFlashMode == CameraParameters::FLASH_MODE_ON ||
+           mFlashMode == CameraParameters::FLASH_MODE_TORCH;
 }
 
 sp<IMemoryHeap>
@@ -205,6 +212,9 @@ JordanCameraWrapper::notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void*
     JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
     user = _this->mCbUserData;
 
+    if (msgType == CAMERA_MSG_FOCUS &&_this->torchShouldBeOn()) {
+        setSocTorchMode(false);
+    }
     _this->mNotifyCb(msgType, ext1, ext2, user);
 }
 
@@ -216,6 +226,11 @@ JordanCameraWrapper::dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* u
 
     if (msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
         _this->fixUpBrokenGpsLatitudeRef(dataPtr);
+    }
+    if (msgType == CAMERA_MSG_RAW_IMAGE || msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
+        if (_this->torchShouldBeOn()) {
+            setSocTorchMode(false);
+        }
     }
 
     _this->mDataCb(msgType, dataPtr, user);
@@ -322,12 +337,18 @@ JordanCameraWrapper::previewEnabled()
 status_t
 JordanCameraWrapper::startRecording()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(true);
+    }
     return mMotoInterface->startRecording();
 }
 
 void
 JordanCameraWrapper::stopRecording()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(false);
+    }
     mMotoInterface->stopRecording();
 }
 
@@ -346,24 +367,36 @@ JordanCameraWrapper::releaseRecordingFrame(const sp<IMemory>& mem)
 status_t
 JordanCameraWrapper::autoFocus()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(true);
+    }
     return mMotoInterface->autoFocus();
 }
 
 status_t
 JordanCameraWrapper::cancelAutoFocus()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(false);
+    }
     return mMotoInterface->cancelAutoFocus();
 }
 
 status_t
 JordanCameraWrapper::takePicture()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(true);
+    }
     return mMotoInterface->takePicture();
 }
 
 status_t
 JordanCameraWrapper::cancelPicture()
 {
+    if (torchShouldBeOn()) {
+        setSocTorchMode(false);
+    }
     return mMotoInterface->cancelPicture();
 }
 
@@ -392,22 +425,7 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
         pars.setPreviewFrameRate(24);
     }
 
-    if (mCameraType == CAM_SOC) {
-        /*
-         * libsoccamera fails to turn flash on if 16:9 recording is enabled (no matter
-         * whether it's photo or video recording), thus we do it ourselves in that case.
-         * Luckily libsoccamera handles the automatic flash properly also in the 16:9 case.
-         */
-        const char *flashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
-        if (flashMode != NULL) {
-            if (isWide && mLastFlashMode != flashMode) {
-                bool shouldBeOn = strcmp(flashMode, CameraParameters::FLASH_MODE_TORCH) == 0 ||
-                                  strcmp(flashMode, CameraParameters::FLASH_MODE_ON) == 0;
-                setSocTorchMode(shouldBeOn);
-            }
-            mLastFlashMode = flashMode;
-        }
-    }
+    mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
 
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
