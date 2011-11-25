@@ -21,6 +21,7 @@ sleep 1
 /system/bootmenu/script/overclock.sh
 
 echo charge_adb > /dev/usb_device_mode
+echo usb_mode_charge_adb > /tmp/usbd_current_state
 
 # busybox ash history
 export HISTFILE=/tmp/.ash_history
