@@ -212,9 +212,6 @@ JordanCameraWrapper::notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void*
     JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
     user = _this->mCbUserData;
 
-    if (msgType == CAMERA_MSG_FOCUS &&_this->torchShouldBeOn()) {
-        setSocTorchMode(false);
-    }
     _this->mNotifyCb(msgType, ext1, ext2, user);
 }
 
@@ -226,11 +223,6 @@ JordanCameraWrapper::dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* u
 
     if (msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
         _this->fixUpBrokenGpsLatitudeRef(dataPtr);
-    }
-    if (msgType == CAMERA_MSG_RAW_IMAGE || msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
-        if (_this->torchShouldBeOn()) {
-            setSocTorchMode(false);
-        }
     }
 
     _this->mDataCb(msgType, dataPtr, user);
@@ -367,36 +359,24 @@ JordanCameraWrapper::releaseRecordingFrame(const sp<IMemory>& mem)
 status_t
 JordanCameraWrapper::autoFocus()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(true);
-    }
     return mMotoInterface->autoFocus();
 }
 
 status_t
 JordanCameraWrapper::cancelAutoFocus()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(false);
-    }
     return mMotoInterface->cancelAutoFocus();
 }
 
 status_t
 JordanCameraWrapper::takePicture()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(true);
-    }
     return mMotoInterface->takePicture();
 }
 
 status_t
 JordanCameraWrapper::cancelPicture()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(false);
-    }
     return mMotoInterface->cancelPicture();
 }
 
@@ -404,6 +384,8 @@ status_t
 JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
     CameraParameters pars(params.flatten());
+    String8 oldFlashMode = mFlashMode;
+    status_t retval;
     int width, height;
     char buf[10];
     bool isWide;
@@ -440,7 +422,14 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
     /* kill off the original setting */
     pars.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
 
-    return mMotoInterface->setParameters(pars);
+    retval = mMotoInterface->setParameters(pars);
+
+    if (torchShouldBeOn() && oldFlashMode != mFlashMode) {
+        /* turn off torch, it's turned on again on recording/snapshot */
+        setSocTorchMode(false);
+    }
+
+    return retval;
 }
 
 CameraParameters
