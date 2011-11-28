@@ -25,7 +25,7 @@ LOCAL_MODULE := sensors.jordan
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
-LOCAL_MODULE_TAGS := eng
+LOCAL_MODULE_TAGS := eng debug
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 
