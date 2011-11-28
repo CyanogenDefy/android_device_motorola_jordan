@@ -1,0 +1,5 @@
+config DEFY_PROXIMITY
+        tristate "Defy: Proximity sensor registers (missing data in original devtree)"
+        default m
+        depends on SYMSEARCH
+

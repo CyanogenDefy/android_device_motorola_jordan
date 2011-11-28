@@ -1,0 +1,14 @@
+#!/system/bin/sh
+#
+# load cpcap logger module
+
+# Module location
+MODULE="/system/lib/modules/logcap.ko"
+
+# Property to enable the module (default disabled)
+LOAD_MODULE=`getprop persist.sys.logcap.enable`
+
+if [ "$LOAD_MODULE" = "1" ]; then
+    /system/xbin/insmod $MODULE log_reg_min=0x90 log_reg_max=0x9f
+fi
+
