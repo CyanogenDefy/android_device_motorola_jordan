@@ -1,7 +1,8 @@
 #ifndef ANDROID_HARDWARE_JORDAN_CAMERA_WRAPPER_H
 #define ANDROID_HARDWARE_JORDAN_CAMERA_WRAPPER_H
 
-#include <camera/CameraHardwareInterface.h>
+//#include <camera/CameraHardwareInterface.h>
+#include "CameraHardwareInterface.h"
 
 namespace android {
 

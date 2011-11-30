@@ -16,8 +16,9 @@
 
 <resources>
     <!-- Whether or not there is a notification led that is too intrusive to be pulsing
-         constantly -->
+         constantly 
     <bool name="has_intrusive_led">true</bool>
+ICS -->
     <!-- Whether or not the dock settings are to be displayed for this device when docked -->
     <bool name="has_dock_settings">true</bool>
 </resources>

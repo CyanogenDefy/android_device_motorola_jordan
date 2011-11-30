@@ -56,7 +56,7 @@ on post-fs
     chown system system /sys/class/timed_output/vibrator/sweep
     chmod 0660 /sys/class/timed_output/vibrator/enable
     chmod 0660 /sys/class/timed_output/vibrator/sweep
-# bluetooth power up/down interface
+# bluetooth power up/down interface (wl127x Bluetooth and hci0)
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
@@ -69,6 +69,14 @@ on post-fs
 # Dont delete this line, used as event in bootmenu (cpu settings & postbootmenu)
     exec /system/bin/logwrapper postbootmenu
 
+    # Enable ADB mode (made in init.d)
+    #write /dev/usb_device_mode charge_adb
+    #write /tmp/usbd_current_state usb_mode_charge_adb
+    #chmod 0666 /tmp/usbd_current_state
+
+    mount rootfs rootfs / ro remount
+
+on post-fs-data
 # Create basic filesystem structure
     # we chown/chmod /pds again so because mount is run as root + defaults
     mkdir /pds/lost+found
@@ -116,10 +124,7 @@ on post-fs
     # copy hostapd configuration
     copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
 
-    # Enable ADB mode
-    # write /dev/usb_device_mode charge_adb
-
-    mount rootfs rootfs / ro remount
+    setprop vold.post_fs_data_done 1
 
 on init
 
@@ -127,7 +132,11 @@ on init
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
     insmod /system/lib/modules/modem_pm_driver.ko
+
     insmod /system/lib/modules/xt_multiport.ko
+    insmod /system/lib/modules/xt_quota2.ko
+    insmod /system/lib/modules/xt_owner2.ko
+
     insmod /system/lib/modules/tun.ko
     insmod /system/lib/modules/symsearch.ko
     insmod /system/lib/modules/mmcfix.ko
@@ -143,6 +152,9 @@ on boot
 
     # Enable panic on softlockup
     write /proc/sys/kernel/softlockup_panic 1
+
+    setprop ro.build.product jordan
+    setprop ro.product.device jordan
 
     # Change the ownership of led files.
     chown system system /sys/class/leds/lcd-backlight/als
@@ -189,52 +201,83 @@ on property:service.adb.tcp.port=5555
 on property:service.adb.tcp.port=-1
     restart adbd
 
-# triggered by holding down volume down, volume up and power
+# Adb ICS
+on property:persist.sys.usb.config=*
+    setprop sys.usb.config $persist.sys.usb.config
+
+on property:sys.usb.config=mass_storage,adb
+    # Made by usbd, but could be usefull later..
+    # write /sys/devices/virtual/usb_composite/adb/enable 0
+    # write /dev/usb_device_mode msc_adb
+    # write /tmp/usbd_current_state usb_mode_msc_adb
+    # write /sys/devices/virtual/usb_composite/adb/enable 1
+    start adbd
+on property:sys.usb.config=mtp,adb
+    start adbd
+on property:sys.usb.config=ptp,adb
+    start adbd
+on property:service.adb.root=1
+    write /sys/devices/virtual/usb_composite/adb/enable 0
+    restart adbd
+    write /sys/devices/virtual/usb_composite/adb/enable 1
+
+# reboot triggered by holding down volume down, up and power
 service reboot_key /system/bin/reboot
-    user root
+    user system
+    group root
     oneshot
     keycodes 114 115 107
     disabled
 
 service usbd /system/bin/usbd
+    class main
     user root
 service nvm-daemon /system/bin/nvm_daemon
+    class main
     user root
     group radio
 service start_commdrv /system/bin/sh /system/etc/motorola/comm_drv/commdrv_fs.sh
+    class main
     oneshot
     user radio
     group radio system cache
 service gkisystem /system/bin/gkisystem
+    class main
     socket location_shim stream 660 radio system
     socket gpshal_socket stream 660 radio system
     socket opprofdaemon stream 660 radio system
     group radio system
 service battd /system/bin/battd
+    class main
     socket battdsock stream 660 root system
     user root
     group system
     oneshot
 service ssmgrd /system/bin/ssmgrd
+    class main
     group radio input system
     oneshot
 
 # Bluetooth services.
 service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flow
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
 
 # Ecompass daemon
 service akmd2 /system/bin/akmd2
+    class main
     user compass
     group compass misc input
 
 # Wifi services
 service wlan_loader /system/bin/wlan_loader -f /system/etc/wifi/fw_wlan1271.bin -i /system/etc/wifi/tiwlan.ini -e /pds/wifi/nvs_map.bin
+    class main
     disabled
     oneshot
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    class main
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
@@ -242,27 +285,42 @@ service wlan_ap_loader /system/bin/logwrapper /system/bin/tiap_loader -f /system
     disabled
     oneshot
 service hostapd /system/bin/logwrapper /system/bin/hostap -d /data/misc/wifi/hostapd.conf
+    class main
     disabled
     oneshot
-service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
+    class main
     disabled
     oneshot
 service iprenew_tiwlan0 /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
 
 service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
+    class main
     user media
     group media graphics
     oneshot
-service pvrsrv /system/bin/pvrsrvinit
-    user root
-    oneshot
 service locDrv /system/bin/brcm_guci_drv -config /system/etc/gpsconfig.xml
+    class main
     user radio
     group radio inet sdcard_rw
 service fmradio /system/bin/fmradioserver
+    class main
     disabled
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
+
+#service pvrsrv /system/bin/pvrsrvinit
+#   class main
+#   user root
+#   oneshot
+
+# 3D init
+service pvrsrvinit /system/bin/pvrsrvinit
+    class core
+    user root
+    group root
+    oneshot
 

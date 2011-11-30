@@ -23,7 +23,7 @@ $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
-## (2) Also get non-open-source files if available
+## (2) Also get non-open-source files if available (made after in full_jordan.mk)
 $(call inherit-product-if-exists, vendor/motorola/jordan/jordan-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
@@ -61,12 +61,24 @@ PRODUCT_COPY_FILES += \
 	frameworks/base/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
 	frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
+# ICS sound
+PRODUCT_PACKAGES += \
+	libaudioutils audio.a2dp.default audio_policy.jordan \
+	libaudiohw_legacy audio.primary.omap3 audio.policy.jordan
+
+# ICS graphics
+PRODUCT_PACKAGES += libGLESv2 libEGL libGLESv1_CM
+
+# TO FIX for ICS
+#PRODUCT_PACKAGES += gralloc.jordan hwcomposer.jordan overlay.omap3 libcamera
+PRODUCT_PACKAGES += gralloc.default hwcomposer.default
+
+#Common packages (gingerbread/ics)
 PRODUCT_PACKAGES += \
 	librs_jni \
 	tiwlan.ini \
 	dspexec \
 	libbridge \
-	overlay.omap3 \
 	wlan_cu \
 	libtiOsLib \
 	wlan_loader \
@@ -85,9 +97,7 @@ PRODUCT_PACKAGES += \
 	libOMX.TI.Video.encoder \
 	libLCML \
 	libOMX_Core \
-	libcamera \
 	libfnc \
-	libaudiopolicy \
 	iwmulticall \
 	hostap \
 	hostapd.conf \
@@ -97,13 +107,18 @@ PRODUCT_PACKAGES += \
 	hijack_boot_2nd-init \
 	DefyParts \
 	Usb \
+	ssh \
+	superuser \
 	su
 
 # for jpeg hw encoder/decoder
-# PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
+PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 
-# hw video prepost processor (require dsp lib)
-# PRODUCT_PACKAGES += libOMX.TI.VPP
+# video post processor
+PRODUCT_PACKAGES += libOMX.TI.VPP
+
+# Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
+PRODUCT_PACKAGES += DroidSSHd
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -140,12 +155,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
         packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
+# ICS USB Packages
+PRODUCT_PACKAGES += com.android.future.usb.accessory
+
+PRODUCT_COPY_FILES += \
+        frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+        frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+
+######################################################################################################################################
 
 $(call inherit-product, build/target/product/full_base.mk)
 
 # Should be after the full_base include, which loads languages_full
 PRODUCT_LOCALES += hdpi
 
-PRODUCT_NAME := generic_jordan
+PRODUCT_NAME := full_jordan
 PRODUCT_DEVICE := MB525
 

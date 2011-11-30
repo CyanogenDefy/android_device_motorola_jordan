@@ -91,7 +91,7 @@
                    sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
--->
+
         <EncoderProfile quality="wide" fileFormat="mp4" duration="30">
             <Video codec="m4v"
                    bitRate="3500000"
@@ -103,7 +103,7 @@
                    bitRate="96000"
                    sampleRate="44100"
                    channels="1" />
-        </EncoderProfile>
+        </EncoderProfile> -->
 
         <EncoderProfile quality="high" fileFormat="mp4" duration="30">
             <Video codec="m4v"

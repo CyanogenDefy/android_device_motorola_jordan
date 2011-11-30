@@ -12,6 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+DEVICE_PREBUILT := device/motorola/jordan/prebuilt
+
+PRODUCT_COPY_FILES += \
+	$(DEVICE_PREBUILT)/bootanimation.zip:system/media/bootanimation.zip \
+	$(DEVICE_PREBUILT)/etc/terminfo/l/linux:system/etc/terminfo/l/linux \
+	$(DEVICE_PREBUILT)/etc/terminfo/x/xterm:system/etc/terminfo/x/xterm \
+	$(DEVICE_PREBUILT)/usr/keychars/cpcap-key.kcm.bin:system/usr/keychars/cpcap-key.kcm.bin \
+	$(DEVICE_PREBUILT)/usr/keychars/qtouch-touchscreen.kcm.bin:system/usr/keychars/qtouch-touchscreen.kcm.bin \
+	$(DEVICE_PREBUILT)/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
+	$(DEVICE_PREBUILT)/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
+	$(DEVICE_PREBUILT)/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
+
 #key layouts, names must fit the ones in /proc/bus/input/devices, qwerty.kl is the fallback one.
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
@@ -48,11 +60,13 @@ else
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_list.txt:system/etc/custom_backup_list.txt
 endif
 
-#app
+#Apps
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk \
-	device/motorola/jordan/prebuilt/app/DroidSSHd.apk:system/app/DroidSSHd.apk \
-	device/motorola/jordan/prebuilt/lib/libNativeSSHd.so:system/lib/libNativeSSHd.so \
+	 $(DEVICE_PREBUILT)/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk \
+
+#Temporary apps (will be in CM9 common folder later)
+#PRODUCT_COPY_FILES += \
+#	 $(DEVICE_PREBUILT)/app/Superuser.apk:system/app/Superuser.apk \
 
 #Bootmenu
 PRODUCT_COPY_FILES += \

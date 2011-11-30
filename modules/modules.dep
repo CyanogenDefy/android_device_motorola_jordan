@@ -35,4 +35,6 @@ cpufreq_stats.ko:
 cpufreq_smartass.ko: symsearch.ko
 cpufreq_interactive.ko: symsearch.ko cpufreq_stats.ko
 cpufreq_conservative.ko:
-
+xt_owner2:
+xt_quota2:
+xt_multiport.ko:

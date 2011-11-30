@@ -15,12 +15,12 @@
  */
 
 #define LOG_TAG "AudioPolicyManager"
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 #include <utils/Log.h>
 #include "AudioPolicyManager.h"
 #include <media/mediarecorder.h>
 
-namespace android {
+namespace android_audio_legacy {
 
 
 
@@ -42,10 +42,5 @@ extern "C" void destroyAudioPolicyManager(AudioPolicyInterface *interface)
     delete interface;
 }
 
-#ifdef OMAP_ENHANCEMENT
-status_t AudioPolicyManager::setFMRxActive(bool status) {
-    return NO_ERROR;
-}
-#endif
 
-}; // namespace android
+}; // namespace android_audio_legacy

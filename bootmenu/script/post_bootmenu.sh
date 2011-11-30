@@ -25,6 +25,9 @@ if [ -d /system/bootmenu/init.d ]; then
   run-parts /system/bootmenu/init.d/
 fi
 
+chmod 755 /system/etc/init.d/*
+run-parts /system/etc/init.d/
+
 # normal cleanup here (need fix in recovery first)
 # ...
 

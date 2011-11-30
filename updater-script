@@ -11,6 +11,7 @@ show_progress(0.750000, 35);
 package_extract_dir("system", "/system");
 show_progress(0.050000, 2);
 run_program("/sbin/touch","/system/firstboot");
+symlink("mksh", "/system/bin/sh");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
         "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",
@@ -86,13 +87,13 @@ symlink("qwerty.kcm.bin", "/system/usr/keychars/cpcap-key.kcm.bin",
         "/system/usr/keychars/sholes-keypad.kcm.bin");
 symlink("toolbox", "/system/bin/cmp",
         "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
-        "/system/bin/iftop",
+        "/system/bin/ifconfig", "/system/bin/iftop",
         "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
         "/system/bin/kill", "/system/bin/log",
         "/system/bin/nandread", "/system/bin/netstat",
         "/system/bin/newfs_msdos", "/system/bin/notify",
         "/system/bin/ps", "/system/bin/reboot", "/system/bin/renice",
-        "/system/bin/route",
+        "/system/bin/r", "/system/bin/route",
         "/system/bin/schedtop", "/system/bin/sendevent",
         "/system/bin/setconsole", "/system/bin/setprop",
         "/system/bin/smd", "/system/bin/start", "/system/bin/stop",

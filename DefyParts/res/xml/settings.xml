@@ -12,14 +12,6 @@
                         android:entries="@array/charge_led_mode_entries"
                         android:entryValues="@array/charge_led_mode_values" />
 
-        <!-- Button brightness scaling -->
-        <com.cyanogenmod.defyparts.BrightnessPreference
-                android:key="button_brightness_scale"
-                android:persistent="false"
-                android:title="@string/button_brightness_scale_title"
-                android:dialogTitle="@string/button_brightness_scale_title"
-                android:summary="@string/button_brightness_scale_summary" />
-
         <!-- Number of multitouch points -->
         <ListPreference android:key="touch_points"
                         android:persistent="false"

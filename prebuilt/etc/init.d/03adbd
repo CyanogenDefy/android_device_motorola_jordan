@@ -2,7 +2,7 @@
 #
 # load adbd during first boot if property is set
 
-if [ -f /system/firstboot ]; then
+#if [ -f /system/firstboot ]; then
 
     LOAD_ADBD=`getprop persist.service.adb.enable`
     USB_LINK=`cat /sys/class/power_supply/usb/online`
@@ -20,5 +20,5 @@ if [ -f /system/firstboot ]; then
     busybox mount -o remount,rw /system
     rm -f /system/firstboot
     busybox mount -o remount,ro /system
-fi
+#fi
 
