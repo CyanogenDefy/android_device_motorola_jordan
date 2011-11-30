@@ -1,10 +1,10 @@
-CyanogenMod 7.2 for Motorola Defy (Android 2.3.7 AOSP)
+ICS for Motorola Defy (Android 4.0.1 AOSP)
 
 
 Download:
 =========
 
-repo init -u git://github.com/CyanogenDefy/android.git -b gingerbread
+repo init -u git://github.com/CyanogenDefy/android.git -b ics
 
 repo sync
 
@@ -19,33 +19,19 @@ cd vendor/cyanogen && ./get-rommanager
 Build:
 ======
 
-optional :
-    export PLATFORM_DIR=$(pwd)
-    export ARCH=arm
-    export CROSS_COMPILE=arm-eabi-
-    export TARGET_OUT_INTERMEDIATES=out
-    export JAVA_HOME=/usr/lib/jvm/java-6-sun
-    export PATH=$PLATFORM_DIR/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin:$JAVA_HOME/bin:$PATH
-    cd $PLATFORM_DIR
-
-    export CYANOGEN_NIGHTLY=true
-
 rm -rf out/target
 
-. build/envsetup.sh 
+For CM9 branch :
+  source build/envsetup.sh && brunch jordan
 
-brunch jordan
+or for AOSP :
+  source build/envsetup.sh && lunch full_jordan-eng
+  mka bacon
 
-or...
-
-lunch cyanogen_jordan-eng
-mka bacon
-
-Use the signed zip to update the defy with Second Init recovery, or CM7 bootmenu recovery, not the ota package
+Use the signed zip to update the defy with the bootmenu recovery, not the ota package !
 
 Links:
 ======
-FAQ : http://forum.xda-developers.com/showthread.php?t=1065798
 
-Original Thread : http://forum.xda-developers.com/showthread.php?t=1033654
+XDA ICS Thread : http://forum.xda-developers.com/showthread.php?t=1353003
 
