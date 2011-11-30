@@ -12,6 +12,9 @@
             android:name=".SettingsActivity" >
             <intent-filter >
                 <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
+                <!-- As application until Settings integration -->
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
