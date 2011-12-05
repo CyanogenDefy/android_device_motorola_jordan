@@ -1,0 +1,12 @@
+Quick document of things to try/do
+
+- Add rotation matrices for both accelerometer and magnetometer sensors.
+  These matrices can be used to rotate the coordinate system of the sensor
+  to Device Coordinate System, and to calibrate down direction/magnitude
+  exactly.
+
+- Adaptation for jordan is not finished... but actually works, 
+  data conversion should be calibrated (Original version was for the 'hero')
+
+  Sensors headers were updated from Defy Kernel 2.6.32 Sources
+
