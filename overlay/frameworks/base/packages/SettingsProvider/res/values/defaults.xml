@@ -20,9 +20,7 @@
     <bool    name="def_accelerometer_rotation">true</bool>
     <bool    name="def_screen_brightness_automatic_mode">true</bool>
 
-<!-- no def settings
-    <bool    name="def_accelerometer_rotate_180">true</bool>
-
+<!--
     <bool    name="def_light_sensor_custom">true</bool>
     <string  name="def_light_sensor_lcd_values">28,48,108,248</string>
     <string  name="def_light_sensor_levels">15,100,3000,8000</string>
@@ -32,6 +30,7 @@
     <integer name="def_light_filter_window">20000</integer>
     <integer name="def_light_screen_dim">14</integer>
 -->
+
     <bool    name="def_backup_enabled">true</bool>
     <string  name="def_backup_transport">com.google.android.backup/.BackupTransportService</string>
 </resources>

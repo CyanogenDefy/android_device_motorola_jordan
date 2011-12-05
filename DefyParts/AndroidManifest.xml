@@ -8,13 +8,14 @@
     <application
         android:label="@string/app_name" >
         <activity
-            android:label="@string/app_name"
+            android:label="@string/app_shortname"
             android:name=".SettingsActivity" >
             <intent-filter >
-                <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
-                <!-- As application until Settings integration -->
-                <action android:name="android.intent.action.MAIN" />
+                <!-- icon in launcher -->
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+                <!-- cm link in settings -->
+                <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
             </intent-filter>
         </activity>
     </application>

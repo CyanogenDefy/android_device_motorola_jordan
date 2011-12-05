@@ -57,12 +57,11 @@ private:
     static void dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     static void dataCbTimestamp(nsecs_t timestamp, int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     void fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr);
-    bool torchShouldBeOn();
 
     sp<CameraHardwareInterface> mMotoInterface;
     CameraType mCameraType;
     bool mVideoMode;
-    String8 mFlashMode;
+    String8 mLastFlashMode;
 
     notify_callback mNotifyCb;
     data_callback mDataCb;

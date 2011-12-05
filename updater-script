@@ -93,7 +93,7 @@ symlink("toolbox", "/system/bin/cmp",
         "/system/bin/nandread", "/system/bin/netstat",
         "/system/bin/newfs_msdos", "/system/bin/notify",
         "/system/bin/ps", "/system/bin/reboot", "/system/bin/renice",
-        "/system/bin/r", "/system/bin/route",
+        "/system/bin/r",
         "/system/bin/schedtop", "/system/bin/sendevent",
         "/system/bin/setconsole", "/system/bin/setprop",
         "/system/bin/smd", "/system/bin/start", "/system/bin/stop",
@@ -123,8 +123,7 @@ set_perm(1000, 1000, 0640, "/system/etc/bluetooth/auto_pairing.conf");
 set_perm(3002, 3002, 0444, "/system/etc/bluetooth/blacklist.conf");
 set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
 set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
-set_perm_recursive(0, 2000, 0755, 0750, "/system/etc/init.d");
-set_perm(0, 0, 0755, "/system/etc/init.d");
+set_perm_recursive(0, 0, 0755, 0755, "/system/etc/init.d");
 set_perm(0, 2000, 0550, "/system/etc/init.goldfish.sh");
 set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");

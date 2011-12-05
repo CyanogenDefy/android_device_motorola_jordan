@@ -97,8 +97,6 @@ lib/modules/em_u32.ko
 lib/modules/ifb.ko
 lib/modules/kineto_gan.ko
 lib/modules/modem_pm_driver.ko
-lib/modules/modules.alias
-lib/modules/modules.dep
 lib/modules/netmux.ko
 lib/modules/netmux_linkdriver.ko
 lib/modules/output.ko
@@ -113,6 +111,8 @@ framework/com.motorola.android.location.jar
 #app/FMRadio.apk
 #app/FMRadioService.apk
 app/MotoPhonePortal.apk
+app/AudioEffectSettings.apk
+app/CompassCalibrate.apk
 
 etc/cameraCalFileDef5M.bin
 etc/cameraCalFileDef8M.bin

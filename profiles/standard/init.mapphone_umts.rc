@@ -128,6 +128,27 @@ on post-fs-data
 
 on init
 
+    # Temporary fix permissions for gb kernel
+    chown root system /dev/cpcap
+    chown root system /dev/cpcap_batt
+    chown root system /dev/cpcap_mot_rtc
+    chown root system /dev/cpcap_uc
+    chown root system /dev/i2c-1
+    chown root system /dev/i2c-2
+    chown root root /dev/smodule
+    chown root system /dev/ttyGS0
+    chown root system /dev/tcmd_driver
+
+    chmod 0660 /dev/cpcap
+    chmod 0660 /dev/cpcap_batt
+    chmod 0660 /dev/cpcap_mot_rtc
+    chmod 0660 /dev/cpcap_uc
+    chmod 0660 /dev/i2c-1
+    chmod 0660 /dev/i2c-2
+    chmod 0660 /dev/smodule
+    chmod 0666 /dev/ttyGS0
+    chmod 0660 /dev/tcmd_driver
+
     # Install kernel modules
     insmod /system/lib/modules/netmux.ko
     insmod /system/lib/modules/netmux_linkdriver.ko
@@ -216,12 +237,7 @@ on property:sys.usb.config=mtp,adb
     start adbd
 on property:sys.usb.config=ptp,adb
     start adbd
-on property:service.adb.root=1
-    write /sys/devices/virtual/usb_composite/adb/enable 0
-    restart adbd
-    write /sys/devices/virtual/usb_composite/adb/enable 1
 
-# reboot triggered by holding down volume down, up and power
 service reboot_key /system/bin/reboot
     user system
     group root

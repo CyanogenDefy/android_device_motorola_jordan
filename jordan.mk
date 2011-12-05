@@ -63,8 +63,9 @@ PRODUCT_COPY_FILES += \
 
 # ICS sound
 PRODUCT_PACKAGES += \
+	hcitool \
 	libaudioutils audio.a2dp.default audio_policy.jordan \
-	libaudiohw_legacy audio.primary.omap3 audio.policy.jordan
+	libaudiohw_legacy audio.primary.omap3
 
 # ICS graphics
 PRODUCT_PACKAGES += libGLESv2 libEGL libGLESv1_CM
@@ -108,7 +109,7 @@ PRODUCT_PACKAGES += \
 	DefyParts \
 	Usb \
 	ssh \
-	superuser \
+	Superuser \
 	su
 
 # for jpeg hw encoder/decoder
@@ -118,7 +119,10 @@ PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 PRODUCT_PACKAGES += libOMX.TI.VPP
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
-PRODUCT_PACKAGES += DroidSSHd
+PRODUCT_PACKAGES += DroidSSHd dropbear dropbearkey
+
+# Missing in CM9
+PRODUCT_PACKAGES += AndroidTerm
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

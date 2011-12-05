@@ -14,23 +14,27 @@
 
 DEVICE_PREBUILT := device/motorola/jordan/prebuilt
 
+#temporary cm9 bootanimation
 PRODUCT_COPY_FILES += \
 	$(DEVICE_PREBUILT)/bootanimation.zip:system/media/bootanimation.zip \
+
+PRODUCT_COPY_FILES += \
 	$(DEVICE_PREBUILT)/etc/terminfo/l/linux:system/etc/terminfo/l/linux \
 	$(DEVICE_PREBUILT)/etc/terminfo/x/xterm:system/etc/terminfo/x/xterm \
 	$(DEVICE_PREBUILT)/usr/keychars/cpcap-key.kcm.bin:system/usr/keychars/cpcap-key.kcm.bin \
 	$(DEVICE_PREBUILT)/usr/keychars/qtouch-touchscreen.kcm.bin:system/usr/keychars/qtouch-touchscreen.kcm.bin \
+	$(DEVICE_PREBUILT)/usr/keychars/qtouch-touchscreen.kcm.bin:system/usr/keychars/sholes-keypad.kcm.bin \
 	$(DEVICE_PREBUILT)/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
 	$(DEVICE_PREBUILT)/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
 	$(DEVICE_PREBUILT)/usr/idc/qtouch-touchscreen.idc:system/usr/idc/qtouch-touchscreen.idc \
 
 #key layouts, names must fit the ones in /proc/bus/input/devices, qwerty.kl is the fallback one.
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
-	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qtouch-touchscreen.kl \
-	device/motorola/jordan/prebuilt/usr/keypad.kl:system/usr/keylayout/sholes-keypad.kl \
-	device/motorola/jordan/prebuilt/usr/keypad.kl:system/usr/keylayout/umts_jordan-keypad.kl \
-	device/motorola/jordan/prebuilt/usr/cpcap.kl:system/usr/keylayout/cpcap-key.kl \
+	$(DEVICE_PREBUILT)/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
+	$(DEVICE_PREBUILT)/usr/qwerty.kl:system/usr/keylayout/qtouch-touchscreen.kl \
+	$(DEVICE_PREBUILT)/usr/keypad.kl:system/usr/keylayout/sholes-keypad.kl \
+	$(DEVICE_PREBUILT)/usr/keypad.kl:system/usr/keylayout/umts_jordan-keypad.kl \
+	$(DEVICE_PREBUILT)/usr/cpcap.kl:system/usr/keylayout/cpcap-key.kl \
 
 #etc
 PRODUCT_COPY_FILES += \
@@ -54,23 +58,16 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/modules/modules.alias:system/lib/modules/modules.alias \
 	device/motorola/jordan/modules/modules.dep:system/lib/modules/modules.dep \
 
-ifdef CYANOGEN_RELEASE
+ifdef CM_RELEASE
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_release.txt:system/etc/custom_backup_list.txt
 else
 	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_list.txt:system/etc/custom_backup_list.txt
 endif
 
-#Apps
-PRODUCT_COPY_FILES += \
-	 $(DEVICE_PREBUILT)/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk \
-
-#Temporary apps (will be in CM9 common folder later)
-#PRODUCT_COPY_FILES += \
-#	 $(DEVICE_PREBUILT)/app/Superuser.apk:system/app/Superuser.apk \
-
 #Bootmenu
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/profiles/standard/init.mapphone_umts.rc:system/bootmenu/2nd-init/init.mapphone_umts.rc \
+	device/motorola/jordan/profiles/standard/init.rc:system/bootmenu/2nd-init/init.rc \
 	device/motorola/jordan/profiles/standard/ueventd.rc:system/bootmenu/2nd-init/ueventd.rc \
 	device/motorola/jordan/profiles/backup/init.rc:system/bootmenu/2nd-boot/init.rc \
 	device/motorola/jordan/profiles/backup/init.mapphone_umts.rc:system/bootmenu/2nd-boot/init.mapphone_umts.rc \
@@ -139,6 +136,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/script/overclock.sh:system/bootmenu/script/overclock.sh \
 	device/motorola/jordan/bootmenu/script/post_bootmenu.sh:system/bootmenu/script/post_bootmenu.sh \
 	device/motorola/jordan/bootmenu/script/pre_bootmenu.sh:system/bootmenu/script/pre_bootmenu.sh \
+	device/motorola/jordan/bootmenu/script/reboot_command.sh:system/bootmenu/script/reboot_command.sh \
 	device/motorola/jordan/bootmenu/script/recovery.sh:system/bootmenu/script/recovery.sh \
 	device/motorola/jordan/bootmenu/script/recovery_stable.sh:system/bootmenu/script/recovery_stable.sh \
 	device/motorola/jordan/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \

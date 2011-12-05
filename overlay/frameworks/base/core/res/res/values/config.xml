@@ -85,10 +85,6 @@
         <item>"0,1"</item>
         <item>"4,1"</item>
         <item>"7,1"</item>
-        <item>"0,7"</item>
-        <item>"4,7"</item>
-        <item>"0,13"</item>
-        <item>"7,13"</item>
     </string-array>
 
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
@@ -155,7 +151,10 @@ ICS -->
     <!-- XXXXXX END OF RESOURCES USING WRONG NAMING CONVENTION -->
 
     <!-- The number of degrees to rotate the display when the keyboard is open. -->
-    <integer name="config_lidOpenRotation">90</integer>
+    <!-- MUST STAY TO -1, else rot. sensor is disabled -->
+    <integer name="config_lidOpenRotation">-1</integer>
+
+    <bool name="config_enableLockScreenRotation">true</bool>
 
     <!-- The number of degrees to rotate the display when the device is in a desk dock.
          A value of -1 means no change in orientation by default. -->
@@ -191,13 +190,13 @@ ICS -->
          the physical keyboard.  0 means it doesn't, 1 means it is accessible
          when the lid is open, 2 means it is accessible when the lid is
          closed.  The default is 1. -->
-    <integer name="config_lidKeyboardAccessibility">1</integer>
+    <integer name="config_lidKeyboardAccessibility">2</integer>
 
     <!-- Indicate whether the lid state impacts the accessibility of
          the physical keyboard.  0 means it doesn't, 1 means it is accessible
          when the lid is open, 2 means it is accessible when the lid is
          closed.  The default is 0. -->
-    <integer name="config_lidNavigationAccessibility">1</integer>
+    <integer name="config_lidNavigationAccessibility">0</integer>
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">false</bool>
@@ -374,10 +373,10 @@ ICS -->
 ICS -->
     <!-- Enables SIP on WIFI only
     <bool name="config_sip_wifi_only">false</bool>
-
+ICS -->
     <string-array name="config_vendorServices">
         <item>/system/framework/com.motorola.android.location.jar:com.android.server.LocationProxyService</item>
     </string-array>
-ICS -->
+
 
 </resources>
