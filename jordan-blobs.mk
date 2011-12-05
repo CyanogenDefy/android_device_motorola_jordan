@@ -130,5 +130,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \
 	device/motorola/jordan/bootmenu/script/sdcard.sh:system/bootmenu/script/sdcard.sh \
 	device/motorola/jordan/bootmenu/script/system.sh:system/bootmenu/script/system.sh \
+	device/motorola/jordan/bootmenu/script/media_fixup.sh:system/bootmenu/script/media_fixup.sh \
 
 #end of jordan-blobs.mk
