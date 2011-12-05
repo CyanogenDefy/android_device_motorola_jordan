@@ -29,6 +29,8 @@
 
 #include "SensorISL29030.h"
 
+#define TAG "ISL29030"
+
 /*****************************************************************************/
 
 SensorISL29030P::SensorISL29030P()
@@ -68,7 +70,7 @@ int SensorISL29030P::enable(int32_t handle, int en)
     err = ioctl(dev_fd, ISL29030_IOCTL_SET_ENABLE, &newState);
     err = err < 0 ? -errno : 0;
 
-    LOGE_IF(err, "SensorISL29030P: ISL29030_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
+    LOGE_IF(err, TAG "P: ISL29030_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
 
     if (!err || !newState)
         mEnabled = newState;
@@ -107,7 +109,7 @@ int SensorISL29030P::readEvents(sensors_event_t* data, int count)
         }
         else
         {
-            LOGE("SensorISL29030P: unknown event (type=%d, code=%d, value=%d)", type, event->code, event->value);
+            LOGE(TAG "P: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
         }
         mInputReader.next();
     }
@@ -120,7 +122,11 @@ void SensorISL29030P::processEvent(int code, int value)
     switch (code)
     {
         case ABS_DISTANCE:
+            LOGD(TAG "P: proximity event (code=0x%x, value=0x%x)", code, value);
             mPendingEvent.distance = (value == PROXIMITY_NEAR ? 0 : 100);
+            break;
+        default:
+            LOGW(TAG "P: proximity unknown code (code=0x%x, value=0x%x)", code, value);
             break;
     }
 }
@@ -133,7 +139,7 @@ int SensorISL29030P::isEnabled()
     err = ioctl(dev_fd, ISL29030_IOCTL_GET_ENABLE, &enabled);
     err = err < 0 ? -errno : 0;
 
-    LOGE_IF(err, "SensorISL29030P: ISL29030_IOCTL_GET_ENABLE failed (%s)", strerror(-err));
+    LOGE_IF(err, TAG "P: ISL29030_IOCTL_GET_ENABLE failed (%s)", strerror(-err));
 
     return enabled;
 }
@@ -191,7 +197,7 @@ int SensorISL29030L::readEvents(sensors_event_t* data, int count)
         }
         else
         {
-            LOGE("SensorISL29030L: unknown event (type=%d, code=%d, value=%d)", type, event->code, event->value);
+            LOGE(TAG "L: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
         }
         mInputReader.next();
     }
@@ -205,6 +211,9 @@ void SensorISL29030L::processEvent(int code, int value)
     {
         case LED_MISC:
             mPendingEvent.light = value;
+            break;
+        default:
+            LOGW(TAG "L: unknown code (code=0x%x, value=0x%x)", code, value);
             break;
     }
 }
