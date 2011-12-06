@@ -1,8 +1,14 @@
-#!/system/bin/sh
+#!/system/xbin/ash
 #
 # load adbd during first boot if property is set
 
-#if [ -f /system/firstboot ]; then
+if [ -f /system/firstboot ]; then
+
+    busybox mount -o remount,rw /system
+    rm -f /system/firstboot
+
+    #DISABLED:
+    exit 0
 
     LOAD_ADBD=`getprop persist.service.adb.enable`
     USB_LINK=`cat /sys/class/power_supply/usb/online`
@@ -17,8 +23,5 @@
 
     fi
 
-    busybox mount -o remount,rw /system
-    rm -f /system/firstboot
-    busybox mount -o remount,ro /system
-#fi
+fi
 
