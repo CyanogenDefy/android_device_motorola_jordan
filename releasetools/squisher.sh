@@ -44,6 +44,3 @@ cp -f $DEVICE_OUT/utilities/busybox $REPACK/ota/system/bootmenu/binary/busybox
 # ril fix
 cp -f $REPACK/ota/system/lib/hw/audio.a2dp.default.so $REPACK/ota/system/lib/liba2dp.so
 
-# temporary tool to fix orientation
-cp -f $DEVICE_TOP/prebuilt/app/Orientator.apk $REPACK/ota/system/app/
-
