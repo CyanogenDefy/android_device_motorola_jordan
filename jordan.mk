@@ -108,7 +108,6 @@ PRODUCT_PACKAGES += \
 	hijack_boot_2nd-init \
 	DefyParts \
 	Usb \
-	ssh \
 	Superuser \
 	su
 
@@ -119,7 +118,7 @@ PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 PRODUCT_PACKAGES += libOMX.TI.VPP
 
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
-PRODUCT_PACKAGES += DroidSSHd dropbear dropbearkey
+PRODUCT_PACKAGES += DroidSSHd dropbear dropbearkey sftp-server scp ssh
 
 # Missing in CM9
 PRODUCT_PACKAGES += AndroidTerm
