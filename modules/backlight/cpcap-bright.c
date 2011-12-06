@@ -25,6 +25,8 @@
 #define CPCAP_BUTTON_DEV       "button-backlight"
 #define CPCAP_BUTTON_BACKLIGHT CPCAP_REG_ADLC
 
+#define DEFYPLUS
+
 //Only in Defy froyo kernel, not in Defy+
 #ifndef DEFYPLUS
 # include <linux/leds-ld-cpcap.h> //for LD_BUTTON_CPCAP_MASK (0x3FF)
@@ -118,10 +120,9 @@ int brightness_fading(short level) {
  * hooked function (io reg write)
  */
 int cpcap_regacc_write(struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned short value, unsigned short mask) {
-	int ret = 0;
 
 	if (reg != CPCAP_BUTTON_BACKLIGHT) {
-		return HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
+		goto invoke;
 	}
 
 	DBG("got value 0x%x(%d) mask %x\n", value, value, mask);
@@ -134,16 +135,18 @@ int cpcap_regacc_write(struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned 
 		DBG("got button->brightness=%d\n", brightness);
 	}
 	value = brightness_to_cpcap(brightness);
-	DBG("override brightness set 0x%x(%d) mask %x\n", value, value, mask);
-
-	ret = HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
-
-	g_mask_wr |= mask;
-	g_last_value = value;
-
 	DBG("write REG 0x%02x(%d) set/mask %x/%x\n", (unsigned int) reg, reg, value, mask);
 
-	return ret;
+        g_mask_wr |= mask;
+        g_last_value = value;
+
+	if (defy_plus && mask == 0xf) {
+		mask = CPCAP_BUTTON_WR_MASK;
+	}
+
+	//The hooked func should be invoked at one single place
+invoke:
+	return HOOK_INVOKE(cpcap_regacc_write, cpcap, reg, value, mask);
 }
 
 /*
@@ -348,7 +351,7 @@ module_init(backlight_init);
 module_exit(backlight_exit);
 
 MODULE_ALIAS(TAG);
-MODULE_VERSION("1.5");
+MODULE_VERSION("2.0");
 MODULE_DESCRIPTION("Fix button backlight brightness level");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
 MODULE_LICENSE("GPL");

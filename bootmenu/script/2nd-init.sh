@@ -10,17 +10,33 @@ export PATH=/sbin:/system/xbin:/system/bin
 mount -o remount,rw /
 rm -f /*.rc
 rm -f /*.sh
-rm -rf tmp
-rm -rf osh
-rm -rf preinstall
+rm -rf /osh
+rm -rf /preinstall
 cp -f /system/bootmenu/2nd-init/* /
 ln -s /init /sbin/ueventd
 cp -f /system/bin/adbd /sbin/adbd
 
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
 if [ -z "$ADB_RUNNING" ]; then
-#    rm -f /sbin/adbd.root
+    #rm -f /sbin/adbd.root
     rm -f /tmp/usbd_current_state
+    #delete if is a symlink
+    [ -L "/tmp" ] && rm -f /tmp
+    mkdir -p /tmp
+else
+    # well, not beautiful but do the work
+    # to keep current usbd state
+    if [ -L "/tmp" ]; then
+        mv /tmp/usbd_current_state /
+        rm -f /tmp
+        mkdir -p /tmp
+        mv /usbd_current_state /tmp/
+    fi
+fi
+
+if [ -L /sdcard-ext ]; then
+    rm /sdcard-ext
+    mkdir -p /sd-ext
 fi
 
 ## unmount devices

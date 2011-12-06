@@ -328,11 +328,6 @@ service fmradio /system/bin/fmradioserver
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
 
-#service pvrsrv /system/bin/pvrsrvinit
-#   class main
-#   user root
-#   oneshot
-
 # 3D init
 service pvrsrvinit /system/bin/pvrsrvinit
     class core

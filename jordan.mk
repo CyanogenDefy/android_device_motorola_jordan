@@ -117,6 +117,8 @@ PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 # video post processor
 PRODUCT_PACKAGES += libOMX.TI.VPP
 
+PRODUCT_PACKAGES += e2fsck
+
 # Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
 PRODUCT_PACKAGES += DroidSSHd dropbear dropbearkey sftp-server scp ssh
 

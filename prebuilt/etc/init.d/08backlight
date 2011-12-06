@@ -15,6 +15,6 @@ fi
 
 if [ "$LOAD_MODULE" != "1" ]; then
     # brightness=6 to set the default brightness after test "animation" on module load
-    /system/xbin/insmod $MODULE animate=1 brightness=6 log_enable=0 hook_enable=0 defy_plus=$DEFYPLUS
+    /system/xbin/insmod $MODULE animate=1 brightness=6 log_enable=0 hook_enable=$DEFYPLUS defy_plus=$DEFYPLUS
 fi
 
