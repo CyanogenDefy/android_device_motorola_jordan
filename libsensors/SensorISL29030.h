@@ -68,6 +68,8 @@ protected:
 	int mEnabled;
     InputEventCircularReader mInputReader;
     sensors_event_t mPendingEvent;
+
+    int isEnabled();
 };
 
 /*****************************************************************************/

@@ -21,6 +21,8 @@
 
 #include <linux/types.h>
 
+//Note : Define (or not) DEFYPLUS in .cpp or Android.mk
+
 #define	MANUAL		0
 #define	AUTOMATIC	1
 #define	MANUAL_SENSOR	2
@@ -66,11 +68,11 @@
 #define PROXIMITY_NEAR	30		/* prox close threshold is 22-70mm */
 #define PROXIMITY_FAR	1000		/* 1 meter */
 
-//#define DEFYPLUS
-
 #define ISL29030_IO                     0xA3
 
 #ifndef DEFYPLUS
+
+
 #ifdef __KERNEL__
 struct isl29030_platform_data {
 	int  (*init)(void);
@@ -94,7 +96,7 @@ struct isl29030_platform_data {
 #define ISL29030_IOCTL_SET_ENABLE       _IOW(ISL29030_IO, 0x01, char)
 #define ISL29030_IOCTL_GET_INT_LINE     _IOR(ISL29030_IO, 0x02, char)
 
-#else
+#else //DEFYPLUS
 
 #define ISL29030_REGULATOR_NAME_LENGTH  10
 #ifdef __KERNEL__
