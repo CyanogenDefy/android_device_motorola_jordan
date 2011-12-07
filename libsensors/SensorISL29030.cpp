@@ -23,7 +23,7 @@
 #include <dirent.h>
 #include <sys/select.h>
 
-#define LOG_NDEBUG 0
+//#define LOG_NDEBUG 0
 #include <cutils/log.h>
 
 #include "kernel/isl29030.h"
@@ -37,7 +37,7 @@
 # define ISL_DEVICE  "light-prox"
 #else
 # define PROX_DEVICE "proximity"
-# define ISL_DEVICE  "isl"
+# define ISL_DEVICE  "als"
 #endif
 
 /*****************************************************************************/
@@ -116,9 +116,9 @@ int SensorISL29030P::readEvents(sensors_event_t* data, int count)
             count--;
             numEventReceived++;
         }
-        else
+        else if (type != EV_LED) // Defy+ only (ignore light events, from same input device)
         {
-            LOGE(TAG "P: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
+            LOGW(TAG "P: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
         }
         mInputReader.next();
     }
@@ -253,9 +253,9 @@ int SensorISL29030L::readEvents(sensors_event_t* data, int count)
             count--;
             numEventReceived++;
         }
-        else
+        else if (type != EV_ABS)
         {
-            LOGE(TAG "L: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
+            LOGW(TAG "L: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
         }
         mInputReader.next();
     }
