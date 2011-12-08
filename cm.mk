@@ -16,18 +16,18 @@
 
 $(call inherit-product, device/motorola/jordan/full_jordan.mk)
 
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+# Inherit some common CM9 stuff.
+$(call inherit-product-if-exists, vendor/cm/config/common_full_phone.mk)
 
 # Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/gsm.mk)
+$(call inherit-product-if-exists, vendor/cm/config/gsm.mk)
 
 PRODUCT_NAME := cm_jordan
 PRODUCT_BRAND := MOTO
 PRODUCT_DEVICE := jordan
-PRODUCT_MODEL := MB525
+PRODUCT_MODEL := MB526
 PRODUCT_MANUFACTURER := Motorola
-PRODUCT_SFX := JOREM_U3
+PRODUCT_SFX := DFP
 
 # Release name and versioning
 PRODUCT_RELEASE_NAME := Defy
@@ -39,8 +39,8 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_ID=GWK74 \
     PRODUCT_NAME=${PRODUCT_MODEL}_${PRODUCT_SFX} \
     TARGET_DEVICE=umts_jordan \
-    BUILD_FINGERPRINT=MOTO/MB526_RTDACH/umts_jordan:2.3.4/4.5.1-134_DFP-74/1313117579:user/release-keys \
-    PRIVATE_BUILD_DESC="umts_jordan_emara-user 2.3.4 4.5.1-134_DFP-74 1313117579 release-keys" \
+    BUILD_FINGERPRINT=MOTO/MB526_O2DE/umts_jordan:2.3.6/4.5.1-134_DFP-132/1317968148:user/release-keys \
+    PRIVATE_BUILD_DESC="umts_jordan_emara-user 2.3.6 4.5.1-134_DFP-132 1317968148 release-keys" \
     BUILD_NUMBER=${DATE} \
     BUILD_VERSION_TAGS=release-keys \
     TARGET_BUILD_TYPE=user

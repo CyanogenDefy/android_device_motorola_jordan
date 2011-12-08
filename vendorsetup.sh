@@ -21,4 +21,5 @@
 # function: add_lunch_combo generic-eng
 
 add_lunch_combo full_jordan-eng
+add_lunch_combo full_jordan-userdebug
 

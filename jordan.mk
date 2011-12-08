@@ -175,5 +175,5 @@ $(call inherit-product, build/target/product/full_base.mk)
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_NAME := full_jordan
-PRODUCT_DEVICE := MB525
+PRODUCT_DEVICE := MB526
 
