@@ -13,10 +13,7 @@ lib/modules/pcbc.ko
 lib/modules/sch_htb.ko
 lib/modules/sch_ingress.ko
 lib/modules/sec.ko
-lib/modules/tiap_drv.ko
-lib/modules/tiwlan_drv.ko
 lib/modules/vpnclient.ko
-lib/modules/wl127x_test.ko
 bootmenu/config/overclock.conf
 etc/motorola/bp_nvm_default/File_GSM
 etc/motorola/bp_nvm_default/File_GPRS
