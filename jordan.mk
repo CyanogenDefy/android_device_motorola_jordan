@@ -123,7 +123,7 @@ PRODUCT_PACKAGES += e2fsck
 PRODUCT_PACKAGES += DroidSSHd dropbear dropbearkey sftp-server scp ssh
 
 # Missing in CM9
-PRODUCT_PACKAGES += AndroidTerm
+PRODUCT_PACKAGES += AndroidTerm DSPManager
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
