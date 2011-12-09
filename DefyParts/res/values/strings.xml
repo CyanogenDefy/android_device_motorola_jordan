@@ -30,5 +30,6 @@
 
     <string name="other_settings_title">Other settings</string>
     <string name="compass_calibrate">Compass calibrator</string>
+    <string name="baseband_switcher">Baseband switcher</string>
 
 </resources>
