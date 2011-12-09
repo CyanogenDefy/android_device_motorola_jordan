@@ -50,6 +50,14 @@
                              android:targetPackage="com.motorola.CompassCalibrate"
                              android:targetClass="com.motorola.CompassCalibrate.CompassCalibrate" />
         </PreferenceScreen>
+
+        <PreferenceScreen android:key="baseband_switcher"
+                          android:title="@string/baseband_switcher">
+                          <intent
+                             android:action="android.intent.action.MAIN"
+                             android:targetPackage="com.itfunzbasebandswitcher"
+                             android:targetClass="com.itfunzbasebandswitcher.MainActivity" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>
