@@ -24,6 +24,9 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 
+# Model variant (DEFY_FROYO, DEFY_GINGER)
+BOARD_DEFY_MODEL := DEFY_FROYO
+
 USE_CAMERA_STUB := false
 BOARD_USES_GENERIC_AUDIO := false
 
@@ -119,5 +122,10 @@ ifndef CYANOGEN_RELEASE
 #TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 #TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
 
+endif
+
+# Gingerbread kernel specifics
+ifeq ($(BOARD_DEFY_MODEL),DEFY_GINGER)
+BOARD_USE_CID_ROTATE_34 := true
 endif
 
