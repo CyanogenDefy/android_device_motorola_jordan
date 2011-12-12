@@ -69,11 +69,12 @@ private:
         switch (handle)
         {
             case SENSOR_TYPE_ACCELEROMETER:
+            //case SENSOR_TYPE_ORIENTATION:
                 return KXTF9;
             //case SENSOR_TYPE_ACCELEROMETER:
-            case SENSOR_TYPE_MAGNETIC_FIELD:
             case SENSOR_TYPE_ORIENTATION:
-            case SENSOR_TYPE_TEMPERATURE:
+            case SENSOR_TYPE_MAGNETIC_FIELD:
+            case SENSOR_TYPE_AMBIENT_TEMPERATURE:
                 return AK8973;
             case SENSOR_TYPE_PROXIMITY:
                 return ISL29030P;

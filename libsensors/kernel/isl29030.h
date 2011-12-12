@@ -21,6 +21,8 @@
 
 #include <linux/types.h>
 
+//Note : Define (or not) DEFYPLUS in .cpp or Android.mk
+
 #define	MANUAL		0
 #define	AUTOMATIC	1
 #define	MANUAL_SENSOR	2
@@ -61,13 +63,17 @@
 #define ISL29030_CNF_ALS_RANGE_MASK	0x02
 #define ISL29030_CNF_ALS_EN_MASK	0x04
 #define ISL29030_CNF_PROX_EN_MASK	0x80
+
 /* unit = millimeter */
 #define PROXIMITY_NEAR	30		/* prox close threshold is 22-70mm */
 #define PROXIMITY_FAR	1000		/* 1 meter */
 
+#define ISL29030_IO                     0xA3
+
+#ifndef DEFYPLUS
+
 
 #ifdef __KERNEL__
-
 struct isl29030_platform_data {
 	int  (*init)(void);
 	void (*exit)(void);
@@ -84,13 +90,35 @@ struct isl29030_platform_data {
 	u32	lens_percent_t;
 	u16	irq;
 } __attribute__ ((packed));
+#endif
 
-#endif	/* __KERNEL__ */
-
-#define ISL29030_IO			0xA3
-
-#define ISL29030_IOCTL_GET_ENABLE	_IOR(ISL29030_IO, 0x00, char)
-#define ISL29030_IOCTL_SET_ENABLE	_IOW(ISL29030_IO, 0x01, char)
+#define ISL29030_IOCTL_GET_ENABLE       _IOR(ISL29030_IO, 0x00, char)
+#define ISL29030_IOCTL_SET_ENABLE       _IOW(ISL29030_IO, 0x01, char)
 #define ISL29030_IOCTL_GET_INT_LINE     _IOR(ISL29030_IO, 0x02, char)
 
-#endif	/* _LINUX_ISL29030_H__ */
+#else //DEFYPLUS
+
+#define ISL29030_REGULATOR_NAME_LENGTH  10
+#ifdef __KERNEL__
+struct isl29030_platform_data {
+        u8  configure;
+        u8  interrupt_cntrl;
+        u8  prox_lower_threshold;
+        u8  prox_higher_threshold;
+        u8  crosstalk_vs_covered_threshold;
+        u8  default_prox_noise_floor;
+        u8  num_samples_for_noise_floor;
+        u32 lens_percent_t;
+        u16 irq;
+        u8  regulator_name[ISL29030_REGULATOR_NAME_LENGTH];
+} __attribute__ ((packed));
+#endif
+
+#define ISL29030_IOCTL_GET_ENABLE       _IOR(ISL29030_IO, 0x00, char)
+#define ISL29030_IOCTL_SET_ENABLE       _IOW(ISL29030_IO, 0x01, char)
+#define ISL29030_IOCTL_GET_LIGHT_ENABLE _IOR(ISL29030_IO, 0x02, char)
+#define ISL29030_IOCTL_SET_LIGHT_ENABLE _IOW(ISL29030_IO, 0x03, char)
+
+#endif // DEFYPLUS
+
+#endif // _LINUX_ISL29030_H__
