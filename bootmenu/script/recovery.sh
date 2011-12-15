@@ -3,13 +3,9 @@
 ######## BootMenu Script
 ######## Execute [Latest Recovery] Menu
 
-
-export PATH=/sbin:/system/xbin:/system/bin
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
-
-PART_DATA=/dev/block/mmcblk1p25
-PART_SYSTEM=/dev/block/mmcblk1p21
 
 ## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp
@@ -56,9 +52,6 @@ touch /cache/recovery/last_log
 touch /tmp/recovery.log
 
 killall adbd
-
-# load overclock settings to reduce heat and battery use
-/system/bootmenu/script/overclock.sh
 
 # mount image of pds, for backup purpose (4MB)
 [ ! -d /data/data ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data

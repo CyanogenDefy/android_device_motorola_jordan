@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+DEVICE_PREBUILT := device/motorola/jordan/prebuilt
+
 #key layouts, names must fit the ones in /proc/bus/input/devices, qwerty.kl is the fallback one.
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/usr/qwerty.kl:system/usr/keylayout/qwerty.kl \
@@ -115,6 +117,7 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/recovery/sbin/mke2fs.bin:system/bootmenu/recovery/sbin/mke2fs.bin \
 	device/motorola/jordan/bootmenu/recovery/sbin/tune2fs.bin:system/bootmenu/recovery/sbin/tune2fs \
 	device/motorola/jordan/bootmenu/recovery/recovery.fstab:system/bootmenu/recovery/recovery.fstab \
+	device/motorola/jordan/bootmenu/script/_config.sh:system/bootmenu/script/_config.sh \
 	device/motorola/jordan/bootmenu/script/2nd-init.sh:system/bootmenu/script/2nd-init.sh \
 	device/motorola/jordan/bootmenu/script/2nd-boot.sh:system/bootmenu/script/2nd-boot.sh \
 	device/motorola/jordan/bootmenu/script/stock.sh:system/bootmenu/script/stock.sh \
@@ -125,10 +128,12 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/script/overclock.sh:system/bootmenu/script/overclock.sh \
 	device/motorola/jordan/bootmenu/script/post_bootmenu.sh:system/bootmenu/script/post_bootmenu.sh \
 	device/motorola/jordan/bootmenu/script/pre_bootmenu.sh:system/bootmenu/script/pre_bootmenu.sh \
+	device/motorola/jordan/bootmenu/script/reboot_command.sh:system/bootmenu/script/reboot_command.sh \
 	device/motorola/jordan/bootmenu/script/recovery.sh:system/bootmenu/script/recovery.sh \
 	device/motorola/jordan/bootmenu/script/recovery_stable.sh:system/bootmenu/script/recovery_stable.sh \
 	device/motorola/jordan/bootmenu/script/recoveryexit.sh:system/bootmenu/script/recoveryexit.sh \
 	device/motorola/jordan/bootmenu/script/sdcard.sh:system/bootmenu/script/sdcard.sh \
 	device/motorola/jordan/bootmenu/script/system.sh:system/bootmenu/script/system.sh \
+	device/motorola/jordan/bootmenu/script/media_fixup.sh:system/bootmenu/script/media_fixup.sh \
 
 #end of jordan-blobs.mk
