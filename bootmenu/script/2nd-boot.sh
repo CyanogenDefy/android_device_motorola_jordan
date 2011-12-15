@@ -5,7 +5,7 @@
 
 export PATH=/sbin:/system/xbin:/system/bin
 
-source /system/bootmenu/_config.sh
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
 
