@@ -3,13 +3,16 @@
 ######## BootMenu Script
 ######## Execute [2nd-boot] Menu
 
-
 export PATH=/sbin:/system/xbin:/system/bin
+
+source /system/bootmenu/_config.sh
 
 ######## Main Script
 
 mount -o remount,rw /
 rm -f /*.rc
+rm -rf /osh
+rm -rf /preinstall
 cp -r -f /system/bootmenu/2nd-boot/* /
 
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
@@ -21,12 +24,12 @@ if [ -z "$ADB_RUNNING" ]; then
     mkdir -p /tmp
 else
     # well, not beautiful but do the work
-    # to keep current usbd state
+    # to keep current usbd state (if present)
     if [ -L "/tmp" ]; then
-        mv /tmp/usbd_current_state /
+        mv /tmp/usbd_current_state / 2>/dev/null
         rm -f /tmp
         mkdir -p /tmp
-        mv /usbd_current_state /tmp/
+        mv /usbd_current_state /tmp/ 2>/dev/null
     fi
 fi
 

@@ -3,8 +3,7 @@
 ######## BootMenu Script
 ######## Execute Post BootMenu
 
-
-export PATH=/sbin:/system/xbin:/system/bin
+export PATH=/system/xbin:/system/bin:/sbin
 
 ######## Main Script
 

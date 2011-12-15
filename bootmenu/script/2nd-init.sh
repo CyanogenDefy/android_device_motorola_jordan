@@ -2,8 +2,9 @@
 ######## BootMenu Script
 ######## Execute [2nd-init] Menu
 
-
 export PATH=/sbin:/system/xbin:/system/bin
+
+source /system/bootmenu/_config.sh
 
 ######## Main Script
 
@@ -27,10 +28,10 @@ else
     # well, not beautiful but do the work
     # to keep current usbd state
     if [ -L "/tmp" ]; then
-        mv /tmp/usbd_current_state /
+        mv /tmp/usbd_current_state / 2>/dev/null
         rm -f /tmp
         mkdir -p /tmp
-        mv /usbd_current_state /tmp/
+        mv /usbd_current_state /tmp/ 2>/dev/null
     fi
 fi
 

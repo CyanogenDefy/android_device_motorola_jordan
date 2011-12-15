@@ -1,6 +1,8 @@
 #!/system/bin/sh
+#
+# Script made to fix the audiopolicy lock
 
-PATH='/system/xbin:/system/bin'
+PATH=/system/xbin:/system/bin
 
 restart_required() {
   req=`logcat -d | tail -n 50 | grep "AudioPolicyService not published"`
