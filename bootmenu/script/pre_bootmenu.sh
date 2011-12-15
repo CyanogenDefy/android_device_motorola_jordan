@@ -67,8 +67,6 @@ chown 0.0 /sbin/adbd.root
 rm -f /default.prop
 cp -f /system/bootmenu/config/default.prop /default.prop
 
-
-
 ## mount cache
 mkdir -p /cache
 
@@ -80,6 +78,11 @@ fi
 # mount cache for boot mode and recovery logs
 if [ ! -d /cache/recovery ]; then
     mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 $PART_CACHE /cache
+fi
+
+# load ondemand safe settings to reduce heat and battery use
+if [ -x /system/bootmenu/script/overclock.sh ]; then
+    /system/bootmenu/script/overclock.sh safe
 fi
 
 exit 0

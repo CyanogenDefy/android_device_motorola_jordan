@@ -57,9 +57,6 @@ touch /tmp/recovery.log
 
 killall adbd
 
-# load overclock settings to reduce heat and battery use
-/system/bootmenu/script/overclock.sh
-
 # mount image of pds, for backup purpose (4MB)
 [ ! -d /data/data ] && mount -t ext3 -o rw,noatime,nodiratime,errors=continue $PART_DATA /data
 if [ ! -f /data/pds.img ]; then
