@@ -3,8 +3,7 @@
 ######## BootMenu Script
 ######## Execute [ADB Daemon] Menu
 
-
-export PATH=/sbin:/system/xbin:/system/bin
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
 

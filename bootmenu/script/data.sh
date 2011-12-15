@@ -3,8 +3,7 @@
 ######## BootMenu Script
 ######## Execute [USB Data Partition] Tool
 
-
-export PATH=/sbin:/system/xbin:/system/bin
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
 
@@ -13,8 +12,7 @@ sync
 echo acm > /dev/usb_device_mode
 sleep 1
 
-BOARD_UMS_LUNFILE=/sys/devices/platform/usb_mass_storage/lun0/file
-PARTITION=/dev/block/mmcblk1p25
+PARTITION=$PART_DATA
 
 echo $PARTITION > $BOARD_UMS_LUNFILE
 

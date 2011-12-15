@@ -3,13 +3,9 @@
 ######## BootMenu Script
 ######## Execute [Latest Recovery] Menu
 
-
-export PATH=/sbin:/system/xbin:/system/bin
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
-
-PART_DATA=/dev/block/mmcblk1p25
-PART_SYSTEM=/dev/block/mmcblk1p21
 
 ## /tmp folder can be a link to /data/tmp, bad thing !
 [ -L /tmp ] && rm /tmp

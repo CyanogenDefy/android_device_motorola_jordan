@@ -3,6 +3,8 @@
 ######## BootMenu Script
 ######## Execute Post BootMenu
 
+source /system/bootmenu/script/_config.sh
+
 export PATH=/system/xbin:/system/bin:/sbin
 
 ######## Main Script
@@ -16,7 +18,7 @@ echo 0 > /sys/class/leds/blue/brightness
 
 ######## Don't Delete.... ########################
 mount -o remount,rw rootfs /
-mount -o remount,rw /dev/block/mmcblk1p21 /system
+mount -o remount,rw $PART_SYSTEM /system
 ##################################################
 
 if [ -d /system/bootmenu/init.d ]; then
@@ -49,7 +51,7 @@ fi
 
 ######## Don't Delete.... ########################
 mount -o remount,ro rootfs /
-mount -o remount,ro /dev/block/mmcblk1p21 /system
+mount -o remount,ro $PART_SYSTEM /system
 ##################################################
 
 # /system/bootmenu/script/media_fixup.sh &

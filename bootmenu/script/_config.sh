@@ -10,3 +10,5 @@ PART_PDS=/dev/block/mmcblk1p7
 
 BM_ROOTDIR=/system/bootmenu
 
+BOARD_UMS_LUNFILE=/sys/devices/platform/usb_mass_storage/lun0/file
+
