@@ -88,6 +88,7 @@ BOARD_USE_KINETO_COMPATIBILITY := true
 
 # Changes related to bootmenu
 BOARD_USES_BOOTMENU := true
+BOARD_BOOTMODE_CONFIG_FILE := /cache/recovery/bootmode.conf
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"

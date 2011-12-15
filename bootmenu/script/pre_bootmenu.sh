@@ -55,12 +55,19 @@ cp -f /system/bootmenu/binary/adbd /sbin/adbd.root
 chmod 4755 /sbin/adbd.root
 chown 0.0 /sbin/adbd.root
 
+cp -f /system/bin/adbd /sbin/adbd
+chown shell /sbin/adbd
+
+#hmm, keep root access
+chown 0.0 /sbin/adbd
+chmod 4750 /sbin/adbd
+
 ## missing system files
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
 
 ## /default.prop replace.. (TODO: check if that works)
 rm -f /default.prop
-cp -f /system/bootmenu/config/default.prop /default.prop
+#cp -f /system/bootmenu/config/default.prop /default.prop
 
 
 
