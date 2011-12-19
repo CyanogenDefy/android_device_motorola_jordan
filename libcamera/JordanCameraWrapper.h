@@ -2,6 +2,7 @@
 #define ANDROID_HARDWARE_JORDAN_CAMERA_WRAPPER_H
 
 #include <camera/CameraHardwareInterface.h>
+#include <utils/threads.h>
 
 namespace android {
 
@@ -49,6 +50,33 @@ private:
         CAM_BAYER
     } CameraType;
 
+    class TorchEnableThread : public Thread {
+        public:
+            TorchEnableThread(JordanCameraWrapper *hw) :
+                Thread(false), mHw(hw) { }
+            void scheduleTorch() {
+                cancelAndWait();
+                run("TorchEnableThread");
+            }
+            void cancelAndWait() {
+                mStopCondition.signal();
+                requestExitAndWait();
+            }
+            virtual bool threadLoop() {
+                mStopLock.lock();
+                mStopCondition.waitRelative(mStopLock, 1000000000);
+                if (!exitPending()) {
+                    mHw->toggleTorchIfNeeded();
+                }
+                mStopLock.unlock();
+                return false;
+            }
+        private:
+            JordanCameraWrapper *mHw;
+            mutable Mutex mStopLock;
+            mutable Condition mStopCondition;
+    };
+
     JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterface, CameraType type);
     virtual ~JordanCameraWrapper();
 
@@ -56,9 +84,10 @@ private:
     static void dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     static void dataCbTimestamp(nsecs_t timestamp, int32_t msgType, const sp<IMemory>& dataPtr, void* user);
     void fixUpBrokenGpsLatitudeRef(const sp<IMemory>& dataPtr);
-    bool torchShouldBeOn();
+    void toggleTorchIfNeeded();
 
     sp<CameraHardwareInterface> mMotoInterface;
+    sp<TorchEnableThread> mTorchThread;
     CameraType mCameraType;
     bool mVideoMode;
     String8 mFlashMode;
