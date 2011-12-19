@@ -151,23 +151,26 @@ JordanCameraWrapper::JordanCameraWrapper(sp<CameraHardwareInterface>& motoInterf
     mDataCbTimestamp(NULL),
     mCbUserData(NULL)
 {
+    if (type == CAM_SOC) {
+        mTorchThread = new TorchEnableThread(this);
+    }
 }
 
 JordanCameraWrapper::~JordanCameraWrapper()
 {
-    if (torchShouldBeOn()) {
+    if (mCameraType == CAM_SOC) {
         setSocTorchMode(false);
+        mTorchThread->cancelAndWait();
+        mTorchThread.clear();
     }
 }
 
-bool
-JordanCameraWrapper::torchShouldBeOn()
+void
+JordanCameraWrapper::toggleTorchIfNeeded()
 {
-    if (mCameraType != CAM_SOC) {
-        return false;
+    if (mCameraType == CAM_SOC) {
+        setSocTorchMode(mFlashMode == CameraParameters::FLASH_MODE_TORCH);
     }
-    return mFlashMode == CameraParameters::FLASH_MODE_ON ||
-           mFlashMode == CameraParameters::FLASH_MODE_TORCH;
 }
 
 sp<IMemoryHeap>
@@ -212,6 +215,9 @@ JordanCameraWrapper::notifyCb(int32_t msgType, int32_t ext1, int32_t ext2, void*
     JordanCameraWrapper *_this = (JordanCameraWrapper *) user;
     user = _this->mCbUserData;
 
+    if (msgType == CAMERA_MSG_FOCUS) {
+        _this->toggleTorchIfNeeded();
+    }
     _this->mNotifyCb(msgType, ext1, ext2, user);
 }
 
@@ -226,7 +232,13 @@ JordanCameraWrapper::dataCb(int32_t msgType, const sp<IMemory>& dataPtr, void* u
     }
 
     _this->mDataCb(msgType, dataPtr, user);
-}
+
+    if (msgType == CAMERA_MSG_RAW_IMAGE || msgType == CAMERA_MSG_COMPRESSED_IMAGE) {
+        if (_this->mTorchThread != NULL) {
+            _this->mTorchThread->scheduleTorch();
+        }
+    }
+ }
 
 void
 JordanCameraWrapper::dataCbTimestamp(nsecs_t timestamp, int32_t msgType,
@@ -329,18 +341,14 @@ JordanCameraWrapper::previewEnabled()
 status_t
 JordanCameraWrapper::startRecording()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(true);
-    }
+    toggleTorchIfNeeded();
     return mMotoInterface->startRecording();
 }
 
 void
 JordanCameraWrapper::stopRecording()
 {
-    if (torchShouldBeOn()) {
-        setSocTorchMode(false);
-    }
+    toggleTorchIfNeeded();
     mMotoInterface->stopRecording();
 }
 
@@ -424,9 +432,8 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
 
     retval = mMotoInterface->setParameters(pars);
 
-    if (torchShouldBeOn() && oldFlashMode != mFlashMode) {
-        /* turn off torch, it's turned on again on recording/snapshot */
-        setSocTorchMode(false);
+    if (oldFlashMode != mFlashMode) {
+        toggleTorchIfNeeded();
     }
 
     return retval;
