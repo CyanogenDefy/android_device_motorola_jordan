@@ -1,11 +1,9 @@
-#!/system/bin/sh
+#!/system/bootmenu/binary/busybox ash
 
 ######## BootMenu Script
 ######## Execute Pre BootMenu
 
-export PATH=/sbin:/system/xbin:/system/bin
-
-PART_CACHE=/dev/block/mmcblk1p24
+source /system/bootmenu/script/_config.sh
 
 ######## Main Script
 
@@ -47,14 +45,9 @@ cp -f /system/bootmenu/binary/lsof /sbin/lsof
 $BB chmod +rx /sbin/*
 
 # custom adbd (allow always root)
-cp -f /system/bootmenu/binary/adbd /sbin/adbd.root
+cp -f /system/bootmenu/binary/adbd.root /sbin/adbd.root
 chown 0.0 /sbin/adbd.root
 chmod 4755 /sbin/adbd.root
-
-# opensource adbd
-cp -f /system/bin/adbd /sbin/adbd
-chown 0.0  /sbin/adbd
-chmod 4750 /sbin/adbd
 
 ## missing system files
 [ ! -c /dev/tty0 ]  && ln -s /dev/tty /dev/tty0
