@@ -1,9 +1,7 @@
-#!/sbin/sh
+#!/system/bootmenu/binary/busybox ash
 
 ######## BootMenu Script
 ######## Execute [2nd-boot] Menu
-
-export PATH=/sbin:/system/xbin:/system/bin
 
 source /system/bootmenu/script/_config.sh
 
@@ -17,7 +15,6 @@ cp -r -f /system/bootmenu/2nd-boot/* /
 
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
 if [ -z "$ADB_RUNNING" ]; then
-    rm -f /sbin/adbd.root
     rm -f /tmp/usbd_current_state
     #delete if is a symlink
     [ -L "/tmp" ] && rm -f /tmp
@@ -48,11 +45,11 @@ umount /mnt/obb
 umount /cache
 umount /data/tmp
 umount /data
-mount -o remount,rw,relatime,mode=775,size=128k /dev
 
 ######## Cleanup
 
-rm /sbin/lsof
+rm -f /sbin/adbd.root
+rm -f /sbin/lsof
 
 ## busybox cleanup..
 for cmd in $(/sbin/busybox --list); do
@@ -60,7 +57,6 @@ for cmd in $(/sbin/busybox --list); do
 done
 
 rm -f /sbin/busybox
-
 
 ## adbd shell
 ln -s /system/xbin/bash /sbin/sh

@@ -50,12 +50,13 @@ PRODUCT_COPY_FILES += \
 
 # prebuilt binaries (to clean...)
 PRODUCT_COPY_FILES += \
-	${bm_device}/bootmenu/binary/adbd:system/bootmenu/binary/adbd \
 	${bm_device}/bootmenu/binary/logwrapper.bin:system/bootmenu/binary/logwrapper.bin \
 	${bm_device}/bootmenu/binary/logwrapper.bin:system/bin/logwrapper.bin \
 	${bm_device}/bootmenu/binary/lsof.static:system/bootmenu/binary/lsof \
 	${bm_device}/bootmenu/binary/2nd-boot:system/bootmenu/binary/2nd-boot \
-	${bm_device}/bootmenu/binary/su:system/bootmenu/ext/su \
+	${bm_device}/bootmenu/binary/adbd.root:system/bootmenu/binary/adbd.root \
+	out/target/product/jordan/root/sbin/adbd:system/bootmenu/binary/adbd \
+	out/target/product/jordan/utilities/busybox:system/bootmenu/binary/busybox \
 
 # images
 PRODUCT_COPY_FILES += \

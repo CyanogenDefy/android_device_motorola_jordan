@@ -31,8 +31,4 @@ if [ -n "$CYANOGEN_RELEASE" ]; then
 fi
 cp -f $DEVICE_OUT/root/init $REPACK/ota/system/bootmenu/2nd-init/init
 cp -f $DEVICE_OUT/root/init.rc $REPACK/ota/system/bootmenu/2nd-init/init.rc
-cp -f $DEVICE_OUT/root/sbin/adbd $REPACK/ota/system/bin/adbd
-
-# use the static busybox in bootmenu, this helps a lot on incomplete roms and ics
-cp -f $DEVICE_OUT/utilities/busybox $REPACK/ota/system/bootmenu/binary/busybox
 

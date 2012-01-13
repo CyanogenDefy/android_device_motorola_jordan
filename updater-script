@@ -102,8 +102,6 @@ symlink("toolbox", "/system/bin/cmp",
 symlink("iwmulticall","/system/xbin/iwconfig","/system/xbin/iwlist",
         "/system/xbin/iwpriv", "/system/xbin/iwspy", "/system/xbin/iwgetid");
 symlink("bootmenu", "/system/bin/logwrapper");
-symlink("/system/bin/logwrapper.bin","/system/xbin/logwrapper");
-package_extract_file("system/bin/bootmenu", "/system/bootmenu/binary/bootmenu");
 set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/binary/");
 set_perm_recursive(0, 0, 0755, 0755, "/system/bootmenu/script/");

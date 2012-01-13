@@ -49,6 +49,11 @@ exit 1
 
 fi
 
+# standard opensource adbd
+cp -f /system/bootmenu/binary/adbd /sbin/adbd
+chown 0.0  /sbin/adbd
+chmod 4750 /sbin/adbd
+
 ######## Don't Delete.... ########################
 mount -o remount,ro rootfs /
 mount -o remount,ro $PART_SYSTEM /system
