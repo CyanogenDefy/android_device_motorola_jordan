@@ -26,5 +26,6 @@
 
     <string name="other_settings_title">Autres paramètres</string>
     <string name="compass_calibrate">Calibration boussole</string>
+    <string name="baseband_switcher">Fréquences GSM (Baseband)</string>
 
 </resources>
