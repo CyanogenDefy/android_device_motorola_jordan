@@ -29,4 +29,5 @@
 
     <string name="other_settings_title">Andere Einstellungen</string>
     <string name="compass_calibrate">Kompasskalibrierung</string>
+    <string name="baseband_switcher">Baseband-Auswahl</string>
 </resources>
