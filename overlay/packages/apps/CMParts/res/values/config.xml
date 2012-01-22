@@ -3,6 +3,9 @@
     <!-- Whether or not to display the trackball settings -->
     <bool name="has_trackball">false</bool>
 
+    <!-- We don't have a camera button -->
+    <bool name="has_camera_button">false</bool>
+
     <!-- Notification LED can show any color -->
     <bool name="has_rgb_notification_led">true</bool>
 
