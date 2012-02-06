@@ -39,6 +39,7 @@
   </array>
   <array name="cpu.speeds">
     <value>1000000</value>
+    <value>800000</value>
     <value>600000</value>
     <value>300000</value>
   </array>
@@ -47,6 +48,7 @@
   <!-- Power consumption at different speeds -->
   <array name="cpu.active">
       <value>280</value>
+      <value>200</value>
       <value>182</value>
       <value>66</value>
   </array>
