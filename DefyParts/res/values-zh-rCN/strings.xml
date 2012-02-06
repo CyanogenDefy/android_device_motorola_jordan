@@ -3,6 +3,8 @@
 
     <string name="app_name">Defy设置</string>
 
+    <string name="general_settings_title">一般设置</string>
+
     <string name="charge_led_mode_title">充电指示灯设置</string>
     <string name="charge_led_mode_summary">调整充电时LED指示灯的显示模式</string>
     <string name="charge_led_mode_white">白色指示灯</string>
@@ -19,4 +21,11 @@
 
     <string name="touch_point_warning_title">警告</string>
     <string name="touch_point_warning_message">当触摸点数增加时屏幕的灵敏度可能会下降。\n是否保存当前触摸点数设置？</string>
+
+    <string name="audio_settings_title">音频设置</string>
+    <string name="audio_effects">音效和DSP</string>
+
+    <string name="other_settings_title">其它设置</string>
+    <string name="compass_calibrate">指南针校准</string>
+    <string name="baseband_switcher">基带切换</string>
 </resources>
