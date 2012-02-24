@@ -37,7 +37,7 @@ struct input_event;
 class SensorISL29030P : public SensorBase
 {
 public:
-	SensorISL29030P();
+    SensorISL29030P();
     virtual ~SensorISL29030P();
 
     virtual int enable(int32_t handle, int enabled);
@@ -45,7 +45,7 @@ public:
     void processEvent(int code, int value);
 
 protected:
-	int mEnabled;
+    int mEnabled;
     InputEventCircularReader mInputReader;
     sensors_event_t mPendingEvent;
 
@@ -57,7 +57,7 @@ protected:
 class SensorISL29030L : public SensorBase
 {
 public:
-	SensorISL29030L();
+    SensorISL29030L();
     virtual ~SensorISL29030L();
 
     virtual int enable(int32_t handle, int enabled);
@@ -65,9 +65,11 @@ public:
     void processEvent(int code, int value);
 
 protected:
-	int mEnabled;
+    int mEnabled;
     InputEventCircularReader mInputReader;
     sensors_event_t mPendingEvent;
+
+    int isEnabled();
 };
 
 /*****************************************************************************/
