@@ -177,16 +177,8 @@ MODVERSION=`sed -n -e'/ro\.cm\.version/s/^.*CyanogenMod-//p' $REPACK/ota/system/
 : ${MODVERSION:=nightly}
 OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
 
-# Defy specific (Date YYMMDD, not MMDDYYYY for output filename)
-if [ -z "$CYANOGEN_RELEASE" ]; then
-	#MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-	#REALDATE=`sed -n -r 's/ro.build.version.incremental=//p' $REPACK/ota/system/build.prop`
-	#MODVERSION=`echo $MODVERSION | sed -r 's/[0-9]{8}/'$REALDATE'/'`
-	#OUTFILE=$OUT/cm$MODVERSION.zip
-fi
-
-if [ -n "$CYANOGEN_NIGHTLY_BOOT" ]; then
-	MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CYANOGEN_NIGHTLY_BOOT'/'`
+if [ -n "$CM_NIGHTLY_BOOT" ]; then
+	MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CM_NIGHTLY_BOOT'/'`
 	OUTFILE=$OUT/cm$MODVERSION.zip
 fi
 
@@ -203,6 +195,8 @@ java -Xmx768m \
 echo
 printf "Cleaning up..."
 rm -rf $REPACK
+# remove all generated images (recovery, kernel) they are not usable on the Defy
+rm $OUT/*.img
 echo
 
 # Create a md5 checksum image of the repacked package
