@@ -173,22 +173,13 @@ rm -rf $REPACK/ota/recovery
 	find $REPACK/ota/system/lib/modules -name "*.ko" -not -name "overclock*" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 
 # Determine what to name the new signed package
-if [ -z "$CYANOGEN_NIGHTLY" ]; then
-	MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-	: ${MODVERSION:=nightly}
-	OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
-else
-	OUTFILE=$OUT/update-squished.zip
-	if [ "$TARGET_PRODUCT" = "cyanogen_jordan" ]; then
-		REALDATE=`sed -n -r 's/ro.build.version.incremental=//p' $REPACK/ota/system/build.prop`
-		MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-		MODVERSION=`echo $MODVERSION | sed -r 's/[0-9]{8}/'$REALDATE'/'`
-		OUTFILE=$OUT/cm$MODVERSION.zip
-		if [ -n "$CYANOGEN_NIGHTLY_BOOT" ]; then
-			MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CYANOGEN_NIGHTLY_BOOT'/'`
-			OUTFILE=$OUT/cm$MODVERSION.zip
-		fi
-	fi
+MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
+: ${MODVERSION:=nightly}
+OUTFILE=$OUT/update-cm-$MODVERSION-signed.zip
+
+if [ -n "$CM_NIGHTLY_BOOT" ]; then
+	MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CM_NIGHTLY_BOOT'/'`
+	OUTFILE=$OUT/cm$MODVERSION.zip
 fi
 
 # Pack it up and sign
@@ -204,6 +195,8 @@ java -Xmx768m \
 echo
 printf "Cleaning up..."
 rm -rf $REPACK
+# remove all generated images (recovery, kernel) they are not usable on the Defy
+rm $OUT/*.img
 echo
 
 # Create a md5 checksum image of the repacked package
