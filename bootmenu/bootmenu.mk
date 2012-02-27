@@ -47,6 +47,7 @@ PRODUCT_COPY_FILES += \
 	${bm_device}/bootmenu/script/sdcard.sh:system/bootmenu/script/sdcard.sh \
 	${bm_device}/bootmenu/script/system.sh:system/bootmenu/script/system.sh \
 	${bm_device}/bootmenu/script/media_fixup.sh:system/bootmenu/script/media_fixup.sh \
+	${bm_device}/bootmenu/script/pdsbackup.sh:system/bootmenu/script/pdsbackup.sh \
 
 # prebuilt binaries (to clean...)
 PRODUCT_COPY_FILES += \
