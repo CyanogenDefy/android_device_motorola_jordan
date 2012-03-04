@@ -59,6 +59,4 @@ mount -o remount,ro rootfs /
 mount -o remount,ro $PART_SYSTEM /system
 ##################################################
 
-# /system/bootmenu/script/media_fixup.sh &
-
 exit 0
