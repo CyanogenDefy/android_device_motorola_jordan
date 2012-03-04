@@ -8,26 +8,22 @@ source /system/bootmenu/script/_config.sh
 ######## Main Script
 
 
-BB_STATIC="/system/bootmenu/binary/busybox"
+BB_STATIC=$BM_ROOTDIR/binary/busybox
 
-BB="/sbin/busybox"
+BB=/sbin/busybox
 
 ## reduce lcd backlight to save battery
 echo 64 > /sys/class/leds/lcd-backlight/brightness
 
 
-# these first commands are duplicated for broken systems
-mount -o remount,rw rootfs /
 $BB_STATIC mount -o remount,rw /
 
 # we will use the static busybox
-cp -f $BB_STATIC $BB
-$BB_STATIC cp -f $BB_STATIC $BB
+$BB_STATIC cp -f $BB_STATIC /sbin/
 
-chmod 755 /sbin
-chmod 755 $BB
-$BB chown 0.0 $BB
-$BB chmod 4755 $BB
+$BB_STATIC chmod 755 /sbin
+$BB_STATIC chown 0.0 $BB
+$BB_STATIC chmod 4755 $BB
 
 if [ -f /sbin/chmod ]; then
     # job already done...
@@ -36,16 +32,24 @@ fi
 
 # busybox sym link..
 for cmd in $($BB --list); do
-    $BB ln -s /sbin/busybox /sbin/$cmd
+    $BB ln -s $BB /sbin/$cmd
 done
 
-# add lsof to debug locks
-cp -f /system/bootmenu/binary/lsof /sbin/lsof
+rm -f /sbin/reboot
 
-$BB chmod +rx /sbin/*
+# add lsof to debug locks
+cp -f $BM_ROOTDIR/binary/lsof /sbin/lsof
+
+chmod +rx /sbin/*
+
+# backup original init.rc
+if [ ! -f $BM_ROOTDIR/moto/init.rc ]; then
+    mkdir -p $BM_ROOTDIR/moto
+    cp /*.rc $BM_ROOTDIR/moto/
+fi
 
 # custom adbd (allow always root)
-cp -f /system/bootmenu/binary/adbd.root /sbin/adbd.root
+cp -f $BM_ROOTDIR/binary/adbd.root /sbin/adbd.root
 chown 0.0 /sbin/adbd.root
 chmod 4755 /sbin/adbd.root
 
@@ -54,7 +58,7 @@ chmod 4755 /sbin/adbd.root
 
 ## /default.prop replace.. (TODO: check if that works)
 rm -f /default.prop
-cp -f /system/bootmenu/config/default.prop /default.prop
+cp -f $BM_ROOTDIR/config/default.prop /default.prop
 
 ## mount cache
 mkdir -p /cache
@@ -66,14 +70,14 @@ fi
 
 # mount cache for boot mode and recovery logs
 if [ ! -d /cache/recovery ]; then
-    mount -t ext3 -o nosuid,nodev,noatime,nodiratime,barrier=1 $PART_CACHE /cache
+    mount -t $FS_CACHE -o nosuid,nodev,noatime,nodiratime,barrier=1 $PART_CACHE /cache
 fi
 
 mkdir -p /cache/bootmenu
 
 # load ondemand safe settings to reduce heat and battery use
-if [ -x /system/bootmenu/script/overclock.sh ]; then
-    /system/bootmenu/script/overclock.sh safe
+if [ -x $BM_ROOTDIR/script/overclock.sh ]; then
+    $BM_ROOTDIR/script/overclock.sh safe
 fi
 
 exit 0
