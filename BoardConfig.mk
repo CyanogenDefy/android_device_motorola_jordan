@@ -58,10 +58,16 @@ WIFI_DRIVER_MODULE_NAME     := tiwlan_drv
 WIFI_DRIVER_FW_STA_PATH     := "/system/etc/wifi/fw_wlan1271.bin"
 WIFI_FIRMWARE_LOADER        := wlan_loader
 PRODUCT_WIRELESS_TOOLS      := true
+
 BOARD_SOFTAP_DEVICE         := wl1271
 AP_CONFIG_DRIVER_WILINK     := true
 WIFI_DRIVER_FW_AP_PATH      := "/system/etc/wifi/fw_tiwlan_ap.bin"
 WPA_SUPPL_APPROX_USE_RSSI   := true
+WIFI_AP_DRIVER_MODULE_PATH  := "/system/lib/modules/tiap_drv.ko"
+WIFI_AP_DRIVER_MODULE_NAME  := tiap_drv
+WIFI_AP_FIRMWARE_LOADER     := wlan_ap_loader
+BOARD_HOSTAPD_DRIVER        := true
+BOARD_HOSTAPD_DRIVER_NAME   := wilink
 
 BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
 BOARD_EGL_CFG := device/motorola/jordan/egl.cfg
