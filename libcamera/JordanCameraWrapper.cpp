@@ -99,7 +99,7 @@ setSocTorchMode(bool enable)
     int fd = ::open("/sys/class/leds/torch-flash/flash_light", O_WRONLY);
     if (fd >= 0) {
         const char *value = enable ? "100" : "0";
-        write(fd, value, sizeof(value));
+        write(fd, value, strlen(value));
         close(fd);
     }
 }

@@ -19,10 +19,12 @@ mkdir -p /res
 rm -f /etc
 mkdir /etc
 
-# hijack mke2fs & tune2fs CWM3
+# hijack mke2fs from CWM to prevent format
 rm -f /sbin/mke2fs
-rm -f /sbin/tune2fs
 rm -f /sbin/e2fsck
+
+# remove busybox link
+rm -f /sbin/tune2fs
 
 rm -f /sdcard
 mkdir /sdcard
@@ -32,7 +34,6 @@ chmod 755 /res
 
 cp -r -f /system/bootmenu/recovery/res/* /res/
 cp -p -f /system/bootmenu/recovery/sbin/* /sbin/
-cp -p -f /system/bootmenu/script/recoveryexit.sh /sbin/
 
 if [ ! -f /sbin/recovery_stable ]; then
     ln -s /sbin/recovery /sbin/recovery_stable
