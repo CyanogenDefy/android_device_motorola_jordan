@@ -27,6 +27,10 @@ wifi.supplicant_scan_interval = 60
 # Use TI hotspot code
 wifi.hotspot.ti = 1
 
+# Wifi tether interface (future and compat properties)
+wifi.ap.interface = tiap0
+softap.interface = tiap0
+
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 ro.opengles.version = 131072

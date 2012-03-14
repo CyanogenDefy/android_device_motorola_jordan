@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Defy Settings</string>
 
-    <string name="app_name">Impostazioni Defy</string>
+    <string name="general_settings_title">Impostazioni Generali</string>
 
     <string name="charge_led_mode_title">Modalità LED</string>
     <string name="charge_led_mode_summary">Modifica il comportamento del LED di notificazione durante il caricamento della batteria</string>
@@ -20,5 +21,9 @@
     <string name="touch_point_warning_title">Attenzione</string>
     <string name="touch_point_warning_message">Aumentare il numero dei punti può diminuire la reattività del touch screen.\nSei sicuro di voler cambiare le impostazioni?</string>
 
-    <string name="audio_effects">Effetti audio</string>
+    <string name="audio_settings_title">Impostazioni Audio</string>
+    <string name="audio_effects">Effetti Audio e DSP</string>
+
+    <string name="other_settings_title">Altre impostazioni</string>
+    <string name="compass_calibrate">Calibrazione Bussola</string>
 </resources>
