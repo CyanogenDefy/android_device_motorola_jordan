@@ -9,9 +9,10 @@ source /system/bootmenu/script/_config.sh
 
 mount -o remount,rw /
 rm -f /*.rc
-rm -rf /osh
+rm -f /osh
 rm -rf /preinstall
 cp -r -f /system/bootmenu/2nd-boot/* /
+killall ueventd
 
 ADBD_RUNNING=`ps | grep adbd | grep -v grep`
 if [ -z "$ADB_RUNNING" ]; then
