@@ -32,12 +32,6 @@ on post-fs
     chmod 0777 /tmp
     chown system shell /tmp
 
-# Restore good uid, mount as ramfs reset to root root 755
-    chown root system /mnt/asec
-    chmod 0755 /mnt/asec
-    chown root system /mnt/obb
-    chmod 0755 /mnt/obb
-
 # Configure kernel options
     # Enable automatic power control for EHCI USB IPC
     write /sys/devices/platform/ehci-omap.0/usb1/power/level auto
@@ -48,10 +42,6 @@ on post-fs
     write /proc/sys/vm/oom_dump_tasks 0
     write /proc/sys/fs/suid_dumpable 2
     # Power Management
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 86
-    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/sampling_rate 46875
     write /sys/power/sr_vdd1_autocomp 1
     write /sys/power/sr_vdd2_autocomp 1
 # Change ownership for vibrators
@@ -63,9 +53,6 @@ on post-fs
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
-    chmod 0660 /sys/class/rfkill/rfkill1/state
 # Tweaks
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
@@ -81,6 +68,7 @@ on post-fs
     chmod 0770 /pds/lost+found
     chown radio radio /pds/bp_nvm
     chmod 0770 /pds/bp_nvm
+    chmod 0770 /pds/security
     # wifi dirs
     mkdir /data/misc/wifi/hostapd.sockets 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -100,21 +88,6 @@ on post-fs
     mkdir /data/opprof 0770 radio shell
     # create dropbear directory
     mkdir /data/dropbear 0755 root shell
-    # create the necessary dirs for tpapi with proper permission
-    mkdir /data/tpapi
-    mkdir /data/tpapi/etc
-    mkdir /data/tpapi/etc/tpa
-    mkdir /data/tpapi/etc/tpa/persistent
-    chmod 0770 /pds/security
-    chmod 0770 /data/tpapi
-    chmod 0770 /data/tpapi/etc
-    chmod 0770 /data/tpapi/etc/tpa
-    chmod 0770 /data/tpapi/etc/tpa/persistent
-    chown system system /pds/security
-    chown system system /data/tpapi
-    chown system system /data/tpapi/etc
-    chown system system /data/tpapi/etc/tpa
-    chown system system /data/tpapi/etc/tpa/persistent
 
     # copy hostapd configuration
     copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
@@ -151,12 +124,7 @@ on boot
     chown system system /sys/class/leds/lcd-backlight/als
     chown system system /sys/class/leds/lcd-backlight/pwm_mode
     chown system system /sys/class/leds/lcd-backlight/brightness
-    chown system system /sys/class/leds/keyboard-backlight/brightness
-    chown system system /sys/class/leds/button-backlight/brightness
     chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/red/brightness
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/blue/brightness
     chown system system /sys/class/leds/usb/brightness
     chown system system /sys/class/leds/torch-flash/camera_strobe
     chown system system /sys/class/leds/torch-flash/flash_light
@@ -235,10 +203,10 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/mi
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
-service wlan_ap_loader /system/bin/logwrapper /system/bin/tiap_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
+service wlan_ap_loader /system/bin/tiap_loader -f /system/etc/wifi/fw_tiwlan_ap.bin -i /system/etc/wifi/tiwlan_ap.ini -e /pds/wifi/nvs_map.bin
     disabled
     oneshot
-service hostapd /system/bin/logwrapper /system/bin/hostap -d /data/misc/wifi/hostapd.conf
+service hostapd /system/bin/hostap -d /data/misc/wifi/hostapd.conf
     disabled
     oneshot
 service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
@@ -248,7 +216,7 @@ service iprenew_tiwlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service baseimage /system/bin/dspexec -v -T /system/lib/dsp/baseimage.dof
+service baseimage /system/bin/dspexec -T /system/lib/dsp/baseimage.dof
     user media
     group media graphics
     oneshot
@@ -262,4 +230,3 @@ service fmradio /system/bin/fmradioserver
     disabled
     user system
     group bluetooth net_bt_admin net_raw net_admin misc
-
