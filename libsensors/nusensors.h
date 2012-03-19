@@ -44,6 +44,14 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 
 /*****************************************************************************/
 
+/*
+ * The Defy has two accelerometers in hardware (KXTF9 and AK8973). We use
+ * the KXTF9 one for higher precision.
+ */
+#define USE_KXTF9_ACCELEROMETER
+
+/*****************************************************************************/
+
 #define KXTF9_DEVICE_NAME                  "/dev/kxtf9"
 #define KXTF9_DEFAULT_DELAY                (200 * 1000000)
 
@@ -52,27 +60,6 @@ int init_nusensors(hw_module_t const* module, hw_device_t** device);
 #define KXTF9_CONVERT_A_X                  (-KXTF9_CONVERT_A)
 #define KXTF9_CONVERT_A_Y                  (KXTF9_CONVERT_A)
 #define KXTF9_CONVERT_A_Z                  (-KXTF9_CONVERT_A)
-
-/*
-  Orientation events:
-
-  0x01 screen down                0°
-  0x02 screen up                  0°
-
-  0x04 portrait, normal use       0°
-  0x08 portrait, reversed       180°
-  0x10 landscape, usb port up   270° (-90°)
-  0x20 landscape, usb port down  90°
-
-  so, we need to divide per 8 (3bits right)
-*/
-#define KXTF9_SENSOR_ROTATION_MASK         (0x3F)
-
-#define KXTF9_CONVERT_O                    (90.0f/8.0f)
-#define KXTF9_CONVERT_O_Y                  (KXTF9_CONVERT_O)
-#define KXTF9_CONVERT_O_P                  (KXTF9_CONVERT_O)
-#define KXTF9_CONVERT_O_R                  (KXTF9_CONVERT_O)
-
 
 #define AK8973_DEVICE_NAME                 "/dev/akm8973_aot"
 #define AK8973_DEFAULT_DELAY               (200 * 1000000)
