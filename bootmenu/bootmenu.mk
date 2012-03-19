@@ -32,7 +32,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	${bm_device}/bootmenu/script/2nd-init.sh:system/bootmenu/script/2nd-init.sh \
 	${bm_device}/bootmenu/script/2nd-boot.sh:system/bootmenu/script/2nd-boot.sh \
-	${bm_device}/bootmenu/script/stock.sh:system/bootmenu/script/stock.sh \
 	${bm_device}/bootmenu/script/adbd.sh:system/bootmenu/script/adbd.sh \
 	${bm_device}/bootmenu/script/bootmode_clean.sh:system/bootmenu/script/bootmode_clean.sh \
 	${bm_device}/bootmenu/script/cdrom.sh:system/bootmenu/script/cdrom.sh \
