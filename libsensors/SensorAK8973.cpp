@@ -61,8 +61,9 @@ SensorAK8973::SensorAK8973() : SensorBase(AK8973_DEVICE_NAME, "compass"),
     mPendingEvents[Temperature].sensor = SENSOR_TYPE_AMBIENT_TEMPERATURE;
     mPendingEvents[Temperature].type = SENSOR_TYPE_AMBIENT_TEMPERATURE;
 
-    for (int i = 0 ; i < numSensors; i++)
+    for (int i = 0 ; i < numSensors; i++) {
         mDelays[i] = AK8973_DEFAULT_DELAY;
+    }
 }
 
 SensorAK8973::~SensorAK8973()
@@ -71,32 +72,26 @@ SensorAK8973::~SensorAK8973()
 
 int SensorAK8973::enable(int32_t handle, int en)
 {
-    int what = -1;
-    switch (handle)
-    {
-        case SENSOR_TYPE_ACCELEROMETER:  what = Accelerometer; break;
-        case SENSOR_TYPE_MAGNETIC_FIELD: what = MagneticField; break;
-        case SENSOR_TYPE_ORIENTATION:
-        case SENSOR_TYPE_GYROSCOPE:
-            what = Orientation;
-            break;
-        case SENSOR_TYPE_AMBIENT_TEMPERATURE:
-            what = Temperature;
-            break;
-    }
-
-    if (uint32_t(what) >= numSensors)
-        return -EINVAL;
-
+    int what;
     int newState = en ? 1 : 0;
     int err = 0;
 
-    if ((uint32_t(newState) << what) != (mEnabled & (1 << what)))
-    {
-        if (!mEnabled)
-            open_device();
+
+    switch (handle) {
+        case SENSOR_TYPE_ACCELEROMETER:       what = Accelerometer; break;
+        case SENSOR_TYPE_MAGNETIC_FIELD:      what = MagneticField; break;
+        case SENSOR_TYPE_ORIENTATION:         what = Orientation; break;
+        case SENSOR_TYPE_AMBIENT_TEMPERATURE: what = Temperature; break;
+        default: return -EINVAL;
+    }
+
+    if ((uint32_t(newState) << what) != (mEnabled & (1 << what))) {
+        if (!mEnabled) {
+            openDevice();
+        }
 
         int cmd;
+
         switch (what)
         {
             case Accelerometer: cmd = ECS_IOCTL_APP_SET_AFLAG;  break;
@@ -112,18 +107,19 @@ int SensorAK8973::enable(int32_t handle, int en)
 
         LOGE_IF(err, TAG ": ECS_IOCTL_APP_SET_XXX failed (%s)", strerror(-err));
 
-        if (!err)
-        {
+        if (!err) {
             mEnabled &= ~(1 << what);
             mEnabled |= (uint32_t(flags) << what);
-            err = update_delay();
+            err = updateDelay();
         }
 
-        if (!mEnabled)
-            close_device();
+        if (!mEnabled) {
+            closeDevice();
+        }
 
-        if (what == Temperature && newState)
+        if (what == Temperature && newState) {
             mHasPendingEvent = true;
+        }
     }
 
     return err;
@@ -131,40 +127,32 @@ int SensorAK8973::enable(int32_t handle, int en)
 
 int SensorAK8973::setDelay(int32_t handle, int64_t ns)
 {
-    int what = -1;
+    int what;
+
     switch (handle)
     {
-        case SENSOR_TYPE_ACCELEROMETER:  what = Accelerometer; break;
-        case SENSOR_TYPE_MAGNETIC_FIELD: what = MagneticField; break;
-        case SENSOR_TYPE_ORIENTATION:
-        case SENSOR_TYPE_GYROSCOPE:
-            what = Orientation;
-            break;
-        case SENSOR_TYPE_AMBIENT_TEMPERATURE:
-            what = Temperature;
-            break;
+        case SENSOR_TYPE_ACCELEROMETER:       what = Accelerometer; break;
+        case SENSOR_TYPE_MAGNETIC_FIELD:      what = MagneticField; break;
+        case SENSOR_TYPE_ORIENTATION:         what = Orientation; break;
+        case SENSOR_TYPE_AMBIENT_TEMPERATURE: what = Temperature; break;
+        default: return -EINVAL;
     }
 
-    if (uint32_t(what) >= numSensors)
+    if (ns < 0) {
         return -EINVAL;
-
-    if (ns < 0)
-        return -EINVAL;
+    }
 
     mDelays[what] = ns;
-    return update_delay();
+    return updateDelay();
 }
 
-int SensorAK8973::update_delay()
+int SensorAK8973::updateDelay()
 {
-    if (mEnabled)
-    {
+    if (mEnabled) {
         uint64_t wanted = -1LLU;
 
-        for (int i = 0 ; i < numSensors; i++)
-        {
-            if (mEnabled & (1 << i))
-            {
+        for (int i = 0 ; i < numSensors; i++) {
+            if (mEnabled & (1 << i)) {
                 uint64_t ns = mDelays[i];
                 wanted = wanted < ns ? wanted : ns;
             }
@@ -172,8 +160,9 @@ int SensorAK8973::update_delay()
 
         short delay = int64_t(wanted) / 1000000;
 
-        if (ioctl(dev_fd, ECS_IOCTL_APP_SET_DELAY, &delay))
+        if (ioctl(dev_fd, ECS_IOCTL_APP_SET_DELAY, &delay) < 0) {
             return -errno;
+        }
     }
 
     return 0;
@@ -186,11 +175,11 @@ bool SensorAK8973::hasPendingEvents() const
 
 int SensorAK8973::readEvents(sensors_event_t* data, int count)
 {
-    if (count < 1)
+    if (count < 1) {
         return -EINVAL;
+    }
 
-    if (mHasPendingEvent)
-    {
+    if (mHasPendingEvent) {
         mHasPendingEvent = false;
         mPendingEvents[Temperature].timestamp = getTimestamp();
         *data = mPendingEvents[Temperature];
@@ -198,43 +187,36 @@ int SensorAK8973::readEvents(sensors_event_t* data, int count)
     }
 
     ssize_t n = mInputReader.fill(data_fd);
-    if (n < 0)
+    if (n < 0) {
         return n;
+    }
 
     int numEventReceived = 0;
     input_event const* event;
 
-    while (count && mInputReader.readEvent(&event))
-    {
-        int type = event->type;
-        if (type == EV_ABS)
-        {
+    while (count && mInputReader.readEvent(&event)) {
+        if (event->type == EV_ABS) {
             processEvent(event->code, event->value);
             mInputReader.next();
-        }
-        else if (type == EV_SYN)
-        {
+        } else if (event->type == EV_SYN) {
             int64_t time = timevalToNano(event->time);
-            for (int j=0 ; count && mPendingMask && j<numSensors ; j++)
-            {
-                if (mPendingMask & (1<<j))
-                {
-                    mPendingMask &= ~(1<<j);
+            for (int j = 0 ; count && mPendingMask && j < numSensors ; j++) {
+                if (mPendingMask & (1 << j)) {
+                    mPendingMask &= ~(1 << j);
                     mPendingEvents[j].timestamp = time;
-                    if (mEnabled & (1<<j))
-                    {
+                    if (mEnabled & (1 << j)) {
                         *data++ = mPendingEvents[j];
                         count--;
                         numEventReceived++;
                     }
                 }
             }
-            if (!mPendingMask)
+            if (!mPendingMask) {
                 mInputReader.next();
-        }
-        else
-        {
-            LOGE(TAG ": unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
+            }
+        } else {
+            LOGE(TAG ": unknown event (type=0x%x, code=0x%x, value=0x%x)",
+                event->type, event->code, event->value);
             mInputReader.next();
         }
     }
@@ -244,7 +226,7 @@ int SensorAK8973::readEvents(sensors_event_t* data, int count)
 
 /**
  *
- * Sensors data convertion
+ * Sensors data conversion
  *
  * Please read:
  *   http://developer.android.com/reference/android/hardware/SensorEvent.html
@@ -252,8 +234,9 @@ int SensorAK8973::readEvents(sensors_event_t* data, int count)
  */
 void SensorAK8973::processEvent(int code, int value)
 {
-    int status=0;
-    double converted=0.0f;
+    int status;
+    double converted;
+
     switch (code)
     {
         case ABS_X:
@@ -273,7 +256,7 @@ void SensorAK8973::processEvent(int code, int value)
             break;
         case ABS_WHEEL:
             mPendingMask |= 1 << Accelerometer;
-            status = value & AK8973_SENSOR_STATE_MASK & 3;
+            status = value & AK8973_SENSOR_STATE_MASK;
             LOGV(TAG ": acceleration WHEEL (value=0x%x)", value);
             mPendingEvents[Accelerometer].acceleration.status = uint8_t(status);
             break;

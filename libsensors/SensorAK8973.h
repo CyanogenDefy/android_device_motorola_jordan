@@ -34,7 +34,7 @@ struct input_event;
 class SensorAK8973 : public SensorBase
 {
 public:
-	SensorAK8973();
+    SensorAK8973();
     virtual ~SensorAK8973();
 
     enum
@@ -53,7 +53,8 @@ public:
     void processEvent(int code, int value);
 
 private:
-    int update_delay();
+    int updateDelay();
+
     uint32_t mEnabled;
     bool mHasPendingEvent;
     uint32_t mPendingMask;
