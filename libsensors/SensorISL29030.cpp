@@ -53,12 +53,13 @@ SensorISL29030P::SensorISL29030P()
     mPendingEvent.sensor = SENSOR_TYPE_PROXIMITY;
     mPendingEvent.type = SENSOR_TYPE_PROXIMITY;
 
-    open_device();
+    openDevice();
 
     mEnabled = isEnabled();
 
-    if (!mEnabled)
-        close_device();
+    if (!mEnabled) {
+        closeDevice();
+    }
 }
 
 SensorISL29030P::~SensorISL29030P()
@@ -70,55 +71,62 @@ int SensorISL29030P::enable(int32_t handle, int en)
     int err = 0;
 
     char newState = en ? 1 : 0;
-    if (newState == mEnabled)
+    if (newState == mEnabled) {
         return err;
+    }
 
-    if (!mEnabled)
-        open_device();
+    if (!mEnabled) {
+        openDevice();
+    }
 
     err = ioctl(dev_fd, ISL29030_IOCTL_SET_ENABLE, &newState);
     err = err < 0 ? -errno : 0;
 
     LOGE_IF(err, TAG "P: ISL29030_IOCTL_SET_ENABLE failed (%s)", strerror(-err));
 
-    if (!err || !newState)
+    if (!err || !newState) {
         mEnabled = newState;
+    }
 
-    if (!mEnabled)
-        close_device();
+    if (!mEnabled) {
+        closeDevice();
+    }
 
     return err;
 }
 
 int SensorISL29030P::readEvents(sensors_event_t* data, int count)
 {
-    if (count < 1)
+    if (count < 1) {
         return -EINVAL;
+    }
 
     ssize_t n = mInputReader.fill(data_fd);
-    if (n < 0)
+    if (n < 0) {
         return n;
+    }
 
     int numEventReceived = 0;
     input_event const* event;
 
-    while (count && mInputReader.readEvent(&event))
-    {
-        int type = event->type;
-        if (type == EV_ABS)
-        {
-            processEvent(event->code, event->value);
-        }
-        else if (type == EV_SYN)
-        {
-            mPendingEvent.timestamp = timevalToNano(event->time);
-            *data++ = mPendingEvent;
-            count--;
-            numEventReceived++;
-        }
-        else if (type != EV_LED) // Defy+ only (ignore light events, from same input device)
-        {
-            LOGW(TAG "P: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
+    while (count && mInputReader.readEvent(&event)) {
+        switch (event->type) {
+            case EV_ABS:
+                processEvent(event->code, event->value);
+                break;
+            case EV_LED:
+                // Defy+ only (ignore light events, from same input device)
+                break;
+            case EV_SYN:
+                mPendingEvent.timestamp = timevalToNano(event->time);
+                *data++ = mPendingEvent;
+                count--;
+                numEventReceived++;
+                break;
+            default:
+                LOGW(TAG "P: unknown event (type=0x%x, code=0x%x, value=0x%x)",
+                        event->type, event->code, event->value);
+                break;
         }
         mInputReader.next();
     }
@@ -128,8 +136,7 @@ int SensorISL29030P::readEvents(sensors_event_t* data, int count)
 
 void SensorISL29030P::processEvent(int code, int value)
 {
-    switch (code)
-    {
+    switch (code) {
         case ABS_DISTANCE:
             LOGD(TAG "P: proximity event (code=0x%x, value=0x%x)", code, value);
             mPendingEvent.distance = (value == PROXIMITY_NEAR ? 0 : 100);
@@ -166,12 +173,13 @@ SensorISL29030L::SensorISL29030L()
     mPendingEvent.sensor = SENSOR_TYPE_LIGHT;
     mPendingEvent.type = SENSOR_TYPE_LIGHT;
 
-    open_device();
+    openDevice();
 
     mEnabled = isEnabled();
 
-    if (!mEnabled)
-        close_device();
+    if (!mEnabled) {
+        closeDevice();
+    }
 
 }
 
@@ -185,22 +193,26 @@ int SensorISL29030L::enable(int32_t handle, int en)
 
 #ifdef DEFYPLUS
     char newState = en ? 1 : 0;
-    if (newState == mEnabled)
+    if (newState == mEnabled) {
         return err;
+    }
 
-    if (!mEnabled)
-        open_device();
+    if (!mEnabled) {
+        openDevice();
+    }
 
     err = ioctl(dev_fd, ISL29030_IOCTL_SET_LIGHT_ENABLE, &newState);
     err = err < 0 ? -errno : 0;
 
     LOGE_IF(err, TAG "L: ISL29030_IOCTL_SET_LIGHT_ENABLE failed (%s)", strerror(-err));
 
-    if (!err || !newState)
+    if (!err || !newState) {
         mEnabled = newState;
+    }
 
-    if (!mEnabled)
-        close_device();
+    if (!mEnabled) {
+        closeDevice();
+    }
 #endif
 
     mEnabled = en ? 1 : 0;
@@ -229,33 +241,36 @@ int SensorISL29030L::isEnabled()
 
 int SensorISL29030L::readEvents(sensors_event_t* data, int count)
 {
-    if (count < 1)
+    if (count < 1) {
         return -EINVAL;
+    }
 
     ssize_t n = mInputReader.fill(data_fd);
-    if (n < 0)
+    if (n < 0) {
         return n;
+    }
 
     int numEventReceived = 0;
     input_event const* event;
 
-    while (count && mInputReader.readEvent(&event))
-    {
-        int type = event->type;
-        if (type == EV_LED)
-        {
-            processEvent(event->code, event->value);
-        }
-        else if (type == EV_SYN)
-        {
-            mPendingEvent.timestamp = timevalToNano(event->time);
-            *data++ = mPendingEvent;
-            count--;
-            numEventReceived++;
-        }
-        else if (type != EV_ABS)
-        {
-            LOGW(TAG "L: unknown event (type=0x%x, code=0x%x, value=0x%x)", type, event->code, event->value);
+    while (count && mInputReader.readEvent(&event)) {
+        switch (event->type) {
+            case EV_ABS:
+                /* ignored */
+                break;
+            case EV_LED:
+                processEvent(event->code, event->value);
+                break;
+            case EV_SYN:
+                mPendingEvent.timestamp = timevalToNano(event->time);
+                *data++ = mPendingEvent;
+                count--;
+                numEventReceived++;
+                break;
+            default:
+                LOGW(TAG "L: unknown event (type=0x%x, code=0x%x, value=0x%x)",
+                        event->type, event->code, event->value);
+                break;
         }
         mInputReader.next();
     }
@@ -265,8 +280,7 @@ int SensorISL29030L::readEvents(sensors_event_t* data, int count)
 
 void SensorISL29030L::processEvent(int code, int value)
 {
-    switch (code)
-    {
+    switch (code) {
         case LED_MISC:
             mPendingEvent.light = value;
             break;

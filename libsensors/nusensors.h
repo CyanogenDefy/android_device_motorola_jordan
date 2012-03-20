@@ -27,7 +27,7 @@
 #include <hardware/hardware.h>
 #include <hardware/sensors.h>
 
-// gingerbread/ics compat
+/* Use the ICS type name on GB as well to keep code similar as much as possible */
 #ifndef SENSOR_TYPE_AMBIENT_TEMPERATURE
 #define SENSOR_TYPE_AMBIENT_TEMPERATURE SENSOR_TYPE_TEMPERATURE
 #endif
