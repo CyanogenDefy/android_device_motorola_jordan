@@ -28,4 +28,12 @@
     <string name="other_settings_title">Другие настройки</string>
     <string name="compass_calibrate">Калибровка компаса</string>
 
+    <string name="kineto_support">Звонки через WiFi</string>
+    <string name="kineto_support_summary">Активировать приложение для звонков через WiFi</string>
+
+    <string name="kineto_reboot_prompt_title">Требуется перезагрузка</string>
+    <string name="kineto_reboot_prompt_message">Для применения параметров необходимо перезагрузить устройство.\n\nВыполнить перезагрузку?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
 </resources>

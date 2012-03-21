@@ -31,5 +31,11 @@
     <string name="other_settings_title">Other settings</string>
     <string name="compass_calibrate">Compass calibrator</string>
     <string name="baseband_switcher">Baseband selection</string>
+    <string name="kineto_support">Wifi calling support</string>
+    <string name="kineto_support_summary">Enable the T-Mobile Wifi calling application</string>
 
+    <string name="kineto_reboot_prompt_title">Reboot required</string>
+    <string name="kineto_reboot_prompt_message">In order to fully apply the changed application state, a reboot is required.\n\nDo you want to reboot now?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
