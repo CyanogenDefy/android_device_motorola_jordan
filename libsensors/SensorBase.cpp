@@ -49,7 +49,7 @@ SensorBase::~SensorBase() {
     }
 }
 
-int SensorBase::open_device() {
+int SensorBase::openDevice() {
     if (dev_fd<0 && dev_name) {
         dev_fd = open(dev_name, O_RDONLY);
         LOGE_IF(dev_fd<0, "Couldn't open %s (%s)", dev_name, strerror(errno));
@@ -57,7 +57,7 @@ int SensorBase::open_device() {
     return 0;
 }
 
-int SensorBase::close_device() {
+int SensorBase::closeDevice() {
     if (dev_fd >= 0) {
         close(dev_fd);
         dev_fd = -1;
