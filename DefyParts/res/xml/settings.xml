@@ -42,7 +42,9 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/other_settings_title">
+    <PreferenceCategory android:key="other"
+                        android:title="@string/other_settings_title">
+
         <PreferenceScreen android:key="compass_calibrate"
                           android:title="@string/compass_calibrate">
                           <intent
@@ -58,6 +60,13 @@
                              android:targetPackage="com.itfunzbasebandswitcher"
                              android:targetClass="com.itfunzbasebandswitcher.MainActivity" />
         </PreferenceScreen>
+
+        <CheckBoxPreference android:key="kineto"
+                            android:persistent="false"
+                            android:defaultValue="false"
+                            android:title="@string/kineto_support"
+                            android:summary="@string/kineto_support_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
