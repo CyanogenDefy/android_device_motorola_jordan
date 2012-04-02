@@ -108,6 +108,7 @@ on init
     insmod /system/lib/modules/symsearch.ko
     insmod /system/lib/modules/mmcfix.ko
     insmod /system/lib/modules/usbled.ko
+    insmod /system/lib/modules/clockfix.ko
     insmod /system/lib/modules/gpiofix.ko
 
     # Cifs module is actually not compiled by us

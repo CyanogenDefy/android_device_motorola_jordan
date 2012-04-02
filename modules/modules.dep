@@ -6,6 +6,7 @@ gpiofix.ko: symsearch.ko
 logcap.ko: symsearch.ko
 multitouch.ko: symsearch.ko
 proximity.ko: symsearch.ko
+clockfix.ko: symsearch.ko
 wl127x_test.ko:
 vpnclient.ko:
 tun.ko:

@@ -89,6 +89,7 @@ install_module()
     insmod $MODULE_DIR/cpufreq_conservative.ko
     insmod $MODULE_DIR/cpufreq_powersave.ko
     insmod $MODULE_DIR/symsearch.ko
+    insmod $MODULE_DIR/clockfix.ko
     insmod $MODULE_DIR/cpufreq_stats.ko
     insmod $MODULE_DIR/cpufreq_interactive.ko
     insmod $MODULE_DIR/cpufreq_smartass.ko
@@ -115,6 +116,7 @@ set_scaling()
     "1" )
       if [ $load_all -eq 0 ]; then
         insmod $MODULE_DIR/symsearch.ko
+        insmod $MODULE_DIR/clockfix.ko
         insmod $MODULE_DIR/cpufreq_stats.ko
         insmod $MODULE_DIR/cpufreq_interactive.ko
       fi
@@ -138,6 +140,7 @@ set_scaling()
     "5" )
       if [ $load_all -eq 0 ]; then
         insmod $MODULE_DIR/symsearch.ko
+        insmod $MODULE_DIR/clockfix.ko
         insmod $MODULE_DIR/cpufreq_smartass.ko
       fi
       echo "smartass" > $SCALING_GOVERNOR
