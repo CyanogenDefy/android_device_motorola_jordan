@@ -45,13 +45,14 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/modules/modules.alias:system/lib/modules/modules.alias \
 	device/motorola/jordan/modules/modules.dep:system/lib/modules/modules.dep \
 
+# List of files to keep against rom upgrade (baseband config, overclock settings)
 ifdef CYANOGEN_RELEASE
-	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_release.txt:system/etc/custom_backup_list.txt
+    PRODUCT_COPY_FILES += device/motorola/jordan/releasetools/custom_backup_release.txt:system/etc/custom_backup_list.txt
 else
-	PRODUCT_COPY_FILES += device/motorola/jordan/custom_backup_list.txt:system/etc/custom_backup_list.txt
+    PRODUCT_COPY_FILES += device/motorola/jordan/releasetools/custom_backup_list.txt:system/etc/custom_backup_list.txt
 endif
 
-#app
+# App
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/prebuilt/app/DroidSSHd.apk:system/app/DroidSSHd.apk \
 	device/motorola/jordan/prebuilt/lib/libNativeSSHd.so:system/lib/libNativeSSHd.so \
