@@ -7,6 +7,10 @@
 echo "JORDAN SQUISHER:"
 echo "================"
 
+DEVICE_OUT=$ANDROID_BUILD_TOP/out/target/product/jordan
+DEVICE_TOP=$ANDROID_BUILD_TOP/device/motorola/jordan
+VENDOR_TOP=$ANDROID_BUILD_TOP/vendor/motorola/jordan
+
 OUT_TARGET_HOST=`uname -a | grep Darwin`
 if [ -z "$OUT_TARGET_HOST" ]
 then
