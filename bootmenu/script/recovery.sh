@@ -5,6 +5,8 @@
 
 source /system/bootmenu/script/_config.sh
 
+export LD_LIBRARY_PATH=.:/sbin
+
 ######## Main Script
 
 ## /tmp folder can be a link to /data/tmp, bad thing !

@@ -3,8 +3,11 @@
 ######## BootMenu Script
 ######## Execute [Stable Recovery] Menu
 
+source /system/bootmenu/script/_config.sh
 
 export PATH=/sbin:/system/xbin:/system/bin
+
+export LD_LIBRARY_PATH=.:/sbin
 
 ######## Main Script
 
