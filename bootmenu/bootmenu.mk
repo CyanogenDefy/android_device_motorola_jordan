@@ -60,10 +60,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	external/bootmenu/images/indeterminate1.png:system/bootmenu/images/indeterminate1.png \
 	external/bootmenu/images/indeterminate2.png:system/bootmenu/images/indeterminate2.png \
-	external/bootmenu/images/indeterminate3.png:system/bootmenu/images/indeterminate3.png \
-	external/bootmenu/images/indeterminate4.png:system/bootmenu/images/indeterminate4.png \
-	external/bootmenu/images/indeterminate5.png:system/bootmenu/images/indeterminate5.png \
-	external/bootmenu/images/indeterminate6.png:system/bootmenu/images/indeterminate6.png \
 	external/bootmenu/images/progress_empty.png:system/bootmenu/images/progress_empty.png \
 	external/bootmenu/images/progress_fill.png:system/bootmenu/images/progress_fill.png \
 	${bm_device}/bootmenu/images/background.png:system/bootmenu/images/background.png \

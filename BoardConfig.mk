@@ -96,6 +96,8 @@ BOARD_USE_KINETO_COMPATIBILITY := true
 
 # Changes related to bootmenu
 BOARD_USES_BOOTMENU := true
+BOARD_WITH_CPCAP    := true
+BOARD_MMC_DEVICE    := /dev/block/mmcblk1
 BOARD_BOOTMODE_CONFIG_FILE := /cache/recovery/bootmode.conf
 
 # Recovery
