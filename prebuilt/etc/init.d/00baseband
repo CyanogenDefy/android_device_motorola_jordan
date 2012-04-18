@@ -1,0 +1,18 @@
+#!/system/bin/sh
+
+BASEBAND_SWITCH_PROP="/data/property/persist.sys.new_baseband"
+BASEBAND_FILES_BASE="/system/etc/motorola/basebands"
+BASEBAND_DEFAULT="/system/etc/motorola/bp_nvm_default"
+
+if [ -e $BASEBAND_SWITCH_PROP ]; then
+    NEW_BASEBAND=`cat $BASEBAND_SWITCH_PROP`
+    rm -f $BASEBAND_SWITCH_PROP
+
+    if [ -d $BASEBAND_FILES_BASE/$NEW_BASEBAND ]; then
+        busybox mount -o remount,rw /system
+        rm -f $BASEBAND_DEFAULT/*
+        cp -a $BASEBAND_FILES_BASE/$NEW_BASEBAND/* $BASEBAND_DEFAULT
+        busybox mount -o remount,ro /system
+    fi
+fi
+

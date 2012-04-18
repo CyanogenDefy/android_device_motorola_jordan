@@ -26,12 +26,42 @@
 
     <string name="other_settings_title">Autres paramètres</string>
     <string name="compass_calibrate">Calibration boussole</string>
-    <string name="baseband_switcher">Fréquences GSM (Baseband)</string>
+    <string name="baseband_selection">Fréquences GSM (Baseband)</string>
     <string name="kineto_support">Support des appels Wifi</string>
-    <string name="kineto_support_summary">Activer l\'application T-Mobile pour les appels téléphoniques via Wifi.</string>
+    <string name="kineto_support_summary">Activer l\'application T-Mobile pour les appels téléphoniques via Wifi</string>
 
-    <string name="kineto_reboot_prompt_title">Nécessite un redémarrage</string>
-    <string name="kineto_reboot_prompt_message">Pour activer ou désactiver l\'application, un redémarrage est nécessaire.\n\nRedémarrer maintenant?</string>
+    <string name="reboot_prompt_title">Redémarrage requis</string>
+    <string name="reboot_prompt_message">Un redémarrage est nécessaire pour appliquer la modification.\n\nRedémarrer maintenant ?</string>
+
+    <string name="region_europe">Europe</string>
+    <string name="region_america">Amérique</string>
+    <string name="region_asia">Asie</string>
+    <string name="region_africa">Afrique</string>
+    <string name="region_australia">Australie</string>
+
+    <string name="country_central_europe">Europe centrale</string>
+    <string name="country_france">France</string>
+    <string name="country_great_britain">Grande Bretagne</string>
+    <string name="country_italy">Italie</string>
+    <string name="country_poland">Pologne</string>
+    <string name="country_usa">USA</string>
+    <string name="country_brasil">Brésil</string>
+    <string name="country_argentina">Argentine</string>
+    <string name="country_colombia">Colombie</string>
+    <string name="country_china">Chine</string>
+    <string name="country_south_korea">Corée du Sud</string>
+    <string name="country_hongkong_taiwan">Hongkong, Taiwan</string>
+    <string name="country_south_east_asia">Asie du Sud-Est</string>
+    <string name="country_arabia">Arabie</string>
+    <string name="country_south_africa">Afrique du Sud</string>
+
+    <string name="baseband_selection_summary">Sélectionner la bande de fréquences\nSélection: %1$s %2$s</string>
+    <string name="baseband_region">Région</string>
+    <string name="baseband_country">Pays</string>
+    <string name="baseband_version">Version</string>
+    <string name="baseband_frequencies">Fréquences: %1$s MHz</string>
+    <string name="unknown">Inconnu</string>
+
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
