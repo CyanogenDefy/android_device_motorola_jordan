@@ -25,6 +25,7 @@ PRODUCT_COPY_FILES += \
 #etc
 PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/recovery/recovery.fstab:system/etc/recovery.fstab \
+	device/motorola/jordan/prebuilt/etc/init.d/00baseband:system/etc/init.d/00baseband \
 	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
 	device/motorola/jordan/prebuilt/etc/init.d/03adbd:system/etc/init.d/03adbd \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
@@ -52,7 +53,6 @@ endif
 
 #app
 PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/app/basebandswitcherV4.0.apk:system/app/basebandswitcherV4.0.apk \
 	device/motorola/jordan/prebuilt/app/DroidSSHd.apk:system/app/DroidSSHd.apk \
 	device/motorola/jordan/prebuilt/lib/libNativeSSHd.so:system/lib/libNativeSSHd.so \
 

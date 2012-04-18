@@ -29,6 +29,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     private ListPreference chargeLedModePref;
     private ListPreference touchPointsPref;
     private CheckBoxPreference kinetoPref;
+    private Preference basebandPref;
 
     private static final String PROP_CHARGE_LED_MODE = "persist.sys.charge_led";
     private static final String PROP_TOUCH_POINTS = "persist.sys.multitouch";
@@ -52,6 +53,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         PreferenceCategory otherSettings = (PreferenceCategory) getPreferenceScreen().findPreference("other");
         kinetoPref = (CheckBoxPreference) otherSettings.findPreference("kineto");
         kinetoPref.setOnPreferenceChangeListener(this);
+        basebandPref = otherSettings.findPreference("baseband_selection");
+        basebandPref.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -109,24 +112,29 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
             mPm.setApplicationEnabledSetting(KINETO_PACKAGE, setting, 0);
             SystemProperties.set(PROP_KINETO_ENABLED, value ? "1" : "0");
-
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.kineto_reboot_prompt_title)
-                    .setMessage(R.string.kineto_reboot_prompt_message)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-                            pm.reboot(null);
-                        }
-                    })
-                    .setNegativeButton(R.string.no, null)
-                    .create();
-
-            dialog.show();
+            showRebootPrompt();
+        } else if (preference == basebandPref) {
+            showRebootPrompt();
         }
 
         return true;
+    }
+
+    private void showRebootPrompt() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.reboot_prompt_title)
+                .setMessage(R.string.reboot_prompt_message)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+                        pm.reboot(null);
+                    }
+                })
+                .setNegativeButton(R.string.no, null)
+                .create();
+
+        dialog.show();
     }
 
     private void setTouchPointSetting(String value) {
