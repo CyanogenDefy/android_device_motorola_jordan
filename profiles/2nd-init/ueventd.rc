@@ -7,6 +7,7 @@
 /dev/urandom              0666   root       root
 /dev/ashmem               0666   root       root
 /dev/binder               0666   root       root
+/dev/ion                  0666   media      graphics
 
 # logger should be world writable (for logging) but not readable
 /dev/log/*                0662   root       log
@@ -32,30 +33,30 @@
 /dev/psd_nsapi*           0660   root       radio
 /dev/sim                  0660   root       radio
 /dev/audio                0660   root       audio
-/dev/gps                  0770   root       radio
+/dev/gps                  0660   root       radio
 /dev/gps_reset            0660   root       radio
 /dev/gps_standby          0660   root       radio
 /dev/gps_interrupt        0660   root       radio
 /dev/subsidy_lock         0660   root       radio
 /dev/test_cmd             0660   root       radio
 /dev/nvm_proxy            0660   root       radio
-/dev/dlog_ctrl            0770   radio      radio
-/dev/efem                 0770   radio      radio
+/dev/dlog_ctrl            0660   radio      radio
+/dev/efem                 0660   radio      radio
 /dev/opprof               0660   root       radio
 /dev/csd_tty0             0600   root       root
 /dev/uma_urlc             0660   root       radio
-/dev/uma_urr              0777   root       root
+/dev/uma_urr              0664   root       root
 /dev/udi_data             0600   root       root
 /dev/udi_ctrl             0600   root       root
 /dev/DspBridge            0666   audio      graphics
-/dev/hp3a-omap            0770   media      camera
-/dev/hplens-omap          0770   media      camera
-/dev/video0               0770   media      camera
-/dev/video1               0770   media      graphics
-/dev/video2               0770   system     graphics
-/dev/video3               0777   media      camera
-/dev/smodule              0777   root       root
-/dev/syspanic             0770   radio      radio
+/dev/hp3a-omap            0660   media      camera
+/dev/hplens-omap          0660   media      camera
+/dev/video0               0664   media      camera
+/dev/video1               0664   media      graphics
+/dev/video2               0664   system     graphics
+/dev/video3               0664   media      camera
+/dev/smodule              0664   root       root
+/dev/syspanic             0660   radio      radio
 /dev/tda19989             0660   root       system
 /dev/dispsw               0660   root       system
 /dev/omap-panel           0660   media      system
@@ -66,10 +67,10 @@
 /dev/cpcap_batt           0660   root       system
 /dev/cpcap_mot_rtc        0660   root       system
 /dev/cpcap_uc             0660   root       system
-/dev/camera0              0777   root       root
+/dev/camera0              0666   media      camera
 /dev/i2c-1                0660   root       system
 /dev/i2c-2                0660   root       system
-/dev/i2c-3                0660   root       camera
+/dev/i2c-3                0660   media      camera
 /dev/pvrsrvkm             0666   system     graphics
 /dev/netmon               0660   root       radio
 /dev/block/mmcblk0p1      0660   root       sdcard_rw
@@ -93,6 +94,8 @@
 # sysfs properties
 /sys/devices/virtual/input/input*   enable      0660  root   input
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
+
+/sys/devices/platform/i2c_omap.3/i2c-3/3-0053/leds/torch-flash brightness    0660 media camera
 
 # Motorola CedarPoint Baseband Logger
 /dev/bus/usb/002/123      0660   root       radio
