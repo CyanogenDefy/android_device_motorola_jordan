@@ -128,9 +128,9 @@ on boot
     chown system system /sys/class/leds/red/blink
     chown system system /sys/class/leds/usb/brightness
     chown system system /sys/class/leds/torch-flash/camera_strobe
-    chown system system /sys/class/leds/torch-flash/flash_light
-    chown system system /sys/class/leds/spotlight/brightness
-    chown system system /sys/class/leds/af-led/brightness
+    chown media system /sys/class/leds/torch-flash/flash_light
+    chown media system /sys/class/leds/spotlight/brightness
+    chown media system /sys/class/leds/af-led/brightness
     chmod 0660 /sys/class/leds/lcd-backlight/brightness
     chmod 0660 /sys/class/leds/keyboard-backlight/brightness
     chmod 0660 /sys/class/leds/button-backlight/brightness
