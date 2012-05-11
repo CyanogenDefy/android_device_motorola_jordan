@@ -29,13 +29,41 @@
 
     <string name="other_settings_title">Andere Einstellungen</string>
     <string name="compass_calibrate">Kompasskalibrierung</string>
-    <string name="baseband_switcher">Baseband-Auswahl</string>
+    <string name="baseband_selection">Baseband-Auswahl</string>
     <string name="kineto_support">Kineto-Unterstützung</string>
     <string name="kineto_support_summary">Kineto-Anwendung (\'Wifi Calling\') aktivieren</string>
 
-    <string name="kineto_reboot_prompt_title">Neustart nötig</string>
-    <string name="kineto_reboot_prompt_message">Um die Änderung des Anwendungszustandes abzuschließen, muss das Telefon neu gestartet werden.\n\nMöchten Sie jetzt neu starten?</string>
+    <string name="reboot_prompt_title">Neustart nötig</string>
+    <string name="reboot_prompt_message">Um die geänderten Einstellungen anzuwenden, muss das Telefon neu gestartet werden.\n\nMöchten Sie jetzt neu starten?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 
+    <string name="region_europe">Europa</string>
+    <string name="region_america">Amerika</string>
+    <string name="region_asia">Asien</string>
+    <string name="region_africa">Afrika</string>
+    <string name="region_australia">Australien</string>
+
+    <string name="country_central_europe">Mitteleuropa</string>
+    <string name="country_france">Frankreich</string>
+    <string name="country_great_britain">Großbritannien</string>
+    <string name="country_italy">Italien</string>
+    <string name="country_poland">Polen</string>
+    <string name="country_usa">USA</string>
+    <string name="country_brasil">Brasilien</string>
+    <string name="country_argentina">Argentinien</string>
+    <string name="country_colombia">Kolumbien</string>
+    <string name="country_china">China</string>
+    <string name="country_south_korea">Südkorea</string>
+    <string name="country_hongkong_taiwan">Hongkong, Taiwan</string>
+    <string name="country_south_east_asia">Südostasien</string>
+    <string name="country_arabia">Arabien</string>
+    <string name="country_south_africa">Südafrika</string>
+
+    <string name="baseband_selection_summary">Auswahl des Telefon-Basebands\nMomentan gewählt: %1$s %2$s</string>
+    <string name="baseband_region">Region</string>
+    <string name="baseband_country">Land</string>
+    <string name="baseband_version">Version</string>
+    <string name="baseband_frequencies">Frequenz: %1$s MHz</string>
+    <string name="unknown">Unbekannt</string>
 </resources>

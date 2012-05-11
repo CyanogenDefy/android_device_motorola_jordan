@@ -30,12 +30,41 @@
 
     <string name="other_settings_title">Other settings</string>
     <string name="compass_calibrate">Compass calibrator</string>
-    <string name="baseband_switcher">Baseband selection</string>
+    <string name="baseband_selection">Baseband selection</string>
     <string name="kineto_support">Wifi calling support</string>
     <string name="kineto_support_summary">Enable the T-Mobile Wifi calling application</string>
 
-    <string name="kineto_reboot_prompt_title">Reboot required</string>
-    <string name="kineto_reboot_prompt_message">In order to fully apply the changed application state, a reboot is required.\n\nDo you want to reboot now?</string>
+    <string name="reboot_prompt_title">Reboot required</string>
+    <string name="reboot_prompt_message">In order to apply the changed configuration, a reboot is required.\n\nDo you want to reboot now?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="region_europe">Europe</string>
+    <string name="region_america">America</string>
+    <string name="region_asia">Asia</string>
+    <string name="region_africa">Africa</string>
+    <string name="region_australia">Australia</string>
+
+    <string name="country_central_europe">Central Europe</string>
+    <string name="country_france">France</string>
+    <string name="country_great_britain">Great Britain</string>
+    <string name="country_italy">Italy</string>
+    <string name="country_poland">Poland</string>
+    <string name="country_usa">USA</string>
+    <string name="country_brasil">Brazil</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_colombia">Colombia</string>
+    <string name="country_china">China</string>
+    <string name="country_south_korea">South Korea</string>
+    <string name="country_hongkong_taiwan">Hongkong, Taiwan</string>
+    <string name="country_south_east_asia">South East Asia</string>
+    <string name="country_arabia">Arabia</string>
+    <string name="country_south_africa">South Africa</string>
+
+    <string name="baseband_selection_summary">Select the baseband suitable for your country\nCurrently selected: %1$s %2$s</string>
+    <string name="baseband_region">Region</string>
+    <string name="baseband_country">Country</string>
+    <string name="baseband_version">Version</string>
+    <string name="baseband_frequencies">Frequencies: %1$s MHz</string>
+    <string name="unknown">Unknown</string>
 </resources>

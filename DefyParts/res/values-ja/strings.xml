@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Defy設定</string>
+
+    <string name="general_settings_title">一般的な設定</string>
+
+    <string name="charge_led_mode_title">充電中のLEDモード</string>
+    <string name="charge_led_mode_summary">充電中のLEDモードを調整する</string>
+    <string name="charge_led_mode_white">白LED</string>
+    <string name="charge_led_mode_rgb">混合LED (赤/緑)</string>
+    <string name="charge_led_mode_off">オフ</string>
+
+    <string name="button_brightness_scale_title">ボタン輝度</string>
+    <string name="button_brightness_scale_summary">ボタンの輝度を下げる . 特にマニュアル輝度を使用してる場合に有効</string>
+
+    <string name="touch_points_title">マルチタッチ ポイント</string>
+    <string name="touch_points_summary">システムで登録済みのマルチタッチ ポイントを調整</string>
+    <string name="touch_point_entry_2points">2ポイント (デフォルト)</string>
+    <string name="touch_point_entry_3points">3ポイント</string>
+    <string name="touch_point_entry_4points">4ポイント</string>
+    <string name="touch_point_entry_5points">5ポイント</string>
+    <string name="touch_point_entry_8points">8ポイント</string>
+
+    <string name="touch_point_warning_title">警告</string>
+    <string name="touch_point_warning_message">マルチタッチ ポイント数を増やすと反応が遅くなるかもしれません.\n本当に設定を変更しますか？</string>
+
+    <string name="audio_settings_title">オーディオ設定</string>
+    <string name="audio_effects">オーディオとDSP</string>
+
+    <string name="other_settings_title">他の設定</string>
+    <string name="compass_calibrate">コンパスの設定</string>
+    <string name="baseband_selection">ベースバンドの選択</string>
+    <string name="kineto_support">Wifi通話のサポート</string>
+    <string name="kineto_support_summary">T-Mobile Wifi通話アプリを有効にする</string>
+
+    <string name="reboot_prompt_title">再起動が必要</string>
+    <string name="reboot_prompt_message">設定の変更を適用するためには再起動が必要です.\n\n今すぐ再起動しますか？</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+
+    <string name="region_europe">ヨーロッパ</string>
+    <string name="region_america">アメリカ</string>
+    <string name="region_asia">アジア</string>
+    <string name="region_africa">アフリカ</string>
+    <string name="region_australia">オーストラリア</string>
+
+    <string name="country_central_europe">中央ヨーロッパ</string>
+    <string name="country_france">フランス</string>
+    <string name="country_great_britain">イギリス</string>
+    <string name="country_italy">イタリア</string>
+    <string name="country_poland">ポーランド</string>
+    <string name="country_usa">アメリカ</string>
+    <string name="country_brasil">ブラジル</string>
+    <string name="country_argentina">アルゼンチン</string>
+    <string name="country_colombia">コロンビア</string>
+    <string name="country_china">中国</string>
+    <string name="country_south_korea">韓国</string>
+    <string name="country_hongkong_taiwan">香港, 台湾</string>
+    <string name="country_south_east_asia">東南アジア</string>
+    <string name="country_arabia">アラビア</string>
+    <string name="country_south_africa">南アフリカ</string>
+
+    <string name="baseband_selection_summary">お住まいの地域に最適なベースバンドを選択して下さい\n現在の設定: %1$s %2$s</string>
+    <string name="baseband_region">地域</string>
+    <string name="baseband_country">国</string>
+    <string name="baseband_version">バージョン</string>
+    <string name="baseband_frequencies">周波数帯域: %1$s MHz</string>
+    <string name="unknown">不明</string>
+</resources>

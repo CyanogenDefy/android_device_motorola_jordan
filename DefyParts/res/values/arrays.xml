@@ -6,7 +6,7 @@
         <item>@string/charge_led_mode_off</item>
     </string-array>
 
-    <string-array name="charge_led_mode_values">
+    <string-array name="charge_led_mode_values" translatable="false">
         <item>white</item>
         <item>rgb</item>
         <item>off</item>
@@ -20,7 +20,7 @@
         <item>@string/touch_point_entry_8points</item>
     </string-array>
 
-    <string-array name="touch_point_values">
+    <string-array name="touch_point_values" translatable="false">
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -28,4 +28,131 @@
         <item>8</item>
     </string-array>
 
+    <string-array name="baseband_region_entries" translatable="false">
+        <item>@string/region_europe</item>
+        <item>@string/region_america</item>
+        <item>@string/region_asia</item>
+        <item>@string/region_africa</item>
+        <item>@string/region_australia</item>
+    </string-array>
+
+    <string-array name="baseband_region_values" translatable="false">
+        <item>europe</item>
+        <item>america</item>
+        <item>asia</item>
+        <item>africa</item>
+        <item>australia</item>
+    </string-array>
+
+    <string-array name="baseband_countries_europe_entries" translatable="false">
+        <item>@string/country_central_europe</item>
+        <item>@string/country_france</item>
+        <item>@string/country_great_britain</item>
+        <item>@string/country_italy</item>
+        <item>@string/country_poland</item>
+    </string-array>
+
+    <string-array name="baseband_countries_europe_values" translatable="false">
+        <item>ce</item>
+        <item>france</item>
+        <item>uk</item>
+        <item>italy</item>
+        <item>poland</item>
+    </string-array>
+
+    <string-array name="baseband_countries_america_entries" translatable="false">
+        <item>@string/country_usa</item>
+        <item>@string/country_brasil</item>
+        <item>@string/country_argentina</item>
+        <item>@string/country_colombia</item>
+    </string-array>
+
+    <string-array name="baseband_countries_america_values" translatable="false">
+        <item>usa</item>
+        <item>brasil</item>
+        <item>argentina</item>
+        <item>colombia</item>
+    </string-array>
+
+    <string-array name="baseband_countries_asia_entries" translatable="false">
+        <item>@string/country_china</item>
+        <item>@string/country_south_korea</item>
+        <item>@string/country_hongkong_taiwan</item>
+        <item>@string/country_south_east_asia</item>
+        <item>@string/country_arabia</item>
+    </string-array>
+
+    <string-array name="baseband_countries_asia_values" translatable="false">
+        <item>china</item>
+        <item>southkorea</item>
+        <item>hktaiwan</item>
+        <item>sea</item>
+        <item>arab</item>
+    </string-array>
+
+    <string-array name="baseband_countries_africa_entries" translatable="false">
+        <item>@string/country_south_africa</item>
+    </string-array>
+
+    <string-array name="baseband_countries_africa_values" translatable="false">
+        <item>southafrica</item>
+    </string-array>
+
+    <string-array name="baseband_countries_australia_entries" translatable="false">
+        <item>@string/region_australia</item>
+    </string-array>
+
+    <string-array name="baseband_countries_australia_values" translatable="false">
+        <item>australia</item>
+    </string-array>
+
+    <string-array name="available_basebands" translatable="false">
+        <!-- each item has the format region:country:version:frequencies:directory name:File_GSM md5sum -->
+        <item>europe:ce:2.21:900,2100:europe/central_europe_221:b68a053a2796a5e101690d83c0560476</item>
+        <item>europe:ce:2.34:900,2100:europe/central_europe_234:a1cb46bb122f37bd6716a44eb439e7be</item>
+        <item>europe:ce:2.51:900,2100:europe/central_europe_251:b2d7e65667c1df24ece667e25bf205f9</item>
+        <item>europe:ce:3.4.x:900,2100:europe/central_europe_34x:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>europe:ce:3.4.2-145:900,2100:europe/central_europe_342:d7cc8f8ac9891f7e4d75eb26e006cc35</item>
+        <item>europe:france:3.4.2-164-3:900,2100:europe/france_342:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>europe:france:Orange 3.4.2-164-5:900,2100:europe/france_orange_342:c0531fb8df34a39e7bce92a474df1983</item>
+        <item>europe:france:Vodafone 3.4.2-164-3:900,2100:europe/france_vodafone_342:f9dc47aa217e04a635bf3d1ecb032e3a</item>
+        <item>europe:italy:2.51:900,2100:europe/italy_251:fc7275162961e8e197bc2bafef8c68d0</item>
+        <item>europe:poland:Orange 2.51:900,2100:europe/poland_orange_251:c0aaced85bb09655885758f2dbcf7783</item>
+        <item>europe:poland:Orange 3.4.2-131:900,2100:europe/poland_orange_342:81d1c373a19410bdcab35369a78898c3</item>
+        <item>europe:uk:4.5.1-85:900,2100:europe/central_europe_34x:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>europe:uk:2.51:900,2100:europe/uk_251:5314fd3ac63725b1799ba3ef80796226</item>
+        <item>europe:uk:3.4.2-117:900,2100:europe/uk_342:8a7af390bbe8d3a2d28762faa748dc1d</item>
+        <item>europe:uk:3.4.3-3:900,2100:europe/uk_343_3:3ac6accb170021f970f982c7f5c7cfdc</item>
+        <item>europe:uk:3.4.3-11:900,2100:europe/uk_343_11:0b7fdf3d3b5b755866af178631f459ba</item>
+        <item>europe:uk:T-Mobile 2.21:900,2100:europe/uk_tmobile_221:85b4562cb356ad0a45ebec7776cecac6</item>
+        <item>europe:uk:T-Mobile 2.51:900,2100:europe/uk_tmobile_251:71f9ea6c53079d95965675240f661fb3</item>
+        <item>america:argentina:Claro 3.4.2-107-9:850,1900:america/argentina_claro_342:448166b6ee4ab36fccfcd50d4328d911</item>
+        <item>america:argentina:Personal 3.4.2-107-7:850,1900:america/argentina_personal_342:07804f947e8402afd17a21a5fb044d9d</item>
+        <item>america:argentina:6.14.7:850,1900:america/argentina_614:d1e1534d096da9cd8762aa4d89020845</item>
+        <item>america:brasil:3.4.2-107:850,2100:america/brasil_342:0d7c3cb481a41a5e8af7aa85fb0416d3</item>
+        <item>america:brasil:Claro 3.4.2-107-7:850,2100:america/brasil_claro_342:b9bb7f5b1c22f19738edf00bab5d84f0</item>
+        <item>america:brasil:Claro 6.14.5:850,2100:america/brasil_claro_614:3c2ef9aa3b61a5ded514c7872e11c7f4</item>
+        <item>america:brasil:TIM 3.4.2-107-9:850,2100:america/brasil_tim_342:881837fa9cbf6b7504fe98d0937b1331</item>
+        <item>america:brasil:Vivo 3.4.2-107-9:850,2100:america/brasil_vivo_342:359843016a7d12d8913fba3599a3cb64</item>
+        <item>america:colombia:TIGO/MOVISTAR 3.4.2-107-9:850,1900:america/colombia_tigo_342:20f0ffa312a48342377014c07c9ff28f</item>
+        <item>america:usa:T-Mobile 3.4.2-107-4:850,1700,2100:america/us_tmobile_342_4:305213ef5861fea34c545d04b9f499ff</item>
+        <item>america:usa:T-Mobile 3.4.2-107-9:850,1700,2100:america/us_tmobile_342_9:4a1fbb7010171ebdf9cfdd66bcab91f5</item>
+        <item>america:usa:T-Mobile 6.xx.0:850,1700,2100:america/us_tmobile_6xx:f0a4699b59e4bc21b3fbf559466e1cfa</item>
+        <item>asia:arab:2.54:900,2100:europe/central_europe_251:b2d7e65667c1df24ece667e25bf205f9</item>
+        <item>asia:arab:3.4.x:900,2100:europe/central_europe_34x:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>asia:china:ME722 1.10:850,1900,2100:asia/china_me722_110:e33700bdeb470ccd85a6640a7f0cbdfc</item>
+        <item>asia:china:2.5/2.6/2.10:850,2100:asia/china_25_26_210:e066a9c980038bcb46fe61b53959a0c7</item>
+        <item>asia:china:0.26/1.10:850,2100:asia/china_026_110:de225753cbdf3a4f2c18a92198e56383</item>
+        <item>asia:hktaiwan:2.51:900,2100:europe/central_europe_251:b2d7e65667c1df24ece667e25bf205f9</item>
+        <item>asia:hktaiwan:2.59:900,2100:asia/hktaiwan_259:787196b90d9a45f3eb28942de2c91c4b</item>
+        <item>asia:hktaiwan:3.4.x:900,2100:europe/central_europe_34x:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>asia:sea:2.51:900,2100:asia/sea_251:5230b070802862413ad1da2e0d0e657b</item>
+        <item>asia:sea:2.59:900,2100:asia/hktaiwan_259:787196b90d9a45f3eb28942de2c91c4b</item>
+        <item>asia:sea:3.4.3-331:900,2100:asia/sea_343_331:27c844cee399e22af86ddd4de4c29352</item>
+        <item>asia:sea:3.4.3-361:900,2100:asia/sea_343_361:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>asia:southkorea:SKT 3.4.2-74:2100:asia/southkorea_342:ea18015f9758790fc57f1fdf8af4cc48</item>
+        <item>africa:southafrica:3.4.3-361:900,2100:asia/sea_343_361:95f72d528a034e3af8cb1c89959ccbaf</item>
+        <item>australia:australia:OPTUS 3.4.2-145:900,2100:australia/optus_342:80bf9284fd91f092888f2d5b9fc72e10</item>
+        <item>australia:australia:Telstra 2.26:850,2100:australia/telstra_226:170dec08e7e515806d2e193cab9a1b86</item>
+    </string-array>
 </resources>

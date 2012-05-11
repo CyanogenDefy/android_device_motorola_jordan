@@ -30,5 +30,4 @@
 
     <string name="other_settings_title">其它设置</string>
     <string name="compass_calibrate">指南针校准</string>
-    <string name="baseband_switcher">基带切换</string>
 </resources>
