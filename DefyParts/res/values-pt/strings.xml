@@ -1,25 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Definições do Defy</string>
-
-    <string name="charge_led_mode_title">Modo LED carregamento</string>
-    <string name="charge_led_mode_summary">Ajustar o comportamento da LED de notificação durante o carregamento</string>
-    <string name="charge_led_mode_white">LED Branca</string>
-    <string name="charge_led_mode_rgb">LED Mista (vermelho/verde)</string>
-    <string name="charge_led_mode_off">Desligado</string>
-
-    <string name="touch_points_title">Pontos de Multi-Toque</string>
-    <string name="touch_points_summary">Ajustar o número de pontos simultâneos de toque a serem reconhecidos pelo sistema</string>
-    <string name="touch_point_entry_2points">2 pontos (omissão)</string>
-    <string name="touch_point_entry_3points">3 pontos</string>
-    <string name="touch_point_entry_4points">4 pontos</string>
-    <string name="touch_point_entry_5points">5 pontos</string>
-    <string name="touch_point_entry_8points">8 pontos</string>
-
-    <string name="touch_point_warning_title">Advertência</string>
-    <string name="touch_point_warning_message">Aumentar o número de pontos de toque pode degradar o tempo de resposta do ecrã. Tem a certeza que pretende continuar?</string>
-
-    <string name="audio_effects">Filtros de áudio</string>
-
+  <string name="app_name">Definições do Defy</string>
+  <string name="charge_led_mode_title">Modo LED carregamento</string>
+  <string name="charge_led_mode_summary">Ajustar o comportamento da LED de notificação durante o carregamento</string>
+  <string name="charge_led_mode_white">LED Branca</string>
+  <string name="charge_led_mode_rgb">LED Mista (vermelho/verde)</string>
+  <string name="charge_led_mode_off">Desligado</string>
+  <string name="touch_points_title">Pontos de Multi-Toque</string>
+  <string name="touch_points_summary">Ajustar o número de pontos simultâneos de toque a serem reconhecidos pelo sistema</string>
+  <string name="touch_point_entry_2points">2 pontos (omissão)</string>
+  <string name="touch_point_entry_3points">3 pontos</string>
+  <string name="touch_point_entry_4points">4 pontos</string>
+  <string name="touch_point_entry_5points">5 pontos</string>
+  <string name="touch_point_entry_8points">8 pontos</string>
+  <string name="touch_point_warning_title">Advertência</string>
+  <string name="touch_point_warning_message">Aumentar o número de pontos de toque pode degradar o tempo de resposta do ecrã. Tem a certeza que pretende continuar?</string>
+  <string name="audio_effects">Filtros de áudio</string>
+  <string name="general_settings_title">Configurações gerais</string>
+  <string name="button_brightness_scale_title">Brilho do botão</string>
+  <string name="button_brightness_scale_summary">Permite reduzir o brilho do botão, especialmente útil quando se usa brilho manual</string>
+  <string name="audio_settings_title">Configurações de Áudio</string>
+  <string name="other_settings_title">Outras configurações</string>
+  <string name="compass_calibrate">Calibrador de compasso</string>
+  <string name="baseband_selection">Seleção de baseband</string>
+  <string name="kineto_support">Suporte a ligação via Wi-Fi</string>
+  <string name="kineto_support_summary">Ativar ligação Wi-Fi via aplicação T-Mobile</string>
+  <string name="reboot_prompt_title">Requer reinicialização</string>
+  <string name="reboot_prompt_message">Para aplicar as mudanças de configuração, é requerido reinicialização.\n\nVocê deseja reiniciar agora?</string>
+  <string name="yes">Sim</string>
+  <string name="no">Não</string>
+  <string name="region_europe">Europa</string>
+  <string name="region_america">América</string>
+  <string name="region_asia">Ásia</string>
+  <string name="region_africa">África</string>
+  <string name="region_australia">Australia</string>
+  <string name="country_central_europe">Europa Central</string>
+  <string name="country_france">França</string>
+  <string name="country_great_britain">Grâ-Bretanha</string>
+  <string name="country_italy">Itália</string>
+  <string name="country_poland">Polônia</string>
+  <string name="country_usa">EUA</string>
+  <string name="country_brasil">Brasil</string>
+  <string name="country_argentina">Argentina</string>
+  <string name="country_colombia">Colômbia</string>
+  <string name="country_china">China</string>
+  <string name="country_south_korea">Coréia do Sul</string>
+  <string name="country_hongkong_taiwan">Hong Kong, Taiwan</string>
+  <string name="country_south_east_asia">Oriente Médio</string>
+  <string name="country_arabia">Arábia</string>
+  <string name="country_south_africa">África do Sul</string>
+  <string name="baseband_selection_summary">Selecione a banda base adequeda para seu país\nAtualmente selecionada: %1$s %2$s</string>
+  <string name="baseband_region">Região</string>
+  <string name="baseband_country">País</string>
+  <string name="baseband_version">Versão</string>
+  <string name="baseband_frequencies">Frequências: %1$s MHz</string>
+  <string name="unknown">Desconhecido</string>
 </resources>
