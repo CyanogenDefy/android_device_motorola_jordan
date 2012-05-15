@@ -35,5 +35,8 @@ overclock_defy.ko:
 cpufreq_stats.ko:
 cpufreq_smartass.ko: symsearch.ko
 cpufreq_interactive.ko: symsearch.ko cpufreq_stats.ko
+cpufreq_boosted.ko: symsearch.ko
 cpufreq_conservative.ko:
+sio_iosched.ko:
+xt_multiport.ko:
 

@@ -3,8 +3,8 @@ menu "Defy Overclock"
 config  CPUFREQ_OVERCLOCK
 	bool "overclock"
 	default y
-config  CPUFREQ_GOV_SMARTASS
-	bool "smartass"
+config  CPUFREQ_GOV_BOOSTED
+	bool "smartass2 boosted variant"
 	default y
 config  CPUFREQ_GOV_INTERACTIVE
 	bool "interactive"
