@@ -80,4 +80,10 @@ if [ -x $BM_ROOTDIR/script/overclock.sh ]; then
     $BM_ROOTDIR/script/overclock.sh safe
 fi
 
+# must be restored in stock.sh
+if [ -L /tmp ]; then
+  mv /tmp /tmp.bak
+  mkdir /tmp && busybox mount -t ramfs ramfs /tmp
+fi
+
 exit 0
