@@ -393,6 +393,7 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
 {
     CameraParameters pars(params.flatten());
     String8 oldFlashMode = mFlashMode;
+    String8 sceneMode;
     status_t retval;
     int width, height;
     char buf[10];
@@ -415,8 +416,23 @@ JordanCameraWrapper::setParameters(const CameraParameters& params)
         pars.setPreviewFrameRate(24);
     }
 
-    mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
+    sceneMode = pars.get(CameraParameters::KEY_SCENE_MODE);
+    if (sceneMode != CameraParameters::SCENE_MODE_AUTO) {
+        /* The lib doesn't seem to update the flash mode correctly when a scene
+           mode is set, so we need to do it here. Also do focus mode, just do
+           be on the safe side. */
+        pars.set(CameraParameters::KEY_FOCUS_MODE, CameraParameters::FOCUS_MODE_AUTO);
 
+        if (sceneMode == CameraParameters::SCENE_MODE_PORTRAIT ||
+            sceneMode == CameraParameters::SCENE_MODE_NIGHT_PORTRAIT)
+        {
+            pars.set(CameraParameters::KEY_FLASH_MODE, CameraParameters::FLASH_MODE_AUTO);
+        } else {
+            pars.set(CameraParameters::KEY_FLASH_MODE, CameraParameters::FLASH_MODE_OFF);
+        }
+    }
+
+    mFlashMode = pars.get(CameraParameters::KEY_FLASH_MODE);
     float exposure = pars.getFloat(CameraParameters::KEY_EXPOSURE_COMPENSATION);
     /* exposure-compensation comes multiplied in the -9...9 range, while
        we need it in the -3...3 range -> adjust for that */

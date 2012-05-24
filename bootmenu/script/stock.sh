@@ -8,10 +8,16 @@ export PATH=/sbin:/system/xbin:/system/bin
 
 ######## Main Script
 
-mount -o remount,rw /
-cp -f /system/bootmenu/binary/adbd /sbin/adbd
-chmod 4755 /sbin/adbd
-chown root.system /sbin/adbd
+busybox mount -o remount,rw /
+busybox cp -f /system/bootmenu/binary/adbd /sbin/adbd
+busybox chmod 4755 /sbin/adbd
+busybox chown root.system /sbin/adbd
+
+# restore original /tmp data symlink
+if [ -L /tmp.bak ]; then
+  busybox umount /tmp
+  busybox mv /tmp.bak /tmp
+fi
 
 ######## Cleanup
 
