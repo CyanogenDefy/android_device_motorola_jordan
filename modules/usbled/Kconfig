@@ -1,7 +1,7 @@
 config LEDS_DEFY_USB
-        tristate "White LED Support for Defy device"
-        default m
-        depends on LEDS_CLASS && MFD_CPCAP
-        help
-          This option enables support for white LED on Defy.
+	tristate "White LED Support for Defy device"
+	default m
+	depends on LEDS_CLASS && MFD_CPCAP
+	help
+	  This option enables support for white LED on Defy.
 
