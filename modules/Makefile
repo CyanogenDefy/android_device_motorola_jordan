@@ -13,6 +13,9 @@ obj-m += clockfix/
 obj-m += logcap/
 obj-m += usbled/
 
+# mb525/mb526 specific
+obj-m += proximity/
+
 
 PWD := $(shell pwd)
 

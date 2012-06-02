@@ -218,7 +218,8 @@ static ssize_t show_min_sample_time(struct kobject *kobj,
 static ssize_t store_min_sample_time(struct kobject *kobj,
 			struct attribute *attr, const char *buf, size_t count)
 {
-	return strict_strtoul(buf, 0, &min_sample_time);
+	strict_strtoul(buf, 10, &min_sample_time);
+	return count;
 }
 
 static struct global_attr min_sample_time_attr = __ATTR(min_sample_time, 0644,
@@ -289,7 +290,7 @@ static int __init cpufreq_interactive_init(void)
 	struct timer_list *t;
 	min_sample_time = DEFAULT_MIN_SAMPLE_TIME;
 
-	SYMSEARCH_BIND_FUNCTION_TO(cpufreq_smartass,nr_running,_nr_running);
+	SYMSEARCH_BIND_FUNCTION_TO(cpufreq_interactive,nr_running,_nr_running);
 
 	/* Initalize per-cpu timers */
 	for_each_possible_cpu(i) {

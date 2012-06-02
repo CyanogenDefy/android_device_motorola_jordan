@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 CyanogenDefy
+ * Copyright (C) 2011-2012 CyanogenDefy
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,8 @@
 #include <linux/platform_device.h>
 #include <linux/spi/cpcap.h>
 #include <linux/spi/cpcap-regbits.h>
+#include <linux/sysfs.h>
+
 #include "../symsearch/symsearch.h"
 
 #define SYS_LD_USBLED_DEV "usb"
@@ -36,10 +38,13 @@ SYMSEARCH_DECLARE_FUNCTION_STATIC(int, _cpcap_device_unregister,struct platform_
 SYMSEARCH_DECLARE_FUNCTION_STATIC(int, _cpcap_regacc_write, struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned short value, unsigned short mask);
 SYMSEARCH_DECLARE_FUNCTION_STATIC(int, _cpcap_regacc_read, struct cpcap_device *cpcap, enum cpcap_reg reg, unsigned short *value_ptr);
 
+static void ld_cpcap_usbled_release(struct device *dev) {}
+
 static struct platform_device cpcap_usbled_device = {
 	.name   = "cpcap_usbled",
 	.id     = -1,
 	.dev.platform_data  = NULL,
+	.dev.release = ld_cpcap_usbled_release,
 };
 
 static void ld_cpcap_usbled_store(struct led_classdev *led_cdev,
@@ -86,12 +91,10 @@ static int ld_cpcap_usbled_probe(struct platform_device *pdev)
 	info->cpcap = pdev->dev.platform_data;
 	platform_set_drvdata(pdev, info);
 
-	ret = _cpcap_regacc_read(info->cpcap,
-			CPCAP_REG_CRM, &value);
+	ret = _cpcap_regacc_read(info->cpcap, CPCAP_REG_CRM, &value);
 	if (ret < 0) {
-		pr_err("%s: Reading CPCAP failed: \n", __func__);
-		kfree(info);
-		return ret;
+		pr_err("%s: unable to read CPCAP reg, error %d\n", __func__, ret);
+		goto err_free;
 	}
 	value &= CPCAP_BIT_CHRG_LED_EN;
 
@@ -102,19 +105,30 @@ static int ld_cpcap_usbled_probe(struct platform_device *pdev)
 
 	ret = led_classdev_register(&pdev->dev, &info->ld_cpcap_usbled_class_dev);
 	if (ret < 0) {
-		pr_err("%s: Register led class failed: \n", __func__);
-		kfree(info);
-		return ret;
+		pr_err("%s: class register error %d\n", __func__, ret);
+		goto err_free;
+	} else {
+		/* update sysfs attributes to allow changes by all */
+		struct device *dev = info->ld_cpcap_usbled_class_dev.dev;
+		if (dev) {
+			struct attribute attr = { .name="brightness" };
+			ret = sysfs_chmod_file(&dev->kobj, &attr, 0666);
+		}
 	}
+	return ret;
+err_free:
+	kfree(info);
 	return ret;
 }
 
 static int ld_cpcap_usbled_remove(struct platform_device *pdev)
 {
 	struct usb_led_data *info = platform_get_drvdata(pdev);
-
-	led_classdev_unregister(&info->ld_cpcap_usbled_class_dev);
-
+	if (info) {
+		led_classdev_unregister(&info->ld_cpcap_usbled_class_dev);
+		info->cpcap = NULL;
+		kfree(info);
+	}
 	return 0;
 }
 
@@ -145,22 +159,20 @@ static int __init ld_cpcap_usbled_init(void)
 
 	ret = cpcap_driver_register(&ld_cpcap_usbled_driver);
 	if (ret < 0) {
-		pr_err("%s: init cpcap usb led driver failed: \n", __func__);
+		pr_err("%s: driver register error %d\n", __func__, ret);
 		return ret;
 	}
 	ret = _cpcap_device_register(&cpcap_usbled_device);
 	if (ret < 0) {
-		pr_err("%s: init cpcap usb led device failed: \n", __func__);
+		pr_err("%s: device register error %d\n", __func__, ret);
 		return ret;
 	}
-
 	return ret;
 }
 
 static void __exit ld_cpcap_usbled_exit(void)
 {
 	cpcap_usbled_unregister();
-
 	platform_driver_unregister(&ld_cpcap_usbled_driver);
 }
 
@@ -169,4 +181,5 @@ module_exit(ld_cpcap_usbled_exit);
 
 MODULE_DESCRIPTION("USB Charge LED Driver");
 MODULE_AUTHOR("Tanguy Pruvot, CyanogenDefy");
+MODULE_VERSION("1.2");
 MODULE_LICENSE("GPL");
