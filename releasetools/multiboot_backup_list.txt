@@ -1,14 +1,19 @@
 bootmenu/script/2nd-system.sh
-bootmenu/config/multiboot_defaultpath.conf
+bootmenu/config/multiboot.conf
 bootmenu/binary/multiboot
-bootmenu/2nd-system/fshook.functions.sh
+bootmenu/2nd-system/2nd-init
+bootmenu/2nd-system/errormessage
+bootmenu/2nd-system/fshook.bootcyanogenrom.sh
 bootmenu/2nd-system/fshook.bootrecovery.sh
-bootmenu/2nd-system/init.hook.rc
-bootmenu/2nd-system/fshook.prevent_unmount.sh
-bootmenu/2nd-system/fshook.edit_devtree.sh
+bootmenu/2nd-system/fshook.bootstockrom.sh
 bootmenu/2nd-system/fshook.config.sh
+bootmenu/2nd-system/fshook.edit_devtree.sh
+bootmenu/2nd-system/fshook.functions.sh
 bootmenu/2nd-system/fshook.postfshook.sh
+bootmenu/2nd-system/fshook.prevent_unmount.sh
+bootmenu/2nd-system/init.hook.rc
 bootmenu/2nd-system/recovery/sbin/recoveryexit.sh
+bootmenu/2nd-system/recovery/res/images/android.png
 bootmenu/2nd-system/recovery/res/images/icon_bootmenu.png
 bootmenu/2nd-system/recovery/res/images/icon_clockwork.png
 

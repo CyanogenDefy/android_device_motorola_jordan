@@ -27,7 +27,6 @@ PRODUCT_COPY_FILES += \
 	device/motorola/jordan/bootmenu/recovery/recovery.fstab:system/etc/recovery.fstab \
 	device/motorola/jordan/prebuilt/etc/init.d/00baseband:system/etc/init.d/00baseband \
 	device/motorola/jordan/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
-	device/motorola/jordan/prebuilt/etc/init.d/03adbd:system/etc/init.d/03adbd \
 	device/motorola/jordan/prebuilt/etc/init.d/05mountsd:system/etc/init.d/05mountsd \
 	device/motorola/jordan/prebuilt/etc/init.d/08backlight:system/etc/init.d/08backlight \
 	device/motorola/jordan/prebuilt/etc/init.d/80kineto:system/etc/init.d/80kineto \
@@ -51,10 +50,5 @@ ifdef CYANOGEN_RELEASE
 else
     PRODUCT_COPY_FILES += device/motorola/jordan/releasetools/custom_backup_list.txt:system/etc/custom_backup_list.txt
 endif
-
-# App
-PRODUCT_COPY_FILES += \
-	device/motorola/jordan/prebuilt/app/DroidSSHd.apk:system/app/DroidSSHd.apk \
-	device/motorola/jordan/prebuilt/lib/libNativeSSHd.so:system/lib/libNativeSSHd.so \
 
 #end of jordan-blobs.mk

@@ -11,6 +11,9 @@
     <string name="charge_led_mode_rgb">混合色彩(紅/綠混合)</string>
     <string name="charge_led_mode_off">關閉指示燈</string>
 
+    <string name="button_brightness_scale_title">按鍵亮度</string>
+    <string name="button_brightness_scale_summary">在使用手動亮度調節時，降低按鍵亮度的效果較為明顯</string>
+    
     <string name="touch_points_title">多點觸控</string>
     <string name="touch_points_summary">設定系統多點觸控的點數</string>
     <string name="touch_point_entry_2points">2點(預設)</string>
@@ -27,5 +30,62 @@
 
     <string name="other_settings_title">其他設定</string>
     <string name="compass_calibrate">電子羅盤校正</string>
+    <string name="baseband_selection">電信基頻選擇</string>
+    <string name="kineto_support">Wifi 網路行動電話通話</string>
+    <string name="kineto_support_summary">啟用 T-Mobile Wifi 網路行動電話通話應用程式</string>
 
+    <string name="reboot_prompt_title">需要重新啟動</string>
+    <string name="reboot_prompt_message">已更改的設置需要重新啟動後才會生效。\n現在要重新啟動嗎？</string>
+    <string name="yes">確定</string>
+    <string name="no">取消</string>
+    
+    <string name="region_europe">歐洲</string>
+    <string name="region_america">美洲</string>
+    <string name="region_asia">亞洲</string>
+    <string name="region_africa">非洲</string>
+    <string name="region_australia">澳洲</string>
+    <string name="country_central_europe">中歐</string>
+    <string name="country_france">法國</string>
+    <string name="country_great_britain">英國</string>
+    <string name="country_italy">義大利</string>
+    <string name="country_poland">波蘭</string>
+    <string name="country_usa">美國</string>
+    <string name="country_brasil">巴西</string>
+    <string name="country_argentina">阿根廷</string>
+    <string name="country_colombia">哥倫比亞</string>
+    <string name="country_china">中國</string>
+    <string name="country_south_korea">南韓</string>
+    <string name="country_hongkong_taiwan">香港，台灣</string>
+    <string name="country_south_east_asia">東南亞</string>
+    <string name="country_arabia">阿拉伯</string>
+    <string name="country_south_africa">南非</string>
+    
+    <string name="baseband_selection_summary">選擇適合所在區域、國家的電信基頻\n目前選取: %1$s %2$s</string>
+    <string name="baseband_region">地區</string>
+    <string name="baseband_country">國家</string>
+    <string name="baseband_version">版本</string>
+    <string name="baseband_frequencies">頻率: %1$s MHz</string>
+    <string name="unknown">不明</string>
+    
+    <string name="lto_download_title">A-GPS 離線星曆下載</string>
+    <string name="lto_download_enabled_title">自動下載</string>
+    <string name="lto_download_enabled_summary">若網路可用時，自動下載 A-GPS 星曆資料</string>
+    <string name="lto_download_interval_title">下載間隔</string>
+    <string name="lto_download_interval_summary">間隔: %1$s</string>
+    <string name="lto_download_interval_12hours">12 小時</string>
+    <string name="lto_download_interval_1day">1 天</string>
+    <string name="lto_download_interval_3days">3 天</string>
+    <string name="lto_download_interval_1week">1 週</string>
+    <string name="lto_download_interval_2weeks">2 週</string>
+    <string name="lto_download_interval_1month">1 個月</string>
+    <string name="lto_download_file_title">下載檔案類型</string>
+    <string name="lto_download_file_7days">7 天有效期</string>
+    <string name="lto_download_file_30days">30 天有效期</string>
+    <string name="lto_download_wifi_only_title">僅使用 Wifi 網路</string>
+    <string name="lto_download_wifi_only_summary">僅使用 Wifi 網路下載星曆資料</string>
+    <string name="lto_download_now">立即下載</string>
+    <string name="lto_last_download_date">上一次更新: %1$s</string>
+    <string name="lto_last_download_date_failure">上一次嘗試下載: %1$s (失敗)</string>
+    <string name="lto_downloading_data">下載中\u2026 (%1$s%%)</string>
+    <string name="never">永不執行</string>
 </resources>

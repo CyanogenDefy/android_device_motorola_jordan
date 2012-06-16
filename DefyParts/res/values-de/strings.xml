@@ -66,4 +66,26 @@
     <string name="baseband_version">Version</string>
     <string name="baseband_frequencies">Frequenz: %1$s MHz</string>
     <string name="unknown">Unbekannt</string>
+
+    <string name="lto_download_title">Download von Offline-AGPS-Daten</string>
+    <string name="lto_download_enabled_title">Automat. Download</string>
+    <string name="lto_download_enabled_summary">AGPS-Daten bei bestehender Netzverbindung automatisch downloaden</string>
+    <string name="lto_download_interval_title">Download-Intervall</string>
+    <string name="lto_download_interval_summary">Intervall: %1$s</string>
+    <string name="lto_download_interval_12hours">12 Stunden</string>
+    <string name="lto_download_interval_1day">1 Tag</string>
+    <string name="lto_download_interval_3days">3 Tage</string>
+    <string name="lto_download_interval_1week">1 Woche</string>
+    <string name="lto_download_interval_2weeks">2 Wochen</string>
+    <string name="lto_download_interval_1month">1 Monat</string>
+    <string name="lto_download_file_title">Datei-Typ</string>
+    <string name="lto_download_file_7days">7 Tage Gültigkeit</string>
+    <string name="lto_download_file_30days">30 Tage Gültigkeit</string>
+    <string name="lto_download_wifi_only_title">Nur über WLAN</string>
+    <string name="lto_download_wifi_only_summary">AGPS-Daten nur via WLAN downloaden</string>
+    <string name="lto_download_now">Jetzt downloaden</string>
+    <string name="lto_last_download_date">Letzter Download: %1$s</string>
+    <string name="lto_last_download_date_failure">Letzter Downloadversuch: %1$s (Nicht erfolgreich)</string>
+    <string name="lto_downloading_data">Daten werden heruntergeladen\u2026 (%1$s%%)</string>
+    <string name="never">Nie</string>
 </resources>

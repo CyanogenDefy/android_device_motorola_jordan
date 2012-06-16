@@ -155,4 +155,32 @@
         <item>australia:australia:OPTUS 3.4.2-145:900,2100:australia/optus_342:80bf9284fd91f092888f2d5b9fc72e10</item>
         <item>australia:australia:Telstra 2.26:850,2100:australia/telstra_226:170dec08e7e515806d2e193cab9a1b86</item>
     </string-array>
+
+    <string-array name="lto_download_interval_entries" translatable="false">
+        <item>@string/lto_download_interval_12hours</item>
+        <item>@string/lto_download_interval_1day</item>
+        <item>@string/lto_download_interval_3days</item>
+        <item>@string/lto_download_interval_1week</item>
+        <item>@string/lto_download_interval_2weeks</item>
+        <item>@string/lto_download_interval_1month</item>
+    </string-array>
+
+    <string-array name="lto_download_interval_values" translatable="false">
+        <item>43200</item>
+        <item>86400</item>
+        <item>259200</item>
+        <item>604800</item>
+        <item>1209600</item>
+        <item>2592000</item>
+    </string-array>
+
+    <string-array name="lto_download_file_entries" translatable="false">
+        <item>@string/lto_download_file_7days</item>
+        <item>@string/lto_download_file_30days</item>
+    </string-array>
+
+    <string-array name="lto_download_file_values" translatable="false">
+        <item>7day</item>
+        <item>30day</item>
+    </string-array>
 </resources>

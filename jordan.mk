@@ -101,6 +101,9 @@ PRODUCT_PACKAGES += \
 # for jpeg hw encoder/decoder
 # PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
 
+# Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
+PRODUCT_PACKAGES += DroidSSHd
+
 # hw video prepost processor (require dsp lib)
 # PRODUCT_PACKAGES += libOMX.TI.VPP
 
@@ -139,7 +142,6 @@ PRODUCT_PACKAGES += \
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
         packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-
 
 $(call inherit-product, build/target/product/full_base.mk)
 

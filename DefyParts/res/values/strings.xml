@@ -67,4 +67,26 @@
     <string name="baseband_version">Version</string>
     <string name="baseband_frequencies">Frequencies: %1$s MHz</string>
     <string name="unknown">Unknown</string>
+
+    <string name="lto_download_title">Offline A-GPS Data Download</string>
+    <string name="lto_download_enabled_title">Automatic download</string>
+    <string name="lto_download_enabled_summary">Download A-GPS data automatically if a network connection is available</string>
+    <string name="lto_download_interval_title">Download interval</string>
+    <string name="lto_download_interval_summary">Interval: %1$s</string>
+    <string name="lto_download_interval_12hours">12 hours</string>
+    <string name="lto_download_interval_1day">1 day</string>
+    <string name="lto_download_interval_3days">3 days</string>
+    <string name="lto_download_interval_1week">1 week</string>
+    <string name="lto_download_interval_2weeks">2 weeks</string>
+    <string name="lto_download_interval_1month">1 month</string>
+    <string name="lto_download_file_title">Download file type</string>
+    <string name="lto_download_file_7days">7 days validity</string>
+    <string name="lto_download_file_30days">30 days validity</string>
+    <string name="lto_download_wifi_only_title">Wifi only</string>
+    <string name="lto_download_wifi_only_summary">Only download assistive data over Wifi connection</string>
+    <string name="lto_download_now">Download now</string>
+    <string name="lto_last_download_date">Last download: %1$s</string>
+    <string name="lto_last_download_date_failure">Last download attempt: %1$s (Unsuccessful)</string>
+    <string name="lto_downloading_data">Downloading data\u2026 (%1$s%%)</string>
+    <string name="never">Never</string>
 </resources>
