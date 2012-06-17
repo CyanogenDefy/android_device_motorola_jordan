@@ -26,4 +26,42 @@
 
     <string name="other_settings_title">Altre impostazioni</string>
     <string name="compass_calibrate">Calibrazione Bussola</string>
+    <string name="baseband_selection">Seleziona banda di base</string>
+    <string name="kineto_support">Supporto chiamate Wifi</string>
+    <string name="kineto_support_summary">Abilita l'applicazione di chiamata Wifi di T-Mobile</string>
+
+    <string name="reboot_prompt_title">Riavvio richiesto</string>
+    <string name="reboot_prompt_message">Al fine di applicare i cambiamenti alla configurazione, è richiesto un riavvio.\n\nVuoi riavviare ora?</string>
+    <string name="yes">Sì</string>
+    <string name="no">No</string>
+
+    <string name="region_europe">Europa</string>
+    <string name="region_america">America</string>
+    <string name="region_asia">Asia</string>
+    <string name="region_africa">Africa</string>
+    <string name="region_australia">Australia</string>
+
+    <string name="country_central_europe">Europa Centrale</string>
+    <string name="country_france">Francia</string>
+    <string name="country_great_britain">Gran Bretagna</string>
+    <string name="country_italy">Italia</string>
+    <string name="country_poland">Polonia</string>
+    <string name="country_usa">USA</string>
+    <string name="country_brasil">Brasile</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_colombia">Colombia</string>
+    <string name="country_china">Cina</string>
+    <string name="country_south_korea">Corea del Sud</string>
+    <string name="country_hongkong_taiwan">Hongkong, Taiwan</string>
+    <string name="country_south_east_asia">Sud Est Asiatico</string>
+    <string name="country_arabia">Arabia</string>
+    <string name="country_south_africa">Sud Africa</string>
+
+    <string name="baseband_selection_summary">Seleziona la banda base adatto al proprio paese\nAttualmente selezionato: %1$s %2$s</string>
+    <string name="baseband_region">Regione</string>
+    <string name="baseband_country">Paese</string>
+    <string name="baseband_version">Versione</string>
+    <string name="baseband_frequencies">Frequenze: %1$s MHz</string>
+    <string name="unknown">Sconosciuto</string>
+</resources>
 </resources>
