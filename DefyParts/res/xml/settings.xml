@@ -30,14 +30,27 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:key="bootmenu"
+                        android:title="@string/bootmenu_title">
+
+        <EditTextPreference android:key="bootmenu_pin"
+                            android:persistent="false"
+                            android:autoText="false"
+                            android:inputType="text|textCapCharacters"
+                            android:title="@string/bootmenu_pin"
+                            android:dialogMessage="@string/bootmenu_pin_message"
+                            android:summary="@string/bootmenu_pin_summary" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/audio_settings_title">
 
         <PreferenceScreen android:key="audio_effects"
                           android:title="@string/audio_effects">
                           <intent
                              android:action="android.intent.action.MAIN"
-                             android:targetPackage="com.bel.android.dspmanager"
-                             android:targetClass="com.bel.android.dspmanager.activity.DSPManager" />
+                             android:targetPackage="com.motorola.android.AudioEffectSettings"
+                             android:targetClass="com.motorola.android.AudioEffectSettings.DeviceListActivity" />
         </PreferenceScreen>
 
     </PreferenceCategory>
@@ -51,6 +64,38 @@
                              android:action="android.intent.action.MAIN"
                              android:targetPackage="com.motorola.CompassCalibrate"
                              android:targetClass="com.motorola.CompassCalibrate.CompassCalibrate" />
+        </PreferenceScreen>
+
+        <PreferenceScreen android:key="lto_download"
+                          android:title="@string/lto_download_title"
+                          android:summary="@string/lto_download_summary">
+
+            <CheckBoxPreference android:key="lto_download_enabled"
+                                android:title="@string/lto_download_enabled_title"
+                                android:summary="@string/lto_download_enabled_summary" />
+
+            <ListPreference android:key="lto_download_interval"
+                            android:dependency="lto_download_enabled"
+                            android:title="@string/lto_download_interval_title"
+                            android:entries="@array/lto_download_interval_entries"
+                            android:entryValues="@array/lto_download_interval_values"
+                            android:defaultValue="259200" />
+
+            <CheckBoxPreference android:key="lto_download_wifi_only"
+                                android:dependency="lto_download_enabled"
+                                android:title="@string/lto_download_wifi_only_title"
+                                android:summary="@string/lto_download_wifi_only_summary"
+                                android:defaultValue="true" />
+
+            <ListPreference android:key="lto_download_file"
+                            android:title="@string/lto_download_file_title"
+                            android:entries="@array/lto_download_file_entries"
+                            android:entryValues="@array/lto_download_file_values"
+                            android:defaultValue="7day" />
+
+            <Preference android:key="lto_download_now"
+                        android:title="@string/lto_download_now" />
+
         </PreferenceScreen>
 
         <com.cyanogenmod.defyparts.BasebandSelectionPreference

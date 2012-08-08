@@ -178,7 +178,8 @@ rm -rf $REPACK/ota/recovery
 
 # Determine what to name the new signed package
 MODVERSION=`sed -n -e'/ro\.modversion/s/^.*CyanogenMod-//p' $REPACK/ota/system/build.prop`
-OUTFILE=$OUT/cm-$MODVERSION.zip
+: ${MODVERSION:=nightly}
+OUTFILE=$OUT/cm-$MODVERSION-signed.zip
 
 if [ -n "$CM_NIGHTLY_BOOT" ]; then
 	MODVERSION=`echo $MODVERSION | sed -r 's/NIGHTLY/BOOT'$CM_NIGHTLY_BOOT'/'`

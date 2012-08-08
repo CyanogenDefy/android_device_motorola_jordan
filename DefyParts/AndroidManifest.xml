@@ -4,16 +4,26 @@
           android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.REBOOT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <application
-        android:label="@string/app_name" >
-        <activity
-            android:label="@string/app_name"
-            android:name=".SettingsActivity" >
-            <intent-filter >
+    <application android:label="@string/app_name">
+        <activity android:label="@string/app_name"
+                  android:name=".SettingsActivity">
+            <intent-filter>
                 <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".LtoReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".LtoDownloadService" />
     </application>
 
 </manifest>

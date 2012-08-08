@@ -25,6 +25,11 @@
     <string name="touch_point_warning_title">Warning</string>
     <string name="touch_point_warning_message">Increasing the number of touch points may degrade the responsiveness of the touch screen.\nAre you sure you want to change the setting?</string>
 
+    <string name="bootmenu_title">Boot menu</string>
+    <string name="bootmenu_pin">Boot menu PIN</string>
+    <string name="bootmenu_pin_message">Please enter the sequence of keys that need to be entered when running bootmenu.\nM = Menu key\nH = home key\nB = back key\nS = search key</string>
+    <string name="bootmenu_pin_summary">A sequence of keystrokes to protect direct boot menu access</string>
+
     <string name="audio_settings_title">Audio Settings</string>
     <string name="audio_effects">Audio Effects and DSP</string>
 
@@ -67,4 +72,27 @@
     <string name="baseband_version">Version</string>
     <string name="baseband_frequencies">Frequencies: %1$s MHz</string>
     <string name="unknown">Unknown</string>
+
+    <string name="lto_download_title">LTO Data Download</string>
+    <string name="lto_download_summary">Download of assistive data which can help improving GPS performance</string>
+    <string name="lto_download_enabled_title">Automatic download</string>
+    <string name="lto_download_enabled_summary">Download data automatically if a network connection is available</string>
+    <string name="lto_download_interval_title">Download interval</string>
+    <string name="lto_download_interval_summary">Interval: %1$s</string>
+    <string name="lto_download_interval_12hours">12 hours</string>
+    <string name="lto_download_interval_1day">1 day</string>
+    <string name="lto_download_interval_3days">3 days</string>
+    <string name="lto_download_interval_1week">1 week</string>
+    <string name="lto_download_interval_2weeks">2 weeks</string>
+    <string name="lto_download_interval_1month">1 month</string>
+    <string name="lto_download_file_title">Download file type</string>
+    <string name="lto_download_file_7days">7 days validity</string>
+    <string name="lto_download_file_30days">30 days validity</string>
+    <string name="lto_download_wifi_only_title">Wifi only</string>
+    <string name="lto_download_wifi_only_summary">Only download assistive data over Wifi connection</string>
+    <string name="lto_download_now">Download now</string>
+    <string name="lto_last_download_date">Last download: %1$s</string>
+    <string name="lto_last_download_date_failure">Last download attempt: %1$s (Unsuccessful)</string>
+    <string name="lto_downloading_data">Downloading data\u2026 (%1$s%%)</string>
+    <string name="never">Never</string>
 </resources>

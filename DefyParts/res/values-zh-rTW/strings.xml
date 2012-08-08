@@ -66,4 +66,27 @@
     <string name="baseband_version">版本</string>
     <string name="baseband_frequencies">頻率: %1$s MHz</string>
     <string name="unknown">不明</string>
+
+    <string name="lto_download_title">LTO 長期軌道資料下載</string>
+    <string name="lto_download_summary">下載長期軌道資料可以幫助提高 GPS 的效能</string>
+    <string name="lto_download_enabled_title">自動下載</string>
+    <string name="lto_download_enabled_summary">若網路可用時，自動下載長期軌道資料</string>
+    <string name="lto_download_interval_title">下載間隔</string>
+    <string name="lto_download_interval_summary">間隔: %1$s</string>
+    <string name="lto_download_interval_12hours">12 小時</string>
+    <string name="lto_download_interval_1day">1 天</string>
+    <string name="lto_download_interval_3days">3 天</string>
+    <string name="lto_download_interval_1week">1 週</string>
+    <string name="lto_download_interval_2weeks">2 週</string>
+    <string name="lto_download_interval_1month">1 個月</string>
+    <string name="lto_download_file_title">下載檔案類型</string>
+    <string name="lto_download_file_7days">7 天有效期</string>
+    <string name="lto_download_file_30days">30 天有效期</string>
+    <string name="lto_download_wifi_only_title">僅使用 Wifi 網路</string>
+    <string name="lto_download_wifi_only_summary">僅使用 Wifi 網路下載長期軌道資料</string>
+    <string name="lto_download_now">立即下載</string>
+    <string name="lto_last_download_date">上一次更新: %1$s</string>
+    <string name="lto_last_download_date_failure">上一次嘗試下載: %1$s (失敗)</string>
+    <string name="lto_downloading_data">下載中\u2026 (%1$s%%)</string>
+    <string name="never">永不執行</string>
 </resources>

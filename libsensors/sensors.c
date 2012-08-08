@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include <cutils/properties.h>
 #include <hardware/sensors.h>
 
 #include "nusensors.h"
@@ -75,15 +76,16 @@ static const struct sensor_t sSensorList[] = {
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_AMBIENT_TEMPERATURE, SENSOR_TYPE_AMBIENT_TEMPERATURE,
         85.0f, 1.0f, 0.2f, 0, { } },
 
-    { "ISL29030 Proximity Sensor",
-        "Intersil Corporation",
-        1, SENSORS_HANDLE_BASE + SENSOR_TYPE_PROXIMITY, SENSOR_TYPE_PROXIMITY,
-        100.0f, 1.0f, 25.0f, 0, { } }, // (IR LED can use a lot of battery)
-
     { "ISL29030 Light Sensor",
         "Intersil Corporation",
         1, SENSORS_HANDLE_BASE + SENSOR_TYPE_LIGHT, SENSOR_TYPE_LIGHT,
         8192.0f, 1.0f, 0.5f, 0, { } },
+
+    /* must be kept as the last one */
+    { "ISL29030 Proximity Sensor",
+        "Intersil Corporation",
+        1, SENSORS_HANDLE_BASE + SENSOR_TYPE_PROXIMITY, SENSOR_TYPE_PROXIMITY,
+        100.0f, 1.0f, 25.0f, 0, { } }, // (IR LED can use a lot of battery)
 };
 
 /*****************************************************************************/
@@ -94,8 +96,17 @@ static int open_sensors(const struct hw_module_t* module, const char* name,
 static int sensors__get_sensors_list(struct sensors_module_t* module,
         struct sensor_t const** list)
 {
+    int count = ARRAY_SIZE(sSensorList);
+    char disable_proximity[PROPERTY_VALUE_MAX];
+
     *list = sSensorList;
-    return ARRAY_SIZE(sSensorList);
+    if (property_get("hw.sensor.proximity.disable", disable_proximity, NULL)) {
+        if (strcmp(disable_proximity, "true") == 0) {
+            /* hide proximity sensor, which is the last one in the list, from sensorservice */
+            count--;
+        }
+    }
+    return count;
 }
 
 static struct hw_module_methods_t sensors_module_methods = {

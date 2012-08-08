@@ -69,10 +69,18 @@ persist.sys.multitouch=2
 # Shutter sound enabled
 persist.sys.camera-mute=0
 
+# Logger properties
+persist.service.aplogd.enable=0
+
+# max single log file size in MB (default is 10)
+aplogd.logfile.size=5
+
+# single buffers to be collected (0 - disabled)
+aplogd.collect.main=1
+aplogd.collect.kernel=1
+aplogd.collect.radio=1
+aplogd.collect.events=0
+
 # Scrolling cache 0:enable, 1:default enable, 2:default disable, 3:disable
 persist.sys.scrollingcache=2
-
-# enable adbd during first boot (for dalvik cache problems)
-persist.service.adb.enable=1
-
 

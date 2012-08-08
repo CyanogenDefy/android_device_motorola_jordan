@@ -43,7 +43,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.media.dec.vid.wmv.enabled=1 \
 	dalvik.vm.lockprof.threshold=500 \
 	ro.kernel.android.checkjni=0 \
-	dalvik.vm.dexopt-data-only=1 \
 	ro.vold.umsdirtyratio=20
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/jordan/overlay
@@ -70,6 +69,7 @@ PRODUCT_PACKAGES += \
 	wlan_cu \
 	libtiOsLib \
 	wlan_loader \
+	tiap_loader \
 	libCustomWifi \
 	wpa_supplicant.conf \
 	dhcpcd.conf \
@@ -93,6 +93,8 @@ PRODUCT_PACKAGES += \
 	hostapd.conf \
 	libhostapdcli \
 	DefyParts \
+	MotoFM \
+	MotoFMService \
 	Usb \
 	su \
 	mot_boot_mode \
@@ -100,6 +102,12 @@ PRODUCT_PACKAGES += \
 
 # for jpeg hw encoder/decoder
 # PRODUCT_PACKAGES += libskiahw libOMX.TI.JPEG.Encoder libOMX.TI.JPEG.decoder
+
+# add bash
+PRODUCT_PACKAGES += bash
+
+# Add DroidSSHd (dropbear) Management App - tpruvot/android_external_droidsshd @ github
+PRODUCT_PACKAGES += DroidSSHd dropbear
 
 # hw video prepost processor (require dsp lib)
 # PRODUCT_PACKAGES += libOMX.TI.VPP
@@ -139,7 +147,6 @@ PRODUCT_PACKAGES += \
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
         packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-
 
 $(call inherit-product, build/target/product/full_base.mk)
 

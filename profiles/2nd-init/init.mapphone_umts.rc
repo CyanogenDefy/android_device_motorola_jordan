@@ -83,7 +83,8 @@ on post-fs
     chown radio radio /data/bp_nvm
     chmod 0770 /data/bp_nvm
     # create location directory
-    mkdir /data/location 0771 radio radio
+    mkdir /data/location 0771 radio system
+    chown radio system /data/location
     # create opprof directory
     mkdir /data/opprof 0770 radio shell
     # create dropbear directory
@@ -216,6 +217,13 @@ service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
 service iprenew_tiwlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
+
+# Logging daemon
+on property:persist.service.aplogd.enable=1
+    start aplogd
+
+on property:persist.service.aplogd.enable=0
+    stop aplogd
 
 service baseimage /system/bin/dspexec -T /system/lib/dsp/baseimage.dof
     user media

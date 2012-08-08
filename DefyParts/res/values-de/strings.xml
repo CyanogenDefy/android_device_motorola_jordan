@@ -24,6 +24,11 @@
     <string name="touch_point_warning_title">Warnung</string>
     <string name="touch_point_warning_message">Das Erhöhen der Anzahl der Multi-Touch-Punkte kann die Reaktionsfähigkeit des Touchscreens verschlechtern.\nSind Sie sicher, die Einstellung verändern zu wollen?</string>
 
+    <string name="bootmenu_title">Bootmenü</string>
+    <string name="bootmenu_pin">Bootmenü-PIN</string>
+    <string name="bootmenu_pin_message">Die Tastensequenz zum Bootmenü-Schutz kann aus folgenden Zeichen bestehen:\nM = Menü-Taste\nH = Home-Taste\nB = Zurück-Taste\nS = Such-Taste</string>
+    <string name="bootmenu_pin_summary">Tastensequenz, um direkten Bootmenü-Zugriff zu schützen</string>
+
     <string name="audio_settings_title">Ton-Einstellungen</string>
     <string name="audio_effects">Audio-Effekte</string>
 
@@ -66,4 +71,27 @@
     <string name="baseband_version">Version</string>
     <string name="baseband_frequencies">Frequenz: %1$s MHz</string>
     <string name="unknown">Unbekannt</string>
+
+    <string name="lto_download_title">LTO-Daten-Download</string>
+    <string name="lto_download_summary">Download von Hilfsdaten, die die GPS-Performance verbessern können</string>
+    <string name="lto_download_enabled_title">Automat. Download</string>
+    <string name="lto_download_enabled_summary">Daten bei bestehender Netzverbindung automatisch downloaden</string>
+    <string name="lto_download_interval_title">Download-Intervall</string>
+    <string name="lto_download_interval_summary">Intervall: %1$s</string>
+    <string name="lto_download_interval_12hours">12 Stunden</string>
+    <string name="lto_download_interval_1day">1 Tag</string>
+    <string name="lto_download_interval_3days">3 Tage</string>
+    <string name="lto_download_interval_1week">1 Woche</string>
+    <string name="lto_download_interval_2weeks">2 Wochen</string>
+    <string name="lto_download_interval_1month">1 Monat</string>
+    <string name="lto_download_file_title">Datei-Typ</string>
+    <string name="lto_download_file_7days">7 Tage Gültigkeit</string>
+    <string name="lto_download_file_30days">30 Tage Gültigkeit</string>
+    <string name="lto_download_wifi_only_title">Nur über WLAN</string>
+    <string name="lto_download_wifi_only_summary">AGPS-Daten nur via WLAN downloaden</string>
+    <string name="lto_download_now">Jetzt downloaden</string>
+    <string name="lto_last_download_date">Letzter Download: %1$s</string>
+    <string name="lto_last_download_date_failure">Letzter Downloadversuch: %1$s (Nicht erfolgreich)</string>
+    <string name="lto_downloading_data">Daten werden heruntergeladen\u2026 (%1$s%%)</string>
+    <string name="never">Nie</string>
 </resources>
